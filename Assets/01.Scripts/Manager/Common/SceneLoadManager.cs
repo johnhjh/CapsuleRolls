@@ -81,17 +81,17 @@ namespace Capsule.SceneLoad
             ResetFields();
             if (isAuto)
                 yield return StartCoroutine(FadeInLoading());
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), LoadSceneMode.Single);
-            asyncOperation.allowSceneActivation = false;
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), 
+                isAuto ? LoadSceneMode.Additive : LoadSceneMode.Single);
+            //asyncOperation.allowSceneActivation = false;
+            asyncOperation.allowSceneActivation = isAuto;
             while (!asyncOperation.isDone)
             {
                 yield return null;
                 progressAmount = asyncOperation.progress;
-
                 if (asyncOperation.progress >= 0.9f)
                 {
                     isLoadingDone = true;
-                    if (isAuto) break;
                     if (!isAuto && allowNextScene)
                         asyncOperation.allowSceneActivation = true;
                 }
@@ -99,8 +99,9 @@ namespace Capsule.SceneLoad
             }
             if (isAuto)
             {
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(0));
+                SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
                 yield return StartCoroutine(FadeOutLoading());
-                asyncOperation.allowSceneActivation = true;
             }
         }
 

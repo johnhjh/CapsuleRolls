@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 124086690}
   - component: {fileID: 124086692}
   - component: {fileID: 124086691}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: LoadingImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 773119160}
   - component: {fileID: 773119159}
   - component: {fileID: 773119158}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: LoadingSceneCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,8 +387,8 @@ Camera:
   m_GameObject: {fileID: 1293174886}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -409,16 +409,16 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 32
-  m_RenderingPath: -1
+    m_Bits: 1024
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &1293174889
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 1454479544}
   - component: {fileID: 1454479542}
   - component: {fileID: 1454479543}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: LoadingScenePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -534,13 +534,13 @@ GameObject:
   - component: {fileID: 1808365551}
   - component: {fileID: 1808365553}
   - component: {fileID: 1808365552}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: PureWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1808365551
 RectTransform:
   m_ObjectHideFlags: 0
