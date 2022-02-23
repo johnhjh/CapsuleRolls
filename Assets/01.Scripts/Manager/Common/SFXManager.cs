@@ -2,73 +2,80 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class SoundEffects
+namespace Capsule.Audio
 {
-    public AudioClip okClip;
-    public AudioClip backClip;
-    public AudioClip hoverClip;
-    public AudioClip selectClip;
-}
-
-public enum SFXEnum
-{
-    OK = 0,
-    BACK,
-    HOVER,
-    SELECT,
-}
-
-public class SFXManager : MonoBehaviour
-{
-    public SoundEffects soundEffects = new SoundEffects();
-    private static SFXManager sfxManager;
-    public static SFXManager Instance
+    [System.Serializable]
+    public class SoundEffects
     {
-        get
+        public AudioClip okClip;
+        public AudioClip backClip;
+        public AudioClip hoverClip;
+        public AudioClip selectClip;
+    }
+
+    public enum SFXEnum
+    {
+        OK = 0,
+        BACK,
+        HOVER,
+        SELECT,
+    }
+
+    public class SFXManager : MonoBehaviour
+    {
+        public SoundEffects soundEffects = new SoundEffects();
+        private static SFXManager sfxManager;
+        public static SFXManager Instance
+        {
+            get
+            {
+                if (sfxManager == null)
+                    sfxManager = GameObject.FindObjectOfType<SFXManager>();
+                return sfxManager;
+            }
+        }
+
+        private AudioSource sfxAudioSource;
+
+        private void Awake()
         {
             if (sfxManager == null)
-                sfxManager = GameObject.FindObjectOfType<SFXManager>();
-            return sfxManager;
+            {
+                sfxManager = this;
+                sfxAudioSource = GetComponent<AudioSource>();
+                DontDestroyOnLoad(sfxManager);
+            }
+            else if (sfxManager != this)
+                Destroy(this.gameObject);
         }
-    }
 
-    private AudioSource sfxAudioSource;
-
-    private void Awake()
-    {
-        if (sfxManager == null)
+        private void Start()
         {
-            sfxManager = this;
-            sfxAudioSource = GetComponent<AudioSource>();
-            DontDestroyOnLoad(sfxManager);
+            sfxAudioSource.volume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
         }
-        else if (sfxManager != this)
-            Destroy(this.gameObject);
-    }
 
-    private void Start()
-    {
-        sfxAudioSource.volume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
-    }
-
-    public void PlaySFX(SFXEnum sfx)
-    {
-        switch(sfx)
+        public void PlaySFX(SFXEnum sfx)
         {
-            case SFXEnum.OK:
-                sfxAudioSource.PlayOneShot(soundEffects.okClip);
-                break;
-            case SFXEnum.BACK:
-                sfxAudioSource.PlayOneShot(soundEffects.backClip);
-                break;
-            case SFXEnum.HOVER:
-                sfxAudioSource.PlayOneShot(soundEffects.hoverClip);
-                break;
-            case SFXEnum.SELECT:
-                sfxAudioSource.PlayOneShot(soundEffects.selectClip);
-                break;
+            switch (sfx)
+            {
+                case SFXEnum.OK:
+                    sfxAudioSource.PlayOneShot(soundEffects.okClip);
+                    break;
+                case SFXEnum.BACK:
+                    sfxAudioSource.PlayOneShot(soundEffects.backClip);
+                    break;
+                case SFXEnum.HOVER:
+                    sfxAudioSource.PlayOneShot(soundEffects.hoverClip);
+                    break;
+                case SFXEnum.SELECT:
+                    sfxAudioSource.PlayOneShot(soundEffects.selectClip);
+                    break;
+            }
         }
-        
+
+        public void SetVolume(float volume)
+        {
+            sfxAudioSource.volume = volume;
+        }
     }
 }

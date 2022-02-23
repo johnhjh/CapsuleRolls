@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Capsule.Audio;
+using Capsule.SceneLoad;
 
 public class SettingManager : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class SettingManager : MonoBehaviour
             return settingMgr;
         }
     }
+
+    private CanvasGroup settingCG;
 
     private const string BGM_VOLUME = "BGM_VOLUME";
     private const string SFX_VOLUME = "SFX_VOLUME";
@@ -40,8 +44,12 @@ public class SettingManager : MonoBehaviour
     
     private void Start()
     {
+        settingCG = GameObject.Find("Popup_Setting").GetComponent<CanvasGroup>();
+        PopUpSetting(false);
+
         bgmIcon = GameObject.Find("Icon_BGM").GetComponent<Image>();
         sfxIcon = GameObject.Find("Icon_SFX").GetComponent<Image>();
+
         bgmSlider = GameObject.Find("Slider_BGM").GetComponent<Slider>();
         sfxSlider = GameObject.Find("Slider_SFX").GetComponent<Slider>();
 
@@ -56,7 +64,8 @@ public class SettingManager : MonoBehaviour
     {
         SFXManager.Instance.PlaySFX(SFXEnum.HOVER);
         float volume = bgmSlider.value;
-        Debug.Log("BGM : " + volume);
+        //Debug.Log("BGM : " + volume);
+        BGMManager.Instance.SetVolume(volume);
         PlayerPrefs.SetFloat(BGM_VOLUME, volume);
         if (volume == 0f)
             bgmIcon.sprite = bgmOffSprite;
@@ -68,11 +77,35 @@ public class SettingManager : MonoBehaviour
     {
         SFXManager.Instance.PlaySFX(SFXEnum.HOVER);
         float volume = sfxSlider.value;
-        Debug.Log("SFX : " + volume);
+        //Debug.Log("SFX : " + volume);
+        SFXManager.Instance.SetVolume(volume);
         PlayerPrefs.SetFloat(SFX_VOLUME, volume);
         if (volume == 0f)
             sfxIcon.sprite = sfxOffSprite;
         else if (sfxIcon.sprite == sfxOffSprite)
             sfxIcon.sprite = sfxOnSprite;
+    }
+
+    public void PopUpSetting(bool isPopUp)
+    {
+        settingCG.interactable = isPopUp;
+        settingCG.blocksRaycasts = isPopUp;
+        settingCG.alpha = isPopUp ? 1f : 0f;
+    }
+
+    public void OnClickExitSetting()
+    {
+        SFXManager.Instance.PlaySFX(SFXEnum.BACK);
+        PopUpSetting(false);
+    }
+
+    public void OnClickBackToTitle()
+    {
+        StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.TITLE, true));
+    }
+
+    public void OnClickExitGame()
+    {
+        Application.Quit();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Capsule.SceneLoad;
+using Capsule.Audio;
 
 public class TitleManager : MonoBehaviour
 {

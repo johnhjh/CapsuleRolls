@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Capsule.BGM
+namespace Capsule.Audio
 {
     public enum BGMType
     {
@@ -76,6 +76,11 @@ namespace Capsule.BGM
             currentBGM = bgm;
             bgmAudioSource.clip = GetBGMAudioClip(bgm);
             bgmAudioSource.Play();
+        }
+
+        public void SetVolume(float volume)
+        {
+            bgmAudioSource.volume = volume;
         }
     }
 }

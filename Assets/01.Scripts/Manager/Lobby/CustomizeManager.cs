@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Capsule.SceneLoad;
-using Capsule.BGM;
+using Capsule.Audio;
 
 namespace Capsule.Customize
 {

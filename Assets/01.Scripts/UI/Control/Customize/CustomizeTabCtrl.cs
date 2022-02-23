@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Capsule.Audio;
 
 namespace Capsule.Customize
 {
@@ -17,7 +18,14 @@ namespace Capsule.Customize
         private bool isFocused;
         public bool IsFocused
         {
-            set { isFocused = value; }
+            set 
+            { 
+                isFocused = value;
+                if (value)
+                    curFontSize = MAX_FONT_SIZE;
+                else
+                    curFontSize = MIN_FONT_SIZE;
+            }
         }
 
         // Floats
