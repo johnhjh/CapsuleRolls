@@ -48,6 +48,7 @@ namespace Capsule.BGM
 
         private void Start()
         {
+            bgmAudioSource.volume = PlayerPrefs.GetFloat("BGM_VOLUME", 1f);
             bgmAudioSource.clip = GetBGMAudioClip(currentBGM);
             bgmAudioSource.Play();
         }

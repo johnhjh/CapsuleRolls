@@ -42,8 +42,7 @@ public class MainMenuCtrl : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovering = true;
-        if (SFXManager.Instance != null)
-            SFXManager.Instance.PlaySFX(SFXEnum.HOVER);
+        SFXManager.Instance.PlaySFX(SFXEnum.HOVER);
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -74,8 +74,7 @@ namespace Capsule.Customize
 
         public void ChangeFocusTab(RectTransform parent, CustomizeType cType)
         {
-            if (SFXManager.Instance != null)
-                SFXManager.Instance.PlaySFX(SFXEnum.OK);
+            SFXManager.Instance.PlaySFX(SFXEnum.OK);
 
             currentTab.GetComponent<Text>().fontSize = NORMAL_TAB_FONT_SIZE;
             currentTab.GetComponent<CustomizeTabCtrl>().IsFocused = false;

@@ -47,6 +47,11 @@ public class SFXManager : MonoBehaviour
             Destroy(this.gameObject);
     }
 
+    private void Start()
+    {
+        sfxAudioSource.volume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
+    }
+
     public void PlaySFX(SFXEnum sfx)
     {
         switch(sfx)

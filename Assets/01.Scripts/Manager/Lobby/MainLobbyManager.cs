@@ -39,7 +39,6 @@ public class MainLobbyManager : MonoBehaviour
 
     public void MenuClick()
     {
-        if (SFXManager.Instance != null)
-            SFXManager.Instance.PlaySFX(SFXEnum.OK);
+        SFXManager.Instance.PlaySFX(SFXEnum.OK);
     }
 }
