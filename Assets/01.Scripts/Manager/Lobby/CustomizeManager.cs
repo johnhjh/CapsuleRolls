@@ -57,6 +57,7 @@ namespace Capsule.Customize
         private void Start()
         {
             BGMManager.Instance.ChangeBGM(BGMType.CUSTOMIZE);
+            SceneLoadManager.Instance.CurrentScene = LobbySceneType.CUSTOMIZE;
 
             RectTransform scrollRect = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
             bodyContent = scrollRect.GetChild(0).gameObject;

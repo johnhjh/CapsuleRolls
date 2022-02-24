@@ -30,6 +30,7 @@ public class MainLobbyManager : MonoBehaviour
     private void Start()
     {
         BGMManager.Instance.ChangeBGM(BGMType.MAIN);
+        SceneLoadManager.Instance.CurrentScene = LobbySceneType.MAIN_LOBBY;
     }
 
     public void MoveToCustomizeScene()

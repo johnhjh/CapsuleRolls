@@ -43,6 +43,7 @@ public class TitleManager : MonoBehaviour
 
     void Start()
     {
+        SceneLoadManager.Instance.CurrentScene = LobbySceneType.TITLE;
         isOpeningDone = false;
         isLoadingDone = false;
 

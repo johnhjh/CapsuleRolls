@@ -31,6 +31,9 @@ namespace Capsule.SceneLoad
             }
         }
 
+        [SerializeField]
+        public LobbySceneType CurrentScene { get; set; }
+
         private const string TITLE_SCENE_NAME = "TitleScene";
         private const string MAIN_LOBBY_SCENE_NAME = "MainLobbyScene";
         private const string CUSTOMIZE_SCENE_NAME = "CustomizeScene";
@@ -47,6 +50,8 @@ namespace Capsule.SceneLoad
         public float Progress { get { return progressAmount; } }
         private bool allowNextScene = false;
         public bool AllowNextScene { set { allowNextScene = value; } }
+
+        private WaitForSeconds ws10 = new WaitForSeconds(1.0f);
 
         private void Awake()
         {
@@ -101,6 +106,7 @@ namespace Capsule.SceneLoad
             {
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(0));
                 SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
+                yield return ws10;
                 yield return StartCoroutine(FadeOutLoading());
             }
         }
