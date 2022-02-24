@@ -62,7 +62,7 @@ public class SettingManager : MonoBehaviour
 
     public void OnBGMVolumeChanged()
     {
-        SFXManager.Instance.PlaySFX(SFXEnum.HOVER);
+        SFXManager.Instance.PlaySFX(SFXType.HOVER);
         float volume = bgmSlider.value;
         //Debug.Log("BGM : " + volume);
         BGMManager.Instance.SetVolume(volume);
@@ -75,7 +75,7 @@ public class SettingManager : MonoBehaviour
 
     public void OnSFXVolumeChanged()
     {
-        SFXManager.Instance.PlaySFX(SFXEnum.HOVER);
+        SFXManager.Instance.PlaySFX(SFXType.HOVER);
         float volume = sfxSlider.value;
         //Debug.Log("SFX : " + volume);
         SFXManager.Instance.SetVolume(volume);
@@ -95,7 +95,7 @@ public class SettingManager : MonoBehaviour
 
     public void OnClickExitSetting()
     {
-        SFXManager.Instance.PlaySFX(SFXEnum.BACK);
+        SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
         PopUpSetting(false);
     }
 

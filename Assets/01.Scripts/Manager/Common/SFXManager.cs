@@ -11,14 +11,18 @@ namespace Capsule.Audio
         public AudioClip backClip;
         public AudioClip hoverClip;
         public AudioClip selectClip;
+        public AudioClip selectDoneClip;
+        public AudioClip loadDoneClip;
     }
 
-    public enum SFXEnum
+    public enum SFXType
     {
         OK = 0,
         BACK,
         HOVER,
         SELECT,
+        SELECT_DONE,
+        LOAD_DONE,
     }
 
     public class SFXManager : MonoBehaviour
@@ -54,23 +58,42 @@ namespace Capsule.Audio
             sfxAudioSource.volume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
         }
 
-        public void PlaySFX(SFXEnum sfx)
+        private AudioClip GetAudioClipByType(SFXType sfx)
         {
             switch (sfx)
             {
-                case SFXEnum.OK:
-                    sfxAudioSource.PlayOneShot(soundEffects.okClip);
-                    break;
-                case SFXEnum.BACK:
-                    sfxAudioSource.PlayOneShot(soundEffects.backClip);
-                    break;
-                case SFXEnum.HOVER:
-                    sfxAudioSource.PlayOneShot(soundEffects.hoverClip);
-                    break;
-                case SFXEnum.SELECT:
-                    sfxAudioSource.PlayOneShot(soundEffects.selectClip);
-                    break;
+                case SFXType.OK:
+                    return soundEffects.okClip;
+                case SFXType.BACK:
+                    return soundEffects.backClip;
+                case SFXType.HOVER:
+                    return soundEffects.hoverClip;
+                case SFXType.SELECT:
+                    return soundEffects.selectClip;
+                case SFXType.SELECT_DONE:
+                    return soundEffects.selectDoneClip;
+                case SFXType.LOAD_DONE:
+                    return soundEffects.loadDoneClip;
             }
+            return null;
+        }
+
+        public void PlaySFX(SFXType sfx)
+        {
+            AudioClip clip = GetAudioClipByType(sfx);
+            if (clip != null)
+            {
+                sfxAudioSource.clip = clip;
+                if (!sfxAudioSource.isPlaying)
+                    sfxAudioSource.Play();
+            }
+        }
+
+        public void PlayOneShotSFX(SFXType sfx)
+        {
+            AudioClip clip = GetAudioClipByType(sfx);
+            if (clip != null)
+                sfxAudioSource.PlayOneShot(clip);
         }
 
         public void SetVolume(float volume)

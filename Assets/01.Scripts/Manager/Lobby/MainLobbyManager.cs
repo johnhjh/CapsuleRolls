@@ -30,6 +30,7 @@ public class MainLobbyManager : MonoBehaviour
     private void Start()
     {
         BGMManager.Instance.ChangeBGM(BGMType.MAIN);
+        SFXManager.Instance.PlayOneShotSFX(SFXType.LOAD_DONE);
         SceneLoadManager.Instance.CurrentScene = LobbySceneType.MAIN_LOBBY;
     }
 
@@ -40,6 +41,6 @@ public class MainLobbyManager : MonoBehaviour
 
     public void MenuClick()
     {
-        SFXManager.Instance.PlaySFX(SFXEnum.OK);
+        SFXManager.Instance.PlayOneShotSFX(SFXType.OK);
     }
 }

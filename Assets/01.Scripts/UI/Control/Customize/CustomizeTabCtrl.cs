@@ -47,7 +47,7 @@ namespace Capsule.Customize
         {
             if (isFocused) return;
             if (hoverCoroutine != null) StopCoroutine(hoverCoroutine);
-            SFXManager.Instance.PlaySFX(SFXEnum.HOVER);
+            SFXManager.Instance.PlayOneShotSFX(SFXType.HOVER);
             hoverCoroutine = StartCoroutine(TabHover(true));
         }
 

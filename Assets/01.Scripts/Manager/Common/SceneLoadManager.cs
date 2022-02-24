@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,11 +12,23 @@ namespace Capsule.SceneLoad
         MAIN_LOBBY,
         CUSTOMIZE,
         SOLO,
+        MULTI,
     }
 
     public enum GameSceneType
     {
 
+    }
+
+    public struct SceneData
+    {
+        public string sceneName;
+        public LoadSceneMode sceneMode;
+        public SceneData(string name, LoadSceneMode mode)
+        {
+            sceneName = name;
+            sceneMode = mode;
+        }
     }
 
     public class SceneLoadManager : MonoBehaviour
@@ -32,14 +45,22 @@ namespace Capsule.SceneLoad
         }
 
         [SerializeField]
-        public LobbySceneType CurrentScene { get; set; }
+        private LobbySceneType currentScene;
+        public LobbySceneType CurrentScene 
+        { 
+            get { return currentScene; }
+            set { currentScene = value; }
+        }
 
         private const string TITLE_SCENE_NAME = "TitleScene";
         private const string MAIN_LOBBY_SCENE_NAME = "MainLobbyScene";
         private const string CUSTOMIZE_SCENE_NAME = "CustomizeScene";
         private const string SOLO_SCENE_NAME = "SoloScene";
-
+        private const string MULTI_SCENE_NAME = "MultiScene";
         private const string LOADING_SCENE_NAME = "LoadingScene";
+
+        private Dictionary<LobbySceneType, SceneData> sceneDictionary;
+
         private CanvasGroup fadeLoadingCG;
         [Range(0.5f, 2.0f)]
         public float fadeDuration = 1.0f;
@@ -58,10 +79,21 @@ namespace Capsule.SceneLoad
             if (sceneLoadMgr == null)
             {
                 sceneLoadMgr = this;
+                InitSceneLoadManager();
                 DontDestroyOnLoad(this);
             }
             else if (sceneLoadMgr != this)
                 Destroy(this.gameObject);
+        }
+
+        private void InitSceneLoadManager()
+        {
+            sceneDictionary = new Dictionary<LobbySceneType, SceneData>();
+            sceneDictionary.Add(LobbySceneType.TITLE, new SceneData(TITLE_SCENE_NAME, LoadSceneMode.Single));
+            sceneDictionary.Add(LobbySceneType.MAIN_LOBBY, new SceneData(MAIN_LOBBY_SCENE_NAME, LoadSceneMode.Additive));
+            sceneDictionary.Add(LobbySceneType.CUSTOMIZE, new SceneData(CUSTOMIZE_SCENE_NAME, LoadSceneMode.Additive));
+            sceneDictionary.Add(LobbySceneType.SOLO, new SceneData(SOLO_SCENE_NAME, LoadSceneMode.Additive));
+            sceneDictionary.Add(LobbySceneType.MULTI, new SceneData(MULTI_SCENE_NAME, LoadSceneMode.Additive));
         }
 
         private string SceneTypeToString(LobbySceneType sceneType)
@@ -86,9 +118,15 @@ namespace Capsule.SceneLoad
             ResetFields();
             if (isAuto)
                 yield return StartCoroutine(FadeInLoading());
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), 
-                isAuto ? LoadSceneMode.Additive : LoadSceneMode.Single);
-            //asyncOperation.allowSceneActivation = false;
+            //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), 
+            //isAuto ? LoadSceneMode.Additive : LoadSceneMode.Single);
+            SceneData sceneData;
+            if (!sceneDictionary.TryGetValue(sceneType, out sceneData))
+            {
+                yield break;
+            }
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneData.sceneName,
+                isAuto ? sceneData.sceneMode : LoadSceneMode.Single);
             asyncOperation.allowSceneActivation = isAuto;
             while (!asyncOperation.isDone)
             {
@@ -102,11 +140,10 @@ namespace Capsule.SceneLoad
                 }
                 InfiniteLoopDetector.Run();
             }
-            if (isAuto)
+            if (isAuto && sceneData.sceneMode == LoadSceneMode.Additive)
             {
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(0));
                 SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
-                yield return ws10;
                 yield return StartCoroutine(FadeOutLoading());
             }
         }

@@ -32,19 +32,25 @@ namespace Capsule.Customize
         private GameObject currentTab;
         private CustomizeType currentCustomize;
 
+        [SerializeField]
         private GameObject currentContent;
 
-        [SerializeField]
         private GameObject bodyContent;
-        [SerializeField]
         private GameObject headContent;
-        [SerializeField]
         private GameObject faceContent;
-        [SerializeField]
         private GameObject gloveContent;
 
         private const int NORMAL_TAB_FONT_SIZE = 63;
         private const int FOCUSED_TAB_FONT_SIZE = 70;
+
+        private Coroutine MovingCamera = null;
+        private readonly Vector3 ORIGIN_CAM_POS = new Vector3(0f, 1f, -10f);
+        [Header("Camera Damping")]
+        public float moveDamping = 3f;
+        [Header("Camera Positions")]
+        public Vector3 HEAD_CAM_POS = new Vector3(0.8f, 1.5f, -9f);
+        public Vector3 FACE_CAM_POS = new Vector3(1.3f, 1.5f, -8f);
+        public Vector3 GLOVE_CAM_POS = new Vector3(1.1f, 0.5f, -8.5f);
 
         private void Awake()
         {
@@ -57,6 +63,7 @@ namespace Capsule.Customize
         private void Start()
         {
             BGMManager.Instance.ChangeBGM(BGMType.CUSTOMIZE);
+            SFXManager.Instance.PlayOneShotSFX(SFXType.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.CUSTOMIZE;
 
             RectTransform scrollRect = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
@@ -75,7 +82,7 @@ namespace Capsule.Customize
 
         public void ChangeFocusTab(RectTransform parent, CustomizeType cType)
         {
-            SFXManager.Instance.PlaySFX(SFXEnum.OK);
+            SFXManager.Instance.PlayOneShotSFX(SFXType.OK);
 
             currentTab.GetComponent<Text>().fontSize = NORMAL_TAB_FONT_SIZE;
             currentTab.GetComponent<CustomizeTabCtrl>().IsFocused = false;
@@ -88,11 +95,44 @@ namespace Capsule.Customize
             currentTab.GetComponent<Text>().fontSize = FOCUSED_TAB_FONT_SIZE;
             tabFocusImage.transform.SetParent(parent);
             currentContent.SetActive(true);
+
+            if (MovingCamera != null)
+                StopCoroutine(MovingCamera);
+
+            MovingCamera = StartCoroutine(MoveCameraToPos(GetCameraPosByType(cType)));
+        }
+
+        private IEnumerator MoveCameraToPos(Vector3 pos)
+        {
+            while (Vector3.Distance(Camera.main.transform.position, pos) >= 0.1f)
+            {
+                Camera.main.transform.position = 
+                    Vector3.Slerp(Camera.main.transform.position, 
+                    pos, 
+                    Time.deltaTime * moveDamping);
+                yield return null;
+            }
+            MovingCamera = null;
+        }
+
+        private Vector3 GetCameraPosByType(CustomizeType cType)
+        {
+            switch (cType)
+            {
+                case CustomizeType.HEAD:
+                    return HEAD_CAM_POS;
+                case CustomizeType.FACE:
+                    return FACE_CAM_POS;
+                case CustomizeType.GLOVE:
+                    return GLOVE_CAM_POS;
+                default:
+                    return ORIGIN_CAM_POS;
+            }
         }
 
         private GameObject GetContentByType(CustomizeType cType)
         {
-            switch(cType)
+            switch (cType)
             {
                 case CustomizeType.BODY:
                     return bodyContent;
@@ -107,8 +147,25 @@ namespace Capsule.Customize
             }
         }
 
+        public void OnClickCustomItem()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT);
+        }
+
+        public void OnClickResetBtn()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+
+        }
+
+        public void OnClickSaveBtn()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+        }
+
         public void BackToMainLobby()
         {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
             StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.MAIN_LOBBY, true));
         }
     }

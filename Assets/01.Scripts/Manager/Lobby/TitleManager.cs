@@ -62,7 +62,7 @@ public class TitleManager : MonoBehaviour
                 OpeningDone();
             else if (isLoadingDone && SceneLoadManager.Instance.IsLoadingDone)
             {
-                SFXManager.Instance.PlaySFX(SFXEnum.OK);
+                SFXManager.Instance.PlayOneShotSFX(SFXType.OK);
                 SceneLoadManager.Instance.AllowNextScene = true;
             }
         }
