@@ -13,6 +13,7 @@ namespace Capsule.SceneLoad
         CUSTOMIZE,
         SOLO,
         MULTI,
+        SHOPPING,
     }
 
     public enum GameSceneType
@@ -55,9 +56,10 @@ namespace Capsule.SceneLoad
         private const string TITLE_SCENE_NAME = "TitleScene";
         private const string MAIN_LOBBY_SCENE_NAME = "MainLobbyScene";
         private const string CUSTOMIZE_SCENE_NAME = "CustomizeScene";
-        private const string SOLO_SCENE_NAME = "SoloScene";
-        private const string MULTI_SCENE_NAME = "MultiScene";
+        private const string SOLO_PLAY_SCENE_NAME = "SoloPlayScene";
+        private const string MULTI_PLAY_SCENE_NAME = "MultiPlayScene";
         private const string LOADING_SCENE_NAME = "LoadingScene";
+        private const string SHOPPING_SCENE_NAME = "ShoppingScene";
 
         private Dictionary<LobbySceneType, SceneData> sceneDictionary;
 
@@ -92,8 +94,9 @@ namespace Capsule.SceneLoad
             sceneDictionary.Add(LobbySceneType.TITLE, new SceneData(TITLE_SCENE_NAME, LoadSceneMode.Single));
             sceneDictionary.Add(LobbySceneType.MAIN_LOBBY, new SceneData(MAIN_LOBBY_SCENE_NAME, LoadSceneMode.Additive));
             sceneDictionary.Add(LobbySceneType.CUSTOMIZE, new SceneData(CUSTOMIZE_SCENE_NAME, LoadSceneMode.Additive));
-            sceneDictionary.Add(LobbySceneType.SOLO, new SceneData(SOLO_SCENE_NAME, LoadSceneMode.Additive));
-            sceneDictionary.Add(LobbySceneType.MULTI, new SceneData(MULTI_SCENE_NAME, LoadSceneMode.Additive));
+            sceneDictionary.Add(LobbySceneType.SOLO, new SceneData(SOLO_PLAY_SCENE_NAME, LoadSceneMode.Additive));
+            sceneDictionary.Add(LobbySceneType.MULTI, new SceneData(MULTI_PLAY_SCENE_NAME, LoadSceneMode.Additive));
+            sceneDictionary.Add(LobbySceneType.SHOPPING, new SceneData(SHOPPING_SCENE_NAME, LoadSceneMode.Additive));
         }
 
         private string SceneTypeToString(LobbySceneType sceneType)
@@ -107,7 +110,7 @@ namespace Capsule.SceneLoad
                 case LobbySceneType.CUSTOMIZE:
                     return CUSTOMIZE_SCENE_NAME;
                 case LobbySceneType.SOLO:
-                    return SOLO_SCENE_NAME;
+                    return SOLO_PLAY_SCENE_NAME;
                 default:
                     return MAIN_LOBBY_SCENE_NAME;
             }

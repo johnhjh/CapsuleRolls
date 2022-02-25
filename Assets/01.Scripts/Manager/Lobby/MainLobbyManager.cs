@@ -36,7 +36,27 @@ public class MainLobbyManager : MonoBehaviour
 
     public void MoveToCustomizeScene()
     {
-        StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.CUSTOMIZE, true));
+        MoveToScene(LobbySceneType.CUSTOMIZE);
+    }
+
+    public void MoveToSoloPlayScene()
+    {
+        MoveToScene(LobbySceneType.SOLO);
+    }
+
+    public void MoveToMultiPlayScene()
+    {
+        MoveToScene(LobbySceneType.MULTI);
+    }
+
+    public void MoveToShoppingScene()
+    {
+        MoveToScene(LobbySceneType.SHOPPING);
+    }
+
+    public void MoveToScene(LobbySceneType sceneType)
+    {
+        StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(sceneType, true));
     }
 
     public void MenuClick()
