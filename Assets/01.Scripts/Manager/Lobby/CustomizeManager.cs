@@ -31,8 +31,21 @@ namespace Capsule.Customize
         public GameObject tabFocusImage;
         private GameObject currentTab;
         private CustomizeType currentCustomize;
-
         [SerializeField]
+        private CustomizeSlotBody defaultBody = null;
+        [SerializeField]
+        private CustomizeSlotBody currentBody = null;
+        public CustomizeSlotBody CurrentBody
+        {
+            set
+            {
+                currentBody.IsSelected = false;
+                value.IsSelected = true;
+                currentBody = value;
+                ChangeBodyMaterial(value.bodyMaterial);
+            }
+        }
+
         private GameObject currentContent;
 
         private GameObject bodyContent;
@@ -75,9 +88,16 @@ namespace Capsule.Customize
             GameObject TabBody = GameObject.Find("Tab_Body").gameObject;
             TabBody.GetComponent<CustomizeTabCtrl>().IsFocused = true;
 
+            defaultBody = bodyContent.transform.GetChild(0).GetComponent<CustomizeSlotBody>();
+
             currentTab = TabBody;
             currentContent = bodyContent;
             currentCustomize = CustomizeType.BODY;
+
+            //currentBody = defaultBody;
+            currentBody = InitBodyColor();
+            currentBody.IsSelected = true;
+            ChangeBodyMaterial(currentBody.bodyMaterial);
         }
 
         public void ChangeFocusTab(RectTransform parent, CustomizeType cType)
@@ -147,26 +167,45 @@ namespace Capsule.Customize
             }
         }
 
-        public void OnClickCustomItem()
-        {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT);
-        }
-
         public void OnClickResetBtn()
         {
             SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
-
+            CurrentBody = defaultBody;
         }
 
         public void OnClickSaveBtn()
         {
             SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            PlayerPrefs.SetInt("BodyColor", currentBody.slotNum);
         }
 
         public void BackToMainLobby()
         {
             SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
             StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.MAIN_LOBBY, true));
+        }
+
+        private CustomizeSlotBody InitBodyColor()
+        {
+            CustomizeSlotBody[] bodySlots = bodyContent.GetComponentsInChildren<CustomizeSlotBody>();
+            if (bodySlots != null)
+            {
+                for (int i = 0; i < bodySlots.Length; i++)
+                    bodySlots[i].slotNum = i;
+                return bodySlots[PlayerPrefs.GetInt("BodyColor", 0)];
+            }
+            else
+                return defaultBody;
+        }
+
+        private void ChangeBodyMaterial(Material bodyMaterial)
+        {
+            //Debug.Log("Change Body Material to : " + bodyMaterial.name);
+            foreach (SkinnedMeshRenderer skinnedMesh in GameObject.Find("Player").transform.GetChild(1).GetComponentsInChildren<SkinnedMeshRenderer>())
+            {
+                //Debug.Log(skinnedMesh.transform.name + " Changed");
+                skinnedMesh.material = bodyMaterial;
+            }
         }
     }
 }

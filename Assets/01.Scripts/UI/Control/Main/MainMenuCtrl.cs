@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Capsule.Audio;
 
+[RequireComponent (typeof(Image))]
 public class MainMenuCtrl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     // Components
@@ -66,11 +67,14 @@ public class MainMenuCtrl : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerClick(PointerEventData eventData)
     {
         var mainMenus = GameObject.Find("MainMenu").GetComponentsInChildren<MainMenuCtrl>();
-        foreach (var mainMenu in mainMenus)
+        if (mainMenus != null)
         {
-            mainMenu.IsSelected = false;
-            mainMenu.finalAlpha = 0f;
-            mainMenu.finalFontSize = MIN_FONT_SIZE;
+            foreach (var mainMenu in mainMenus)
+            {
+                mainMenu.IsSelected = false;
+                mainMenu.finalAlpha = 0f;
+                mainMenu.finalFontSize = MIN_FONT_SIZE;
+            }
         }
         this.isSelected = true;
         this.finalAlpha = 1f;
