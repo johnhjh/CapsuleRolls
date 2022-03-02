@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Capsule.Audio;
+using Capsule.Entity;
 
 namespace Capsule.Customize
 {
@@ -12,7 +13,7 @@ namespace Capsule.Customize
         // Components
         private RectTransform tabTransform;
         private Text tabText;
-        public CustomizeType customizeType;
+        public CustomizingType customizeType;
 
         // Bool
         private bool isFocused;

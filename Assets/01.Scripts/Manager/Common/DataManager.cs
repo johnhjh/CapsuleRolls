@@ -1,0 +1,71 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Capsule.Player;
+
+namespace Capsule.Entity
+{
+    public class DataManager : MonoBehaviour
+    {
+        private static DataManager dataMgr;
+        public static DataManager Instance
+        {
+            get
+            {
+                if (dataMgr == null)
+                    dataMgr = FindObjectOfType<DataManager>();
+                return dataMgr;
+            }
+        }
+
+        public List<CustomizingBodyData> customizingBodyDatas;
+        public List<CustomizingHeadData> customizingHeadDatas;
+        public List<CustomizingFaceData> customizingFaceDatas;
+
+        private void Awake()
+        {
+            if (dataMgr == null)
+            {
+                dataMgr = this;
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else
+                Destroy(this.gameObject);
+        }
+
+        public CustomizingBodyData GetBodyData(CustomizingBody bodyNum)
+        {
+            var result = from data in customizingBodyDatas
+                         where data.bodyNum == bodyNum
+                         select data;
+            if (result != null)
+                return result.ElementAt<CustomizingBodyData>(0);
+            else
+                return null;
+        }
+
+        public CustomizingHeadData GetHeadData(CustomizingHead headNum)
+        {
+            var result = from data in customizingHeadDatas
+                         where data.headNum == headNum
+                         select data;
+            if (result != null)
+                return result.ElementAt<CustomizingHeadData>(0);
+            else
+                return null;
+        }
+
+        public CustomizingFaceData GetFaceData(CustomizingFace faceNum)
+        {
+            var result = from data in customizingFaceDatas
+                         where data.faceNum == faceNum
+                         select data;
+            if (result != null)
+                return result.ElementAt<CustomizingFaceData>(0);
+            else
+                return null;
+        }
+    }
+}
+

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Capsule.SceneLoad;
 using Capsule.Audio;
+using Capsule.Player;
 
 public class MainLobbyManager : MonoBehaviour
 {
@@ -32,6 +33,10 @@ public class MainLobbyManager : MonoBehaviour
         BGMManager.Instance.ChangeBGM(BGMType.MAIN);
         SFXManager.Instance.PlayOneShotSFX(SFXType.LOAD_DONE);
         SceneLoadManager.Instance.CurrentScene = LobbySceneType.MAIN_LOBBY;
+        PlayerTransform.Instance.SetPosition(new Vector3(2.29f, -0.17f, -5.4f));
+        PlayerTransform.Instance.SetRotation(Quaternion.Euler(8.2f, 201f, 0f));
+        //PlayerTransform.Instance.SetScale(new Vector3(1.18f, 1.18f, 1.18f));
+        PlayerTransform.Instance.SetScale(1.18f);
     }
 
     public void MoveToCustomizeScene()
