@@ -22,6 +22,7 @@ namespace Capsule.Entity
         public List<CustomizingBodyData> customizingBodyDatas;
         public List<CustomizingHeadData> customizingHeadDatas;
         public List<CustomizingFaceData> customizingFaceDatas;
+        public List<CustomizingGloveData> customizingGloveDatas;
 
         private void Awake()
         {
@@ -63,6 +64,17 @@ namespace Capsule.Entity
                          select data;
             if (result != null)
                 return result.ElementAt<CustomizingFaceData>(0);
+            else
+                return null;
+        }
+
+        public CustomizingGloveData GetGloveData(CustomizingGlove gloveNum)
+        {
+            var result = from data in customizingGloveDatas
+                         where data.gloveNum == gloveNum
+                         select data;
+            if (result != null)
+                return result.ElementAt<CustomizingGloveData>(0);
             else
                 return null;
         }

@@ -1619,6 +1619,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 602765551048582860}
   faceTransform: {fileID: 1518933615029655724}
+  leftHandTransform: {fileID: 6623695565694201088}
+  rightHandTransform: {fileID: 2179667454810903021}
+  leftHandSkinnedMeshRenderer: {fileID: 6767079368843483088}
+  rightHandSkinnedMeshRenderer: {fileID: 8550038347039018338}
 --- !u!114 &1365753540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1959,6 +1963,7 @@ Transform:
   m_Children:
   - {fileID: 8402060031080009568}
   - {fileID: 7648150317662461240}
+  - {fileID: 6623695565694201088}
   m_Father: {fileID: 9195447280230851912}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2023,6 +2028,36 @@ Transform:
   - {fileID: 9139825587250751046}
   m_Father: {fileID: 8402060031080009568}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7937660989140195268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2179667454810903021}
+  m_Layer: 8
+  m_Name: CustomizeRightHandPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2179667454810903021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7937660989140195268}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5389270522541971840}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7954935023679833034
 GameObject:
@@ -2250,6 +2285,36 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.22310664, y: 0.06083125, z: -0.25677457}
     m_Extent: {x: 0.27492923, y: 0.25158423, z: 0.19265917}
   m_DirtyAABB: 0
+--- !u!1 &8459386010269531954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6623695565694201088}
+  m_Layer: 8
+  m_Name: CustomizeLeftHandPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6623695565694201088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8459386010269531954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7124501138064841631}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8463759832193962513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,6 +2376,7 @@ Transform:
   m_Children:
   - {fileID: 9201755253177558533}
   - {fileID: 286554358470568664}
+  - {fileID: 2179667454810903021}
   m_Father: {fileID: 6425426056651631989}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

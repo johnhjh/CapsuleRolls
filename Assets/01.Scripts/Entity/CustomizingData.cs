@@ -62,7 +62,9 @@ namespace Capsule.Entity
     public enum CustomizingGlove
     {
         DEFAULT = 0,
-
+        EPIC_1,
+        EPIC_2,
+        EPIC_3,
     }
 
     public enum CustomizingRarity
@@ -113,5 +115,18 @@ namespace Capsule.Entity
         public GameObject faceItem;
         public Vector3 position;
         public Vector3 rotation;
+    }
+
+    [System.Serializable]
+    public class CustomizingGloveData : CustomizingData
+    {
+        public CustomizingGlove gloveNum;
+        public GameObject gloveItem;
+        public Vector3 leftHandPosition;
+        public Vector3 leftHandRotation;
+        public Vector3 leftHandScale;
+        public Vector3 rightHandPosition;
+        public Vector3 rightHandRotation;
+        public Vector3 rightHandScale;
     }
 }

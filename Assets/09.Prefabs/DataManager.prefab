@@ -103,7 +103,7 @@ MonoBehaviour:
     headNum: 1
     headItem: {fileID: 919132149155446097, guid: a6ff2a2d3b55a9c4b9828ddc63313fda,
       type: 3}
-    position: {x: 0.494, y: 0.12, z: 0.013}
+    position: {x: 0.38, y: 0.12, z: 0.013}
     rotation: {x: 0, y: 90, z: 0}
   - type: 1
     rarity: 1
@@ -119,7 +119,7 @@ MonoBehaviour:
     headNum: 3
     headItem: {fileID: 919132149155446097, guid: bd6fde0fc2f79e14fa42dfb96cb60268,
       type: 3}
-    position: {x: 0.37, y: -0.14, z: 0.06}
+    position: {x: 0.15, y: -0.14, z: 0.06}
     rotation: {x: 23.57, y: 83.18, z: -1.673}
   - type: 1
     rarity: 1
@@ -127,7 +127,7 @@ MonoBehaviour:
     headNum: 4
     headItem: {fileID: 919132149155446097, guid: e7ad14929688db54d9dc67f4a8ae4558,
       type: 3}
-    position: {x: 0.593, y: 0.099, z: 0.033}
+    position: {x: 0.4, y: 0.099, z: 0.033}
     rotation: {x: 2.503, y: 88.24, z: -0.237}
   - type: 1
     rarity: 1
@@ -135,7 +135,7 @@ MonoBehaviour:
     headNum: 5
     headItem: {fileID: 919132149155446097, guid: 33e444a97ce544a43bd67eeac1d5ad49,
       type: 3}
-    position: {x: 0.425, y: 0.109, z: 0.04}
+    position: {x: 0.29, y: 0.109, z: 0.04}
     rotation: {x: 1.529, y: 89.02, z: 0.075}
   - type: 1
     rarity: 1
@@ -159,7 +159,7 @@ MonoBehaviour:
     headNum: 8
     headItem: {fileID: 919132149155446097, guid: 7a2eb528ec76a3642bfd7aec607942dd,
       type: 3}
-    position: {x: 0.55, y: 0.09, z: 0.03}
+    position: {x: 0.32, y: 0.09, z: 0.03}
     rotation: {x: 0, y: 88, z: 0}
   - type: 1
     rarity: 2
@@ -167,7 +167,7 @@ MonoBehaviour:
     headNum: 9
     headItem: {fileID: 919132149155446097, guid: d2da77bf0c3934e4780952b2f71525ff,
       type: 3}
-    position: {x: 0.571, y: 0.08, z: -0.017}
+    position: {x: 0.36, y: 0.08, z: -0.017}
     rotation: {x: 0, y: 90, z: 0}
   - type: 1
     rarity: 2
@@ -175,7 +175,7 @@ MonoBehaviour:
     headNum: 10
     headItem: {fileID: 919132149155446097, guid: b418d80da6fc1304f92bf142422f04ec,
       type: 3}
-    position: {x: 0.604, y: 0.02, z: -0.002}
+    position: {x: 0.46, y: 0.02, z: -0.002}
     rotation: {x: 0.101, y: 90.27, z: -1.517}
   - type: 1
     rarity: 2
@@ -191,7 +191,7 @@ MonoBehaviour:
     headNum: 12
     headItem: {fileID: 919132149155446097, guid: 332abae6c3ed02847bf3d053c8b69999,
       type: 3}
-    position: {x: 0.535, y: 0.06, z: 0.04}
+    position: {x: 0.42, y: 0.06, z: 0.04}
     rotation: {x: 3.903, y: 88.05, z: 0.125}
   - type: 1
     rarity: 2
@@ -199,7 +199,7 @@ MonoBehaviour:
     headNum: 13
     headItem: {fileID: 919132149155446097, guid: 2df30225514af454d8a3edfd30d08f1f,
       type: 3}
-    position: {x: 0.44, y: 0.063, z: -0.011}
+    position: {x: 0.31, y: 0.063, z: -0.011}
     rotation: {x: 0, y: 90, z: 0}
   - type: 1
     rarity: 2
@@ -207,7 +207,7 @@ MonoBehaviour:
     headNum: 14
     headItem: {fileID: 919132149155446097, guid: a03a877a53ab72b409a60c81025d1a3a,
       type: 3}
-    position: {x: 0.552, y: 0.092, z: -0.021}
+    position: {x: 0.48, y: 0.092, z: -0.021}
     rotation: {x: 0, y: 90, z: 0}
   - type: 1
     rarity: 3
@@ -231,7 +231,7 @@ MonoBehaviour:
     headNum: 17
     headItem: {fileID: 919132149155446097, guid: b9e39a01036a3294791a7af0fabb4e0b,
       type: 3}
-    position: {x: 0.525, y: 0.095, z: 0.011}
+    position: {x: 0.39, y: 0.095, z: 0.011}
     rotation: {x: 2.118, y: 90.029, z: 0.142}
   - type: 1
     rarity: 3
@@ -247,7 +247,7 @@ MonoBehaviour:
     headNum: 19
     headItem: {fileID: 919132149155446097, guid: 64815d3ebcf86cb4b8b992a8fc63b798,
       type: 3}
-    position: {x: 0.54, y: 0.08, z: 0.02}
+    position: {x: 0.34, y: 0.08, z: 0.02}
     rotation: {x: 3.96, y: 89.05, z: 0.196}
   - type: 1
     rarity: 3
@@ -263,7 +263,7 @@ MonoBehaviour:
     headNum: 21
     headItem: {fileID: 919132149155446097, guid: c3b6b381c81bd2048add24048eae1c7c,
       type: 3}
-    position: {x: 0.53, y: 0.02, z: 0.04}
+    position: {x: 0.31, y: 0.02, z: 0.04}
     rotation: {x: 7.238, y: 88.608, z: 0.299}
   customizingFaceDatas:
   - type: 2
@@ -279,7 +279,7 @@ MonoBehaviour:
     faceNum: 1
     faceItem: {fileID: 919132149155446097, guid: ee57ac416a5490b49be17d715c4fe789,
       type: 3}
-    position: {x: 0.228, y: -0.082, z: 0.005}
+    position: {x: 0.35, y: -0.082, z: 0.005}
     rotation: {x: -88.47201, y: -79.241, z: 168.131}
   - type: 2
     rarity: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
     faceNum: 2
     faceItem: {fileID: 919132149155446097, guid: bcfd2397fec45db419b7e302db510000,
       type: 3}
-    position: {x: 0.253, y: -0.138, z: 0.01}
+    position: {x: 0.39, y: -0.138, z: 0.01}
     rotation: {x: -90, y: 0, z: 90}
   - type: 2
     rarity: 1
@@ -295,7 +295,7 @@ MonoBehaviour:
     faceNum: 3
     faceItem: {fileID: 919132149155446097, guid: b9f4de83e5e88a04eb1de950382ddd9c,
       type: 3}
-    position: {x: 0.349, y: -0.174, z: 0.003}
+    position: {x: 0.42, y: -0.174, z: 0.003}
     rotation: {x: -90.546, y: 14.69899, z: 73.642}
   - type: 2
     rarity: 1
@@ -303,7 +303,7 @@ MonoBehaviour:
     faceNum: 4
     faceItem: {fileID: 919132149155446097, guid: 8a9becc228b167040b7c7540e26d4ece,
       type: 3}
-    position: {x: 0.295, y: -0.092, z: 0.003}
+    position: {x: 0.33, y: -0.092, z: 0.003}
     rotation: {x: -87.311, y: -0.233, z: 89.77}
   - type: 2
     rarity: 1
@@ -311,7 +311,7 @@ MonoBehaviour:
     faceNum: 5
     faceItem: {fileID: 919132149155446097, guid: 666de2c1237589a4da89ae2dda46a1b4,
       type: 3}
-    position: {x: 0.188, y: -0.089, z: 0.004}
+    position: {x: 0.255, y: -0.089, z: -0.01}
     rotation: {x: -92.675, y: 86.175, z: 3.7919}
   - type: 2
     rarity: 2
@@ -319,7 +319,7 @@ MonoBehaviour:
     faceNum: 6
     faceItem: {fileID: 919132149155446097, guid: 89a2059e4488c364c943f94ab4e2f228,
       type: 3}
-    position: {x: -0.171, y: 0.335, z: 0.02}
+    position: {x: -0.05, y: 0.26, z: 0.02}
     rotation: {x: -169.793, y: 87.78999, z: -2.93399}
   - type: 2
     rarity: 2
@@ -327,7 +327,7 @@ MonoBehaviour:
     faceNum: 7
     faceItem: {fileID: 919132149155446097, guid: 9f2b12d8a09c9964ab10a8d6c58ac664,
       type: 3}
-    position: {x: -0.033, y: 0.296, z: 0.015}
+    position: {x: 0.01, y: 0.296, z: 0.015}
     rotation: {x: -176.889, y: 89.24899, z: -1.777985}
   - type: 2
     rarity: 2
@@ -335,7 +335,7 @@ MonoBehaviour:
     faceNum: 8
     faceItem: {fileID: 919132149155446097, guid: b9d73914f32aead47a7a5151a302351c,
       type: 3}
-    position: {x: -0.096, y: 0.262, z: -0.006}
+    position: {x: -0.05, y: 0.34, z: -0.006}
     rotation: {x: -180.282, y: 90.069, z: 1.266}
   - type: 2
     rarity: 2
@@ -351,7 +351,7 @@ MonoBehaviour:
     faceNum: 10
     faceItem: {fileID: 919132149155446097, guid: edfe84946074445418dcc0d98eba90fe,
       type: 3}
-    position: {x: 0.228, y: -0.156, z: 0.032}
+    position: {x: 0.36, y: -0.156, z: 0.02}
     rotation: {x: -90.271, y: -8.435974, z: 96.932}
   - type: 2
     rarity: 3
@@ -359,7 +359,7 @@ MonoBehaviour:
     faceNum: 11
     faceItem: {fileID: 919132149155446097, guid: 21d3885f823d89b45b871b204d48a12f,
       type: 3}
-    position: {x: 0.382, y: -0.065, z: 0.029}
+    position: {x: 0.39, y: -0.065, z: 0.029}
     rotation: {x: -89.00001, y: 0.003, z: 88.998}
   - type: 2
     rarity: 3
@@ -369,3 +369,51 @@ MonoBehaviour:
       type: 3}
     position: {x: 0.479, y: -0.18, z: 0.03}
     rotation: {x: 0.047, y: 87.731, z: -0.408}
+  customizingGloveDatas:
+  - type: 3
+    rarity: 0
+    preview: {fileID: 21300000, guid: 89eed49e693e4ac478e3d94c0f30af1f, type: 3}
+    gloveNum: 0
+    gloveItem: {fileID: 0}
+    leftHandPosition: {x: 0, y: 0, z: 0}
+    leftHandRotation: {x: 0, y: 0, z: 0}
+    leftHandScale: {x: 1, y: 1, z: 1}
+    rightHandPosition: {x: 0, y: 0, z: 0}
+    rightHandRotation: {x: 0, y: 0, z: 0}
+    rightHandScale: {x: 1, y: 1, z: 1}
+  - type: 3
+    rarity: 3
+    preview: {fileID: 21300000, guid: 3f4967998c506d04d9867785997c4bfd, type: 3}
+    gloveNum: 1
+    gloveItem: {fileID: 919132149155446097, guid: 72a90a2b795b2e344a5d7e4ad64461a8,
+      type: 3}
+    leftHandPosition: {x: 0.067, y: 0.022, z: -0.008}
+    leftHandRotation: {x: 70.055, y: -15.274, z: -10.738}
+    leftHandScale: {x: 1, y: 1, z: 1}
+    rightHandPosition: {x: 0.044, y: 0.031, z: 0.005}
+    rightHandRotation: {x: 78.68701, y: -151.544, z: -145.609}
+    rightHandScale: {x: 1, y: 1, z: 1}
+  - type: 3
+    rarity: 3
+    preview: {fileID: 21300000, guid: 2f1410279436dcb479d1d5395508d3eb, type: 3}
+    gloveNum: 2
+    gloveItem: {fileID: 919132149155446097, guid: 37d14cd03e81edd4e90751e4751770f8,
+      type: 3}
+    leftHandPosition: {x: 0.097, y: -0.033, z: -0.008}
+    leftHandRotation: {x: 59.943, y: -17.109, z: -19.094}
+    leftHandScale: {x: 1, y: 1, z: 1}
+    rightHandPosition: {x: 0.127, y: -0.006, z: 0.029}
+    rightHandRotation: {x: 83.678, y: -120.368, z: -114.757}
+    rightHandScale: {x: 1, y: 1, z: 1}
+  - type: 3
+    rarity: 3
+    preview: {fileID: 21300000, guid: ab4726348a6fb084496e2ca94a53dc9b, type: 3}
+    gloveNum: 3
+    gloveItem: {fileID: 919132149155446097, guid: b263db1822f53604ba55a735bee54214,
+      type: 3}
+    leftHandPosition: {x: -0.329, y: -0.008, z: 0.025}
+    leftHandRotation: {x: 71.632, y: -19.447, z: 68.983}
+    leftHandScale: {x: 1, y: 1, z: 1}
+    rightHandPosition: {x: -0.385, y: -0.01, z: 0.041}
+    rightHandRotation: {x: 77.566, y: -147.052, z: -419.563}
+    rightHandScale: {x: -1, y: 1, z: 1}

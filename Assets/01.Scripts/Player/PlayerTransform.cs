@@ -38,6 +38,11 @@ namespace Capsule.Player
             transform.localRotation = rotation;
         }
 
+        public void Rotate(Vector3 vector, float amount)
+        {
+            transform.Rotate(vector * amount);
+        }
+
         public void SetScale(float scale)
         {
             transform.localScale = Vector3.one * scale;

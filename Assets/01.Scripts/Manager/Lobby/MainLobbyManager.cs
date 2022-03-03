@@ -34,7 +34,7 @@ public class MainLobbyManager : MonoBehaviour
         SFXManager.Instance.PlayOneShotSFX(SFXType.LOAD_DONE);
         SceneLoadManager.Instance.CurrentScene = LobbySceneType.MAIN_LOBBY;
         PlayerTransform.Instance.SetPosition(new Vector3(2.29f, -0.17f, -5.4f));
-        PlayerTransform.Instance.SetRotation(Quaternion.Euler(8.2f, 201f, 0f));
+        PlayerTransform.Instance.SetRotation(Quaternion.Euler(19.94f, 202f, -4.7f));
         //PlayerTransform.Instance.SetScale(new Vector3(1.18f, 1.18f, 1.18f));
         PlayerTransform.Instance.SetScale(1.18f);
     }
