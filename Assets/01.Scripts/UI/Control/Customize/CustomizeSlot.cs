@@ -11,8 +11,6 @@ namespace Capsule.Customize
     [RequireComponent (typeof (CanvasGroup))]
     public abstract class CustomizeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
-        [HideInInspector]
-        public int slotNum;
         public CustomizingData data;
         private CanvasGroup canvasGroup;
 

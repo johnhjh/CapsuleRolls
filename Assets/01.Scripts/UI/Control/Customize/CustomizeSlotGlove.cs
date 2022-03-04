@@ -6,7 +6,7 @@ namespace Capsule.Customize
 {
     public class CustomizeSlotGlove : CustomizeSlot
     {
-        public CustomizingGlove gloveItem;
+        public CustomizingGlove gloveNum;
 
         public override void Equip()
         {

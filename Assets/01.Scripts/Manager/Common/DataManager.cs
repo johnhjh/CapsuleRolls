@@ -32,7 +32,7 @@ namespace Capsule.Entity
                 dataMgr = this;
                 DontDestroyOnLoad(this.gameObject);
             }
-            else
+            else if (dataMgr != this)
                 Destroy(this.gameObject);
         }
 

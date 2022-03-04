@@ -48,17 +48,14 @@ namespace Capsule.Player
             ChangeBody((CustomizingBody)PlayerPrefs.GetInt("CustomizeBody", 0));
             ChangeHead((CustomizingHead)PlayerPrefs.GetInt("CustomizeHead", 0));
             ChangeFace((CustomizingFace)PlayerPrefs.GetInt("CustomizeFace", 0));
-            ChangeGloves((CustomizingGlove)PlayerPrefs.GetInt("CustomizeGlove", 0));            
+            ChangeGloves((CustomizingGlove)PlayerPrefs.GetInt("CustomizeGlove", 0));
+            ChangeCloth((CustomizingCloth)PlayerPrefs.GetInt("CustomizeCloth", 0));
         }
 
         public void ChangeBody(Material bodyMaterial)
         {
-            //Debug.Log("Change Body Material to : " + bodyMaterial.name);
             foreach (SkinnedMeshRenderer skinnedMesh in transform.GetChild(1).GetComponentsInChildren<SkinnedMeshRenderer>())
-            {
-                //Debug.Log(skinnedMesh.transform.name + " Changed");
                 skinnedMesh.material = bodyMaterial;
-            }
         }
 
         public void ChangeBody(CustomizingBody bodyNum)

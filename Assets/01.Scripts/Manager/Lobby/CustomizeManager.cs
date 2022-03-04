@@ -141,23 +141,23 @@ namespace Capsule.Customize
                             obj.SetActive(false);
                     }
                 }
-                if (leftGloveDictionary.ContainsKey(value.gloveItem))
+                if (leftGloveDictionary.ContainsKey(value.gloveNum))
                 {
-                    currentLeftGloveObj = leftGloveDictionary[value.gloveItem];
-                    leftGloveDictionary[value.gloveItem].SetActive(true);
-                    currentRightGloveObj = rightGloveDictionary[value.gloveItem];
-                    rightGloveDictionary[value.gloveItem].SetActive(true);
+                    currentLeftGloveObj = leftGloveDictionary[value.gloveNum];
+                    leftGloveDictionary[value.gloveNum].SetActive(true);
+                    currentRightGloveObj = rightGloveDictionary[value.gloveNum];
+                    rightGloveDictionary[value.gloveNum].SetActive(true);
                 }
                 else
                 {
-                    List<GameObject> gloves = PlayerCustomize.Instance.ChangeGloves(value.gloveItem);
+                    List<GameObject> gloves = PlayerCustomize.Instance.ChangeGloves(value.gloveNum);
                     if (gloves != null)
                     {
                         currentLeftGloveObj = gloves[0];
                         currentRightGloveObj = gloves[1];
 
-                        leftGloveDictionary.Add(value.gloveItem, currentLeftGloveObj);
-                        rightGloveDictionary.Add(value.gloveItem, currentRightGloveObj);
+                        leftGloveDictionary.Add(value.gloveNum, currentLeftGloveObj);
+                        rightGloveDictionary.Add(value.gloveNum, currentRightGloveObj);
                     }
                     else
                     {
@@ -168,7 +168,6 @@ namespace Capsule.Customize
                 }
             }
         }
-
 
         private Dictionary<CustomizingCloth, GameObject> clothDictionary;
         private GameObject savedClothObj = null;
@@ -225,6 +224,8 @@ namespace Capsule.Customize
         public Vector3 HEAD_CAM_POS = new Vector3(0.8f, 1.5f, -9f);
         public Vector3 FACE_CAM_POS = new Vector3(1.3f, 1.5f, -8f);
         public Vector3 GLOVE_CAM_POS = new Vector3(1.1f, 0.5f, -8.5f);
+        [Header("Character")]
+        public float characterScale = 1.5f;
 
         private void Awake()
         {
@@ -242,7 +243,7 @@ namespace Capsule.Customize
             PlayerTransform.Instance.SetPosition(new Vector3(2.6f, -0.54f, -5f));
             PlayerTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
             //PlayerTransform.Instance.SetScale(new Vector3(1.63f, 1.63f, 1.63f));
-            PlayerTransform.Instance.SetScale(1.5f);
+            PlayerTransform.Instance.SetScale(characterScale);
 
             RectTransform scrollRect = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
             bodyContent = scrollRect.GetChild(0).gameObject;
@@ -366,7 +367,7 @@ namespace Capsule.Customize
             PlayerPrefs.SetInt("CustomizeBody", (int)currentBodySlot.bodyColor);
             PlayerPrefs.SetInt("CustomizeHead", (int)currentHeadSlot.headItem);
             PlayerPrefs.SetInt("CustomizeFace", (int)currentFaceSlot.faceItem);
-            PlayerPrefs.SetInt("CustomizeGlove", (int)currentGloveSlot.gloveItem);
+            PlayerPrefs.SetInt("CustomizeGlove", (int)currentGloveSlot.gloveNum);
             PlayerPrefs.SetInt("CustomizeCloth", (int)currentClothSlot.clothNum);
 
             savedBodyMat = currentBodySlot.bodyMaterial;
@@ -444,12 +445,9 @@ namespace Capsule.Customize
         {
             CustomizeSlotBody[] bodySlots = bodyContent.GetComponentsInChildren<CustomizeSlotBody>();
             CustomizeSlotBody bodySlot = null;
-            if (bodySlots != null)
-            {
-                for (int i = 0; i < bodySlots.Length; i++)
-                    bodySlots[i].slotNum = i;
-                bodySlot = bodySlots[PlayerPrefs.GetInt("CustomizeBody", 0)];
-            }
+            int bodyNum = PlayerPrefs.GetInt("CustomizeBody", 0);
+            if (bodySlots != null && bodySlots.Length > bodyNum)
+                bodySlot = bodySlots[bodyNum];
             else
                 bodySlot = defaultBodySlot;
 
@@ -465,24 +463,21 @@ namespace Capsule.Customize
 
             CustomizeSlotHead[] headSlots = headContent.GetComponentsInChildren<CustomizeSlotHead>();
             CustomizeSlotHead headSlot = null;
-            if (headSlots != null)
-            {
-                for (int i = 0; i < headSlots.Length; i++)
-                    headSlots[i].slotNum = i;
-                headSlot = headSlots[PlayerPrefs.GetInt("CustomizeHead", 0)];
-            }
+            int headNum = PlayerPrefs.GetInt("CustomizeHead", 0);
+            if (headSlots != null && headSlots.Length > headNum)
+                headSlot = headSlots[headNum];
             else
                 headSlot = defaultHeadSlot;
 
             headSlot.IsSelected = true;
 
             if (PlayerCustomize.Instance.headTransform.childCount >= 1)
+            {
                 savedHeadObj = PlayerCustomize.Instance.headTransform.GetChild(0).gameObject;
+                headDictionary.Add(headSlot.headItem, savedHeadObj);
+            }
             else
                 savedHeadObj = null;
-
-            if (savedHeadObj != null)
-                headDictionary.Add(headSlot.headItem, savedHeadObj);
 
             currentHeadObj = savedHeadObj;
 
@@ -495,24 +490,21 @@ namespace Capsule.Customize
 
             CustomizeSlotFace[] faceSlots = faceContent.GetComponentsInChildren<CustomizeSlotFace>();
             CustomizeSlotFace faceSlot = null;
-            if (faceSlots != null)
-            {
-                for (int i = 0; i < faceSlots.Length; i++)
-                    faceSlots[i].slotNum = i;
-                faceSlot = faceSlots[PlayerPrefs.GetInt("CustomizeFace", 0)];
-            }
+            int faceNum = PlayerPrefs.GetInt("CustomizeFace", 0);
+            if (faceSlots != null && faceSlots.Length > faceNum)
+                faceSlot = faceSlots[faceNum];
             else
                 faceSlot = defaultFaceSlot;
 
             faceSlot.IsSelected = true;
 
             if (PlayerCustomize.Instance.faceTransform.childCount >= 1)
+            {
                 savedFaceObj = PlayerCustomize.Instance.faceTransform.GetChild(0).gameObject;
+                faceDictionary.Add(faceSlot.faceItem, savedFaceObj);
+            }
             else
                 savedFaceObj = null;
-
-            if (savedFaceObj != null)
-                faceDictionary.Add(faceSlot.faceItem, savedFaceObj);
 
             currentFaceObj = savedFaceObj;
 
@@ -526,12 +518,9 @@ namespace Capsule.Customize
 
             CustomizeSlotGlove[] gloveSlots = gloveContent.GetComponentsInChildren<CustomizeSlotGlove>();
             CustomizeSlotGlove gloveSlot = null;
-            if (gloveSlots != null)
-            {
-                for (int i = 0; i < gloveSlots.Length; i++)
-                    gloveSlots[i].slotNum = i;
-                gloveSlot = gloveSlots[PlayerPrefs.GetInt("CustomizeGlove", 0)];
-            }
+            int gloveNum = PlayerPrefs.GetInt("CustomizeGlove", 0);
+            if (gloveSlots != null && gloveSlots.Length > gloveNum)
+                gloveSlot = gloveSlots[gloveNum];
             else
                 gloveSlot = defaultGloveSlot;
 
@@ -541,16 +530,14 @@ namespace Capsule.Customize
             {
                 savedLeftGloveObj = PlayerCustomize.Instance.leftHandTransform.GetChild(0).gameObject;
                 savedRightGloveObj = PlayerCustomize.Instance.rightHandTransform.GetChild(0).gameObject;
+
+                leftGloveDictionary.Add(gloveSlot.gloveNum, savedLeftGloveObj);
+                rightGloveDictionary.Add(gloveSlot.gloveNum, savedRightGloveObj);
             }
             else
             {
                 savedLeftGloveObj = null;
                 savedRightGloveObj = null;
-            }
-            if (savedLeftGloveObj != null)
-            {
-                leftGloveDictionary.Add(gloveSlot.gloveItem, savedLeftGloveObj);
-                rightGloveDictionary.Add(gloveSlot.gloveItem, savedRightGloveObj);
             }
 
             currentLeftGloveObj = savedLeftGloveObj;
@@ -564,24 +551,21 @@ namespace Capsule.Customize
             clothDictionary = new Dictionary<CustomizingCloth, GameObject>();
             CustomizeSlotCloth[] clothSlots = clothContent.GetComponentsInChildren<CustomizeSlotCloth>();
             CustomizeSlotCloth clothSlot = null;
-            if (clothSlots != null)
-            {
-                for (int i = 0; i < clothSlots.Length; i++)
-                    clothSlots[i].slotNum = i;
-                clothSlot = clothSlots[PlayerPrefs.GetInt("CustomizeCloth", 0)];
-            }
+            int clothNum = PlayerPrefs.GetInt("CustomizeCloth", 0);
+            if (clothSlots != null && clothSlots.Length > clothNum)
+                clothSlot = clothSlots[clothNum];
             else
                 clothSlot = defaultClothSlot;
 
             clothSlot.IsSelected = true;
 
             if (PlayerCustomize.Instance.clothTransform.childCount >= 1)
+            {
                 savedClothObj = PlayerCustomize.Instance.clothTransform.GetChild(0).gameObject;
+                clothDictionary.Add(clothSlot.clothNum, savedClothObj);
+            }
             else
                 savedClothObj = null;
-
-            if (savedClothObj != null)
-                clothDictionary.Add(clothSlot.clothNum, savedClothObj);
 
             currentClothObj = savedClothObj;
 

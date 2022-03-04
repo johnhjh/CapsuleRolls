@@ -41,6 +41,8 @@ namespace Capsule.Entity
         EPIC_5,
         EPIC_6,
         EPIC_7,
+        EPIC_8,
+        EPIC_9,
     }
 
     public enum CustomizingFace
@@ -71,6 +73,8 @@ namespace Capsule.Entity
     public enum CustomizingCloth
     {
         DEFAULT = 0,
+        COMMON_1,
+        RARE_1,
         EPIC_1,
     }
 
