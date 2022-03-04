@@ -206,6 +206,7 @@ namespace Capsule.Customize
         }
 
         private GameObject currentContent;
+        private ScrollRect scrollRect;
 
         private GameObject bodyContent;
         private GameObject headContent;
@@ -245,12 +246,13 @@ namespace Capsule.Customize
             //PlayerTransform.Instance.SetScale(new Vector3(1.63f, 1.63f, 1.63f));
             PlayerTransform.Instance.SetScale(characterScale);
 
-            RectTransform scrollRect = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
-            bodyContent = scrollRect.GetChild(0).gameObject;
-            headContent = scrollRect.GetChild(1).gameObject;
-            faceContent = scrollRect.GetChild(2).gameObject;
-            gloveContent = scrollRect.GetChild(3).gameObject;
-            clothContent = scrollRect.GetChild(4).gameObject;
+            RectTransform scrollRectTransform = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
+            scrollRect = scrollRectTransform.GetComponent<ScrollRect>();
+            bodyContent = scrollRectTransform.GetChild(0).gameObject;
+            headContent = scrollRectTransform.GetChild(1).gameObject;
+            faceContent = scrollRectTransform.GetChild(2).gameObject;
+            gloveContent = scrollRectTransform.GetChild(3).gameObject;
+            clothContent = scrollRectTransform.GetChild(4).gameObject;
 
             GameObject TabBody = GameObject.Find("Tab_Body").gameObject;
             TabBody.GetComponent<CustomizeTabCtrl>().IsFocused = true;
@@ -264,6 +266,7 @@ namespace Capsule.Customize
             currentTab = TabBody;
             currentContent = bodyContent;
             currentCustomize = CustomizingType.BODY;
+            scrollRect.content = bodyContent.GetComponent<RectTransform>();
 
             //currentBody = defaultBody;
             currentBodySlot = InitCustomizeBody();
@@ -287,6 +290,8 @@ namespace Capsule.Customize
             currentTab = parent.gameObject;
             currentCustomize = cType;
             currentContent = GetContentByType(cType);
+            scrollRect.content = currentContent.GetComponent<RectTransform>();
+            currentContent.GetComponent<RectTransform>().localPosition = new Vector2(0f, -730f);
 
             currentTab.GetComponent<Text>().fontSize = FOCUSED_TAB_FONT_SIZE;
             tabFocusImage.transform.SetParent(parent);

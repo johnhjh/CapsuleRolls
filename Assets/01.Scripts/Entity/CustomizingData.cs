@@ -43,6 +43,8 @@ namespace Capsule.Entity
         EPIC_7,
         EPIC_8,
         EPIC_9,
+        ARABIAN,
+        LEGENDARY_1,
     }
 
     public enum CustomizingFace
@@ -76,6 +78,8 @@ namespace Capsule.Entity
         COMMON_1,
         RARE_1,
         EPIC_1,
+        ARABIAN,
+        LEGENDARY_1,
     }
 
     public enum CustomizingRarity
