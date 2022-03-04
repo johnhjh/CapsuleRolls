@@ -42,7 +42,7 @@ namespace Capsule.Entity
         EPIC_6,
         EPIC_7,
         EPIC_8,
-        EPIC_9,
+        TEACHER,
         ARABIAN,
         LEGENDARY_1,
     }
@@ -62,6 +62,7 @@ namespace Capsule.Entity
         EPIC_1,
         EPIC_2,
         EPIC_3,
+        TEACHER,
     }
 
     public enum CustomizingGlove
@@ -77,7 +78,7 @@ namespace Capsule.Entity
         DEFAULT = 0,
         COMMON_1,
         RARE_1,
-        EPIC_1,
+        TEACHER,
         ARABIAN,
         LEGENDARY_1,
     }
