@@ -10,6 +10,7 @@ namespace Capsule.Entity
         BLUE,
         GREEN,
         YELLOW,
+        BROWN,
         BLACK,
         GOLDEN,
         SILVER,
@@ -67,6 +68,12 @@ namespace Capsule.Entity
         EPIC_3,
     }
 
+    public enum CustomizingCloth
+    {
+        DEFAULT = 0,
+        EPIC_1,
+    }
+
     public enum CustomizingRarity
     {
         DEFAULT = 0,
@@ -82,6 +89,7 @@ namespace Capsule.Entity
         HEAD,
         FACE,
         GLOVE,
+        CLOTH,
     }
 
     [System.Serializable]
@@ -128,5 +136,14 @@ namespace Capsule.Entity
         public Vector3 rightHandPosition;
         public Vector3 rightHandRotation;
         public Vector3 rightHandScale;
+    }
+
+    [System.Serializable]
+    public class CustomizingClothData : CustomizingData
+    {
+        public CustomizingCloth clothNum;
+        public GameObject clothItem;
+        public Vector3 position;
+        public Vector3 rotation;
     }
 }

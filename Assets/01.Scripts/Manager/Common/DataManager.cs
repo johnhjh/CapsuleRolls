@@ -23,6 +23,7 @@ namespace Capsule.Entity
         public List<CustomizingHeadData> customizingHeadDatas;
         public List<CustomizingFaceData> customizingFaceDatas;
         public List<CustomizingGloveData> customizingGloveDatas;
+        public List<CustomizingClothData> customizingClothDatas;
 
         private void Awake()
         {
@@ -40,7 +41,7 @@ namespace Capsule.Entity
             var result = from data in customizingBodyDatas
                          where data.bodyNum == bodyNum
                          select data;
-            if (result != null)
+            if (result != null && result.Count<CustomizingBodyData>() > 0)
                 return result.ElementAt<CustomizingBodyData>(0);
             else
                 return null;
@@ -51,7 +52,7 @@ namespace Capsule.Entity
             var result = from data in customizingHeadDatas
                          where data.headNum == headNum
                          select data;
-            if (result != null)
+            if (result != null && result.Count<CustomizingHeadData>() > 0)
                 return result.ElementAt<CustomizingHeadData>(0);
             else
                 return null;
@@ -62,7 +63,7 @@ namespace Capsule.Entity
             var result = from data in customizingFaceDatas
                          where data.faceNum == faceNum
                          select data;
-            if (result != null)
+            if (result != null && result.Count<CustomizingFaceData>() > 0)
                 return result.ElementAt<CustomizingFaceData>(0);
             else
                 return null;
@@ -73,8 +74,19 @@ namespace Capsule.Entity
             var result = from data in customizingGloveDatas
                          where data.gloveNum == gloveNum
                          select data;
-            if (result != null)
+            if (result != null && result.Count<CustomizingGloveData>() > 0)
                 return result.ElementAt<CustomizingGloveData>(0);
+            else
+                return null;
+        }
+
+        public CustomizingClothData GetClothData(CustomizingCloth clothNum)
+        {
+            var result = from data in customizingClothDatas
+                         where data.clothNum == clothNum
+                         select data;
+            if (result != null && result.Count<CustomizingClothData>() > 0)
+                return result.ElementAt<CustomizingClothData>(0);
             else
                 return null;
         }

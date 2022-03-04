@@ -166,7 +166,43 @@ namespace Capsule.Customize
                         PlayerCustomize.Instance.EnableHandMeshes(true);
                     }
                 }
+            }
+        }
 
+
+        private Dictionary<CustomizingCloth, GameObject> clothDictionary;
+        private GameObject savedClothObj = null;
+        private GameObject currentClothObj = null;
+
+        private CustomizeSlotCloth defaultClothSlot = null;
+        private CustomizeSlotCloth currentClothSlot = null;
+        public CustomizeSlotCloth CurrentCloth
+        {
+            set
+            {
+                currentClothSlot.IsSelected = false;
+                value.IsSelected = true;
+                currentClothSlot = value;
+
+                if (clothDictionary.Count > 0)
+                {
+                    foreach (GameObject obj in clothDictionary.Values)
+                    {
+                        if (obj.activeSelf)
+                            obj.SetActive(false);
+                    }
+                }
+                if (clothDictionary.ContainsKey(value.clothNum))
+                {
+                    currentClothObj = clothDictionary[value.clothNum];
+                    clothDictionary[value.clothNum].SetActive(true);
+                }
+                else
+                {
+                    currentClothObj = PlayerCustomize.Instance.ChangeCloth(value.clothNum);
+                    if (currentClothObj != null)
+                        clothDictionary.Add(value.clothNum, currentClothObj);
+                }
             }
         }
 
@@ -176,6 +212,7 @@ namespace Capsule.Customize
         private GameObject headContent;
         private GameObject faceContent;
         private GameObject gloveContent;
+        private GameObject clothContent;
 
         private const int NORMAL_TAB_FONT_SIZE = 63;
         private const int FOCUSED_TAB_FONT_SIZE = 70;
@@ -212,6 +249,7 @@ namespace Capsule.Customize
             headContent = scrollRect.GetChild(1).gameObject;
             faceContent = scrollRect.GetChild(2).gameObject;
             gloveContent = scrollRect.GetChild(3).gameObject;
+            clothContent = scrollRect.GetChild(4).gameObject;
 
             GameObject TabBody = GameObject.Find("Tab_Body").gameObject;
             TabBody.GetComponent<CustomizeTabCtrl>().IsFocused = true;
@@ -220,6 +258,7 @@ namespace Capsule.Customize
             defaultHeadSlot = headContent.transform.GetChild(0).GetComponent<CustomizeSlotHead>();
             defaultFaceSlot = faceContent.transform.GetChild(0).GetComponent<CustomizeSlotFace>();
             defaultGloveSlot = gloveContent.transform.GetChild(0).GetComponent<CustomizeSlotGlove>();
+            defaultClothSlot = clothContent.transform.GetChild(0).GetComponent<CustomizeSlotCloth>();
 
             currentTab = TabBody;
             currentContent = bodyContent;
@@ -230,6 +269,7 @@ namespace Capsule.Customize
             currentHeadSlot = InitCustomizeHead();
             currentFaceSlot = InitCustomizeFace();
             currentGloveSlot = InitCustomizeGlove();
+            currentClothSlot = InitCustomizeCloth();
         }
 
         public void ChangeFocusTab(RectTransform parent, CustomizingType cType)
@@ -283,6 +323,8 @@ namespace Capsule.Customize
                     return FACE_CAM_POS;
                 case CustomizingType.GLOVE:
                     return GLOVE_CAM_POS;
+                case CustomizingType.CLOTH:
+                    return ORIGIN_CAM_POS;
                 default:
                     return ORIGIN_CAM_POS;
             }
@@ -300,6 +342,8 @@ namespace Capsule.Customize
                     return faceContent;
                 case CustomizingType.GLOVE:
                     return gloveContent;
+                case CustomizingType.CLOTH:
+                    return clothContent;
                 default:
                     return bodyContent;
             }
@@ -312,6 +356,7 @@ namespace Capsule.Customize
             CurrentHead = defaultHeadSlot;
             CurrentFace = defaultFaceSlot;
             CurrentGlove = defaultGloveSlot;
+            CurrentCloth = defaultClothSlot;
         }
 
         public void OnClickSaveBtn()
@@ -322,12 +367,14 @@ namespace Capsule.Customize
             PlayerPrefs.SetInt("CustomizeHead", (int)currentHeadSlot.headItem);
             PlayerPrefs.SetInt("CustomizeFace", (int)currentFaceSlot.faceItem);
             PlayerPrefs.SetInt("CustomizeGlove", (int)currentGloveSlot.gloveItem);
+            PlayerPrefs.SetInt("CustomizeCloth", (int)currentClothSlot.clothNum);
 
             savedBodyMat = currentBodySlot.bodyMaterial;
             savedHeadObj = currentHeadObj;
             savedFaceObj = currentFaceObj;
             savedLeftGloveObj = currentLeftGloveObj;
             savedRightGloveObj = currentRightGloveObj;
+            savedClothObj = currentClothObj;
         }
 
         public void BackToMainLobby()
@@ -378,6 +425,17 @@ namespace Capsule.Customize
                 savedRightGloveObj.SetActive(true);
             if (savedLeftGloveObj == null)
                 PlayerCustomize.Instance.EnableHandMeshes(true);
+
+            if (clothDictionary.Count > 0)
+            {
+                foreach (GameObject obj in clothDictionary.Values)
+                {
+                    if (savedClothObj != obj)
+                        Destroy(obj);
+                }
+            }
+            if (savedClothObj != null && !savedClothObj.activeSelf)
+                savedClothObj.SetActive(true);
 
             StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.MAIN_LOBBY, true));
         }
@@ -499,6 +557,35 @@ namespace Capsule.Customize
             currentRightGloveObj = savedRightGloveObj;
 
             return gloveSlot;
+        }
+
+        private CustomizeSlotCloth InitCustomizeCloth()
+        {
+            clothDictionary = new Dictionary<CustomizingCloth, GameObject>();
+            CustomizeSlotCloth[] clothSlots = clothContent.GetComponentsInChildren<CustomizeSlotCloth>();
+            CustomizeSlotCloth clothSlot = null;
+            if (clothSlots != null)
+            {
+                for (int i = 0; i < clothSlots.Length; i++)
+                    clothSlots[i].slotNum = i;
+                clothSlot = clothSlots[PlayerPrefs.GetInt("CustomizeCloth", 0)];
+            }
+            else
+                clothSlot = defaultClothSlot;
+
+            clothSlot.IsSelected = true;
+
+            if (PlayerCustomize.Instance.clothTransform.childCount >= 1)
+                savedClothObj = PlayerCustomize.Instance.clothTransform.GetChild(0).gameObject;
+            else
+                savedClothObj = null;
+
+            if (savedClothObj != null)
+                clothDictionary.Add(clothSlot.clothNum, savedClothObj);
+
+            currentClothObj = savedClothObj;
+
+            return clothSlot;
         }
     }
 }

@@ -71,23 +71,28 @@ MonoBehaviour:
     bodyMaterial: {fileID: 2100000, guid: 50d12006ef4f8fb438029b458c1d6035, type: 2}
   - type: 0
     rarity: 1
+    preview: {fileID: 21300000, guid: 99406646e5927c44db1d1e80eacd3e14, type: 3}
+    bodyNum: 5
+    bodyMaterial: {fileID: 2100000, guid: 8df69c3d352670b439deca3a5ee27a4d, type: 2}
+  - type: 0
+    rarity: 1
     preview: {fileID: 21300000, guid: 83eb736bf5f47f643a9ed8434aa48be8, type: 3}
     bodyNum: 5
     bodyMaterial: {fileID: 2100000, guid: ab69d9bdb4b26964db533c0515c00016, type: 2}
   - type: 0
     rarity: 2
     preview: {fileID: 21300000, guid: 651d91f5e949b2c4491323f3a652f297, type: 3}
-    bodyNum: 6
+    bodyNum: 7
     bodyMaterial: {fileID: 2100000, guid: 90df4c29ec1da494ba15855e1b4ca4e0, type: 2}
   - type: 0
     rarity: 2
     preview: {fileID: 21300000, guid: 8e8d27279f97a3d429d152464d825124, type: 3}
-    bodyNum: 7
+    bodyNum: 8
     bodyMaterial: {fileID: 2100000, guid: 85be2ba163d05ba48b5e2b5a4852901a, type: 2}
   - type: 0
     rarity: 3
     preview: {fileID: 21300000, guid: cb868c7cf3720114cbdc4afde0147c7d, type: 3}
-    bodyNum: 8
+    bodyNum: 9
     bodyMaterial: {fileID: 2100000, guid: 285b17c2805450845854c00001e2b185, type: 2}
   customizingHeadDatas:
   - type: 1
@@ -417,3 +422,4 @@ MonoBehaviour:
     rightHandPosition: {x: -0.385, y: -0.01, z: 0.041}
     rightHandRotation: {x: 77.566, y: -147.052, z: -419.563}
     rightHandScale: {x: -1, y: 1, z: 1}
+  customizingClothDatas: []

@@ -22,6 +22,8 @@ namespace Capsule.Player
         public Transform faceTransform;
         public Transform leftHandTransform;
         public Transform rightHandTransform;
+        public Transform clothTransform;
+
         public SkinnedMeshRenderer leftHandSkinnedMeshRenderer;
         public SkinnedMeshRenderer rightHandSkinnedMeshRenderer;
 
@@ -116,6 +118,20 @@ namespace Capsule.Player
             }
             else
                 EnableHandMeshes(true);
+            return null;
+        }
+
+        public GameObject ChangeCloth(CustomizingCloth clothNum)
+        {
+            if (clothNum != CustomizingCloth.DEFAULT)
+            {
+                CustomizingClothData clothData = DataManager.Instance.GetClothData(clothNum);
+                GameObject clothItem = GameObject.Instantiate<GameObject>(clothData.clothItem, clothTransform);
+                clothItem.transform.localPosition = clothData.position;
+                clothItem.transform.localRotation = Quaternion.Euler(clothData.rotation);
+                clothItem.transform.localScale = Vector3.one;
+                return clothItem;
+            }
             return null;
         }
 
