@@ -20,28 +20,28 @@ namespace Capsule.Entity
     public enum CustomizingHead
     {
         DEFAULT = 0,
-        COMMON_1,
-        COMMON_2,
+        ROBO,
+        COMMON_2,   // Not Used
         COMMON_3,
         COMMON_4,
         COMMON_5,
-        COMMON_6,
+        COMMON_6,   // Not Used
         RARE_1,
         RARE_2,
-        RARE_3,
-        RARE_4,
+        RARE_3,     // Not Used
+        RARE_4,     // Not Used
         RARE_5,
         RARE_6,
         RARE_7,
         RARE_8,
-        EPIC_1,
+        EPIC_1,     // Not Used
         EPIC_2,
         EPIC_3,
         EPIC_4,
         EPIC_5,
         EPIC_6,
         EPIC_7,
-        EPIC_8,
+        SANTA,
         TEACHER,
         ARABIAN,
         LEGENDARY_1,
@@ -53,7 +53,7 @@ namespace Capsule.Entity
     {
         DEFAULT = 0,
         COMMON_1,
-        COMMON_2,
+        ROBO,
         COMMON_3,
         COMMON_4,
         COMMON_5,
@@ -67,6 +67,8 @@ namespace Capsule.Entity
         TEACHER,
         SHERIFF,
         OUTLAW,
+        MUSTACHE_1,
+        SANTA,
     }
 
     public enum CustomizingGlove
@@ -74,7 +76,8 @@ namespace Capsule.Entity
         DEFAULT = 0,
         EPIC_1,
         EPIC_2,
-        EPIC_3,
+        BOXING,
+        SANTA,
     }
 
     public enum CustomizingCloth
@@ -87,7 +90,7 @@ namespace Capsule.Entity
         LEGENDARY_1,
         SHERIFF,
         OUTLAW,
-
+        SANTA,
     }
 
     public enum CustomizingRarity
