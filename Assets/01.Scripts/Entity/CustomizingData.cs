@@ -78,6 +78,7 @@ namespace Capsule.Entity
         EPIC_2,
         BOXING,
         SANTA,
+        HOOK,
     }
 
     public enum CustomizingCloth
@@ -155,6 +156,7 @@ namespace Capsule.Entity
         public Vector3 rightHandPosition;
         public Vector3 rightHandRotation;
         public Vector3 rightHandScale;
+        public bool isOneHanded;
     }
 
     [System.Serializable]

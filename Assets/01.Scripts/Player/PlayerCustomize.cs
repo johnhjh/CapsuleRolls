@@ -97,18 +97,23 @@ namespace Capsule.Player
             {
                 EnableHandMeshes(false);
                 CustomizingGloveData gloveData = DataManager.Instance.GetGloveData(gloveNum);
-                GameObject leftGloveItem = GameObject.Instantiate<GameObject>(gloveData.gloveItem, leftHandTransform);
-                leftGloveItem.transform.localPosition = gloveData.leftHandPosition;
-                leftGloveItem.transform.localRotation = Quaternion.Euler(gloveData.leftHandRotation);
-                leftGloveItem.transform.localScale = gloveData.leftHandScale;
-
+                List<GameObject> list = new List<GameObject>();
                 GameObject rightGloveItem = GameObject.Instantiate<GameObject>(gloveData.gloveItem, rightHandTransform);
                 rightGloveItem.transform.localPosition = gloveData.rightHandPosition;
                 rightGloveItem.transform.localRotation = Quaternion.Euler(gloveData.rightHandRotation);
                 rightGloveItem.transform.localScale = gloveData.rightHandScale;
 
-                List<GameObject> list = new List<GameObject>();
-                list.Add(leftGloveItem);
+                if (!gloveData.isOneHanded)
+                {
+                    GameObject leftGloveItem = GameObject.Instantiate<GameObject>(gloveData.gloveItem, leftHandTransform);
+                    leftGloveItem.transform.localPosition = gloveData.leftHandPosition;
+                    leftGloveItem.transform.localRotation = Quaternion.Euler(gloveData.leftHandRotation);
+                    leftGloveItem.transform.localScale = gloveData.leftHandScale;
+                    list.Add(leftGloveItem);
+                }
+                else
+                    EnableLeftHandMeshes(true);
+
                 list.Add(rightGloveItem);
 
                 return list;
@@ -130,6 +135,16 @@ namespace Capsule.Player
                 return clothItem;
             }
             return null;
+        }
+
+        public void EnableLeftHandMeshes(bool isEnabled)
+        {
+            leftHandSkinnedMeshRenderer.enabled = isEnabled;
+        }
+
+        public void EnableRightHendMeshes(bool isEnabled)
+        {
+            rightHandSkinnedMeshRenderer.enabled = isEnabled;
         }
 
         public void EnableHandMeshes(bool isEnabled)

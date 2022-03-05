@@ -474,6 +474,7 @@ MonoBehaviour:
     rightHandPosition: {x: 0, y: 0, z: 0}
     rightHandRotation: {x: 0, y: 0, z: 0}
     rightHandScale: {x: 1, y: 1, z: 1}
+    isOneHanded: 0
   - type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: 3f4967998c506d04d9867785997c4bfd, type: 3}
@@ -486,6 +487,7 @@ MonoBehaviour:
     rightHandPosition: {x: 0.066, y: -0.015, z: -0.001}
     rightHandRotation: {x: 78.68701, y: -151.544, z: -145.609}
     rightHandScale: {x: 1, y: 1, z: 1}
+    isOneHanded: 0
   - type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: 2f1410279436dcb479d1d5395508d3eb, type: 3}
@@ -498,6 +500,7 @@ MonoBehaviour:
     rightHandPosition: {x: 0.127, y: -0.006, z: 0.029}
     rightHandRotation: {x: 83.678, y: -120.368, z: -114.757}
     rightHandScale: {x: 1, y: 1, z: 1}
+    isOneHanded: 0
   - type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: ab4726348a6fb084496e2ca94a53dc9b, type: 3}
@@ -510,6 +513,7 @@ MonoBehaviour:
     rightHandPosition: {x: -0.385, y: -0.01, z: 0.041}
     rightHandRotation: {x: 77.566, y: -147.052, z: -419.563}
     rightHandScale: {x: -1, y: 1, z: 1}
+    isOneHanded: 0
   - type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: 80235b7e8eb260d409359ef1789f55d4, type: 3}
@@ -522,6 +526,20 @@ MonoBehaviour:
     rightHandPosition: {x: 0.932, y: 0.103, z: 0.85}
     rightHandRotation: {x: 19.204, y: 350.202, z: -6.4}
     rightHandScale: {x: 1, y: 1, z: -1}
+    isOneHanded: 0
+  - type: 3
+    rarity: 4
+    preview: {fileID: 21300000, guid: 9ca4177745de9904eb8a8e902ca67fe4, type: 3}
+    gloveNum: 5
+    gloveItem: {fileID: 6266323874421162570, guid: a9d8cf9a40251e644ba9bdb58b48e969,
+      type: 3}
+    leftHandPosition: {x: 0, y: 0, z: 0}
+    leftHandRotation: {x: 0, y: 0, z: 0}
+    leftHandScale: {x: 1, y: 1, z: 1}
+    rightHandPosition: {x: 0, y: 0, z: 0}
+    rightHandRotation: {x: 0, y: 0, z: 0}
+    rightHandScale: {x: 1, y: 1, z: 1}
+    isOneHanded: 1
   customizingClothDatas:
   - type: 4
     rarity: 0
