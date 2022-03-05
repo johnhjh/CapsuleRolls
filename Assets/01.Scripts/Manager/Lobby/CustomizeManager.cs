@@ -451,8 +451,19 @@ namespace Capsule.Customize
             CustomizeSlotBody[] bodySlots = bodyContent.GetComponentsInChildren<CustomizeSlotBody>();
             CustomizeSlotBody bodySlot = null;
             int bodyNum = PlayerPrefs.GetInt("CustomizeBody", 0);
-            if (bodySlots != null && bodySlots.Length > bodyNum)
-                bodySlot = bodySlots[bodyNum];
+            if (bodySlots != null)
+            {
+                for (int i = 0; i < bodySlots.Length; i++)
+                {
+                    if (bodySlots[i].bodyColor == (CustomizingBody)bodyNum)
+                    {
+                        bodySlot = bodySlots[i];
+                        break;
+                    }
+                }
+                if (bodySlot == null)
+                    bodySlot = defaultBodySlot;
+            }
             else
                 bodySlot = defaultBodySlot;
 
@@ -469,8 +480,19 @@ namespace Capsule.Customize
             CustomizeSlotHead[] headSlots = headContent.GetComponentsInChildren<CustomizeSlotHead>();
             CustomizeSlotHead headSlot = null;
             int headNum = PlayerPrefs.GetInt("CustomizeHead", 0);
-            if (headSlots != null && headSlots.Length > headNum)
-                headSlot = headSlots[headNum];
+            if (headSlots != null)
+            {
+                for (int i = 0; i < headSlots.Length; i++)
+                {
+                    if (headSlots[i].headItem == (CustomizingHead)headNum)
+                    {
+                        headSlot = headSlots[i];
+                        break;
+                    }
+                }
+                if (headSlot == null)
+                    headSlot = defaultHeadSlot;
+            }
             else
                 headSlot = defaultHeadSlot;
 
@@ -496,8 +518,19 @@ namespace Capsule.Customize
             CustomizeSlotFace[] faceSlots = faceContent.GetComponentsInChildren<CustomizeSlotFace>();
             CustomizeSlotFace faceSlot = null;
             int faceNum = PlayerPrefs.GetInt("CustomizeFace", 0);
-            if (faceSlots != null && faceSlots.Length > faceNum)
-                faceSlot = faceSlots[faceNum];
+            if (faceSlots != null)
+            {
+                for (int i = 0; i <  faceSlots.Length; i++)
+                {
+                    if (faceSlots[i].faceItem == (CustomizingFace)faceNum)
+                    {
+                        faceSlot = faceSlots[i];
+                        break;
+                    }
+                }
+                if (faceSlot == null)
+                    faceSlot = defaultFaceSlot;
+            }
             else
                 faceSlot = defaultFaceSlot;
 
@@ -524,8 +557,20 @@ namespace Capsule.Customize
             CustomizeSlotGlove[] gloveSlots = gloveContent.GetComponentsInChildren<CustomizeSlotGlove>();
             CustomizeSlotGlove gloveSlot = null;
             int gloveNum = PlayerPrefs.GetInt("CustomizeGlove", 0);
-            if (gloveSlots != null && gloveSlots.Length > gloveNum)
-                gloveSlot = gloveSlots[gloveNum];
+
+            if (gloveSlots != null)
+            {
+                for (int i = 0; i < gloveSlots.Length; i++)
+                {
+                    if (gloveSlots[i].gloveNum == (CustomizingGlove)gloveNum)
+                    {
+                        gloveSlot = gloveSlots[i];
+                        break;
+                    }
+                }
+                if (gloveSlot == null)
+                    gloveSlot = defaultGloveSlot;
+            }
             else
                 gloveSlot = defaultGloveSlot;
 
@@ -557,8 +602,18 @@ namespace Capsule.Customize
             CustomizeSlotCloth[] clothSlots = clothContent.GetComponentsInChildren<CustomizeSlotCloth>();
             CustomizeSlotCloth clothSlot = null;
             int clothNum = PlayerPrefs.GetInt("CustomizeCloth", 0);
-            if (clothSlots != null && clothSlots.Length > clothNum)
-                clothSlot = clothSlots[clothNum];
+            if (clothSlots != null)
+            {
+                for (int i = 0; i < clothSlots.Length; i++)
+                {
+                    if (clothSlots[i].clothNum == (CustomizingCloth)clothNum)
+                    {
+                        clothSlot = clothSlots[i];
+                        break;
+                    }
+                }
+                if (clothSlot == null) clothSlot = defaultClothSlot;
+            }
             else
                 clothSlot = defaultClothSlot;
 

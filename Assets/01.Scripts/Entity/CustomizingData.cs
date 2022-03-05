@@ -45,6 +45,8 @@ namespace Capsule.Entity
         TEACHER,
         ARABIAN,
         LEGENDARY_1,
+        SHERIFF,
+        OUTLAW,
     }
 
     public enum CustomizingFace
@@ -63,6 +65,8 @@ namespace Capsule.Entity
         EPIC_2,
         EPIC_3,
         TEACHER,
+        SHERIFF,
+        OUTLAW,
     }
 
     public enum CustomizingGlove
@@ -77,10 +81,13 @@ namespace Capsule.Entity
     {
         DEFAULT = 0,
         COMMON_1,
-        RARE_1,
+        SKIRT,
         TEACHER,
         ARABIAN,
         LEGENDARY_1,
+        SHERIFF,
+        OUTLAW,
+
     }
 
     public enum CustomizingRarity
