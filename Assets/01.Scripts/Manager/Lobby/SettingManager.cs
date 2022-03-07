@@ -5,107 +5,110 @@ using UnityEngine.UI;
 using Capsule.Audio;
 using Capsule.SceneLoad;
 
-public class SettingManager : MonoBehaviour
+namespace Capsule.Lobby.Main
 {
-    private static SettingManager settingMgr;
-    public static SettingManager Instance
+    public class SettingManager : MonoBehaviour
     {
-        get
+        private static SettingManager settingMgr;
+        public static SettingManager Instance
+        {
+            get
+            {
+                if (settingMgr == null)
+                    settingMgr = GameObject.FindObjectOfType<SettingManager>();
+                return settingMgr;
+            }
+        }
+
+        private CanvasGroup settingCG;
+
+        private const string BGM_VOLUME = "BGM_VOLUME";
+        private const string SFX_VOLUME = "SFX_VOLUME";
+
+        [Header("Setting Icons")]
+        public Sprite bgmOnSprite;
+        public Sprite bgmOffSprite;
+        public Sprite sfxOnSprite;
+        public Sprite sfxOffSprite;
+
+        private Image bgmIcon;
+        private Image sfxIcon;
+        private Slider bgmSlider;
+        private Slider sfxSlider;
+
+        private void Awake()
         {
             if (settingMgr == null)
-                settingMgr = GameObject.FindObjectOfType<SettingManager>();
-            return settingMgr;
+                settingMgr = this;
+            else if (settingMgr != this)
+                Destroy(this.gameObject);
         }
-    }
 
-    private CanvasGroup settingCG;
+        private void Start()
+        {
+            settingCG = GameObject.Find("Popup_Setting").GetComponent<CanvasGroup>();
+            PopUpSetting(false);
 
-    private const string BGM_VOLUME = "BGM_VOLUME";
-    private const string SFX_VOLUME = "SFX_VOLUME";
+            bgmIcon = GameObject.Find("Icon_BGM").GetComponent<Image>();
+            sfxIcon = GameObject.Find("Icon_SFX").GetComponent<Image>();
 
-    [Header("Setting Icons")]
-    public Sprite bgmOnSprite;
-    public Sprite bgmOffSprite;
-    public Sprite sfxOnSprite;
-    public Sprite sfxOffSprite;
+            bgmSlider = GameObject.Find("Slider_BGM").GetComponent<Slider>();
+            sfxSlider = GameObject.Find("Slider_SFX").GetComponent<Slider>();
 
-    private Image bgmIcon;
-    private Image sfxIcon;
-    private Slider bgmSlider;
-    private Slider sfxSlider;
+            bgmSlider.value = PlayerPrefs.GetFloat(BGM_VOLUME, 1f);
+            sfxSlider.value = PlayerPrefs.GetFloat(SFX_VOLUME, 1f);
 
-    private void Awake()
-    {
-        if (settingMgr == null)
-            settingMgr = this;
-        else if (settingMgr != this)
-            Destroy(this.gameObject);
-    }
-    
-    private void Start()
-    {
-        settingCG = GameObject.Find("Popup_Setting").GetComponent<CanvasGroup>();
-        PopUpSetting(false);
+            bgmIcon.sprite = bgmSlider.value == 0f ? bgmOffSprite : bgmOnSprite;
+            sfxIcon.sprite = sfxSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
+        }
 
-        bgmIcon = GameObject.Find("Icon_BGM").GetComponent<Image>();
-        sfxIcon = GameObject.Find("Icon_SFX").GetComponent<Image>();
+        public void OnBGMVolumeChanged()
+        {
+            SFXManager.Instance.PlaySFX(SFXType.HOVER);
+            float volume = bgmSlider.value;
+            //Debug.Log("BGM : " + volume);
+            BGMManager.Instance.SetVolume(volume);
+            PlayerPrefs.SetFloat(BGM_VOLUME, volume);
+            if (volume == 0f)
+                bgmIcon.sprite = bgmOffSprite;
+            else if (bgmIcon.sprite == bgmOffSprite)
+                bgmIcon.sprite = bgmOnSprite;
+        }
 
-        bgmSlider = GameObject.Find("Slider_BGM").GetComponent<Slider>();
-        sfxSlider = GameObject.Find("Slider_SFX").GetComponent<Slider>();
+        public void OnSFXVolumeChanged()
+        {
+            SFXManager.Instance.PlaySFX(SFXType.HOVER);
+            float volume = sfxSlider.value;
+            //Debug.Log("SFX : " + volume);
+            SFXManager.Instance.SetVolume(volume);
+            PlayerPrefs.SetFloat(SFX_VOLUME, volume);
+            if (volume == 0f)
+                sfxIcon.sprite = sfxOffSprite;
+            else if (sfxIcon.sprite == sfxOffSprite)
+                sfxIcon.sprite = sfxOnSprite;
+        }
 
-        bgmSlider.value = PlayerPrefs.GetFloat(BGM_VOLUME, 1f);
-        sfxSlider.value = PlayerPrefs.GetFloat(SFX_VOLUME, 1f);
+        public void PopUpSetting(bool isPopUp)
+        {
+            settingCG.interactable = isPopUp;
+            settingCG.blocksRaycasts = isPopUp;
+            settingCG.alpha = isPopUp ? 1f : 0f;
+        }
 
-        bgmIcon.sprite = bgmSlider.value == 0f ? bgmOffSprite : bgmOnSprite;
-        sfxIcon.sprite = sfxSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
-    }
+        public void OnClickExitSetting()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            PopUpSetting(false);
+        }
 
-    public void OnBGMVolumeChanged()
-    {
-        SFXManager.Instance.PlaySFX(SFXType.HOVER);
-        float volume = bgmSlider.value;
-        //Debug.Log("BGM : " + volume);
-        BGMManager.Instance.SetVolume(volume);
-        PlayerPrefs.SetFloat(BGM_VOLUME, volume);
-        if (volume == 0f)
-            bgmIcon.sprite = bgmOffSprite;
-        else if (bgmIcon.sprite == bgmOffSprite)
-            bgmIcon.sprite = bgmOnSprite;
-    }
+        public void OnClickBackToTitle()
+        {
+            StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.TITLE, true));
+        }
 
-    public void OnSFXVolumeChanged()
-    {
-        SFXManager.Instance.PlaySFX(SFXType.HOVER);
-        float volume = sfxSlider.value;
-        //Debug.Log("SFX : " + volume);
-        SFXManager.Instance.SetVolume(volume);
-        PlayerPrefs.SetFloat(SFX_VOLUME, volume);
-        if (volume == 0f)
-            sfxIcon.sprite = sfxOffSprite;
-        else if (sfxIcon.sprite == sfxOffSprite)
-            sfxIcon.sprite = sfxOnSprite;
-    }
-
-    public void PopUpSetting(bool isPopUp)
-    {
-        settingCG.interactable = isPopUp;
-        settingCG.blocksRaycasts = isPopUp;
-        settingCG.alpha = isPopUp ? 1f : 0f;
-    }
-
-    public void OnClickExitSetting()
-    {
-        SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
-        PopUpSetting(false);
-    }
-
-    public void OnClickBackToTitle()
-    {
-        StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.TITLE, true));
-    }
-
-    public void OnClickExitGame()
-    {
-        Application.Quit();
+        public void OnClickExitGame()
+        {
+            Application.Quit();
+        }
     }
 }

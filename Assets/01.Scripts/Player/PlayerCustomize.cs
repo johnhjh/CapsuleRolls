@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Capsule.Entity;
 
-namespace Capsule.Player
+namespace Capsule.Player.Lobby
 {
     public class PlayerCustomize : MonoBehaviour
     {

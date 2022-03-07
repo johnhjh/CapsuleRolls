@@ -416,12 +416,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 2
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 0
 --- !u!225 &15754610
 CanvasGroup:
@@ -576,7 +575,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 29
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1217,12 +1216,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: 59fa3055d18572347a53116b13a8588e, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 17
 --- !u!225 &61964335
 CanvasGroup:
@@ -1325,12 +1323,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 2
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 0
 --- !u!225 &63272207
 CanvasGroup:
@@ -2036,12 +2033,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 1
     preview: {fileID: 21300000, guid: c409948d85c79b8428f147f36275608d, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 3
 --- !u!225 &83746222
 CanvasGroup:
@@ -2219,12 +2215,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 2
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 9
 --- !u!225 &90701500
 CanvasGroup:
@@ -2401,12 +2396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 2
 --- !u!225 &102670720
 CanvasGroup:
@@ -3113,12 +3107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 2
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 8
   bodyMaterial: {fileID: 2100000, guid: 85be2ba163d05ba48b5e2b5a4852901a, type: 2}
 --- !u!1 &166150513
@@ -3396,12 +3389,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 1
     preview: {fileID: 21300000, guid: c90ea48e7eb1ccb408ab60f4e948202c, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 1
 --- !u!225 &188337185
 CanvasGroup:
@@ -3504,12 +3496,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 6
 --- !u!225 &198404157
 CanvasGroup:
@@ -3612,12 +3603,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 2
     preview: {fileID: 21300000, guid: ac830b3f6a870ee408693071951bf7bd, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 14
 --- !u!225 &203173182
 CanvasGroup:
@@ -3720,12 +3710,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: ab4726348a6fb084496e2ca94a53dc9b, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 3
 --- !u!225 &207198702
 CanvasGroup:
@@ -3885,7 +3874,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 34
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4048,7 +4037,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 31
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4276,7 +4265,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 36
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4677,7 +4666,7 @@ RectTransform:
   m_Children:
   - {fileID: 1096375199}
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4997,12 +4986,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: 83e75b3de3e7e2e4486ed722e2a4725c, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 19
 --- !u!225 &264029230
 CanvasGroup:
@@ -5083,7 +5071,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 25
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5643,12 +5631,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 2
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 7
   bodyMaterial: {fileID: 2100000, guid: 90df4c29ec1da494ba15855e1b4ca4e0, type: 2}
 --- !u!1 &282875406
@@ -5681,7 +5668,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 27
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6027,7 +6014,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 30
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6144,6 +6131,80 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306594777}
+  m_CullTransparentMesh: 0
+--- !u!1 &307143524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 307143525}
+  - component: {fileID: 307143527}
+  - component: {fileID: 307143526}
+  m_Layer: 5
+  m_Name: Item
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &307143525
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307143524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1665160179}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 5.8}
+  m_SizeDelta: {x: 132, y: 129}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &307143526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307143524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0461a6ee320a78d4c9725fadc22012fb, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &307143527
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307143524}
   m_CullTransparentMesh: 0
 --- !u!1 &308967036
 GameObject:
@@ -6271,12 +6332,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: 99a5053f8368cd947be8909ac95c1d4e, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 23
 --- !u!225 &345424788
 CanvasGroup:
@@ -6582,12 +6642,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 2
   bodyMaterial: {fileID: 2100000, guid: 0a72152ac61295d439480ce8c5887b86, type: 2}
 --- !u!1 &369169811
@@ -6766,8 +6825,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e9cbcfe64627f459d5728a573b4444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customizeType: 3
+  tabTransform: {fileID: 0}
   sizingDurationTime: 0.2
+  customizeType: 3
 --- !u!1 &369324691
 GameObject:
   m_ObjectHideFlags: 0
@@ -6854,7 +6914,7 @@ GameObject:
   - component: {fileID: 375446719}
   - component: {fileID: 375446718}
   m_Layer: 5
-  m_Name: Text_Save
+  m_Name: Text_Reset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7120,12 +7180,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 2
     preview: {fileID: 21300000, guid: 49862c48a9f374f4db6d7610347ecc63, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 6
 --- !u!225 &388974060
 CanvasGroup:
@@ -7377,12 +7436,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 2
     preview: {fileID: 21300000, guid: 40301a0749589a54895e1bc21f1c9aba, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 9
 --- !u!225 &405954636
 CanvasGroup:
@@ -7463,7 +7521,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 19
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7708,12 +7766,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 1
     preview: {fileID: 21300000, guid: 58a106079f369f249adbdcb0e77d53f6, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 4
 --- !u!225 &421070160
 CanvasGroup:
@@ -8049,12 +8106,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 2
     preview: {fileID: 21300000, guid: 66104d3264e51174aafa992b0c337464, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 16
 --- !u!225 &427615901
 CanvasGroup:
@@ -8231,12 +8287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 2
     preview: {fileID: 21300000, guid: 9b901edd9b0dacd45a8c08c116013eba, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 8
 --- !u!225 &431743920
 CanvasGroup:
@@ -8462,12 +8517,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 3
   bodyMaterial: {fileID: 2100000, guid: d1d7c077428028b4ea88aec5ece2006b, type: 2}
 --- !u!1 &437603643
@@ -8664,7 +8718,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 24
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8760,12 +8814,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 0
 --- !u!225 &448005478
 CanvasGroup:
@@ -9374,7 +9427,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10141,12 +10194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 3
     preview: {fileID: 21300000, guid: 743db2588696510499c6327e802755ae, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 15
 --- !u!225 &513537743
 CanvasGroup:
@@ -10580,12 +10632,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 2
     preview: {fileID: 21300000, guid: 3bc13fcf8660e8b46be1085247bd7e09, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 2
 --- !u!225 &547908463
 CanvasGroup:
@@ -10688,12 +10739,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 2
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 10
 --- !u!225 &557401899
 CanvasGroup:
@@ -10959,12 +11009,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 15
 --- !u!225 &565670317
 CanvasGroup:
@@ -11309,12 +11358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 0
 --- !u!225 &578026839
 CanvasGroup:
@@ -11838,12 +11886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 1
     preview: {fileID: 21300000, guid: 1964c9016da31e44aaed9e9f3ffb2092, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 5
 --- !u!225 &589312915
 CanvasGroup:
@@ -12025,12 +12072,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 1
     preview: {fileID: 21300000, guid: c1ef858759f3cc1469b30ca64be42faa, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 1
 --- !u!225 &591611175
 CanvasGroup:
@@ -12133,12 +12179,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 3
     preview: {fileID: 21300000, guid: 2acc934ec85df8e4b8d29e883eb038b8, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 12
 --- !u!225 &595280858
 CanvasGroup:
@@ -13110,7 +13155,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13579,7 +13624,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 18
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13727,7 +13772,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -14168,12 +14213,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 0
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 0
   bodyMaterial: {fileID: 2100000, guid: 4dd1140780e2f6d4790a1a8116000f4e, type: 2}
 --- !u!1 &712335345
@@ -14228,12 +14272,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: 3f4967998c506d04d9867785997c4bfd, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 1
 --- !u!225 &712335348
 CanvasGroup:
@@ -15533,12 +15576,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 1
     preview: {fileID: 21300000, guid: c1c862b9f9368244dbe8d873e2707619, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 5
 --- !u!225 &750527277
 CanvasGroup:
@@ -16028,12 +16070,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 3
     preview: {fileID: 21300000, guid: 9844f04229b7faa498bf9a1b938e25fc, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 14
 --- !u!225 &762050378
 CanvasGroup:
@@ -16513,12 +16554,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 2
     preview: {fileID: 21300000, guid: 14ae8b750992f724a92247d39ad8f154, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 8
 --- !u!225 &794034913
 CanvasGroup:
@@ -16722,12 +16762,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 3
     preview: {fileID: 21300000, guid: 1b47568780fe48f43a1668ff54d0f10a, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 8
 --- !u!225 &797288660
 CanvasGroup:
@@ -17816,7 +17855,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 26
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -18229,12 +18268,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 2
     preview: {fileID: 21300000, guid: 1e9311e9c5dbf114db1899eb397b619d, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 7
 --- !u!225 &911781472
 CanvasGroup:
@@ -18315,7 +18353,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -19246,12 +19284,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 0
 --- !u!225 &978567196
 CanvasGroup:
@@ -19742,6 +19779,8 @@ RectTransform:
   - {fileID: 280587838}
   - {fileID: 152064808}
   - {fileID: 1807731782}
+  - {fileID: 1099496018}
+  - {fileID: 1237127869}
   - {fileID: 258241246}
   - {fileID: 1003751152}
   - {fileID: 690312077}
@@ -19844,7 +19883,7 @@ RectTransform:
   m_Children:
   - {fileID: 767971970}
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -20055,12 +20094,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 2
     preview: {fileID: 21300000, guid: b32e4a12855699e48bb11fd67fc90882, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 7
 --- !u!225 &1011604269
 CanvasGroup:
@@ -20363,7 +20401,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 28
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -20437,7 +20475,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 21
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -20533,12 +20571,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 0
     preview: {fileID: 21300000, guid: e932a5c262171be4fbcee8f5651f7e78, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 0
 --- !u!225 &1043093433
 CanvasGroup:
@@ -20878,12 +20915,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 3
     preview: {fileID: 21300000, guid: 6c3b31606d07e0b40a956b4479fe1878, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 17
 --- !u!225 &1064850720
 CanvasGroup:
@@ -21302,12 +21338,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 3
     preview: {fileID: 21300000, guid: 71178c3c6958593439cc0cd3fec1180e, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 11
 --- !u!225 &1080689973
 CanvasGroup:
@@ -21573,12 +21608,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: 2f1410279436dcb479d1d5395508d3eb, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 2
 --- !u!225 &1085886393
 CanvasGroup:
@@ -21936,6 +21970,114 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099431248}
+  m_CullTransparentMesh: 0
+--- !u!1 &1099496017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1099496018}
+  - component: {fileID: 1099496022}
+  - component: {fileID: 1099496021}
+  - component: {fileID: 1099496020}
+  - component: {fileID: 1099496019}
+  m_Layer: 5
+  m_Name: Slot_Snow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1099496018
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099496017}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1984854976}
+  m_Father: {fileID: 1001053897}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1099496019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099496017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
+  data:
+    type: 0
+    rarity: 3
+    preview: {fileID: 21300000, guid: 7e7a8f437e597594db31303356419a12, type: 3}
+  bodyColor: 10
+  bodyMaterial: {fileID: 2100000, guid: 009a8d7f7c320f340babe1d43054cff5, type: 2}
+--- !u!225 &1099496020
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099496017}
+  m_Enabled: 1
+  m_Alpha: 0.6
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1099496021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099496017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: e4b0b484b539f4d8782591b456e7266d, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1099496022
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099496017}
   m_CullTransparentMesh: 0
 --- !u!1 &1100274020
 GameObject:
@@ -22409,12 +22551,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 4
     preview: {fileID: 21300000, guid: 3cf221126ecb9f74c8f5d17a3f1aee32, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 5
 --- !u!225 &1125322789
 CanvasGroup:
@@ -22813,12 +22954,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 3
     preview: {fileID: 21300000, guid: b1ce96ee601388b4da76ebc3999aeeec, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 3
 --- !u!225 &1164308376
 CanvasGroup:
@@ -23697,12 +23837,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 0
 --- !u!225 &1200913645
 CanvasGroup:
@@ -23880,12 +24019,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: 56f78b81bd7292a41abd33922940fe80, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 20
 --- !u!225 &1206452193
 CanvasGroup:
@@ -24531,6 +24669,114 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235008682}
   m_CullTransparentMesh: 0
+--- !u!1 &1237127868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1237127869}
+  - component: {fileID: 1237127873}
+  - component: {fileID: 1237127872}
+  - component: {fileID: 1237127871}
+  - component: {fileID: 1237127870}
+  m_Layer: 5
+  m_Name: Slot_Star
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1237127869
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237127868}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1665160179}
+  m_Father: {fileID: 1001053897}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1237127870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237127868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
+  data:
+    type: 0
+    rarity: 3
+    preview: {fileID: 21300000, guid: 0461a6ee320a78d4c9725fadc22012fb, type: 3}
+  bodyColor: 11
+  bodyMaterial: {fileID: 2100000, guid: e3be6bc1f26cd064a88c33f12d3a324a, type: 2}
+--- !u!225 &1237127871
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237127868}
+  m_Enabled: 1
+  m_Alpha: 0.6
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1237127872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237127868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: e4b0b484b539f4d8782591b456e7266d, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1237127873
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237127868}
+  m_CullTransparentMesh: 0
 --- !u!1 &1238683923
 GameObject:
   m_ObjectHideFlags: 0
@@ -24663,8 +24909,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e9cbcfe64627f459d5728a573b4444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customizeType: 4
+  tabTransform: {fileID: 0}
   sizingDurationTime: 0.2
+  customizeType: 4
 --- !u!114 &1243820412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25806,8 +26053,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e9cbcfe64627f459d5728a573b4444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customizeType: 0
+  tabTransform: {fileID: 0}
   sizingDurationTime: 0.2
+  customizeType: 0
 --- !u!1 &1309711936
 GameObject:
   m_ObjectHideFlags: 0
@@ -26079,12 +26327,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: 7a93e2c38edc9a14a8ca05a1e6adb737, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 16
 --- !u!225 &1316527394
 CanvasGroup:
@@ -26794,8 +27041,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e9cbcfe64627f459d5728a573b4444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customizeType: 2
+  tabTransform: {fileID: 0}
   sizingDurationTime: 0.2
+  customizeType: 2
 --- !u!1 &1339855978
 GameObject:
   m_ObjectHideFlags: 0
@@ -26826,7 +27074,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -27211,12 +27459,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 0
 --- !u!225 &1345404670
 CanvasGroup:
@@ -27394,12 +27641,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: d6e97fa51950c2e4eb4deecd3fdcee7a, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 27
 --- !u!225 &1356402205
 CanvasGroup:
@@ -28784,12 +29030,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 0
     preview: {fileID: 21300000, guid: 89eed49e693e4ac478e3d94c0f30af1f, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 0
 --- !u!225 &1432006678
 CanvasGroup:
@@ -28945,7 +29190,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -29041,12 +29286,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: 80235b7e8eb260d409359ef1789f55d4, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 4
 --- !u!225 &1440951426
 CanvasGroup:
@@ -29280,7 +29524,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 23
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -29831,12 +30075,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: 563d6ef5b00739547abe9e5f9a84af1e, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 24
 --- !u!225 &1480436282
 CanvasGroup:
@@ -30454,12 +30697,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 1
     preview: {fileID: 21300000, guid: b9e7c7f2f19423941a944cc6825d46d8, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 3
 --- !u!225 &1520848973
 CanvasGroup:
@@ -30540,7 +30782,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 32
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -30636,12 +30878,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 3
     preview: {fileID: 21300000, guid: b2cfe7b0fc298da4ba017ee379f30b39, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 6
 --- !u!225 &1521578473
 CanvasGroup:
@@ -31048,7 +31289,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 33
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -31144,12 +31385,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 3
     preview: {fileID: 21300000, guid: 6f0c6d99b903b394abc9977c23f06778, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 7
 --- !u!225 &1542578516
 CanvasGroup:
@@ -32004,12 +32244,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a69ce4fc6f927044b61a011e97e11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 3
     rarity: 3
     preview: {fileID: 21300000, guid: 9ca4177745de9904eb8a8e902ca67fe4, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   gloveNum: 5
 --- !u!225 &1601609436
 CanvasGroup:
@@ -32409,12 +32648,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9996eb4ebf3992246a79833d68735513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 4
     rarity: 3
     preview: {fileID: 21300000, guid: a98218e1a73b2f74387df0c6f69bf758, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   clothNum: 4
 --- !u!225 &1614667107
 CanvasGroup:
@@ -32843,7 +33081,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 20
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -33131,6 +33369,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!1 &1665160178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1665160179}
+  - component: {fileID: 1665160181}
+  - component: {fileID: 1665160180}
+  m_Layer: 5
+  m_Name: Slot_Item
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1665160179
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665160178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 307143525}
+  m_Father: {fileID: 1237127869}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 177, y: 188}
+  m_Pivot: {x: 0.5, y: 0.51}
+--- !u!114 &1665160180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665160178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 10d23572713d041c596abf5c00be11dc, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1665160181
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665160178}
+  m_CullTransparentMesh: 0
 --- !u!1 &1667048199
 GameObject:
   m_ObjectHideFlags: 0
@@ -33420,12 +33733,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: 70c96c666041ac947bd2a2872cd6e112, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 18
 --- !u!225 &1676036832
 CanvasGroup:
@@ -33765,12 +34077,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: d26442d9d94374d4099636aa94d17aa6, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 21
 --- !u!225 &1690262779
 CanvasGroup:
@@ -34238,14 +34549,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 1
   bodyMaterial: {fileID: 2100000, guid: efacceb0f2ca24e4fa05975b977c61a5, type: 2}
+--- !u!1 &1711134058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1711134059}
+  - component: {fileID: 1711134061}
+  - component: {fileID: 1711134060}
+  m_Layer: 5
+  m_Name: Item
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1711134059
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711134058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1984854976}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 5.8}
+  m_SizeDelta: {x: 132, y: 129}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1711134060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711134058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7e7a8f437e597594db31303356419a12, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1711134061
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711134058}
+  m_CullTransparentMesh: 0
 --- !u!1 &1714539522
 GameObject:
   m_ObjectHideFlags: 0
@@ -34373,12 +34757,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 2
     preview: {fileID: 21300000, guid: e98d4d4d84b978e489b3a0a0df7384f7, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 13
 --- !u!225 &1715479835
 CanvasGroup:
@@ -34803,12 +35186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 6
   bodyMaterial: {fileID: 2100000, guid: ab69d9bdb4b26964db533c0515c00016, type: 2}
 --- !u!225 &1729273771
@@ -35136,12 +35518,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 3
     preview: {fileID: 21300000, guid: a500eae983b401344b1113bed7be28e9, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 13
 --- !u!225 &1769008824
 CanvasGroup:
@@ -35244,12 +35625,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 0
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 0
 --- !u!225 &1772809072
 CanvasGroup:
@@ -35852,12 +36232,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 5
   bodyMaterial: {fileID: 2100000, guid: 8df69c3d352670b439deca3a5ee27a4d, type: 2}
 --- !u!1 &1807731781
@@ -35879,7 +36258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1807731782
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35895,10 +36274,10 @@ RectTransform:
   m_Father: {fileID: 1001053897}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 740.00006, y: -330}
+  m_SizeDelta: {x: 170, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1807731783
 MonoBehaviour:
@@ -35961,12 +36340,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 3
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 9
   bodyMaterial: {fileID: 2100000, guid: 285b17c2805450845854c00001e2b185, type: 2}
 --- !u!1 &1809046410
@@ -37306,8 +37684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e9cbcfe64627f459d5728a573b4444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customizeType: 1
+  tabTransform: {fileID: 0}
   sizingDurationTime: 0.2
+  customizeType: 1
 --- !u!1 &1882529415
 GameObject:
   m_ObjectHideFlags: 0
@@ -37360,12 +37739,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 1
     preview: {fileID: 21300000, guid: bf9c794288437bd4c9bafe7bfc2b88d8, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 1
 --- !u!225 &1882529418
 CanvasGroup:
@@ -37840,12 +38218,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: 35ad13ed19102424ca1202912ffceb98, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 26
 --- !u!225 &1897511155
 CanvasGroup:
@@ -37926,7 +38303,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 22
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -38244,12 +38621,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 4
     preview: {fileID: 21300000, guid: e260047182a7ac34fa74d09d19459526, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 25
 --- !u!225 &1925954100
 CanvasGroup:
@@ -38801,12 +39177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 2
     preview: {fileID: 21300000, guid: 0550987c531660e49bcd8dedd4a8269f, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 11
 --- !u!225 &1956758296
 CanvasGroup:
@@ -39240,6 +39615,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980173493}
+  m_CullTransparentMesh: 0
+--- !u!1 &1984854975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1984854976}
+  - component: {fileID: 1984854978}
+  - component: {fileID: 1984854977}
+  m_Layer: 5
+  m_Name: Slot_Item
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1984854976
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984854975}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1711134059}
+  m_Father: {fileID: 1099496018}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 177, y: 188}
+  m_Pivot: {x: 0.5, y: 0.51}
+--- !u!114 &1984854977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984854975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 10d23572713d041c596abf5c00be11dc, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1984854978
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984854975}
   m_CullTransparentMesh: 0
 --- !u!1 &1985227051
 GameObject:
@@ -40063,12 +40513,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 1
     preview: {fileID: 21300000, guid: 4a043fdbf2cc24d44a2c21380c70dad2, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 2
 --- !u!225 &2021169184
 CanvasGroup:
@@ -40474,12 +40923,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 0
     preview: {fileID: 21300000, guid: 69aad8dd375e0994e954c03298457980, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 0
 --- !u!225 &2040176749
 CanvasGroup:
@@ -40969,12 +41417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 1
     preview: {fileID: 21300000, guid: 667a66c7e71390e4e92e82818cb3cf61, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 4
 --- !u!225 &2050587278
 CanvasGroup:
@@ -41208,7 +41655,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1001053897}
-  m_RootOrder: 35
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -41843,12 +42290,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e39cc2c639fb7e44b3ea55555028d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 2
     rarity: 3
     preview: {fileID: 21300000, guid: ac02d52c11730e8448e74e3006648c15, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   faceItem: 10
 --- !u!225 &2095264827
 CanvasGroup:
@@ -42226,12 +42672,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 3
     preview: {fileID: 21300000, guid: ec27a4a4950cd044f9e3ca8ce1696321, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 22
 --- !u!225 &2113363517
 CanvasGroup:
@@ -42334,12 +42779,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21df68a9a1ef294d8af8dac7dd3e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 1
     rarity: 2
     preview: {fileID: 21300000, guid: f1199ed277bfe9a4093a008e9ede4af1, type: 3}
-  isSelected: 0
-  hoverDurationTime: 0.6
   headItem: 12
 --- !u!225 &2123461461
 CanvasGroup:
@@ -42645,12 +43089,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e88838a577efd744afbbd5b17c3a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverDurationTime: 0.6
   data:
     type: 0
     rarity: 1
     preview: {fileID: 0}
-  isSelected: 0
-  hoverDurationTime: 0.6
   bodyColor: 4
   bodyMaterial: {fileID: 2100000, guid: 50d12006ef4f8fb438029b458c1d6035, type: 2}
 --- !u!1 &2145581369

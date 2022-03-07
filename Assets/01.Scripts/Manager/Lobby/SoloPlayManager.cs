@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Capsule.SceneLoad;
 using Capsule.Audio;
-using Capsule.Player;
+using Capsule.Player.Lobby;
 
 public class SoloPlayManager : MonoBehaviour
 {

@@ -94,6 +94,16 @@ MonoBehaviour:
     preview: {fileID: 21300000, guid: cb868c7cf3720114cbdc4afde0147c7d, type: 3}
     bodyNum: 9
     bodyMaterial: {fileID: 2100000, guid: 285b17c2805450845854c00001e2b185, type: 2}
+  - type: 0
+    rarity: 3
+    preview: {fileID: 21300000, guid: 7e7a8f437e597594db31303356419a12, type: 3}
+    bodyNum: 10
+    bodyMaterial: {fileID: 2100000, guid: 009a8d7f7c320f340babe1d43054cff5, type: 2}
+  - type: 0
+    rarity: 3
+    preview: {fileID: 21300000, guid: 0461a6ee320a78d4c9725fadc22012fb, type: 3}
+    bodyNum: 11
+    bodyMaterial: {fileID: 2100000, guid: e3be6bc1f26cd064a88c33f12d3a324a, type: 2}
   customizingHeadDatas:
   - type: 1
     rarity: 0

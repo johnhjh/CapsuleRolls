@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using Capsule.SceneLoad;
 using Capsule.Audio;
 using Capsule.Entity;
-using Capsule.Player;
+using Capsule.Player.Lobby;
 
-namespace Capsule.Customize
+namespace Capsule.Lobby.Customize
 {
     public class CustomizeManager : MonoBehaviour
     {

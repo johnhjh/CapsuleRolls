@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Capsule.Player;
 
 namespace Capsule.Entity
 {
@@ -92,4 +91,3 @@ namespace Capsule.Entity
         }
     }
 }
-

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Capsule.Player
+namespace Capsule.Player.Lobby
 {
     public class PlayerTransform : MonoBehaviour
     {

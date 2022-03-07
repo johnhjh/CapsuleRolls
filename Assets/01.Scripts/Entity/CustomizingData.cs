@@ -14,7 +14,9 @@ namespace Capsule.Entity
         BLACK,
         GOLDEN,
         SILVER,
-        TRANSPARENT,
+        TRANSPARENT,    // Not Used
+        SNOW,
+        STAR,
     }
 
     public enum CustomizingHead
@@ -61,8 +63,8 @@ namespace Capsule.Entity
         RARE_2,
         RARE_3,
         RARE_4,
-        EPIC_1,
-        EPIC_2,
+        EPIC_1, // Not Used
+        EPIC_2, // Not Used
         EPIC_3,
         TEACHER,
         SHERIFF,
