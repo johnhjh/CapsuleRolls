@@ -1,21 +1,16 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Capsule.Entity;
 
-namespace Assets._01.Scripts.Lobby.Shopping
+namespace Capsule.Lobby.Shopping
 {
-    public class ShoppingSlotPreset : MonoBehaviour
+    public class ShoppingSlotPreset : ShoppingSlot
     {
-
-        // Use this for initialization
-        void Start()
+        public CustomizingPreset prestNum;
+        public override void SelectSlot()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            this.IsSelected = true;
+            ShoppingManager.Instance.CurrentPreset = this;
         }
     }
 }

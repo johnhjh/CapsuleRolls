@@ -42,12 +42,210 @@ namespace Capsule.Lobby.Shopping
         private GameObject gloveContent;
         private GameObject clothContent;
 
-        private GameObject savedHeadObj = null;
-        private GameObject savedFaceObj = null;
-        private GameObject savedLeftGloveObj = null;
-        private GameObject savedRightGloveObj = null;
-        private GameObject savedClothObj = null;
+        private ShoppingSlotPreset currentPresetSlot = null;
+        public ShoppingSlotPreset CurrentPreset
+        {
+            set 
+            {
+                if (currentPresetSlot != null)
+                {
+                    currentPresetSlot.IsSelected = false;
+                }
+                CurrentHead = null;
+                CurrentFace = null;
+                CurrentCloth = null;
+                CurrentGlove = null;
+                currentPresetSlot = value;
+            }
+        }
 
+        private Material savedBodyMaterial = null;
+        private ShoppingSlotBody currentBodySlot = null;
+        public ShoppingSlotBody CurrentBody
+        {
+            set
+            {
+                if (currentBodySlot != null)
+                    currentBodySlot.IsSelected = false;
+                currentBodySlot = value;
+                if (value == null)
+                    PlayerCustomize.Instance.ChangeBody(CustomizingBody.DEFAULT);
+                else
+                    PlayerCustomize.Instance.ChangeBody(value.bodyMaterial);
+            }
+        }
+
+        private GameObject savedHeadObj = null;
+        private GameObject currentHeadObj = null;
+        private ShoppingSlotHead currentHeadSlot = null;
+        public ShoppingSlotHead CurrentHead
+        {
+            set
+            {
+                if (currentPresetSlot != null)
+                {
+                    currentPresetSlot.IsSelected = false;
+                    currentPresetSlot = null;
+                }
+                if (currentHeadObj != null)
+                    currentHeadObj.SetActive(false);
+                if (currentHeadSlot != null)
+                    currentHeadSlot.IsSelected = false;
+                currentHeadSlot = value;
+                if (value != null)
+                {
+                    if (headDictionary.ContainsKey(value.headItem))
+                    {
+                        currentHeadObj = headDictionary[value.headItem];
+                        currentHeadObj.SetActive(true);
+                    }
+                    else
+                    {
+                        currentHeadObj = PlayerCustomize.Instance.ChangeHead(value.headItem);
+                        if (currentHeadObj != null)
+                            headDictionary.Add(value.headItem, currentHeadObj);
+                    }
+                }
+            }
+        }
+
+        private GameObject savedFaceObj = null;
+        private GameObject currentFaceObj = null;
+        private ShoppingSlotFace currentFaceSlot = null;
+        public ShoppingSlotFace CurrentFace
+        {
+            set
+            {
+                if (currentPresetSlot != null)
+                {
+                    currentPresetSlot.IsSelected = false;
+                    currentPresetSlot = null;
+                }
+                if (currentFaceObj != null)
+                    currentFaceObj.SetActive(false);
+                if (currentFaceSlot != null)
+                    currentFaceSlot.IsSelected = false;
+                currentFaceSlot = value;
+                if (value != null)
+                {
+                    if (faceDictionary.ContainsKey(value.faceItem))
+                    {
+                        currentFaceObj = faceDictionary[value.faceItem];
+                        faceDictionary[value.faceItem].SetActive(true);
+                    }
+                    else
+                    {
+                        currentFaceObj = PlayerCustomize.Instance.ChangeFace(value.faceItem);
+                        if (currentFaceObj != null)
+                            faceDictionary.Add(value.faceItem, currentFaceObj);
+                    }
+                }
+            }
+        }
+
+        private GameObject savedClothObj = null;
+        private GameObject currentClothObj = null;
+        private ShoppingSlotCloth currentClothSlot = null;
+        public ShoppingSlotCloth CurrentCloth
+        {
+            set
+            {
+                if (currentPresetSlot != null)
+                {
+                    currentPresetSlot.IsSelected = false;
+                    currentPresetSlot = null;
+                }
+                if (currentClothObj != null)
+                    currentClothObj.SetActive(false);
+                if (currentClothSlot != null)
+                    currentClothSlot.IsSelected = false;
+                currentClothSlot = value;
+                if (value != null)
+                {
+                    if (clothDictionary.ContainsKey(value.clothNum))
+                    {
+                        currentClothObj = clothDictionary[value.clothNum];
+                        clothDictionary[value.clothNum].SetActive(true);
+                    }
+                    else
+                    {
+                        currentClothObj = PlayerCustomize.Instance.ChangeCloth(value.clothNum);
+                        if (currentClothObj != null)
+                            clothDictionary.Add(value.clothNum, currentClothObj);
+                    }
+                }
+            }
+        }
+
+        private GameObject savedLeftGloveObj = null;
+        private GameObject currentLeftGloveObj = null;
+        private GameObject savedRightGloveObj = null;
+        private GameObject currentRightGloveObj = null;
+        private ShoppingSlotGlove currentGloveSlot = null;
+        public ShoppingSlotGlove CurrentGlove
+        {
+            set
+            {
+                if (currentPresetSlot != null)
+                {
+                    currentPresetSlot.IsSelected = false;
+                    currentPresetSlot = null;
+                }
+                if (currentLeftGloveObj != null)
+                    currentLeftGloveObj.SetActive(false);
+                if (currentRightGloveObj != null)
+                    currentRightGloveObj.SetActive(false);
+                if (currentGloveSlot != null)
+                    currentGloveSlot.IsSelected = false;
+                currentGloveSlot = value;
+                if (value != null)
+                {
+                    if (leftGloveDictionary.ContainsKey(value.gloveNum))
+                    {
+                        PlayerCustomize.Instance.EnableHandMeshes(false);
+                        currentLeftGloveObj = leftGloveDictionary[value.gloveNum];
+                        leftGloveDictionary[value.gloveNum].SetActive(true);
+                        currentRightGloveObj = rightGloveDictionary[value.gloveNum];
+                        rightGloveDictionary[value.gloveNum].SetActive(true);
+                    }
+                    else if (rightGloveDictionary.ContainsKey(value.gloveNum))
+                    {
+                        currentLeftGloveObj = null;
+                        PlayerCustomize.Instance.EnableLeftHandMeshes(true);
+                        PlayerCustomize.Instance.EnableRightHendMeshes(false);
+                        currentRightGloveObj = rightGloveDictionary[value.gloveNum];
+                        rightGloveDictionary[value.gloveNum].SetActive(true);
+                    }
+                    else
+                    {
+                        List<GameObject> gloves = PlayerCustomize.Instance.ChangeGloves(value.gloveNum);
+                        if (gloves != null)
+                        {
+                            if (gloves.Count == 1)
+                            {
+                                currentLeftGloveObj = null;
+                                currentRightGloveObj = gloves[0];
+                            }
+                            else
+                            {
+                                currentLeftGloveObj = gloves[0];
+                                currentRightGloveObj = gloves[1];
+                                leftGloveDictionary.Add(value.gloveNum, currentLeftGloveObj);
+                            }
+                            rightGloveDictionary.Add(value.gloveNum, currentRightGloveObj);
+                        }
+                        else
+                        {
+                            currentLeftGloveObj = null;
+                            currentRightGloveObj = null;
+                            //PlayerCustomize.Instance.EnableHandMeshes(true);
+                        }
+                    }
+                }
+                else
+                    PlayerCustomize.Instance.EnableHandMeshes(true);
+            }
+        }
 
         private const int NORMAL_TAB_FONT_SIZE = 63;
         private const int FOCUSED_TAB_FONT_SIZE = 70;
@@ -62,6 +260,8 @@ namespace Capsule.Lobby.Shopping
             else if (shopMgr != this)
                 Destroy(this.gameObject);
         }
+
+        public GameObject purchasedCover;
 
         private void Start()
         {
@@ -94,6 +294,89 @@ namespace Capsule.Lobby.Shopping
             currentContent = presetContent;
             currentCustomize = CustomizingType.PRESET;
             scrollRect.content = presetContent.GetComponent<RectTransform>();
+
+            SaveBodyMaterial();
+            SaveHeadObj();
+            SaveFaceObj();
+            SaveClothObj();
+            SaveGloveObj();
+        }
+
+        private void SaveBodyMaterial()
+        {
+            CustomizingBody bodyNum = (CustomizingBody)PlayerPrefs.GetInt("CustomizeBody", 0);
+            savedBodyMaterial = DataManager.Instance.GetBodyData(bodyNum).bodyMaterial;
+        }
+
+        private void SaveHeadObj()
+        {
+            CustomizingHead headNum = (CustomizingHead)PlayerPrefs.GetInt("CustomizeHead", 0);
+
+            if (PlayerCustomize.Instance.headTransform.childCount >= 1)
+            {
+                savedHeadObj = PlayerCustomize.Instance.headTransform.GetChild(0).gameObject;
+                headDictionary.Add(headNum, savedHeadObj);
+            }
+            else
+                savedHeadObj = null;
+
+            currentHeadObj = savedHeadObj;
+        }
+
+        private void SaveFaceObj()
+        {
+            CustomizingFace faceNum = (CustomizingFace)PlayerPrefs.GetInt("CustomizeFace", 0);
+
+            if (PlayerCustomize.Instance.faceTransform.childCount >= 1)
+            {
+                savedFaceObj = PlayerCustomize.Instance.faceTransform.GetChild(0).gameObject;
+                faceDictionary.Add(faceNum, savedFaceObj);
+            }
+            else
+                savedFaceObj = null;
+
+            currentFaceObj = savedFaceObj;
+        }
+
+        private void SaveClothObj()
+        {
+            CustomizingCloth clothNum = (CustomizingCloth)PlayerPrefs.GetInt("CustomizeCloth", 0);
+
+            if (PlayerCustomize.Instance.clothTransform.childCount >= 1)
+            {
+                savedClothObj = PlayerCustomize.Instance.clothTransform.GetChild(0).gameObject;
+                clothDictionary.Add(clothNum, savedClothObj);
+            }
+            else
+                savedClothObj = null;
+
+            currentClothObj = savedClothObj;
+        }
+
+        private void SaveGloveObj()
+        {
+            CustomizingGlove gloveNum = (CustomizingGlove)PlayerPrefs.GetInt("CustomizeGlove", 0);
+
+            if (PlayerCustomize.Instance.rightHandTransform.childCount >= 1)
+            {
+                savedRightGloveObj = PlayerCustomize.Instance.rightHandTransform.GetChild(0).gameObject;
+                rightGloveDictionary.Add(gloveNum, savedRightGloveObj);
+                if (PlayerCustomize.Instance.leftHandTransform.childCount >= 1)
+                {
+                    savedLeftGloveObj = PlayerCustomize.Instance.leftHandTransform.GetChild(0).gameObject;
+                    leftGloveDictionary.Add(gloveNum, savedLeftGloveObj);
+                }
+                else
+                    savedLeftGloveObj = null;
+            }
+            else
+            {
+                savedLeftGloveObj = null;
+                savedRightGloveObj = null;
+            }
+
+            currentLeftGloveObj = savedLeftGloveObj;
+            currentRightGloveObj = savedRightGloveObj;
         }
 
         public void ChangeFocusTab(RectTransform parent, CustomizingType cType)
@@ -145,19 +428,50 @@ namespace Capsule.Lobby.Shopping
         public void OnClickResetBtn()
         {
             SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
-
+            CurrentPreset = null;
+            CurrentBody = null;
         }
 
         public void OnClickBuyBtn()
         {
             SFXManager.Instance.PlayOneShotSFX(SFXType.POPUP);
-
-
+            if (currentPresetSlot != null)
+            {
+                currentPresetSlot.IsPurchased = true;
+                currentPresetSlot = null;
+            }
+            if (currentBodySlot != null)
+            {
+                currentBodySlot.IsPurchased = true;
+                currentBodySlot = null;
+            }
+            if (currentHeadSlot != null)
+            {
+                currentHeadSlot.IsPurchased = true;
+                currentHeadSlot = null;
+            }
+            if (currentFaceSlot != null)
+            {
+                currentFaceSlot.IsPurchased = true;
+                currentFaceSlot = null;
+            }
+            if (currentClothSlot != null)
+            {
+                currentClothSlot.IsPurchased = true;
+                currentClothSlot = null;
+            }
+            if (currentGloveSlot != null)
+            {
+                currentGloveSlot.IsPurchased = true;
+                currentGloveSlot = null;
+            }
         }
 
         public void BackToMainLobby()
         {
             SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+
+            PlayerCustomize.Instance.ChangeBody(savedBodyMaterial);
 
             if (headDictionary.Count > 0)
             {

@@ -53,7 +53,7 @@ namespace Capsule.Lobby.Customize
                 currentHeadSlot.IsSelected = false;
                 value.IsSelected = true;
                 currentHeadSlot = value;
-                
+                /*
                 if (headDictionary.Count > 0)
                 {
                     foreach (GameObject obj in headDictionary.Values)
@@ -62,10 +62,14 @@ namespace Capsule.Lobby.Customize
                             obj.SetActive(false);
                     }    
                 }
+                */
+                if (currentHeadObj != null)
+                    currentHeadObj.SetActive(false);
+
                 if (headDictionary.ContainsKey(value.headItem))
                 {
                     currentHeadObj = headDictionary[value.headItem];
-                    headDictionary[value.headItem].SetActive(true);
+                    currentHeadObj.SetActive(true);
                 }
                 else
                 {
@@ -88,7 +92,7 @@ namespace Capsule.Lobby.Customize
                 currentFaceSlot.IsSelected = false;
                 value.IsSelected = true;
                 currentFaceSlot = value;
-
+                /*
                 if (faceDictionary.Count > 0)
                 {
                     foreach (GameObject obj in faceDictionary.Values)
@@ -97,6 +101,10 @@ namespace Capsule.Lobby.Customize
                             obj.SetActive(false);
                     }
                 }
+                */
+                if (currentFaceObj != null)
+                    currentFaceObj.SetActive(false);
+
                 if (faceDictionary.ContainsKey(value.faceItem))
                 {
                     currentFaceObj = faceDictionary[value.faceItem];
@@ -127,7 +135,7 @@ namespace Capsule.Lobby.Customize
                 currentGloveSlot.IsSelected = false;
                 value.IsSelected = true;
                 currentGloveSlot = value;
-
+                /*
                 if (rightGloveDictionary.Count > 0)
                 {
                     foreach (GameObject obj in leftGloveDictionary.Values)
@@ -141,6 +149,12 @@ namespace Capsule.Lobby.Customize
                             obj.SetActive(false);
                     }
                 }
+                */
+                if (currentLeftGloveObj != null)
+                    currentLeftGloveObj.SetActive(false);
+                if (currentRightGloveObj != null)
+                    currentRightGloveObj.SetActive(false);
+
                 if (leftGloveDictionary.ContainsKey(value.gloveNum))
                 {
                     PlayerCustomize.Instance.EnableHandMeshes(false);
@@ -198,7 +212,7 @@ namespace Capsule.Lobby.Customize
                 currentClothSlot.IsSelected = false;
                 value.IsSelected = true;
                 currentClothSlot = value;
-
+                /*
                 if (clothDictionary.Count > 0)
                 {
                     foreach (GameObject obj in clothDictionary.Values)
@@ -207,6 +221,10 @@ namespace Capsule.Lobby.Customize
                             obj.SetActive(false);
                     }
                 }
+                */
+                if (currentClothObj != null)
+                    currentClothObj.SetActive(false);
+
                 if (clothDictionary.ContainsKey(value.clothNum))
                 {
                     currentClothObj = clothDictionary[value.clothNum];

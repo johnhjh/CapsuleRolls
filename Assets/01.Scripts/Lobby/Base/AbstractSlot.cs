@@ -8,7 +8,8 @@ namespace Capsule.Lobby
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class AbstractSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
-        private CanvasGroup canvasGroup;
+        [HideInInspector]
+        public CanvasGroup canvasGroup;
 
         // Bool
         private bool isSelected;
@@ -18,8 +19,6 @@ namespace Capsule.Lobby
             set
             {
                 isSelected = value;
-                if (hoverCoroutine != null)
-                    StopCoroutine(hoverCoroutine);
                 if (value)
                 {
                     curAlpha = MAX_ALPHA;
@@ -56,6 +55,8 @@ namespace Capsule.Lobby
             if (!isSelected)
             {
                 SFXManager.Instance.PlayOneShotSFX(SFXType.HOVER);
+                if (hoverCoroutine != null)
+                    StopCoroutine(hoverCoroutine);
                 hoverCoroutine = StartCoroutine(HoverSlot(MAX_ALPHA));
             }
         }

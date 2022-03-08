@@ -96,6 +96,15 @@ namespace Capsule.Entity
         SANTA,
     }
 
+    public enum CustomizingPreset
+    {
+        TEACHER = 0,
+        ARABIAN,
+        SHERIFF,
+        OUTLAW,
+        SANTA,
+    }
+
     public enum CustomizingRarity
     {
         DEFAULT = 0,
@@ -169,5 +178,12 @@ namespace Capsule.Entity
         public GameObject clothItem;
         public Vector3 position;
         public Vector3 rotation;
+    }
+
+    [System.Serializable]
+    public class CustomizingPresetData : CustomizingData
+    {
+        public CustomizingPreset presetNum;
+
     }
 }
