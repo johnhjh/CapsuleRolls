@@ -147,3 +147,5 @@ MonoBehaviour:
     selectClip: {fileID: 8300000, guid: 3939bd26596255f47bb596e69a50681a, type: 3}
     selectDoneClip: {fileID: 8300000, guid: 81de1bf0f9bef8b4fb44dcab60118fe2, type: 3}
     loadDoneClip: {fileID: 8300000, guid: 6089375ac29e10a44ae4bdabe0d50f8f, type: 3}
+    buyClip: {fileID: 8300000, guid: 39d7502f0e1d8ed488b629246d15cca6, type: 3}
+    popupClip: {fileID: 8300000, guid: e8a35f754925457478a895eb7f6814ee, type: 3}

@@ -112,6 +112,7 @@ namespace Capsule.Entity
         FACE,
         GLOVE,
         CLOTH,
+        PRESET,
     }
 
     [System.Serializable]

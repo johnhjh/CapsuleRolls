@@ -13,6 +13,8 @@ namespace Capsule.Audio
         public AudioClip selectClip;
         public AudioClip selectDoneClip;
         public AudioClip loadDoneClip;
+        public AudioClip buyClip;
+        public AudioClip popupClip;
     }
 
     public enum SFXType
@@ -23,6 +25,8 @@ namespace Capsule.Audio
         SELECT,
         SELECT_DONE,
         LOAD_DONE,
+        BUY,
+        POPUP,
     }
 
     public class SFXManager : MonoBehaviour
@@ -74,6 +78,10 @@ namespace Capsule.Audio
                     return soundEffects.selectDoneClip;
                 case SFXType.LOAD_DONE:
                     return soundEffects.loadDoneClip;
+                case SFXType.BUY:
+                    return soundEffects.buyClip;
+                case SFXType.POPUP:
+                    return soundEffects.popupClip;
             }
             return null;
         }

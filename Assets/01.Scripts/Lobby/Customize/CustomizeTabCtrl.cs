@@ -9,6 +9,7 @@ namespace Capsule.Lobby.Customize
 
         public override void OnPointerClick(PointerEventData eventData)
         {
+            if (base.IsFocused) return;
             base.OnPointerClick(eventData);
             CustomizeManager.Instance.ChangeFocusTab(base.tabTransform, customizeType);
         }

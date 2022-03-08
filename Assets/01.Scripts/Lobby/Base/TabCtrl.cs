@@ -17,6 +17,7 @@ namespace Capsule.Lobby
         private bool isFocused;
         public bool IsFocused
         {
+            get { return isFocused; }
             set
             {
                 isFocused = value;
