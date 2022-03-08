@@ -534,39 +534,226 @@ namespace Capsule.Lobby.Shopping
             CurrentBody = null;
         }
 
-        public void OnClickBuyBtn()
+        public void OnClickPurchaseBtn()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.POPUP);
-            if (currentPresetSlot != null)
+            SFXManager.Instance.PlayOneShotSFX(SFXType.BUY);
+            ShoppingPopupManager.Instance.Purchased();
+
+            if (ShoppingPopupManager.Instance.ToggleCheckSaving)
             {
-                currentPresetSlot.IsPurchased = true;
-                currentPresetSlot = null;
+                if (currentBodySlot != null)
+                {
+                    savedBodyMaterial = currentBodySlot.bodyMaterial;
+                    PlayerPrefs.SetInt("CustomizeBody", (int)currentBodySlot.bodyColor);
+                }
+                savedHeadObj = currentHeadObj;
+                savedFaceObj = currentFaceObj;
+                savedClothObj = currentClothObj;
+                savedLeftGloveObj = currentLeftGloveObj;
+                savedRightGloveObj = currentRightGloveObj;
+
+                if (currentHeadSlot != null)
+                    PlayerPrefs.SetInt("CustomizeHead", (int)currentHeadSlot.headItem);
+                if (currentFaceSlot != null)
+                    PlayerPrefs.SetInt("CustomizeFace", (int)currentFaceSlot.faceItem);
+                if (currentGloveSlot != null)
+                    PlayerPrefs.SetInt("CustomizeGlove", (int)currentGloveSlot.gloveNum);
+                if (currentClothSlot != null)
+                    PlayerPrefs.SetInt("CustomizeCloth", (int)currentClothSlot.clothNum);
             }
             if (currentBodySlot != null)
             {
                 currentBodySlot.IsPurchased = true;
                 currentBodySlot = null;
             }
-            if (currentHeadSlot != null)
+            if (currentPresetSlot != null)
             {
-                currentHeadSlot.IsPurchased = true;
-                currentHeadSlot = null;
+                currentPresetSlot.IsPurchased = true;
+                CustomizingPresetData data = DataManager.Instance.GetPresetData(currentPresetSlot.prestNum);
+                if (data.headNum != CustomizingHead.DEFAULT)
+                {
+                    if (ShoppingPopupManager.Instance.ToggleCheckSaving)
+                        PlayerPrefs.SetInt("CustomizeHead", (int)data.headNum);
+                    foreach (ShoppingSlotHead headSlot in headContent.GetComponentsInChildren<ShoppingSlotHead>())
+                    {
+                        if (data.headNum == headSlot.headItem)
+                        {
+                            headSlot.IsPurchased = true;
+                            break;
+                        }
+                    }
+                }
+                if (data.faceNum != CustomizingFace.DEFAULT)
+                {
+                    if (ShoppingPopupManager.Instance.ToggleCheckSaving)
+                        PlayerPrefs.SetInt("CustomizeFace", (int)data.faceNum);
+                    foreach (ShoppingSlotFace faceSlot in faceContent.GetComponentsInChildren<ShoppingSlotFace>())
+                    {
+                        if (data.faceNum == faceSlot.faceItem)
+                        {
+                            faceSlot.IsPurchased = true;
+                            break;
+                        }
+                    }
+                }
+                if (data.clothNum != CustomizingCloth.DEFAULT)
+                {
+                    if (ShoppingPopupManager.Instance.ToggleCheckSaving)
+                        PlayerPrefs.SetInt("CustomizeCloth", (int)data.clothNum);
+                    foreach (ShoppingSlotCloth clothSlot in clothContent.GetComponentsInChildren<ShoppingSlotCloth>())
+                    {
+                        if (data.clothNum == clothSlot.clothNum)
+                        {
+                            clothSlot.IsPurchased = true;
+                            break;
+                        }
+                    }
+                }
+                if (data.gloveNum != CustomizingGlove.DEFAULT)
+                {
+                    if (ShoppingPopupManager.Instance.ToggleCheckSaving)
+                        PlayerPrefs.SetInt("CustomizeGlove", (int)data.gloveNum);
+                    foreach (ShoppingSlotGlove gloveSlot in gloveContent.GetComponentsInChildren<ShoppingSlotGlove>())
+                    {
+                        if (data.gloveNum == gloveSlot.gloveNum)
+                        {
+                            gloveSlot.IsPurchased = true;
+                            break;
+                        }
+                    }
+                }
+                currentPresetSlot = null;
             }
-            if (currentFaceSlot != null)
+            else
             {
-                currentFaceSlot.IsPurchased = true;
-                currentFaceSlot = null;
+                if (currentHeadSlot != null)
+                {
+                    currentHeadSlot.IsPurchased = true;
+                    currentHeadSlot = null;
+                }
+                if (currentFaceSlot != null)
+                {
+                    currentFaceSlot.IsPurchased = true;
+                    currentFaceSlot = null;
+                }
+                if (currentClothSlot != null)
+                {
+                    currentClothSlot.IsPurchased = true;
+                    currentClothSlot = null;
+                }
+                if (currentGloveSlot != null)
+                {
+                    currentGloveSlot.IsPurchased = true;
+                    currentGloveSlot = null;
+                }
             }
-            if (currentClothSlot != null)
+            ShoppingPopupManager.Instance.OpenCloseShoppingPopup(false);
+        }
+
+        public void OnClickBuyBtn()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.POPUP);
+
+            if (currentBodySlot != null)
             {
-                currentClothSlot.IsPurchased = true;
-                currentClothSlot = null;
+                ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                    currentBodySlot.data.preview, 
+                    currentBodySlot.data.rarity, 
+                    currentBodySlot.data.type, 
+                    currentBodySlot.price);
             }
-            if (currentGloveSlot != null)
+
+            if (currentPresetSlot != null)
             {
-                currentGloveSlot.IsPurchased = true;
-                currentGloveSlot = null;
+                CustomizingPresetData data = DataManager.Instance.GetPresetData(currentPresetSlot.prestNum);
+                ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                    currentPresetSlot.data.preview,
+                    currentPresetSlot.data.rarity,
+                    currentPresetSlot.data.type,
+                    currentPresetSlot.price);
+                if (data.bodyNum != CustomizingBody.DEFAULT)
+                {
+                    CustomizingBodyData bodyData = DataManager.Instance.GetBodyData(data.bodyNum);
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        bodyData.preview,
+                        bodyData.rarity,
+                        bodyData.type,
+                        -1);
+                }
+                if (data.headNum != CustomizingHead.DEFAULT)
+                {
+                    CustomizingHeadData headData = DataManager.Instance.GetHeadData(data.headNum);
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        headData.preview,
+                        headData.rarity,
+                        headData.type,
+                        -1);
+                }
+                if (data.faceNum != CustomizingFace.DEFAULT)
+                {
+                    CustomizingFaceData faceData = DataManager.Instance.GetFaceData(data.faceNum);
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        faceData.preview,
+                        faceData.rarity,
+                        faceData.type,
+                        -1);
+                }
+                if (data.clothNum != CustomizingCloth.DEFAULT)
+                {
+                    CustomizingClothData clothData = DataManager.Instance.GetClothData(data.clothNum);
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        clothData.preview,
+                        clothData.rarity,
+                        clothData.type,
+                        -1);
+                }
+                if (data.gloveNum != CustomizingGlove.DEFAULT)
+                {
+                    CustomizingGloveData gloveData = DataManager.Instance.GetGloveData(data.gloveNum);
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        gloveData.preview,
+                        gloveData.rarity,
+                        gloveData.type,
+                        -1);
+                }
             }
+            else
+            {
+                if (currentHeadSlot != null)
+                {
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        currentHeadSlot.data.preview,
+                        currentHeadSlot.data.rarity,
+                        currentHeadSlot.data.type,
+                        currentHeadSlot.price);
+                }
+                if (currentFaceSlot != null)
+                {
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        currentFaceSlot.data.preview,
+                        currentFaceSlot.data.rarity,
+                        currentFaceSlot.data.type,
+                        currentFaceSlot.price);
+                }
+                if (currentClothSlot != null)
+                {
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        currentClothSlot.data.preview,
+                        currentClothSlot.data.rarity,
+                        currentClothSlot.data.type,
+                        currentClothSlot.price);
+                }
+                if (currentGloveSlot != null)
+                {
+                    ShoppingPopupManager.Instance.AddShoppingItemInfo(
+                        currentGloveSlot.data.preview,
+                        currentGloveSlot.data.rarity,
+                        currentGloveSlot.data.type,
+                        currentGloveSlot.price);
+                }
+            }
+                
+            ShoppingPopupManager.Instance.OpenCloseShoppingPopup(true);
         }
 
         public void BackToMainLobby()

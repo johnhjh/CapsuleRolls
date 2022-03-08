@@ -40,10 +40,10 @@ namespace Capsule.Player.Lobby
 
         private void Start()
         {
-            CustomizedInit();
+            PlayerCustomizeInit();
         }
 
-        private void CustomizedInit()
+        private void PlayerCustomizeInit()
         {
             ChangeBody((CustomizingBody)PlayerPrefs.GetInt("CustomizeBody", 0));
             ChangeHead((CustomizingHead)PlayerPrefs.GetInt("CustomizeHead", 0));
