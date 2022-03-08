@@ -48,14 +48,104 @@ namespace Capsule.Lobby.Shopping
             set 
             {
                 if (currentPresetSlot != null)
-                {
                     currentPresetSlot.IsSelected = false;
-                }
                 CurrentHead = null;
                 CurrentFace = null;
                 CurrentCloth = null;
                 CurrentGlove = null;
                 currentPresetSlot = value;
+                if (value != null)
+                {
+                    CustomizingPresetData data = DataManager.Instance.GetPresetData(value.prestNum);
+                    if (data.bodyNum != CustomizingBody.DEFAULT)
+                        PlayerCustomize.Instance.ChangeBody(data.bodyNum);
+                    if (data.headNum != CustomizingHead.DEFAULT)
+                    {
+                        if (headDictionary.ContainsKey(data.headNum))
+                        {
+                            currentHeadObj = headDictionary[data.headNum];
+                            currentHeadObj.SetActive(true);
+                        }
+                        else
+                        {
+                            currentHeadObj = PlayerCustomize.Instance.ChangeHead(data.headNum);
+                            if (currentHeadObj != null)
+                                headDictionary.Add(data.headNum, currentHeadObj);
+                        }
+                    }
+                    if (data.faceNum != CustomizingFace.DEFAULT)
+                    {
+                        if (faceDictionary.ContainsKey(data.faceNum))
+                        {
+                            currentFaceObj = faceDictionary[data.faceNum];
+                            faceDictionary[data.faceNum].SetActive(true);
+                        }
+                        else
+                        {
+                            currentFaceObj = PlayerCustomize.Instance.ChangeFace(data.faceNum);
+                            if (currentFaceObj != null)
+                                faceDictionary.Add(data.faceNum, currentFaceObj);
+                        }
+                    }
+                    if (data.clothNum != CustomizingCloth.DEFAULT)
+                    {
+                        if (clothDictionary.ContainsKey(data.clothNum))
+                        {
+                            currentClothObj = clothDictionary[data.clothNum];
+                            clothDictionary[data.clothNum].SetActive(true);
+                        }
+                        else
+                        {
+                            currentClothObj = PlayerCustomize.Instance.ChangeCloth(data.clothNum);
+                            if (currentClothObj != null)
+                                clothDictionary.Add(data.clothNum, currentClothObj);
+                        }
+                    }
+                    if (data.gloveNum != CustomizingGlove.DEFAULT)
+                    {
+                        if (leftGloveDictionary.ContainsKey(data.gloveNum))
+                        {
+                            PlayerCustomize.Instance.EnableHandMeshes(false);
+                            currentLeftGloveObj = leftGloveDictionary[data.gloveNum];
+                            leftGloveDictionary[data.gloveNum].SetActive(true);
+                            currentRightGloveObj = rightGloveDictionary[data.gloveNum];
+                            rightGloveDictionary[data.gloveNum].SetActive(true);
+                        }
+                        else if (rightGloveDictionary.ContainsKey(data.gloveNum))
+                        {
+                            currentLeftGloveObj = null;
+                            PlayerCustomize.Instance.EnableLeftHandMeshes(true);
+                            PlayerCustomize.Instance.EnableRightHendMeshes(false);
+                            currentRightGloveObj = rightGloveDictionary[data.gloveNum];
+                            rightGloveDictionary[data.gloveNum].SetActive(true);
+                        }
+                        else
+                        {
+                            List<GameObject> gloves = PlayerCustomize.Instance.ChangeGloves(data.gloveNum);
+                            if (gloves != null)
+                            {
+                                if (gloves.Count == 1)
+                                {
+                                    currentLeftGloveObj = null;
+                                    currentRightGloveObj = gloves[0];
+                                }
+                                else
+                                {
+                                    currentLeftGloveObj = gloves[0];
+                                    currentRightGloveObj = gloves[1];
+                                    leftGloveDictionary.Add(data.gloveNum, currentLeftGloveObj);
+                                }
+                                rightGloveDictionary.Add(data.gloveNum, currentRightGloveObj);
+                            }
+                            else
+                            {
+                                currentLeftGloveObj = null;
+                                currentRightGloveObj = null;
+                                //PlayerCustomize.Instance.EnableHandMeshes(true);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -86,6 +176,9 @@ namespace Capsule.Lobby.Shopping
                 {
                     currentPresetSlot.IsSelected = false;
                     currentPresetSlot = null;
+                    CurrentFace = null;
+                    CurrentCloth = null;
+                    CurrentGlove = null;
                 }
                 if (currentHeadObj != null)
                     currentHeadObj.SetActive(false);
@@ -120,6 +213,9 @@ namespace Capsule.Lobby.Shopping
                 {
                     currentPresetSlot.IsSelected = false;
                     currentPresetSlot = null;
+                    CurrentHead = null;
+                    CurrentCloth = null;
+                    CurrentGlove = null;
                 }
                 if (currentFaceObj != null)
                     currentFaceObj.SetActive(false);
@@ -154,6 +250,9 @@ namespace Capsule.Lobby.Shopping
                 {
                     currentPresetSlot.IsSelected = false;
                     currentPresetSlot = null;
+                    CurrentHead = null;
+                    CurrentFace = null;
+                    CurrentGlove = null;
                 }
                 if (currentClothObj != null)
                     currentClothObj.SetActive(false);
@@ -190,6 +289,9 @@ namespace Capsule.Lobby.Shopping
                 {
                     currentPresetSlot.IsSelected = false;
                     currentPresetSlot = null;
+                    CurrentHead = null;
+                    CurrentFace = null;
+                    CurrentCloth = null;
                 }
                 if (currentLeftGloveObj != null)
                     currentLeftGloveObj.SetActive(false);
@@ -268,7 +370,7 @@ namespace Capsule.Lobby.Shopping
             BGMManager.Instance.ChangeBGM(BGMType.CUSTOMIZE);
             SFXManager.Instance.PlayOneShotSFX(SFXType.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.SHOPPING;
-            PlayerTransform.Instance.SetPosition(new Vector3(3.25f, -0.15f, -5.3f));
+            PlayerTransform.Instance.SetPosition(new Vector3(3.25f, -0.27f, -5.3f));
             PlayerTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
             PlayerTransform.Instance.SetScale(characterScale);
 
@@ -287,10 +389,10 @@ namespace Capsule.Lobby.Shopping
             clothContent = scrollRectTransform.GetChild(5).gameObject;
             clothContent.GetComponent<RectTransform>().sizeDelta = new Vector2(clothContent.transform.childCount * 540f, 855f);
 
-            GameObject TabHome = GameObject.Find("Tab_Home").gameObject;
-            TabHome.GetComponent<ShoppingTabCtrl>().IsFocused = true;
+            GameObject TabPreset = GameObject.Find("Tab_Preset").gameObject;
+            TabPreset.GetComponent<ShoppingTabCtrl>().IsFocused = true;
 
-            currentTab = TabHome;
+            currentTab = TabPreset;
             currentContent = presetContent;
             currentCustomize = CustomizingType.PRESET;
             scrollRect.content = presetContent.GetComponent<RectTransform>();

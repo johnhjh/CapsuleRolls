@@ -23,6 +23,7 @@ namespace Capsule.Entity
         public List<CustomizingFaceData> customizingFaceDatas;
         public List<CustomizingGloveData> customizingGloveDatas;
         public List<CustomizingClothData> customizingClothDatas;
+        public List<CustomizingPresetData> customizingPresetDatas;
 
         private void Awake()
         {
@@ -86,6 +87,17 @@ namespace Capsule.Entity
                          select data;
             if (result != null && result.Count<CustomizingClothData>() > 0)
                 return result.ElementAt<CustomizingClothData>(0);
+            else
+                return null;
+        }
+
+        public CustomizingPresetData GetPresetData(CustomizingPreset presetNum)
+        {
+            var result = from data in customizingPresetDatas
+                         where data.presetNum == presetNum
+                         select data;
+            if (result != null && result.Count<CustomizingPresetData>() > 0)
+                return result.ElementAt<CustomizingPresetData>(0);
             else
                 return null;
         }

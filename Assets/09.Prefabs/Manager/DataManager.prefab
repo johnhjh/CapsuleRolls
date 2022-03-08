@@ -622,3 +622,49 @@ MonoBehaviour:
       type: 3}
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0}
+  customizingPresetDatas:
+  - type: 5
+    rarity: 3
+    preview: {fileID: 21300000, guid: ba167ac5fcbfcbb48864681674af87b4, type: 3}
+    presetNum: 0
+    bodyNum: 0
+    headNum: 23
+    faceNum: 13
+    gloveNum: 0
+    clothNum: 3
+  - type: 5
+    rarity: 3
+    preview: {fileID: 21300000, guid: 4a363d0d11735f54781c52cb4425827b, type: 3}
+    presetNum: 1
+    bodyNum: 0
+    headNum: 24
+    faceNum: 0
+    gloveNum: 0
+    clothNum: 4
+  - type: 5
+    rarity: 3
+    preview: {fileID: 21300000, guid: 93bb5f0aeb7f7c549a78d990e3323d57, type: 3}
+    presetNum: 2
+    bodyNum: 0
+    headNum: 26
+    faceNum: 14
+    gloveNum: 0
+    clothNum: 6
+  - type: 5
+    rarity: 3
+    preview: {fileID: 21300000, guid: 1fca1877b61ed0f4895bfb299aae6852, type: 3}
+    presetNum: 3
+    bodyNum: 0
+    headNum: 27
+    faceNum: 15
+    gloveNum: 0
+    clothNum: 7
+  - type: 5
+    rarity: 3
+    preview: {fileID: 21300000, guid: 77653210256537a499f4ab2cf3d359c3, type: 3}
+    presetNum: 4
+    bodyNum: 0
+    headNum: 22
+    faceNum: 17
+    gloveNum: 4
+    clothNum: 8

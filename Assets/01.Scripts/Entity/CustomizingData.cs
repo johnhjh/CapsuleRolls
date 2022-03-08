@@ -64,8 +64,8 @@ namespace Capsule.Entity
         RARE_3,
         RARE_4,
         EPIC_1, // Not Used
-        EPIC_2, // Not Used
-        EPIC_3,
+        EPIC_2,
+        EPIC_3, // Not Used
         TEACHER,
         SHERIFF,
         OUTLAW,
@@ -184,6 +184,10 @@ namespace Capsule.Entity
     public class CustomizingPresetData : CustomizingData
     {
         public CustomizingPreset presetNum;
-
+        public CustomizingBody bodyNum;
+        public CustomizingHead headNum;
+        public CustomizingFace faceNum;
+        public CustomizingGlove gloveNum;
+        public CustomizingCloth clothNum;
     }
 }
