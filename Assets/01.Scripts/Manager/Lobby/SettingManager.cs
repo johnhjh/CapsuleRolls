@@ -110,5 +110,12 @@ namespace Capsule.Lobby.Main
         {
             Application.Quit();
         }
+
+        public void OnClickResetAll()
+        {
+            Capsule.Entity.DataManager.Instance.ResetAllDatas();
+            Destroy(GameObject.Find("Player"));
+            OnClickBackToTitle();
+        }
     }
 }

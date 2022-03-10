@@ -374,20 +374,7 @@ namespace Capsule.Lobby.Shopping
             PlayerTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
             PlayerTransform.Instance.SetScale(characterScale);
 
-            RectTransform scrollRectTransform = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
-            scrollRect = scrollRectTransform.GetComponent<ScrollRect>();
-            presetContent = scrollRectTransform.GetChild(0).gameObject;
-            presetContent.GetComponent<RectTransform>().sizeDelta = new Vector2(presetContent.transform.childCount * 540f, 855f);
-            bodyContent = scrollRectTransform.GetChild(1).gameObject;
-            bodyContent.GetComponent<RectTransform>().sizeDelta = new Vector2(bodyContent.transform.childCount * 540f, 855f);
-            headContent = scrollRectTransform.GetChild(2).gameObject;
-            headContent.GetComponent<RectTransform>().sizeDelta = new Vector2(headContent.transform.childCount * 540f, 855f);
-            faceContent = scrollRectTransform.GetChild(3).gameObject;
-            faceContent.GetComponent<RectTransform>().sizeDelta = new Vector2(faceContent.transform.childCount * 540f, 855f);
-            gloveContent = scrollRectTransform.GetChild(4).gameObject;
-            gloveContent.GetComponent<RectTransform>().sizeDelta = new Vector2(gloveContent.transform.childCount * 540f, 855f);
-            clothContent = scrollRectTransform.GetChild(5).gameObject;
-            clothContent.GetComponent<RectTransform>().sizeDelta = new Vector2(clothContent.transform.childCount * 540f, 855f);
+            InitScrollRect();
 
             GameObject TabPreset = GameObject.Find("Tab_Preset").gameObject;
             TabPreset.GetComponent<ShoppingTabCtrl>().IsFocused = true;
@@ -395,7 +382,6 @@ namespace Capsule.Lobby.Shopping
             currentTab = TabPreset;
             currentContent = presetContent;
             currentCustomize = CustomizingType.PRESET;
-            scrollRect.content = presetContent.GetComponent<RectTransform>();
 
             SaveBodyMaterial();
             SaveHeadObj();
@@ -404,15 +390,107 @@ namespace Capsule.Lobby.Shopping
             SaveGloveObj();
         }
 
+        private void InitScrollRect()
+        {
+            RectTransform scrollRectTransform = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
+            scrollRect = scrollRectTransform.GetComponent<ScrollRect>();
+
+            bodyContent = scrollRectTransform.GetChild(1).gameObject;
+            bodyContent.GetComponent<RectTransform>().sizeDelta = new Vector2(bodyContent.transform.childCount * 540f, 855f);
+            foreach(ShoppingSlotBody slot in bodyContent.transform.GetComponentsInChildren<ShoppingSlotBody>())
+            {
+                foreach (CustomizingBody dataNum in DataManager.Instance.BodyOpenData)
+                {
+                    if (dataNum == slot.bodyColor)
+                    {
+                        slot.IsPurchased = true;
+                        break;
+                    }
+                }
+            }
+
+            headContent = scrollRectTransform.GetChild(2).gameObject;
+            headContent.GetComponent<RectTransform>().sizeDelta = new Vector2(headContent.transform.childCount * 540f, 855f);
+            foreach(ShoppingSlotHead slot in headContent.transform.GetComponentsInChildren<ShoppingSlotHead>())
+            {
+                foreach (CustomizingHead dataNum in DataManager.Instance.HeadOpenData)
+                {
+                    if (dataNum == slot.headItem)
+                    {
+                        slot.IsPurchased = true;
+                        break;
+                    }
+                }
+            }
+
+            faceContent = scrollRectTransform.GetChild(3).gameObject;
+            faceContent.GetComponent<RectTransform>().sizeDelta = new Vector2(faceContent.transform.childCount * 540f, 855f);
+            foreach (ShoppingSlotFace slot in faceContent.transform.GetComponentsInChildren<ShoppingSlotFace>())
+            {
+                foreach (CustomizingFace dataNum in DataManager.Instance.FaceOpenData)
+                {
+                    if (dataNum == slot.faceItem)
+                    {
+                        slot.IsPurchased = true;
+                        break;
+                    }
+                }
+            }
+
+            gloveContent = scrollRectTransform.GetChild(4).gameObject;
+            gloveContent.GetComponent<RectTransform>().sizeDelta = new Vector2(gloveContent.transform.childCount * 540f, 855f);
+            foreach (ShoppingSlotGlove slot in gloveContent.transform.GetComponentsInChildren<ShoppingSlotGlove>())
+            {
+                foreach (CustomizingGlove dataNum in DataManager.Instance.GloveOpenData)
+                {
+                    if (dataNum == slot.gloveNum)
+                    {
+                        slot.IsPurchased = true;
+                        break;
+                    }
+                }
+            }
+
+            clothContent = scrollRectTransform.GetChild(5).gameObject;
+            clothContent.GetComponent<RectTransform>().sizeDelta = new Vector2(clothContent.transform.childCount * 540f, 855f);
+            foreach (ShoppingSlotCloth slot in clothContent.transform.GetComponentsInChildren<ShoppingSlotCloth>())
+            {
+                foreach (CustomizingCloth dataNum in DataManager.Instance.ClothOpenData)
+                {
+                    if (dataNum == slot.clothNum)
+                    {
+                        slot.IsPurchased = true;
+                        break;
+                    }
+                }
+            }
+
+            presetContent = scrollRectTransform.GetChild(0).gameObject;
+            presetContent.GetComponent<RectTransform>().sizeDelta = new Vector2(presetContent.transform.childCount * 540f, 855f);
+            foreach (ShoppingSlotPreset slot in presetContent.transform.GetComponentsInChildren<ShoppingSlotPreset>())
+            {
+                foreach (CustomizingPreset dataNum in DataManager.Instance.PresetBuyData)
+                {
+                    if (dataNum == slot.prestNum)
+                    {
+                        slot.IsPurchased = true;
+                        break;
+                    }
+                }
+            }
+
+            scrollRect.content = presetContent.GetComponent<RectTransform>();
+        }
+
         private void SaveBodyMaterial()
         {
-            CustomizingBody bodyNum = (CustomizingBody)PlayerPrefs.GetInt("CustomizeBody", 0);
+            CustomizingBody bodyNum = (CustomizingBody)DataManager.Instance.CurrentPlayerCustomizeData.Body;
             savedBodyMaterial = DataManager.Instance.GetBodyData(bodyNum).bodyMaterial;
         }
 
         private void SaveHeadObj()
         {
-            CustomizingHead headNum = (CustomizingHead)PlayerPrefs.GetInt("CustomizeHead", 0);
+            CustomizingHead headNum = (CustomizingHead)DataManager.Instance.CurrentPlayerCustomizeData.Head;
 
             if (PlayerCustomize.Instance.headTransform.childCount >= 1)
             {
@@ -427,7 +505,7 @@ namespace Capsule.Lobby.Shopping
 
         private void SaveFaceObj()
         {
-            CustomizingFace faceNum = (CustomizingFace)PlayerPrefs.GetInt("CustomizeFace", 0);
+            CustomizingFace faceNum = (CustomizingFace)DataManager.Instance.CurrentPlayerCustomizeData.Face;
 
             if (PlayerCustomize.Instance.faceTransform.childCount >= 1)
             {
@@ -442,7 +520,7 @@ namespace Capsule.Lobby.Shopping
 
         private void SaveClothObj()
         {
-            CustomizingCloth clothNum = (CustomizingCloth)PlayerPrefs.GetInt("CustomizeCloth", 0);
+            CustomizingCloth clothNum = (CustomizingCloth)DataManager.Instance.CurrentPlayerCustomizeData.Cloth;
 
             if (PlayerCustomize.Instance.clothTransform.childCount >= 1)
             {
@@ -457,7 +535,7 @@ namespace Capsule.Lobby.Shopping
 
         private void SaveGloveObj()
         {
-            CustomizingGlove gloveNum = (CustomizingGlove)PlayerPrefs.GetInt("CustomizeGlove", 0);
+            CustomizingGlove gloveNum = (CustomizingGlove)DataManager.Instance.CurrentPlayerCustomizeData.Glove;
 
             if (PlayerCustomize.Instance.rightHandTransform.childCount >= 1)
             {
@@ -544,7 +622,7 @@ namespace Capsule.Lobby.Shopping
                 if (currentBodySlot != null)
                 {
                     savedBodyMaterial = currentBodySlot.bodyMaterial;
-                    PlayerPrefs.SetInt("CustomizeBody", (int)currentBodySlot.bodyColor);
+                    DataManager.Instance.CurrentPlayerCustomizeData.Body = (int)currentBodySlot.bodyColor;
                 }
                 savedHeadObj = currentHeadObj;
                 savedFaceObj = currentFaceObj;
@@ -553,27 +631,53 @@ namespace Capsule.Lobby.Shopping
                 savedRightGloveObj = currentRightGloveObj;
 
                 if (currentHeadSlot != null)
-                    PlayerPrefs.SetInt("CustomizeHead", (int)currentHeadSlot.headItem);
+                    DataManager.Instance.CurrentPlayerCustomizeData.Head = (int)currentHeadSlot.headItem;
                 if (currentFaceSlot != null)
-                    PlayerPrefs.SetInt("CustomizeFace", (int)currentFaceSlot.faceItem);
+                    DataManager.Instance.CurrentPlayerCustomizeData.Face = (int)currentFaceSlot.faceItem;
                 if (currentGloveSlot != null)
-                    PlayerPrefs.SetInt("CustomizeGlove", (int)currentGloveSlot.gloveNum);
+                    DataManager.Instance.CurrentPlayerCustomizeData.Glove = (int)currentGloveSlot.gloveNum;
                 if (currentClothSlot != null)
-                    PlayerPrefs.SetInt("CustomizeCloth", (int)currentClothSlot.clothNum);
+                    DataManager.Instance.CurrentPlayerCustomizeData.Cloth = (int)currentClothSlot.clothNum;
+
+                DataManager.Instance.CurrentPlayerCustomizeData.SavePlayerCustomizeData();
             }
             if (currentBodySlot != null)
             {
+                DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                    (int)currentBodySlot.bodyColor,
+                    (int)CustomizingType.BODY);
+                DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                    (int)currentBodySlot.bodyColor,
+                    (int)CustomizingType.BODY);
+                DataManager.Instance.BodyBuyData.Add(currentBodySlot.bodyColor);
+                DataManager.Instance.BodyOpenData.Add(currentBodySlot.bodyColor);
+
                 currentBodySlot.IsPurchased = true;
                 currentBodySlot = null;
             }
             if (currentPresetSlot != null)
             {
                 currentPresetSlot.IsPurchased = true;
+
+                DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                    (int)currentPresetSlot.prestNum,
+                    (int)CustomizingType.PRESET);
+                DataManager.Instance.PresetBuyData.Add(currentPresetSlot.prestNum);
+
                 CustomizingPresetData data = DataManager.Instance.GetPresetData(currentPresetSlot.prestNum);
                 if (data.headNum != CustomizingHead.DEFAULT)
                 {
+                    DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                        (int)data.headNum,
+                        (int)CustomizingType.HEAD);
+                    DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.headNum,
+                        (int)CustomizingType.HEAD);
+                    DataManager.Instance.HeadBuyData.Add(data.headNum);
+                    DataManager.Instance.HeadOpenData.Add(data.headNum);
+
                     if (ShoppingPopupManager.Instance.ToggleCheckSaving)
-                        PlayerPrefs.SetInt("CustomizeHead", (int)data.headNum);
+                        DataManager.Instance.CurrentPlayerCustomizeData.Head = (int)data.headNum;
                     foreach (ShoppingSlotHead headSlot in headContent.GetComponentsInChildren<ShoppingSlotHead>())
                     {
                         if (data.headNum == headSlot.headItem)
@@ -585,8 +689,17 @@ namespace Capsule.Lobby.Shopping
                 }
                 if (data.faceNum != CustomizingFace.DEFAULT)
                 {
+                    DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                        (int)data.faceNum,
+                        (int)CustomizingType.FACE);
+                    DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.faceNum,
+                        (int)CustomizingType.FACE);
+                    DataManager.Instance.FaceBuyData.Add(data.faceNum);
+                    DataManager.Instance.FaceOpenData.Add(data.faceNum);
+
                     if (ShoppingPopupManager.Instance.ToggleCheckSaving)
-                        PlayerPrefs.SetInt("CustomizeFace", (int)data.faceNum);
+                        DataManager.Instance.CurrentPlayerCustomizeData.Face = (int)data.faceNum;
                     foreach (ShoppingSlotFace faceSlot in faceContent.GetComponentsInChildren<ShoppingSlotFace>())
                     {
                         if (data.faceNum == faceSlot.faceItem)
@@ -598,8 +711,17 @@ namespace Capsule.Lobby.Shopping
                 }
                 if (data.clothNum != CustomizingCloth.DEFAULT)
                 {
+                    DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                        (int)data.clothNum,
+                        (int)CustomizingType.CLOTH);
+                    DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.clothNum,
+                        (int)CustomizingType.CLOTH);
+                    DataManager.Instance.ClothBuyData.Add(data.clothNum);
+                    DataManager.Instance.ClothOpenData.Add(data.clothNum);
+
                     if (ShoppingPopupManager.Instance.ToggleCheckSaving)
-                        PlayerPrefs.SetInt("CustomizeCloth", (int)data.clothNum);
+                        DataManager.Instance.CurrentPlayerCustomizeData.Cloth = (int)data.clothNum;
                     foreach (ShoppingSlotCloth clothSlot in clothContent.GetComponentsInChildren<ShoppingSlotCloth>())
                     {
                         if (data.clothNum == clothSlot.clothNum)
@@ -611,8 +733,17 @@ namespace Capsule.Lobby.Shopping
                 }
                 if (data.gloveNum != CustomizingGlove.DEFAULT)
                 {
+                    DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                        (int)data.gloveNum,
+                        (int)CustomizingType.GLOVE);
+                    DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.gloveNum,
+                        (int)CustomizingType.GLOVE);
+                    DataManager.Instance.GloveBuyData.Add(data.gloveNum);
+                    DataManager.Instance.GloveOpenData.Add(data.gloveNum);
+
                     if (ShoppingPopupManager.Instance.ToggleCheckSaving)
-                        PlayerPrefs.SetInt("CustomizeGlove", (int)data.gloveNum);
+                        DataManager.Instance.CurrentPlayerCustomizeData.Glove = (int)data.gloveNum;
                     foreach (ShoppingSlotGlove gloveSlot in gloveContent.GetComponentsInChildren<ShoppingSlotGlove>())
                     {
                         if (data.gloveNum == gloveSlot.gloveNum)
@@ -622,27 +753,67 @@ namespace Capsule.Lobby.Shopping
                         }
                     }
                 }
+
+                if (ShoppingPopupManager.Instance.ToggleCheckSaving)
+                    DataManager.Instance.CurrentPlayerCustomizeData.SavePlayerCustomizeData();
+
                 currentPresetSlot = null;
             }
             else
             {
                 if (currentHeadSlot != null)
                 {
+                    DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                        (int)currentHeadSlot.headItem,
+                        (int)CustomizingType.HEAD);
+                    DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)currentHeadSlot.headItem,
+                        (int)CustomizingType.HEAD);
+                    DataManager.Instance.HeadBuyData.Add(currentHeadSlot.headItem);
+                    DataManager.Instance.HeadOpenData.Add(currentHeadSlot.headItem);
+
                     currentHeadSlot.IsPurchased = true;
                     currentHeadSlot = null;
                 }
                 if (currentFaceSlot != null)
                 {
+                    DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                        (int)currentFaceSlot.faceItem,
+                        (int)CustomizingType.FACE);
+                    DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)currentFaceSlot.faceItem,
+                        (int)CustomizingType.FACE);
+                    DataManager.Instance.FaceBuyData.Add(currentFaceSlot.faceItem);
+                    DataManager.Instance.FaceOpenData.Add(currentFaceSlot.faceItem);
+
                     currentFaceSlot.IsPurchased = true;
                     currentFaceSlot = null;
                 }
                 if (currentClothSlot != null)
                 {
+                    DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                        (int)currentClothSlot.clothNum, 
+                        (int)CustomizingType.CLOTH);
+                    DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)currentClothSlot.clothNum, 
+                        (int)CustomizingType.CLOTH);
+                    DataManager.Instance.ClothBuyData.Add(currentClothSlot.clothNum);
+                    DataManager.Instance.ClothOpenData.Add(currentClothSlot.clothNum);
+
                     currentClothSlot.IsPurchased = true;
                     currentClothSlot = null;
                 }
                 if (currentGloveSlot != null)
                 {
+                    DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
+                        (int)currentGloveSlot.gloveNum,
+                        (int)CustomizingType.GLOVE);
+                    DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)currentGloveSlot.gloveNum,
+                        (int)CustomizingType.GLOVE);
+                    DataManager.Instance.GloveBuyData.Add(currentGloveSlot.gloveNum);
+                    DataManager.Instance.GloveOpenData.Add(currentGloveSlot.gloveNum);
+
                     currentGloveSlot.IsPurchased = true;
                     currentGloveSlot = null;
                 }

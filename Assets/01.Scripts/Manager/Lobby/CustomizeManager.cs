@@ -53,16 +53,7 @@ namespace Capsule.Lobby.Customize
                 currentHeadSlot.IsSelected = false;
                 value.IsSelected = true;
                 currentHeadSlot = value;
-                /*
-                if (headDictionary.Count > 0)
-                {
-                    foreach (GameObject obj in headDictionary.Values)
-                    {
-                        if (obj.activeSelf)
-                            obj.SetActive(false);
-                    }    
-                }
-                */
+
                 if (currentHeadObj != null)
                     currentHeadObj.SetActive(false);
 
@@ -92,16 +83,7 @@ namespace Capsule.Lobby.Customize
                 currentFaceSlot.IsSelected = false;
                 value.IsSelected = true;
                 currentFaceSlot = value;
-                /*
-                if (faceDictionary.Count > 0)
-                {
-                    foreach (GameObject obj in faceDictionary.Values)
-                    {
-                        if (obj.activeSelf)
-                            obj.SetActive(false);
-                    }
-                }
-                */
+
                 if (currentFaceObj != null)
                     currentFaceObj.SetActive(false);
 
@@ -135,21 +117,7 @@ namespace Capsule.Lobby.Customize
                 currentGloveSlot.IsSelected = false;
                 value.IsSelected = true;
                 currentGloveSlot = value;
-                /*
-                if (rightGloveDictionary.Count > 0)
-                {
-                    foreach (GameObject obj in leftGloveDictionary.Values)
-                    {
-                        if (obj.activeSelf)
-                            obj.SetActive(false);
-                    }
-                    foreach (GameObject obj in rightGloveDictionary.Values)
-                    {
-                        if (obj.activeSelf)
-                            obj.SetActive(false);
-                    }
-                }
-                */
+
                 if (currentLeftGloveObj != null)
                     currentLeftGloveObj.SetActive(false);
                 if (currentRightGloveObj != null)
@@ -212,16 +180,7 @@ namespace Capsule.Lobby.Customize
                 currentClothSlot.IsSelected = false;
                 value.IsSelected = true;
                 currentClothSlot = value;
-                /*
-                if (clothDictionary.Count > 0)
-                {
-                    foreach (GameObject obj in clothDictionary.Values)
-                    {
-                        if (obj.activeSelf)
-                            obj.SetActive(false);
-                    }
-                }
-                */
+
                 if (currentClothObj != null)
                     currentClothObj.SetActive(false);
 
@@ -277,7 +236,6 @@ namespace Capsule.Lobby.Customize
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.CUSTOMIZE;
             PlayerTransform.Instance.SetPosition(new Vector3(2.6f, -0.54f, -5f));
             PlayerTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
-            //PlayerTransform.Instance.SetScale(new Vector3(1.63f, 1.63f, 1.63f));
             PlayerTransform.Instance.SetScale(characterScale);
 
             RectTransform scrollRectTransform = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
@@ -302,7 +260,6 @@ namespace Capsule.Lobby.Customize
             currentCustomize = CustomizingType.BODY;
             scrollRect.content = bodyContent.GetComponent<RectTransform>();
 
-            //currentBody = defaultBody;
             currentBodySlot = InitCustomizeBody();
             currentHeadSlot = InitCustomizeHead();
             currentFaceSlot = InitCustomizeFace();
@@ -403,11 +360,12 @@ namespace Capsule.Lobby.Customize
         {
             SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
 
-            PlayerPrefs.SetInt("CustomizeBody", (int)currentBodySlot.bodyColor);
-            PlayerPrefs.SetInt("CustomizeHead", (int)currentHeadSlot.headItem);
-            PlayerPrefs.SetInt("CustomizeFace", (int)currentFaceSlot.faceItem);
-            PlayerPrefs.SetInt("CustomizeGlove", (int)currentGloveSlot.gloveNum);
-            PlayerPrefs.SetInt("CustomizeCloth", (int)currentClothSlot.clothNum);
+            DataManager.Instance.CurrentPlayerCustomizeData.Body = (int)currentBodySlot.bodyColor;
+            DataManager.Instance.CurrentPlayerCustomizeData.Head = (int)currentHeadSlot.headItem;
+            DataManager.Instance.CurrentPlayerCustomizeData.Face = (int)currentFaceSlot.faceItem;
+            DataManager.Instance.CurrentPlayerCustomizeData.Glove = (int)currentGloveSlot.gloveNum;
+            DataManager.Instance.CurrentPlayerCustomizeData.Cloth = (int)currentClothSlot.clothNum;
+            DataManager.Instance.CurrentPlayerCustomizeData.SavePlayerCustomizeData();
 
             savedBodyMat = currentBodySlot.bodyMaterial;
             savedHeadObj = currentHeadObj;
@@ -484,16 +442,22 @@ namespace Capsule.Lobby.Customize
         {
             CustomizeSlotBody[] bodySlots = bodyContent.GetComponentsInChildren<CustomizeSlotBody>();
             CustomizeSlotBody bodySlot = null;
-            int bodyNum = PlayerPrefs.GetInt("CustomizeBody", 0);
+            int bodyNum = DataManager.Instance.CurrentPlayerCustomizeData.Body;
             if (bodySlots != null)
             {
                 for (int i = 0; i < bodySlots.Length; i++)
                 {
-                    if (bodySlots[i].bodyColor == (CustomizingBody)bodyNum)
+                    bodySlots[i].IsLocked = true;
+                    foreach (CustomizingBody dataNum in DataManager.Instance.BodyOpenData)
                     {
-                        bodySlot = bodySlots[i];
-                        break;
+                        if (dataNum == bodySlots[i].bodyColor)
+                        {
+                            bodySlots[i].IsLocked = false;
+                            break;
+                        }
                     }
+                    if (bodySlots[i].bodyColor == (CustomizingBody)bodyNum)
+                        bodySlot = bodySlots[i];
                 }
                 if (bodySlot == null)
                     bodySlot = defaultBodySlot;
@@ -503,6 +467,8 @@ namespace Capsule.Lobby.Customize
 
             bodySlot.IsSelected = true;
             savedBodyMat = bodySlot.bodyMaterial;
+
+            defaultBodySlot.IsLocked = false;
             
             return bodySlot;
         }
@@ -513,16 +479,22 @@ namespace Capsule.Lobby.Customize
 
             CustomizeSlotHead[] headSlots = headContent.GetComponentsInChildren<CustomizeSlotHead>();
             CustomizeSlotHead headSlot = null;
-            int headNum = PlayerPrefs.GetInt("CustomizeHead", 0);
+            int headNum = DataManager.Instance.CurrentPlayerCustomizeData.Head;
             if (headSlots != null)
             {
                 for (int i = 0; i < headSlots.Length; i++)
                 {
-                    if (headSlots[i].headItem == (CustomizingHead)headNum)
+                    headSlots[i].IsLocked = true;
+                    foreach (CustomizingHead dataNum in DataManager.Instance.HeadOpenData)
                     {
-                        headSlot = headSlots[i];
-                        break;
+                        if (dataNum == headSlots[i].headItem)
+                        {
+                            headSlots[i].IsLocked = false;
+                            break;
+                        }
                     }
+                    if (headSlots[i].headItem == (CustomizingHead)headNum)
+                        headSlot = headSlots[i];
                 }
                 if (headSlot == null)
                     headSlot = defaultHeadSlot;
@@ -542,6 +514,8 @@ namespace Capsule.Lobby.Customize
 
             currentHeadObj = savedHeadObj;
 
+            defaultHeadSlot.IsLocked = false;
+
             return headSlot;
         }
 
@@ -551,16 +525,22 @@ namespace Capsule.Lobby.Customize
 
             CustomizeSlotFace[] faceSlots = faceContent.GetComponentsInChildren<CustomizeSlotFace>();
             CustomizeSlotFace faceSlot = null;
-            int faceNum = PlayerPrefs.GetInt("CustomizeFace", 0);
+            int faceNum = DataManager.Instance.CurrentPlayerCustomizeData.Face;
             if (faceSlots != null)
             {
                 for (int i = 0; i <  faceSlots.Length; i++)
                 {
-                    if (faceSlots[i].faceItem == (CustomizingFace)faceNum)
+                    faceSlots[i].IsLocked = true;
+                    foreach (CustomizingFace dataNum in DataManager.Instance.FaceOpenData)
                     {
-                        faceSlot = faceSlots[i];
-                        break;
+                        if (dataNum == faceSlots[i].faceItem)
+                        {
+                            faceSlots[i].IsLocked = false;
+                            break;
+                        }
                     }
+                    if (faceSlots[i].faceItem == (CustomizingFace)faceNum)
+                        faceSlot = faceSlots[i];
                 }
                 if (faceSlot == null)
                     faceSlot = defaultFaceSlot;
@@ -580,6 +560,8 @@ namespace Capsule.Lobby.Customize
 
             currentFaceObj = savedFaceObj;
 
+            defaultFaceSlot.IsLocked = false;
+
             return faceSlot;
         }
 
@@ -590,17 +572,23 @@ namespace Capsule.Lobby.Customize
 
             CustomizeSlotGlove[] gloveSlots = gloveContent.GetComponentsInChildren<CustomizeSlotGlove>();
             CustomizeSlotGlove gloveSlot = null;
-            int gloveNum = PlayerPrefs.GetInt("CustomizeGlove", 0);
+            int gloveNum = DataManager.Instance.CurrentPlayerCustomizeData.Glove;
 
             if (gloveSlots != null)
             {
                 for (int i = 0; i < gloveSlots.Length; i++)
                 {
-                    if (gloveSlots[i].gloveNum == (CustomizingGlove)gloveNum)
+                    gloveSlots[i].IsLocked = true;
+                    foreach (CustomizingGlove dataNum in DataManager.Instance.GloveOpenData)
                     {
-                        gloveSlot = gloveSlots[i];
-                        break;
+                        if (dataNum == gloveSlots[i].gloveNum)
+                        {
+                            gloveSlots[i].IsLocked = false;
+                            break;
+                        }
                     }
+                    if (gloveSlots[i].gloveNum == (CustomizingGlove)gloveNum)
+                        gloveSlot = gloveSlots[i];
                 }
                 if (gloveSlot == null)
                     gloveSlot = defaultGloveSlot;
@@ -631,6 +619,8 @@ namespace Capsule.Lobby.Customize
             currentLeftGloveObj = savedLeftGloveObj;
             currentRightGloveObj = savedRightGloveObj;
 
+            defaultGloveSlot.IsLocked = false;
+
             return gloveSlot;
         }
 
@@ -639,16 +629,22 @@ namespace Capsule.Lobby.Customize
             clothDictionary = new Dictionary<CustomizingCloth, GameObject>();
             CustomizeSlotCloth[] clothSlots = clothContent.GetComponentsInChildren<CustomizeSlotCloth>();
             CustomizeSlotCloth clothSlot = null;
-            int clothNum = PlayerPrefs.GetInt("CustomizeCloth", 0);
+            int clothNum = DataManager.Instance.CurrentPlayerCustomizeData.Cloth;
             if (clothSlots != null)
             {
                 for (int i = 0; i < clothSlots.Length; i++)
                 {
-                    if (clothSlots[i].clothNum == (CustomizingCloth)clothNum)
+                    clothSlots[i].IsLocked = true;
+                    foreach (CustomizingCloth dataNum in DataManager.Instance.ClothOpenData)
                     {
-                        clothSlot = clothSlots[i];
-                        break;
+                        if (dataNum == clothSlots[i].clothNum)
+                        {
+                            clothSlots[i].IsLocked = false;
+                            break;
+                        }
                     }
+                    if (clothSlots[i].clothNum == (CustomizingCloth)clothNum)
+                        clothSlot = clothSlots[i];
                 }
                 if (clothSlot == null) clothSlot = defaultClothSlot;
             }
@@ -666,6 +662,8 @@ namespace Capsule.Lobby.Customize
                 savedClothObj = null;
 
             currentClothObj = savedClothObj;
+
+            defaultClothSlot.IsLocked = false;
 
             return clothSlot;
         }

@@ -25,7 +25,9 @@ namespace Capsule.Lobby.Shopping
         private CanvasGroup popupCanvasGroup;
         public GameObject groupShoppingItemInfo;
         private GameObject noShoppingItem;
+        public CanvasGroup notEnoughCoinCG;
         public GameObject shoppingItemInfoPrefab;
+
         public Sprite commonSlotSprite;
         public Sprite rareSlotSprite;
         public Sprite epicSlotSprite;
@@ -61,8 +63,7 @@ namespace Capsule.Lobby.Shopping
             noShoppingItem = GameObject.Find("NoShoppingItem");
             OpenCloseShoppingPopup(false);
             currentShoppingList = new List<GameObject>();
-            //currentRemainCoin = PlayerPrefs.GetInt("PlayerCoins", 0);
-            currentRemainCoin = 30000;
+            currentRemainCoin = DataManager.Instance.CurrentPlayerData.Coin;
             mainGoldText = GameObject.Find("Text_Gold").GetComponent<Text>();
             mainGoldText.text = currentRemainCoin.ToString("###,###,##0");
             remainingCoinText = GameObject.Find("TotalInfo").transform.GetChild(1).GetChild(1).GetComponent<Text>();
@@ -70,28 +71,8 @@ namespace Capsule.Lobby.Shopping
             purchaseButton = GameObject.Find("Button_Purchase").GetComponent<Button>();
             toggleCheckImage = GameObject.Find("ToggleCheckImage").GetComponent<Image>();
             toggleCheckImage.color = new Color(1f, 1f, 1f, 1f);
+            notEnoughCoinCG.alpha = 0f;
             toggleCheckSaving = true;
-        }
-
-        public void OnClickToggleSavingCheck()
-        {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT);
-            toggleCheckSaving = !toggleCheckSaving;
-            if (toggleCheckSaving)
-                toggleCheckImage.color = new Color(1f, 1f, 1f, 1f);
-            else
-                toggleCheckImage.color = new Color(1f, 1f, 1f, 0f);
-        }
-
-        public void OpenCloseShoppingPopup(bool isOpen)
-        {
-            if (!isOpen)
-                ResetShoppingInfo();
-            else
-                SetShoppingInfo();
-            popupCanvasGroup.alpha = isOpen ? 1f : 0f;
-            popupCanvasGroup.blocksRaycasts = isOpen;
-            popupCanvasGroup.interactable = isOpen;
         }
 
         private void ResetShoppingInfo()
@@ -109,11 +90,13 @@ namespace Capsule.Lobby.Shopping
         {
             if (currentRemainCoin < currentTotalPrice)
             {
+                notEnoughCoinCG.alpha = 1f;
                 purchaseButton.interactable = false;
                 purchaseButton.transform.GetChild(0).GetComponent<Text>().text = "코인 부족";
             }
             else
             {
+                notEnoughCoinCG.alpha = 0f;
                 purchaseButton.interactable = true;
                 purchaseButton.transform.GetChild(0).GetComponent<Text>().text = "구매 확정";
             }
@@ -125,16 +108,40 @@ namespace Capsule.Lobby.Shopping
                 purchaseButton.interactable = false;
                 purchaseButton.transform.GetChild(0).GetComponent<Text>().text = "상품 없음";
             }
+
             groupShoppingItemInfo.GetComponent<RectTransform>().sizeDelta = new Vector2(1800, 240 * itemCount);
+            groupShoppingItemInfo.GetComponent<RectTransform>().localPosition = new Vector2(-900f, 0f);
+
             remainingCoinText.text = currentRemainCoin.ToString("###,###,##0");
             totalPriceText.text = currentTotalPrice.ToString("###,###,##0");
+        }
+
+        public void OpenCloseShoppingPopup(bool isOpen)
+        {
+            if (!isOpen)
+                ResetShoppingInfo();
+            else
+                SetShoppingInfo();
+            popupCanvasGroup.alpha = isOpen ? 1f : 0f;
+            popupCanvasGroup.blocksRaycasts = isOpen;
+            popupCanvasGroup.interactable = isOpen;
+        }
+
+        public void OnClickToggleSavingCheck()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT);
+            toggleCheckSaving = !toggleCheckSaving;
+            if (toggleCheckSaving)
+                toggleCheckImage.color = new Color(1f, 1f, 1f, 1f);
+            else
+                toggleCheckImage.color = new Color(1f, 1f, 1f, 0f);
         }
 
         public void Purchased()
         {
             currentRemainCoin -= currentTotalPrice;
             mainGoldText.text = currentRemainCoin.ToString("###,###,##0");
-            PlayerPrefs.SetInt("PlayerCoins", currentRemainCoin);
+            DataManager.Instance.CurrentPlayerData.UseCoin(currentTotalPrice);
         }
 
         public void PlayBackSound()

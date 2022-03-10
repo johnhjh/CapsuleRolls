@@ -45,11 +45,13 @@ namespace Capsule.Player.Lobby
 
         private void PlayerCustomizeInit()
         {
-            ChangeBody((CustomizingBody)PlayerPrefs.GetInt("CustomizeBody", 0));
-            ChangeHead((CustomizingHead)PlayerPrefs.GetInt("CustomizeHead", 0));
-            ChangeFace((CustomizingFace)PlayerPrefs.GetInt("CustomizeFace", 0));
-            ChangeGloves((CustomizingGlove)PlayerPrefs.GetInt("CustomizeGlove", 0));
-            ChangeCloth((CustomizingCloth)PlayerPrefs.GetInt("CustomizeCloth", 0));
+            PlayerCustomizeData data = DataManager.Instance.CurrentPlayerCustomizeData;
+
+            ChangeBody((CustomizingBody)data.Body);
+            ChangeHead((CustomizingHead)data.Head);
+            ChangeFace((CustomizingFace)data.Face);
+            ChangeGloves((CustomizingGlove)data.Glove);
+            ChangeCloth((CustomizingCloth)data.Cloth);
         }
 
         public void ChangeBody(Material bodyMaterial)

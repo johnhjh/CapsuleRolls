@@ -8,12 +8,19 @@ namespace Capsule.Lobby.Customize
     public abstract class CustomizeSlot : AbstractSlot
     {
         public CustomizingData data;
+        private GameObject lockImage = null;
 
         private bool isLocked;
         public bool IsLocked
         {
             get { return isLocked; }
-            set { isLocked = value; }
+            set 
+            {
+                isLocked = value;
+                if (lockImage == null)
+                    lockImage = transform.GetChild(1).gameObject;
+                lockImage.SetActive(value);
+            }
         }
 
         public override void OnPointerClick(PointerEventData eventData)
