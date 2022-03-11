@@ -151,6 +151,11 @@ namespace Capsule.SceneLoad
             }
         }
 
+        public void ReLoadScene(LobbySceneType sceneType)
+        {
+            SceneManager.LoadScene(SceneTypeToString(sceneType), LoadSceneMode.Single);
+        }
+
         public IEnumerator LoadGameScene()
         {
             ResetFields();

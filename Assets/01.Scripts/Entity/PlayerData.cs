@@ -40,9 +40,133 @@ namespace Capsule.Entity
         public static int GetExpData(int level)
         {
             if (levelExpList != null && levelExpList.Count > level)
-                return levelExpList[level];
+                return levelExpList[level - 1];
             else
                 return (int)LevelExp.LEVEL_MAX;
+        }
+    }
+
+    public class PlayerData
+    {
+        private string playerID;
+        private string playerNickName;
+        private int playerLevel;
+        private int playerExp;
+        private int playerCoin;
+        private int playerRate;
+
+        public PlayerData()
+        {
+            LoadPlayerData();
+        }
+
+        public PlayerData(string id, string nick, int level, int exp, int coin, int rating)
+        {
+            ID = id;
+            NickName = nick;
+            Level = level;
+            Exp = exp;
+            Coin = coin;
+            Rating = rating;
+        }
+
+        public string ID
+        {
+            get { return playerID; }
+            private set { playerID = value; }
+        }
+        public string NickName
+        {
+            get { return playerNickName; }
+            private set { playerNickName = value; }
+        }
+        public int Exp
+        {
+            get { return playerExp; }
+            private set { playerExp = value; }
+        }
+        public int Level
+        {
+            get { return playerLevel; }
+            private set { playerLevel = value; }
+        }
+        public int Coin
+        {
+            get { return playerCoin; }
+            private set { playerCoin = value; }
+        }
+        public int Rating
+        {
+            get { return playerRate; }
+            private set { playerRate = value; }
+        }
+
+        public void AddExp(int exp)
+        {
+            Exp += exp;
+            PlayerPrefs.SetInt("PlayerExp", Exp);
+            if (CheckLevelUP())
+                LevelUP();
+        }
+
+        private void LevelUP()
+        {
+            Level += 1;
+            PlayerPrefs.SetInt("PlayerLevel", Level);
+            if (CheckLevelUP())
+                LevelUP();
+        }
+
+        private bool CheckLevelUP()
+        {
+            return Exp <= (int)LevelExp.LEVEL_MAX &&
+                Exp >= LevelExpCalc.GetExpData(Level + 1);
+        }
+
+        public void EarnCoin(int amount)
+        {
+            Coin += amount;
+            PlayerPrefs.SetInt("PlayerCoins", Coin);
+        }
+
+        public void UseCoin(int amount)
+        {
+            Coin -= amount;
+            PlayerPrefs.SetInt("PlayerCoins", Coin);
+        }
+
+        public void CalcRating(int amount)
+        {
+            Rating += amount;
+            PlayerPrefs.SetInt("PlayerRating", Rating);
+        }
+
+        public void SavePlayerData()
+        {
+            PlayerPrefs.SetString("PlayerNick", NickName);
+            PlayerPrefs.SetInt("PlayerExp", Exp);
+            PlayerPrefs.SetInt("PlayerLevel", Level);
+            PlayerPrefs.SetInt("PlayerCoins", Coin);
+            PlayerPrefs.SetInt("PlayerRating", Rating);
+        }
+
+        private void LoadPlayerData()
+        {
+            ID = PlayerPrefs.GetString("PlayerID", "Guest" + Random.Range(1, 999).ToString("000"));
+            NickName = PlayerPrefs.GetString("PlayerNick", "캡슐파이터");
+            Exp = PlayerPrefs.GetInt("PlayerExp", 0);
+            Level = PlayerPrefs.GetInt("PlayerLevel", 1);
+            Coin = PlayerPrefs.GetInt("PlayerCoins", 0);
+            Rating = PlayerPrefs.GetInt("PlayerRating", 1200);
+        }
+
+        public void ResetPlayerData()
+        {
+            PlayerPrefs.SetString("PlayerNick", "캡슐파이터");
+            PlayerPrefs.SetInt("PlayerExp", 0);
+            PlayerPrefs.SetInt("PlayerLevel", 1);
+            PlayerPrefs.SetInt("PlayerCoins", 50000);
+            PlayerPrefs.SetInt("PlayerRating", 1200);
         }
     }
 
@@ -218,124 +342,6 @@ namespace Capsule.Entity
                 InfiniteLoopDetector.Run();
             }
             BuyData = new List<string>();
-        }
-    }
-
-    public class PlayerData
-    {
-        private string playerID;
-        private string playerNickName;
-        private int playerLevel;
-        private int playerExp;
-        private int playerCoin;
-        private int playerRate;
-
-        public PlayerData()
-        {
-            LoadPlayerData();
-        }
-
-        public PlayerData(string id, string nick, int level, int exp, int coin, int rating)
-        {
-            ID = id;
-            NickName = nick;
-            Level = level;
-            Exp = exp;
-            Coin = coin;
-            Rating = rating;
-        }
-        
-        public string ID
-        {
-            get { return playerID; }
-            private set { playerID = value; }
-        }
-        public string NickName
-        {
-            get { return playerNickName; }
-            private set { playerNickName = value; }
-        }
-        public int Exp
-        {
-            get { return playerExp; }
-            private set { playerExp = value; }
-        }
-        public int Level
-        {
-            get { return playerLevel; }
-            private set { playerLevel = value; }
-        }
-        public int Coin
-        {
-            get { return playerCoin; }
-            private set { playerCoin = value; }
-        }
-        public int Rating
-        {
-            get { return playerRate; }
-            private set { playerRate = value; }
-        }
-
-        public void AddExp(int exp)
-        {
-            Exp += exp;
-            PlayerPrefs.SetInt("PlayerExp", Exp);
-            if (CheckLevelUP())
-                LevelUP();
-        }
-
-        private void LevelUP()
-        {
-            Level += 1;
-            PlayerPrefs.SetInt("PlayerLevel", Level);
-            if (CheckLevelUP())
-                LevelUP();
-        }
-
-        private bool CheckLevelUP()
-        {
-            return Exp <= (int)LevelExp.LEVEL_MAX &&
-                Exp >= LevelExpCalc.GetExpData(Level + 1);
-        }
-
-        public void EarnCoin(int amount)
-        {
-            Coin += amount;
-            PlayerPrefs.SetInt("PlayerCoins", Coin);
-        }
-
-        public void UseCoin(int amount)
-        {
-            Coin -= amount;
-            PlayerPrefs.SetInt("PlayerCoins", Coin);
-        }
-
-        public void SavePlayerData()
-        {
-            PlayerPrefs.SetString("PlayerNick", NickName);
-            PlayerPrefs.SetInt("PlayerExp", Exp);
-            PlayerPrefs.SetInt("PlayerLevel", Level);
-            PlayerPrefs.SetInt("PlayerCoins", Coin);
-            PlayerPrefs.SetInt("PlayerRating", Rating);
-        }
-
-        private void LoadPlayerData()
-        {
-            ID = PlayerPrefs.GetString("PlayerID", "Guest" + Random.Range(1, 999).ToString("000"));
-            NickName = PlayerPrefs.GetString("PlayerNick", "캡슐맨");
-            Exp = PlayerPrefs.GetInt("PlayerExp", 0);
-            Level = PlayerPrefs.GetInt("PlayerLevel", 1);
-            Coin = PlayerPrefs.GetInt("PlayerCoins", 0);
-            Rating = PlayerPrefs.GetInt("PlayerRating", 0);
-        }
-
-        public void ResetPlayerData()
-        {
-            PlayerPrefs.SetString("PlayerNick", "캡슐맨");
-            PlayerPrefs.SetInt("PlayerExp", 0);
-            PlayerPrefs.SetInt("PlayerLevel", 1);
-            PlayerPrefs.SetInt("PlayerCoins", 50000);
-            PlayerPrefs.SetInt("PlayerRating", 0);
         }
     }
 }

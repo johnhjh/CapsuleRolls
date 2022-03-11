@@ -155,6 +155,86 @@ namespace Capsule.Entity
             CurrentPlayerCustomizeData.ResetPlayerCustomizeData();
         }
 
+        public void UnlockAllDatas()
+        {
+            CurrentPlayerBuyData.ResetPlayerBuyData();
+            CurrentPlayerCustomizeItemOpenData.ResetPlayerCustomizeItemOpenData();
+            bodyOpenData = new List<CustomizingBody>();
+            headOpenData = new List<CustomizingHead>();
+            faceOpenData = new List<CustomizingFace>();
+            gloveOpenData = new List<CustomizingGlove>();
+            clothOpenData = new List<CustomizingCloth>();
+            bodyBuyData = new List<CustomizingBody>();
+            headBuyData = new List<CustomizingHead>();
+            faceBuyData = new List<CustomizingFace>();
+            gloveBuyData = new List<CustomizingGlove>();
+            clothBuyData = new List<CustomizingCloth>();
+            presetBuyData = new List<CustomizingPreset>();
+
+            foreach (CustomizingPresetData data in customizingPresetDatas)
+            {
+                currentPlayerBuyData.AddPlayerBuyData(
+                    (int)data.presetNum,
+                    (int)CustomizingType.PRESET);
+                presetBuyData.Add(data.presetNum);
+            }
+            foreach(CustomizingBodyData data in customizingBodyDatas)
+            {
+                if (data.bodyNum != CustomizingBody.DEFAULT)
+                {
+                    currentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.bodyNum, 
+                        (int)CustomizingType.BODY);
+                    bodyOpenData.Add(data.bodyNum);
+                    bodyBuyData.Add(data.bodyNum);
+                }
+            }
+            foreach(CustomizingHeadData data in customizingHeadDatas)
+            {
+                if (data.headNum != CustomizingHead.DEFAULT)
+                {
+                    currentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.headNum,
+                        (int)CustomizingType.HEAD);
+                    headOpenData.Add(data.headNum);
+                    headBuyData.Add(data.headNum);
+                }
+            }
+            foreach(CustomizingFaceData data in customizingFaceDatas)
+            {
+                if (data.faceNum != CustomizingFace.DEFAULT)
+                {
+                    currentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.faceNum,
+                        (int)CustomizingType.FACE);
+                    faceOpenData.Add(data.faceNum);
+                    faceBuyData.Add(data.faceNum);
+                }
+            }
+            foreach(CustomizingGloveData data in customizingGloveDatas)
+            {
+                if (data.gloveNum != CustomizingGlove.DEFAULT)
+                {
+                    currentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.gloveNum,
+                        (int)CustomizingType.GLOVE);
+                    gloveOpenData.Add(data.gloveNum);
+                    gloveBuyData.Add(data.gloveNum);
+                }
+            }
+            foreach(CustomizingClothData data in customizingClothDatas)
+            {
+                if (data.clothNum != CustomizingCloth.DEFAULT)
+                {
+                    currentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
+                        (int)data.clothNum,
+                        (int)CustomizingType.CLOTH);
+                    clothOpenData.Add(data.clothNum);
+                    clothBuyData.Add(data.clothNum);
+                }
+            }
+        }
+
         private void Awake()
         {
             if (dataMgr == null)
