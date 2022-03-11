@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Capsule.Entity;
 using Capsule.Lobby;
-using UnityEngine.EventSystems;
+using Capsule.Audio;
 
 namespace Capsule.Lobby.Shopping
 {
@@ -21,10 +22,19 @@ namespace Capsule.Lobby.Shopping
             }
         }
 
+        public virtual void ReselectSlot()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            IsSelected = false;
+        }
+
         public override void OnPointerClick(PointerEventData eventData)
         {
             if (isPurchased) return;
-            base.OnPointerClick(eventData);
+            if (!IsSelected)
+                base.OnPointerClick(eventData);
+            else
+                ReselectSlot();
         }
 
         public override void OnPointerEnter(PointerEventData eventData)

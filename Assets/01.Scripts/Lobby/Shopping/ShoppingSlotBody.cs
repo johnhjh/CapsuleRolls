@@ -13,5 +13,10 @@ namespace Capsule.Lobby.Shopping
             this.IsSelected = true;
             ShoppingManager.Instance.CurrentBody = this;
         }
+        public override void ReselectSlot()
+        {
+            base.ReselectSlot();
+            ShoppingManager.Instance.CurrentBody = null;
+        }
     }
 }

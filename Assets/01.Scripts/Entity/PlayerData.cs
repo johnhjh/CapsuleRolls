@@ -7,15 +7,15 @@ namespace Capsule.Entity
 {
     public enum LevelExp
     {
-        LEVEL_0 = 0,
-        LEVEL_1 = 100,
-        LEVEL_2 = 200,
-        LEVEL_3 = 400,
-        LEVEL_4 = 800,
-        LEVEL_5 = 1600,
-        LEVEL_6 = 3200,
-        LEVEL_7 = 6400,
-        LEVEL_8 = 12800,
+        LEVEL_1 = 0,
+        LEVEL_2 = 100,
+        LEVEL_3 = 200,
+        LEVEL_4 = 400,
+        LEVEL_5 = 800,
+        LEVEL_6 = 1600,
+        LEVEL_7 = 3200,
+        LEVEL_8 = 6400,
+        LEVEL_9 = 12800,
         LEVEL_MAX = 25600,
     }
 
@@ -26,7 +26,6 @@ namespace Capsule.Entity
         static LevelExpCalc()
         {
             levelExpList = new List<int>();
-            levelExpList.Add((int)LevelExp.LEVEL_0);
             levelExpList.Add((int)LevelExp.LEVEL_1);
             levelExpList.Add((int)LevelExp.LEVEL_2);
             levelExpList.Add((int)LevelExp.LEVEL_3);
@@ -35,6 +34,7 @@ namespace Capsule.Entity
             levelExpList.Add((int)LevelExp.LEVEL_6);
             levelExpList.Add((int)LevelExp.LEVEL_7);
             levelExpList.Add((int)LevelExp.LEVEL_8);
+            levelExpList.Add((int)LevelExp.LEVEL_9);
         }
 
         public static int GetExpData(int level)
@@ -324,7 +324,7 @@ namespace Capsule.Entity
             ID = PlayerPrefs.GetString("PlayerID", "Guest" + Random.Range(1, 999).ToString("000"));
             NickName = PlayerPrefs.GetString("PlayerNick", "캡슐맨");
             Exp = PlayerPrefs.GetInt("PlayerExp", 0);
-            Level = PlayerPrefs.GetInt("PlayerLevel", 0);
+            Level = PlayerPrefs.GetInt("PlayerLevel", 1);
             Coin = PlayerPrefs.GetInt("PlayerCoins", 0);
             Rating = PlayerPrefs.GetInt("PlayerRating", 0);
         }
@@ -333,7 +333,7 @@ namespace Capsule.Entity
         {
             PlayerPrefs.SetString("PlayerNick", "캡슐맨");
             PlayerPrefs.SetInt("PlayerExp", 0);
-            PlayerPrefs.SetInt("PlayerLevel", 0);
+            PlayerPrefs.SetInt("PlayerLevel", 1);
             PlayerPrefs.SetInt("PlayerCoins", 50000);
             PlayerPrefs.SetInt("PlayerRating", 0);
         }

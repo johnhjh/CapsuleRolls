@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Capsule.Audio;
+using Capsule.Entity;
 using Capsule.SceneLoad;
 
 namespace Capsule.Lobby.Main
@@ -115,6 +116,7 @@ namespace Capsule.Lobby.Main
         {
             Capsule.Entity.DataManager.Instance.ResetAllDatas();
             Destroy(GameObject.Find("Player"));
+            Destroy(DataManager.Instance);
             OnClickBackToTitle();
         }
     }

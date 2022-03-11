@@ -181,7 +181,10 @@ namespace Capsule.Lobby.Shopping
                     CurrentGlove = null;
                 }
                 if (currentHeadObj != null)
+                {
                     currentHeadObj.SetActive(false);
+                    currentHeadObj = null;
+                }
                 if (currentHeadSlot != null)
                     currentHeadSlot.IsSelected = false;
                 currentHeadSlot = value;
@@ -218,7 +221,10 @@ namespace Capsule.Lobby.Shopping
                     CurrentGlove = null;
                 }
                 if (currentFaceObj != null)
+                {
                     currentFaceObj.SetActive(false);
+                    currentFaceObj = null;
+                }
                 if (currentFaceSlot != null)
                     currentFaceSlot.IsSelected = false;
                 currentFaceSlot = value;
@@ -255,7 +261,10 @@ namespace Capsule.Lobby.Shopping
                     CurrentGlove = null;
                 }
                 if (currentClothObj != null)
+                {
                     currentClothObj.SetActive(false);
+                    currentClothObj = null;
+                }
                 if (currentClothSlot != null)
                     currentClothSlot.IsSelected = false;
                 currentClothSlot = value;
@@ -294,9 +303,15 @@ namespace Capsule.Lobby.Shopping
                     CurrentCloth = null;
                 }
                 if (currentLeftGloveObj != null)
+                {
                     currentLeftGloveObj.SetActive(false);
+                    currentLeftGloveObj = null;
+                }
                 if (currentRightGloveObj != null)
+                {
                     currentRightGloveObj.SetActive(false);
+                    currentRightGloveObj = null;
+                }
                 if (currentGloveSlot != null)
                     currentGloveSlot.IsSelected = false;
                 currentGloveSlot = value;
@@ -610,6 +625,11 @@ namespace Capsule.Lobby.Shopping
             SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
             CurrentPreset = null;
             CurrentBody = null;
+            //DataManager.Instance.CurrentPlayerCustomizeData.Body = (int)CustomizingBody.DEFAULT;
+            //DataManager.Instance.CurrentPlayerCustomizeData.Head = (int)CustomizingHead.DEFAULT;
+            //DataManager.Instance.CurrentPlayerCustomizeData.Face = (int)CustomizingFace.DEFAULT;
+            //DataManager.Instance.CurrentPlayerCustomizeData.Cloth = (int)CustomizingCloth.DEFAULT;
+            //DataManager.Instance.CurrentPlayerCustomizeData.Glove = (int)CustomizingGlove.DEFAULT;
         }
 
         public void OnClickPurchaseBtn()
@@ -955,7 +975,7 @@ namespace Capsule.Lobby.Shopping
             if (savedFaceObj != null && !savedFaceObj.activeSelf)
                 savedFaceObj.SetActive(true);
 
-            if (leftGloveDictionary.Count > 0)
+            if (rightGloveDictionary.Count > 0)
             {
                 foreach (GameObject obj in leftGloveDictionary.Values)
                 {
@@ -972,7 +992,7 @@ namespace Capsule.Lobby.Shopping
                 savedLeftGloveObj.SetActive(true);
             if (savedRightGloveObj != null && !savedRightGloveObj.activeSelf)
                 savedRightGloveObj.SetActive(true);
-            if (savedLeftGloveObj == null)
+            if (savedRightGloveObj == null)
                 PlayerCustomize.Instance.EnableHandMeshes(true);
 
             if (clothDictionary.Count > 0)
