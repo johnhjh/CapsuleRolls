@@ -132,6 +132,18 @@ namespace Cpasule.Dev
             return rating;
         }
 
+        public void OnClickResetLevel()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            DataManager.Instance.CurrentPlayerData.ResetLevel();
+        }
+
+        public void OnClickUnlockAll()
+        {
+            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            DataManager.Instance.UnlockAllDatas();
+        }
+
         public void OnClickResetAll()
         {
             SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
@@ -139,12 +151,6 @@ namespace Cpasule.Dev
             Destroy(GameObject.Find("Player"));
             Destroy(DataManager.Instance.gameObject);
             StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.TITLE, true));
-        }
-
-        public void OnClickUnlockAll()
-        {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
-            DataManager.Instance.UnlockAllDatas();
         }
 
         public void OnClickRestart()

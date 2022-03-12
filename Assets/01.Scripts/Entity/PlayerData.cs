@@ -109,10 +109,20 @@ namespace Capsule.Entity
                 LevelUP();
         }
 
+        public void ResetLevel()
+        {
+            Level = 1;
+            Exp = 0;
+            PlayerPrefs.SetInt("PlayerLevel", Level);
+            PlayerPrefs.SetInt("PlayerExp", Exp);
+        }
+
         private void LevelUP()
         {
             Level += 1;
+            Exp -= LevelExpCalc.GetExpData(Level);
             PlayerPrefs.SetInt("PlayerLevel", Level);
+            PlayerPrefs.SetInt("PlayerExp", Exp);
             if (CheckLevelUP())
                 LevelUP();
         }
