@@ -10,16 +10,14 @@ namespace Capsule.Player.Game
         public float h;
         [HideInInspector]
         public float v;
-
-        void Start()
-        {
-
-        }
+        [HideInInspector]
+        public float r;
 
         void Update()
         {
             h = Input.GetAxis("Horizontal");
             v = Input.GetAxis("Vertical");
+            r = Input.GetAxis("Mouse X");
         }
     }
 }

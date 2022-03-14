@@ -8,6 +8,7 @@ public class RollingBallCtrl : MonoBehaviour
     public float radius = 1.5f;
     public float rotateSpeed = 20f;
     private PlayerInput playerInput;
+    private Transform playerTransform;
 
     private void Awake()
     {
@@ -15,15 +16,17 @@ public class RollingBallCtrl : MonoBehaviour
 
     private void Start()
     {
-        playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
+        playerTransform = transform.parent.GetChild(0).GetComponent<Transform>();
+        playerInput = playerTransform.GetComponent<PlayerInput>();
     }
 
     void FixedUpdate()
     {
-        Vector3 direction = new Vector3(playerInput.h, 0f, playerInput.v).normalized;
+        Vector3 direction = (-playerTransform.forward * playerInput.h + playerTransform.right * playerInput.v).normalized;
         Vector3 rotation = new Vector3(playerInput.v, 0, -playerInput.h).normalized;
-        //direction *= Time.deltaTime * rotateSpeed;
-        rotation *= Time.deltaTime * rotateSpeed / radius;
-        transform.Rotate(rotation, Space.World);
+        direction *= Time.deltaTime * rotateSpeed / radius;
+        //rotation *= Time.deltaTime * rotateSpeed / radius;
+        //transform.Rotate(rotation, Space.World);
+        transform.Rotate(direction, Space.World);
     }
 }

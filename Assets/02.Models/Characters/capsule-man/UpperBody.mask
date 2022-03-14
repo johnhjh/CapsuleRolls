@@ -8,4 +8,106 @@ AvatarMask:
   m_PrefabAsset: {fileID: 0}
   m_Name: UpperBody
   m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
-  m_Elements: []
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_LThigh
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_LThigh/Character_LCalf
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_LThigh/Character_LCalf/Character_LFoot
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_LThigh/Character_LCalf/Character_LFoot/Character_FootBone001
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_LThigh/Character_LCalf/Character_LFoot/Character_FootBone001/Character_FootBone001_end
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_RThigh
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_RThigh/Character_RCalf
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_RThigh/Character_RCalf/Character_RFoot
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_RThigh/Character_RCalf/Character_RFoot/Character_FootBone0011
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_RThigh/Character_RCalf/Character_RFoot/Character_FootBone0011/Character_FootBone0011_end
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm/Character_LForearm
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm/Character_LForearm/Character_LPalm
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm/Character_LForearm/Character_LPalm/Character_LDigit11
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm/Character_LForearm/Character_LPalm/Character_LDigit11/Character_LDigit12
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm/Character_LForearm/Character_LPalm/Character_LDigit11/Character_LDigit12/Character_LDigit12_end
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm/Character_LForearm/Character_LPalm/Character_LDigit21
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm/Character_LForearm/Character_LPalm/Character_LDigit21/Character_LDigit22
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_LCollarbone/Character_LUpperarm/Character_LForearm/Character_LPalm/Character_LDigit21/Character_LDigit22/Character_LDigit22_end
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_Neck
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_Neck/Character_Head
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_Neck/Character_Head/Character_Head_end
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm/Character_RForearm
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm/Character_RForearm/Character_RPalm
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm/Character_RForearm/Character_RPalm/Character_RDigit11
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm/Character_RForearm/Character_RPalm/Character_RDigit11/Character_RDigit12
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm/Character_RForearm/Character_RPalm/Character_RDigit11/Character_RDigit12/Character_RDigit12_end
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm/Character_RForearm/Character_RPalm/Character_RDigit21
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm/Character_RForearm/Character_RPalm/Character_RDigit21/Character_RDigit22
+    m_Weight: 1
+  - m_Path: Armature/Character_Pelvis/Character_Spine1/Character_Spine2/Character_Ribcage/Character_RCollarbone/Character_RUpperarm/Character_RForearm/Character_RPalm/Character_RDigit21/Character_RDigit22/Character_RDigit22_end
+    m_Weight: 1
+  - m_Path: Body
+    m_Weight: 1
+  - m_Path: Character_
+    m_Weight: 1
+  - m_Path: Character_LPlatform
+    m_Weight: 1
+  - m_Path: Character_RPlatform
+    m_Weight: 1
+  - m_Path: LeftArm
+    m_Weight: 1
+  - m_Path: LeftFoot
+    m_Weight: 1
+  - m_Path: LeftHand
+    m_Weight: 1
+  - m_Path: LeftLeg
+    m_Weight: 1
+  - m_Path: RightArm
+    m_Weight: 1
+  - m_Path: RightFoot
+    m_Weight: 1
+  - m_Path: RightHand
+    m_Weight: 1
+  - m_Path: RightLeg
+    m_Weight: 1
