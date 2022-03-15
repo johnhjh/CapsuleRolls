@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.Scenes/LobbyScenes/ShoppingScene.unity
     guid: 53baec91e2fb1cb48abd9d84e74028fd
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Logic/RollTheBall_Logic.unity
+    guid: da50b9934c718384a81552a713bdcb87
   m_configObjects: {}

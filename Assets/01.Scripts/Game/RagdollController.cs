@@ -7,18 +7,7 @@ public class RagdollController : MonoBehaviour
     public GameObject charObj;
     public GameObject ragdollObj;
     public Rigidbody spine;
-    public Vector3 forceVector = new Vector3(0f, 500f, 0f);
-
-    private bool isUsingRagdoll = false;
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isUsingRagdoll = !isUsingRagdoll;
-            ChangeRagdoll(isUsingRagdoll);
-        }
-    }
+    public Vector3 forceVector = new Vector3(0f, 0f, 0f);
 
     public void ChangeRagdoll(bool usingRagdoll)
     {
