@@ -41,6 +41,11 @@ namespace Capsule.Player.Game
                 animator.SetInteger("Rotate", 0);
                 animator.SetBool("IsTurning", false);
             }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                animator.SetTrigger("TrigGoal");
+                animator.SetInteger("GoalAnim", Random.Range(0, 3));
+            }
         }
     }
 }
