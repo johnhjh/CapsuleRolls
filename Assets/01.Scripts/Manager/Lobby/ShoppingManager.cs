@@ -383,7 +383,7 @@ namespace Capsule.Lobby.Shopping
         private void Start()
         {
             BGMManager.Instance.ChangeBGM(BGMType.CUSTOMIZE);
-            SFXManager.Instance.PlayOneShotSFX(SFXType.LOAD_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.SHOPPING;
             PlayerTransform.Instance.SetPosition(new Vector3(3.25f, -0.27f, -5.3f));
             PlayerTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
@@ -576,7 +576,7 @@ namespace Capsule.Lobby.Shopping
 
         public void ChangeFocusTab(RectTransform parent, CustomizingType cType)
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.OK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.OK);
 
             currentTab.GetComponent<Text>().fontSize = NORMAL_TAB_FONT_SIZE;
             currentTab.GetComponent<ShoppingTabCtrl>().IsFocused = false;
@@ -622,7 +622,7 @@ namespace Capsule.Lobby.Shopping
 
         public void OnClickResetBtn()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
             CurrentPreset = null;
             CurrentBody = null;
             //DataManager.Instance.CurrentPlayerCustomizeData.Body = (int)CustomizingBody.DEFAULT;
@@ -634,7 +634,7 @@ namespace Capsule.Lobby.Shopping
 
         public void OnClickPurchaseBtn()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.BUY);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BUY);
             ShoppingPopupManager.Instance.Purchased();
 
             if (ShoppingPopupManager.Instance.ToggleCheckSaving)
@@ -843,7 +843,7 @@ namespace Capsule.Lobby.Shopping
 
         public void OnClickBuyBtn()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.POPUP);
+            SFXManager.Instance.PlayOneShot(MenuSFX.POPUP);
 
             if (currentBodySlot != null)
             {
@@ -949,7 +949,7 @@ namespace Capsule.Lobby.Shopping
 
         public void BackToMainLobby()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
 
             PlayerCustomize.Instance.ChangeBody(savedBodyMaterial);
 

@@ -77,7 +77,7 @@ namespace Capsule.Lobby
         public void OnPointerEnter(PointerEventData eventData)
         {
             isHovering = true;
-            SFXManager.Instance.PlayOneShotSFX(SFXType.HOVER);
+            SFXManager.Instance.PlayOneShot(MenuSFX.HOVER);
         }
 
         public void OnPointerExit(PointerEventData eventData)

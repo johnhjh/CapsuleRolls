@@ -33,7 +33,7 @@ namespace Capsule.Lobby.Main
         private void Start()
         {
             BGMManager.Instance.ChangeBGM(BGMType.MAIN);
-            SFXManager.Instance.PlayOneShotSFX(SFXType.LOAD_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.MAIN_LOBBY;
             PlayerTransform.Instance.SetPosition(new Vector3(2.29f, -0.17f, -5.4f));
             PlayerTransform.Instance.SetRotation(Quaternion.Euler(19.94f, 202f, -4.7f));
@@ -68,7 +68,7 @@ namespace Capsule.Lobby.Main
 
         public void MenuClick()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.OK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.OK);
         }
     }
 }

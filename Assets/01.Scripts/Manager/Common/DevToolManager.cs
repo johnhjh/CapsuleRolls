@@ -45,7 +45,7 @@ namespace Cpasule.Dev
 
         public void PopupDevTool(bool isOpen)
         {
-            SFXManager.Instance.PlayOneShotSFX(isOpen ? SFXType.POPUP : SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.POPUP : MenuSFX.BACK);
             devToolCG.interactable = isOpen;
             devToolCG.blocksRaycasts = isOpen;
             devToolCG.alpha = isOpen ? 1f : 0f;
@@ -55,10 +55,10 @@ namespace Cpasule.Dev
         {
             int exp = GetExpInputValue();
             if (exp == 0)
-                SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+                SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
             else
             {
-                SFXManager.Instance.PlayOneShotSFX(SFXType.OK);
+                SFXManager.Instance.PlayOneShot(MenuSFX.OK);
                 DataManager.Instance.CurrentPlayerData.AddExp(exp);
             }
         }
@@ -82,10 +82,10 @@ namespace Cpasule.Dev
         {
             int coin = GetCoinInputValue();
             if (coin == 0)
-                SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+                SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
             else
             {
-                SFXManager.Instance.PlayOneShotSFX(SFXType.BUY);
+                SFXManager.Instance.PlayOneShot(MenuSFX.BUY);
                 DataManager.Instance.CurrentPlayerData.EarnCoin(coin);
             }
         }
@@ -109,10 +109,10 @@ namespace Cpasule.Dev
         {
             int rating = GetRatingInputValue();
             if (rating == 0)
-                SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+                SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
             else
             {
-                SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+                SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
                 DataManager.Instance.CurrentPlayerData.CalcRating(rating);
             }
         }
@@ -134,19 +134,19 @@ namespace Cpasule.Dev
 
         public void OnClickResetLevel()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             DataManager.Instance.CurrentPlayerData.ResetLevel();
         }
 
         public void OnClickUnlockAll()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             DataManager.Instance.UnlockAllDatas();
         }
 
         public void OnClickResetAll()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             DataManager.Instance.ResetAllDatas();
             Destroy(GameObject.Find("Player"));
             Destroy(DataManager.Instance.gameObject);
@@ -155,7 +155,7 @@ namespace Cpasule.Dev
 
         public void OnClickRestart()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             Destroy(GameObject.Find("Player"));
             Destroy(DataManager.Instance.gameObject);
             Destroy(BGMManager.Instance.gameObject);
@@ -167,7 +167,7 @@ namespace Cpasule.Dev
 
         public void OnClickReLoadMain()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             Destroy(GameObject.Find("Player"));
             Destroy(DataManager.Instance.gameObject);
             SceneLoadManager.Instance.ReLoadScene(LobbySceneType.MAIN_LOBBY);

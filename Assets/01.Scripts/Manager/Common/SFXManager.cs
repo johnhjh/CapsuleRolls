@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Capsule.Audio
 {
     [System.Serializable]
-    public class SoundEffects
+    public class MenuSoundEffects
     {
         public AudioClip okClip;
         public AudioClip backClip;
@@ -16,8 +16,20 @@ namespace Capsule.Audio
         public AudioClip buyClip;
         public AudioClip popupClip;
     }
+    [System.Serializable]
+    public class GameSoundEffects
+    {
+        public AudioClip moveClip;
+        public AudioClip jumpClip;
+    }
+    [System.Serializable]
+    public class AnnoucementSounds
+    {
+        public AudioClip enemyGoalClip;
+        public AudioClip teamGoalClip;
+    }
 
-    public enum SFXType
+    public enum MenuSFX
     {
         OK = 0,
         BACK,
@@ -29,9 +41,27 @@ namespace Capsule.Audio
         POPUP,
     }
 
+    public enum GameSFX
+    { 
+        MOVE = 0,
+        JUMP,
+    }
+
+    public enum Announcements
+    {
+
+        ENEMY_GOAL,
+        TEAM_GOAL,
+
+    }
+
+
     public class SFXManager : MonoBehaviour
     {
-        public SoundEffects soundEffects = new SoundEffects();
+        public MenuSoundEffects menuSoundEffects = new MenuSoundEffects();
+        public GameSoundEffects gameSoundEffects = new GameSoundEffects();
+        public AnnoucementSounds announceSounds = new AnnoucementSounds();
+
         private static SFXManager sfxManager;
         public static SFXManager Instance
         {
@@ -62,33 +92,56 @@ namespace Capsule.Audio
             sfxAudioSource.volume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
         }
 
-        private AudioClip GetAudioClipByType(SFXType sfx)
+        private AudioClip GetAudioClip(MenuSFX sfx)
         {
             switch (sfx)
             {
-                case SFXType.OK:
-                    return soundEffects.okClip;
-                case SFXType.BACK:
-                    return soundEffects.backClip;
-                case SFXType.HOVER:
-                    return soundEffects.hoverClip;
-                case SFXType.SELECT:
-                    return soundEffects.selectClip;
-                case SFXType.SELECT_DONE:
-                    return soundEffects.selectDoneClip;
-                case SFXType.LOAD_DONE:
-                    return soundEffects.loadDoneClip;
-                case SFXType.BUY:
-                    return soundEffects.buyClip;
-                case SFXType.POPUP:
-                    return soundEffects.popupClip;
+                case MenuSFX.OK:
+                    return menuSoundEffects.okClip;
+                case MenuSFX.BACK:
+                    return menuSoundEffects.backClip;
+                case MenuSFX.HOVER:
+                    return menuSoundEffects.hoverClip;
+                case MenuSFX.SELECT:
+                    return menuSoundEffects.selectClip;
+                case MenuSFX.SELECT_DONE:
+                    return menuSoundEffects.selectDoneClip;
+                case MenuSFX.LOAD_DONE:
+                    return menuSoundEffects.loadDoneClip;
+                case MenuSFX.BUY:
+                    return menuSoundEffects.buyClip;
+                case MenuSFX.POPUP:
+                    return menuSoundEffects.popupClip;
             }
             return null;
         }
 
-        public void PlaySFX(SFXType sfx)
+        private AudioClip GetAudioClip(GameSFX sfx)
         {
-            AudioClip clip = GetAudioClipByType(sfx);
+            switch (sfx)
+            {
+                case GameSFX.MOVE:
+                    return gameSoundEffects.moveClip;
+                case GameSFX.JUMP:
+                    return gameSoundEffects.jumpClip;
+            }
+            return null;
+        }
+
+        private AudioClip GetAudioClip(Announcements sfx)
+        {
+            switch (sfx)
+            {
+                case Announcements.ENEMY_GOAL:
+                    return announceSounds.enemyGoalClip;
+                case Announcements.TEAM_GOAL:
+                    return announceSounds.teamGoalClip;
+            }
+            return null;
+        }
+
+        private void PlaySFX(AudioClip clip)
+        {
             if (clip != null)
             {
                 sfxAudioSource.clip = clip;
@@ -97,11 +150,50 @@ namespace Capsule.Audio
             }
         }
 
-        public void PlayOneShotSFX(SFXType sfx)
+        private void PlaySFX(AudioClip clip, float delay)
         {
-            AudioClip clip = GetAudioClipByType(sfx);
+            if (clip != null)
+            {
+                sfxAudioSource.clip = clip;
+                if (!sfxAudioSource.isPlaying)
+                    sfxAudioSource.PlayDelayed(delay);
+            }
+        }
+
+        public void PlaySFX(MenuSFX sfx)
+        {
+            PlaySFX(GetAudioClip(sfx));
+        }
+
+        public void PlaySFX(GameSFX sfx)
+        {
+            PlaySFX(GetAudioClip(sfx));
+        }
+
+        public void PlaySFX(GameSFX sfx, float delay)
+        {
+            PlaySFX(GetAudioClip(sfx), delay);
+        }
+
+        private void PlayOneShot(AudioClip clip)
+        {
             if (clip != null)
                 sfxAudioSource.PlayOneShot(clip);
+        }
+
+        public void PlayOneShot(MenuSFX sfx)
+        {
+            PlayOneShot(GetAudioClip(sfx));
+        }
+
+        public void PlayOneShot(GameSFX sfx)
+        {
+            PlayOneShot(GetAudioClip(sfx));
+        }
+
+        public void PlayOneShot(Announcements announce)
+        {
+            PlayOneShot(GetAudioClip(announce));
         }
 
         public void SetVolume(float volume)

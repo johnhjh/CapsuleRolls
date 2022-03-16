@@ -45,7 +45,7 @@ namespace Capsule.Lobby
         {
             if (!isSelected)
             {
-                SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT);
+                SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
                 SelectSlot();
             }
         }
@@ -54,7 +54,7 @@ namespace Capsule.Lobby
         {
             if (!isSelected)
             {
-                SFXManager.Instance.PlayOneShotSFX(SFXType.HOVER);
+                SFXManager.Instance.PlayOneShot(MenuSFX.HOVER);
                 if (hoverCoroutine != null)
                     StopCoroutine(hoverCoroutine);
                 hoverCoroutine = StartCoroutine(HoverSlot(MAX_ALPHA));

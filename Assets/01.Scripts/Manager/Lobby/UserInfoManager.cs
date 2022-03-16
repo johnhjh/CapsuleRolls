@@ -87,7 +87,7 @@ namespace Capsule.Lobby.Main
 
         public void OpenCloseUserInfoPopup(bool isOpen)
         {
-            SFXManager.Instance.PlayOneShotSFX(isOpen ? SFXType.OK : SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.OK : MenuSFX.BACK);
             userInfoPopupCG.alpha = isOpen ? 1f : 0f;
             userInfoPopupCG.blocksRaycasts = isOpen;
             userInfoPopupCG.interactable = isOpen;

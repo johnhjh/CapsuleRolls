@@ -9,6 +9,7 @@ public class RagdollController : MonoBehaviour
     public GameObject ragdollObj;
     public Rigidbody spine;
     public Vector3 forceVector = new Vector3(0f, 0f, 0f);
+    public bool isRagdoll;
 
     public event Action OnChangeRagdoll;
 
@@ -21,8 +22,7 @@ public class RagdollController : MonoBehaviour
         ragdollObj.SetActive(usingRagdoll);
         if (usingRagdoll)
         {
-            if (OnChangeRagdoll != null)
-                OnChangeRagdoll();
+            OnChangeRagdoll?.Invoke();
             spine.AddForce(forceVector, ForceMode.Impulse);
         }
     }

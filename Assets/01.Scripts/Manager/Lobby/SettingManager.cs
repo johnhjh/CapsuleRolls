@@ -64,7 +64,7 @@ namespace Capsule.Lobby.Main
 
         public void OnBGMVolumeChanged()
         {
-            SFXManager.Instance.PlaySFX(SFXType.HOVER);
+            SFXManager.Instance.PlaySFX(MenuSFX.HOVER);
             float volume = bgmSlider.value;
             //Debug.Log("BGM : " + volume);
             BGMManager.Instance.SetVolume(volume);
@@ -77,7 +77,7 @@ namespace Capsule.Lobby.Main
 
         public void OnSFXVolumeChanged()
         {
-            SFXManager.Instance.PlaySFX(SFXType.HOVER);
+            SFXManager.Instance.PlaySFX(MenuSFX.HOVER);
             float volume = sfxSlider.value;
             //Debug.Log("SFX : " + volume);
             SFXManager.Instance.SetVolume(volume);
@@ -97,7 +97,7 @@ namespace Capsule.Lobby.Main
 
         public void OnClickExitSetting()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
             PopUpSetting(false);
         }
 

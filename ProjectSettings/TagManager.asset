@@ -10,6 +10,8 @@ TagManager:
   - Barricade
   - SpikeRoller
   - Swiper
+  - GoalPost
+  - GoalInTrigger
   layers:
   - Default
   - TransparentFX

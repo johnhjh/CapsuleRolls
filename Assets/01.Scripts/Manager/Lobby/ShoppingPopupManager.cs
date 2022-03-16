@@ -129,7 +129,7 @@ namespace Capsule.Lobby.Shopping
 
         public void OnClickToggleSavingCheck()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
             toggleCheckSaving = !toggleCheckSaving;
             if (toggleCheckSaving)
                 toggleCheckImage.color = new Color(1f, 1f, 1f, 1f);
@@ -146,7 +146,7 @@ namespace Capsule.Lobby.Shopping
 
         public void PlayBackSound()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
         }
 
         public void AddShoppingItemInfo(Sprite preview, CustomizingRarity rarity, CustomizingType type, int price)

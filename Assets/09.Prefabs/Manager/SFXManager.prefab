@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4061397800b7dc4584efd195841461a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffects:
+  menuSoundEffects:
     okClip: {fileID: 8300000, guid: 7bf2f7c576b492546815d90fe5fade14, type: 3}
     backClip: {fileID: 8300000, guid: f0226d15e2c21b742a502b24fbce883e, type: 3}
     hoverClip: {fileID: 8300000, guid: 0bdc8df46063681488aca6aa0a97cad2, type: 3}
@@ -149,3 +149,6 @@ MonoBehaviour:
     loadDoneClip: {fileID: 8300000, guid: 6089375ac29e10a44ae4bdabe0d50f8f, type: 3}
     buyClip: {fileID: 8300000, guid: 39d7502f0e1d8ed488b629246d15cca6, type: 3}
     popupClip: {fileID: 8300000, guid: e8a35f754925457478a895eb7f6814ee, type: 3}
+  gameSoundEffects:
+    moveClip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
+    jumpClip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}

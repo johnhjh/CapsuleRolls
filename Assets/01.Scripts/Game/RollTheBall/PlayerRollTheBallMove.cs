@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Capsule.Game.Player;
+using Capsule.Audio;
 
 namespace Capsule.Game.RollTheBall
 {
@@ -10,6 +11,16 @@ namespace Capsule.Game.RollTheBall
         public float jumpForce = 300f;
         public float diveForce = 700f;
         private bool isDiving;
+        public bool IsDiving
+        {
+            get { return isDiving; }
+            private set
+            {
+                isDiving = value;
+                if (value)
+                    StartCoroutine(Diving());
+            }
+        }
         private bool jumpEnabled = true;
         public bool IsTryJumping { get; private set; }
         private bool isLanded = true;
@@ -20,8 +31,8 @@ namespace Capsule.Game.RollTheBall
             {
                 if (value)
                 {
-                    playerAnimator.ResetTrigger("TrigJump");
-                    playerAnimator.SetTrigger("TrigStopJumping");
+                    playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
+                    playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
                     StartCoroutine(EnableJump());
                 }
                 isLanded = value;
@@ -36,17 +47,19 @@ namespace Capsule.Game.RollTheBall
             base.Start();
             base.isMovingByInput = false;
             isLanded = true;
-            isDiving = false;
+            IsDiving = false;
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
+            GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
+            GameManager.Instance.OnAddScoreTeamB += OnEnemyGoal;
         }
 
         protected override void Update()
         {
             Vector3 velocity = transform.InverseTransformDirection(ballRigidbody.velocity);
             float magnitude = Mathf.Clamp(velocity.magnitude / 10f, 0f, 1f);
-            playerAnimator.SetFloat("Horizontal", velocity.x);
-            playerAnimator.SetFloat("Vertical", velocity.z);
-            playerAnimator.SetFloat("MoveSpeed", magnitude);
+            playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, velocity.x);
+            playerAnimator.SetFloat(GameManager.Instance.animData.HASH_VERTICAL, velocity.z);
+            playerAnimator.SetFloat(GameManager.Instance.animData.HASH_MOVE_SPEED, magnitude);
             base.Update();
             if (!isMine) return;
             if (playerInput.GetInputMovePower() > 0f)
@@ -54,26 +67,37 @@ namespace Capsule.Game.RollTheBall
             else
                 playerAnimator.speed = 1f;
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (playerInput.Action1 && !IsTryJumping && jumpEnabled)
             {
-                playerAnimator.SetTrigger("TrigVictory");
-                playerAnimator.SetInteger("VictoryAnim", Random.Range(0, 3));
-            }
-            if (Input.GetMouseButtonDown(0) && !IsTryJumping && jumpEnabled)
-            {
+                SFXManager.Instance.PlayOneShot(GameSFX.JUMP);
                 jumpEnabled = false;
                 IsLanded = false;
                 playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                playerAnimator.SetTrigger("TrigJump");
+                playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
                 StartCoroutine(Jumping());
             }
-            if (Input.GetMouseButtonDown(1) && IsLanded)
+            if (playerInput.Action2 && IsLanded)
             {
+                SFXManager.Instance.PlayOneShot(GameSFX.JUMP);
                 IsLanded = false;
                 playerRigidbody.AddForce(transform.forward * diveForce, ForceMode.Impulse);
-                playerAnimator.SetTrigger("TrigDive");
-                isDiving = true;
+                playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_DIVE);
+                IsDiving = true;
             }
+        }
+
+        private void OnTeamGoal()
+        {
+            SFXManager.Instance.PlayOneShot(Announcements.TEAM_GOAL);
+            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
+            playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
+        }
+
+        private void OnEnemyGoal()
+        {
+            SFXManager.Instance.PlayOneShot(Announcements.ENEMY_GOAL);
+            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
+            playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
         }
 
         private IEnumerator EnableJump()
@@ -84,17 +108,24 @@ namespace Capsule.Game.RollTheBall
 
         private IEnumerator Jumping()
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.3f);
             IsTryJumping = false;
+        }
+
+        private IEnumerator Diving()
+        {
+            yield return new WaitForSeconds(2.0f);
+            if (!transform.parent.GetComponent<RollingBallMove>().IsDead)
+                ragdollController.ChangeRagdoll(true);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Swiper"))
+            if (other.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
             {
                 ragdollController.ChangeRagdoll(true);
             }
-            else if (other.CompareTag("Player"))
+            else if (other.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
             {
                 RagdollController otherRagdoll = other.transform.parent.GetChild(2).GetComponent<RagdollController>();
                 otherRagdoll.forceVector = playerRigidbody.velocity;
@@ -102,7 +133,7 @@ namespace Capsule.Game.RollTheBall
                 ragdollController.forceVector = playerRigidbody.velocity;
                 ragdollController.ChangeRagdoll(true);
             }
-            else if (other.CompareTag("RollingBall"))
+            else if (other.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
             {
                 if (other.transform != transform.parent.GetChild(1))
                     ragdollController.ChangeRagdoll(true);
@@ -112,11 +143,11 @@ namespace Capsule.Game.RollTheBall
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.CompareTag("Stage") || collision.collider.CompareTag("Swiper"))
+            if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_STAGE) || collision.collider.CompareTag("Swiper"))
                 ragdollController.ChangeRagdoll(true);
-            else if (collision.collider.CompareTag("RollingBall") && !IsTryJumping)
+            else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL) && !IsTryJumping)
             {
-                if (collision.collider.transform == transform.parent.GetChild(1) && !isDiving)
+                if (collision.collider.transform == transform.parent.GetChild(1))
                     IsLanded = true;
                 else
                     ragdollController.ChangeRagdoll(true);

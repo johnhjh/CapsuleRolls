@@ -40,23 +40,23 @@ namespace Capsule.Game.Player
             if (!isMine) return;
             if (isMovingByInput)
             {
-                playerAnimator.SetFloat("Horizontal", playerInput.horizontal);
-                playerAnimator.SetFloat("Vertical", playerInput.vertical);
-                playerAnimator.SetFloat("MoveSpeed", Mathf.Clamp(playerInput.GetInputMovePower(), 0f, 1f));
+                playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, playerInput.horizontal);
+                playerAnimator.SetFloat(GameManager.Instance.animData.HASH_VERTICAL, playerInput.vertical);
+                playerAnimator.SetFloat(GameManager.Instance.animData.HASH_MOVE_SPEED, Mathf.Clamp(playerInput.GetInputMovePower(), 0f, 1f));
             }
             if (playerInput.rotate != 0f)
             {
-                playerAnimator.SetBool("IsTurning", true);
+                playerAnimator.SetBool(GameManager.Instance.animData.HASH_IS_TURNING, true);
                 if (playerInput.rotate < 0)
-                    playerAnimator.SetInteger("Rotate", -1);
+                    playerAnimator.SetInteger(GameManager.Instance.animData.HASH_ROTATE, -1);
                 else if (playerInput.rotate > 0)
-                    playerAnimator.SetInteger("Rotate", 1);
+                    playerAnimator.SetInteger(GameManager.Instance.animData.HASH_ROTATE, 1);
                 timeBet = Time.time + turnAnimateTime;
             }
             if (Time.time > timeBet)
             {
-                playerAnimator.SetInteger("Rotate", 0);
-                playerAnimator.SetBool("IsTurning", false);
+                playerAnimator.SetInteger(GameManager.Instance.animData.HASH_ROTATE, 0);
+                playerAnimator.SetBool(GameManager.Instance.animData.HASH_IS_TURNING, false);
             }
         }
     }

@@ -25,7 +25,7 @@ namespace Capsule.Lobby.Main
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.HOVER);
+            SFXManager.Instance.PlayOneShot(MenuSFX.HOVER);
             if (hoverCoroutine != null)
                 StopCoroutine(hoverCoroutine);
             hoverCoroutine = StartCoroutine(HoverCanvasGroup(MAX_ALPHA));

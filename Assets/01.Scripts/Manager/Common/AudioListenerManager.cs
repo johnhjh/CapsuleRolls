@@ -16,14 +16,12 @@ namespace Capsule.Audio
                 return audioListenerMgr;
             }
         }
-        private AudioListener audioListener;
 
         private void Awake()
         {
             if (audioListenerMgr == null)
             {
                 audioListenerMgr = this;
-                audioListener = GetComponent<AudioListener>();
                 DontDestroyOnLoad(this.gameObject);
             }
             else if (audioListenerMgr != this)

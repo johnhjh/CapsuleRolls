@@ -65,7 +65,7 @@ namespace Capsule.Lobby.Title
                     OpeningDone();
                 else if (isLoadingDone && SceneLoadManager.Instance.IsLoadingDone)
                 {
-                    SFXManager.Instance.PlayOneShotSFX(SFXType.OK);
+                    SFXManager.Instance.PlayOneShot(MenuSFX.OK);
                     SceneLoadManager.Instance.AllowNextScene = true;
                 }
             }
@@ -105,8 +105,7 @@ namespace Capsule.Lobby.Title
         private void OpeningDone()
         {
             isOpeningDone = true;
-            if (OnOpeningDone != null)
-                OnOpeningDone();
+            OnOpeningDone?.Invoke();
 
             StartCoroutine(ActivateLoadingProgress());
             StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.MAIN_LOBBY, false));
@@ -119,8 +118,7 @@ namespace Capsule.Lobby.Title
             loadingBG.gameObject.SetActive(false);
             loadingText.gameObject.SetActive(false);
 
-            if (OnReadyToStart != null)
-                OnReadyToStart();
+            OnReadyToStart?.Invoke();
         }
     }
 }

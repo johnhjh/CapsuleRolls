@@ -24,7 +24,7 @@ namespace Capsule.Lobby.Shopping
 
         public virtual void ReselectSlot()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
             IsSelected = false;
         }
 

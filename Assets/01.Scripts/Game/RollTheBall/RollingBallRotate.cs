@@ -8,7 +8,7 @@ namespace Capsule.Game.RollTheBall
     public class RollingBallRotate : MonoBehaviour
     {
         public float radius = 1.5f;
-        public float rotateSpeed = 20f;
+        public float ballRotateSpeed = 20f;
         private PlayerInput playerInput;
         private PlayerRollTheBallMove playerMovement;
         private Transform playerTransform;
@@ -46,7 +46,7 @@ namespace Capsule.Game.RollTheBall
             }
             else
                 currentDirection = savedDirection;
-            currentDirection *= Time.deltaTime * rotateSpeed / radius;
+            currentDirection *= Time.deltaTime * ballRotateSpeed / radius;
             currentDirection *= ballRigidbody.velocity.magnitude;
             if (ballRigidbody.velocity.magnitude < 0.1f)
                 savedDirection = Vector3.zero;

@@ -232,7 +232,7 @@ namespace Capsule.Lobby.Customize
         private void Start()
         {
             BGMManager.Instance.ChangeBGM(BGMType.CUSTOMIZE);
-            SFXManager.Instance.PlayOneShotSFX(SFXType.LOAD_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.CUSTOMIZE;
             PlayerTransform.Instance.SetPosition(new Vector3(2.6f, -0.54f, -5f));
             PlayerTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
@@ -269,7 +269,7 @@ namespace Capsule.Lobby.Customize
 
         public void ChangeFocusTab(RectTransform parent, CustomizingType cType)
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.OK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.OK);
 
             currentTab.GetComponent<Text>().fontSize = NORMAL_TAB_FONT_SIZE;
             currentTab.GetComponent<CustomizeTabCtrl>().IsFocused = false;
@@ -348,7 +348,7 @@ namespace Capsule.Lobby.Customize
 
         public void OnClickResetBtn()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
             CurrentBody = defaultBodySlot;
             CurrentHead = defaultHeadSlot;
             CurrentFace = defaultFaceSlot;
@@ -358,7 +358,7 @@ namespace Capsule.Lobby.Customize
 
         public void OnClickSaveBtn()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.SELECT_DONE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
 
             DataManager.Instance.CurrentPlayerCustomizeData.Body = (int)currentBodySlot.bodyColor;
             DataManager.Instance.CurrentPlayerCustomizeData.Head = (int)currentHeadSlot.headItem;
@@ -377,7 +377,7 @@ namespace Capsule.Lobby.Customize
 
         public void BackToMainLobby()
         {
-            SFXManager.Instance.PlayOneShotSFX(SFXType.BACK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
 
             if (savedBodyMat != currentBodySlot.bodyMaterial)
                 PlayerCustomize.Instance.ChangeBody(savedBodyMat);

@@ -56,7 +56,7 @@ namespace Capsule.Lobby
             if (isSelected) return;
             finalAlpha = 1f;
             finalFontSize = MAX_FONT_SIZE;
-            SFXManager.Instance.PlayOneShotSFX(SFXType.HOVER);
+            SFXManager.Instance.PlayOneShot(MenuSFX.HOVER);
         }
 
         public void OnPointerExit(PointerEventData eventData)
