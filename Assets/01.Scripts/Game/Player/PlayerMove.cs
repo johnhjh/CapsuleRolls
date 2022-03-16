@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Capsule.Game.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMove : MonoBehaviour
     {
         protected Animator playerAnimator;
         protected Rigidbody playerRigidbody;
@@ -15,6 +15,7 @@ namespace Capsule.Game.Player
         private float timeBet = 0f;
         public float turnAnimateTime = 0.3f;
         protected bool isMovingByInput = true;
+        public bool isMine = true;
 
         private void Awake()
         {
@@ -27,10 +28,16 @@ namespace Capsule.Game.Player
         protected virtual void Start()
         {
             ragdollController = transform.parent.GetChild(2).GetComponent<RagdollController>();
+            if (!isMine) return;
+            ragdollController.OnChangeRagdoll += () => {
+                Camera.main.GetComponent<CameraFollow>().targetTransform = ragdollController.spine.transform;
+                Camera.main.GetComponent<CameraFollow>().camView = CameraView.QUATER;
+            };
         }
 
         protected virtual void Update()
         {
+            if (!isMine) return;
             if (isMovingByInput)
             {
                 playerAnimator.SetFloat("Horizontal", playerInput.horizontal);

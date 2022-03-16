@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Capsule.Game.Player;
 
-namespace Capsule.Game.RollingBall
+namespace Capsule.Game.RollTheBall
 {
     public class RollingBallRotate : MonoBehaviour
     {
         public float radius = 1.5f;
         public float rotateSpeed = 20f;
         private PlayerInput playerInput;
-        private PlayerRollingBallMovement playerMovement;
+        private PlayerRollTheBallMove playerMovement;
         private Transform playerTransform;
         private Rigidbody ballRigidbody;
         private Vector3 savedDirection = Vector3.zero;
@@ -27,7 +27,7 @@ namespace Capsule.Game.RollingBall
         {
             playerTransform = transform.parent.GetChild(0).GetComponent<Transform>();
             playerInput = playerTransform.GetComponent<PlayerInput>();
-            playerMovement = playerTransform.GetComponent<PlayerRollingBallMovement>();
+            playerMovement = playerTransform.GetComponent<PlayerRollTheBallMove>();
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
         }
 

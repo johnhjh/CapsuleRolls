@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class RagdollController : MonoBehaviour
     public Rigidbody spine;
     public Vector3 forceVector = new Vector3(0f, 0f, 0f);
 
+    public event Action OnChangeRagdoll;
+
     public void ChangeRagdoll(bool usingRagdoll)
     {
         if (usingRagdoll)
@@ -17,9 +20,11 @@ public class RagdollController : MonoBehaviour
         charObj.SetActive(!usingRagdoll);
         ragdollObj.SetActive(usingRagdoll);
         if (usingRagdoll)
+        {
+            if (OnChangeRagdoll != null)
+                OnChangeRagdoll();
             spine.AddForce(forceVector, ForceMode.Impulse);
-        Camera.main.GetComponent<CameraFollow>().targetTransform = usingRagdoll ? spine.transform : charObj.transform;
-        Camera.main.GetComponent<CameraFollow>().camView = usingRagdoll ? CameraView.QUATER : CameraView.TPS;
+        }
     }
 
     private void CopyOriginTransformToTarget(Transform originTransform, Transform targetTransform)

@@ -3,30 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using Capsule.Game.Player;
 
-namespace Capsule.Game.RollingBall
+namespace Capsule.Game.RollTheBall
 {
     public class RollingBallMove : MonoBehaviour
     {
         private Transform playerTransform;
         private PlayerInput playerInput;
-        private PlayerRollingBallMovement playerMovement;
+        private PlayerRollTheBallMove playerMovement;
         private Rigidbody ballRigidbody;
         public float ballMoveSpeed = 11f;
+        public float MAX_BALL_SPEED = 40f;
         public float ballForce = 10f;
         public float playerMoveSpeed = 5f;
         public float playerRotateSpeed = 80.0f;
         public bool isMine = true;
+        private bool isDead = false;
 
         private void Awake()
         {
             playerTransform = transform.GetChild(0).GetComponent<Transform>();
             playerInput = playerTransform.GetComponent<PlayerInput>();
-            playerMovement = playerTransform.GetComponent<PlayerRollingBallMovement>();
+            playerMovement = playerTransform.GetComponent<PlayerRollTheBallMove>();
             ballRigidbody = GetComponent<Rigidbody>();
+
+            transform.GetChild(2).GetComponent<RagdollController>().OnChangeRagdoll += () => {
+                isDead = true;
+                ballRigidbody.freezeRotation = false;
+            };
         }
 
         void Update()
         {
+            if (isDead) return;
             if (!isMine) return;
             playerTransform.Rotate(playerInput.rotate * playerRotateSpeed * Time.deltaTime * Vector3.up);
             Vector3 moveDir = (playerTransform.right * playerInput.horizontal) + (playerTransform.forward * playerInput.vertical);
@@ -34,9 +42,12 @@ namespace Capsule.Game.RollingBall
                 moveDir = moveDir.normalized;
 
             if (!playerMovement.IsLanded)
-                playerTransform.Translate(playerMoveSpeed * Time.deltaTime * moveDir, Space.Self);
+                playerTransform.Translate(playerMoveSpeed * Time.deltaTime * moveDir, Space.World);
             else
-                ballRigidbody.velocity += ballMoveSpeed * Time.deltaTime * moveDir;
+            {
+                if (ballRigidbody.velocity.sqrMagnitude <= MAX_BALL_SPEED)
+                    ballRigidbody.velocity += ballMoveSpeed * Time.deltaTime * moveDir;
+            }
         }
 
         private void OnCollisionEnter(Collision collision)

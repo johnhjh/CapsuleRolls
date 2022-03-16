@@ -7,6 +7,9 @@ TagManager:
   - MAST_Holder
   - RollingBall
   - Stage
+  - Barricade
+  - SpikeRoller
+  - Swiper
   layers:
   - Default
   - TransparentFX
