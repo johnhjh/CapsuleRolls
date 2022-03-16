@@ -14,8 +14,8 @@ public class RagdollController : MonoBehaviour
         if (usingRagdoll)
             CopyOriginTransformToTarget(charObj.transform, ragdollObj.transform);
 
-        charObj.gameObject.SetActive(!usingRagdoll);
-        ragdollObj.gameObject.SetActive(usingRagdoll);
+        charObj.SetActive(!usingRagdoll);
+        ragdollObj.SetActive(usingRagdoll);
         if (usingRagdoll)
             spine.AddForce(forceVector, ForceMode.Impulse);
         Camera.main.GetComponent<CameraFollow>().targetTransform = usingRagdoll ? spine.transform : charObj.transform;
@@ -24,8 +24,7 @@ public class RagdollController : MonoBehaviour
 
     private void CopyOriginTransformToTarget(Transform originTransform, Transform targetTransform)
     {
-        targetTransform.position = originTransform.position;
-        targetTransform.rotation = originTransform.rotation;
+        targetTransform.SetPositionAndRotation(originTransform.position, originTransform.rotation);
         for (int i = 0; i < originTransform.transform.childCount; i++)
         {
             if (originTransform.transform.childCount != 0)

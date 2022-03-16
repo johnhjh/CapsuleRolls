@@ -7,7 +7,9 @@ namespace Capsule.Game.Player
 {
     public class PlayerInput : MoveInput
     {
-        void Update()
+        public bool isMine = true;
+
+        private void Update()
         {
             if (GameManager.Instance.IsGameOver)
             {
@@ -16,6 +18,7 @@ namespace Capsule.Game.Player
                 rotate = 0f;
                 return;
             }
+            if (!isMine) return;
             horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxis("Vertical");
             rotate = Input.GetAxis("Mouse X");
