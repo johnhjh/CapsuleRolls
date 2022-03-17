@@ -60,7 +60,7 @@ namespace Capsule.Game.RollTheBall
         protected override void Update()
         {
             Vector3 velocity = transform.InverseTransformDirection(ballRigidbody.velocity);
-            float magnitude = Mathf.Clamp(velocity.magnitude / 10f, 0f, 1f);
+            float magnitude = Mathf.Clamp(velocity.magnitude / 10f, 0f, 2f);
             playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, velocity.x);
             playerAnimator.SetFloat(GameManager.Instance.animData.HASH_VERTICAL, velocity.z);
             playerAnimator.SetFloat(GameManager.Instance.animData.HASH_MOVE_SPEED, magnitude);
@@ -119,7 +119,9 @@ namespace Capsule.Game.RollTheBall
         {
             yield return new WaitForSeconds(2.0f);
             if (!transform.parent.GetComponent<RollingBallMove>().IsDead)
-                ragdollController.ChangeRagdoll(true);
+            {
+                PlayerOut();
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -144,7 +146,9 @@ namespace Capsule.Game.RollTheBall
                 if (IsLanded)
                     PlayerOut();
                 else
+                {
                     PlayerSuccess();
+                }
             }
             else if (other.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
             {
@@ -190,12 +194,13 @@ namespace Capsule.Game.RollTheBall
 
         private void PlayerSuccess()
         {
+            isDiving = false;
             if (isMine)
             {
                 SFXManager.Instance.PlaySFX(Announcements.SUCCESS, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             }
-            ragdollController.ChangeRagdoll(true);
+            //ragdollController.ChangeRagdoll(true);
         }
 
         private void PlayerOut()

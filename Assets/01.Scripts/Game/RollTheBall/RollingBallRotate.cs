@@ -8,11 +8,12 @@ namespace Capsule.Game.RollTheBall
     public class RollingBallRotate : MonoBehaviour
     {
         public float radius = 1.5f;
-        public float ballRotateSpeed = 20f;
+        public float ballRotateSpeed = 40f;
+        private Rigidbody ballRigidbody;
+        /*
         private PlayerInput playerInput;
         private PlayerRollTheBallMove playerMovement;
         private Transform playerTransform;
-        private Rigidbody ballRigidbody;
         private Vector3 savedDirection = Vector3.zero;
         public Vector3 SavedDirection
         {
@@ -22,16 +23,30 @@ namespace Capsule.Game.RollTheBall
                     savedDirection = value;
             }
         }
+        */
 
         private void Start()
         {
-            playerTransform = transform.parent.GetChild(0).GetComponent<Transform>();
-            playerInput = playerTransform.GetComponent<PlayerInput>();
-            playerMovement = playerTransform.GetComponent<PlayerRollTheBallMove>();
+            //playerTransform = transform.parent.GetChild(0).GetComponent<Transform>();
+            //playerInput = playerTransform.GetComponent<PlayerInput>();
+            //playerMovement = playerTransform.GetComponent<PlayerRollTheBallMove>();
+            
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
         }
 
         private void FixedUpdate()
+        {
+            RotateByVelocity();
+        }
+
+        private void RotateByVelocity()
+        {
+            Vector3 ballDirection = Time.deltaTime * ballRotateSpeed / radius * ballRigidbody.velocity;
+            ballDirection = -Vector3.forward * ballDirection.x + Vector3.right * ballDirection.z;
+            transform.Rotate(ballDirection, Space.World);
+        }
+        /*
+        private void PastRotate()
         {
             Vector3 currentDirection;
             if (playerMovement.IsLanded)
@@ -52,6 +67,7 @@ namespace Capsule.Game.RollTheBall
                 savedDirection = Vector3.zero;
             transform.Rotate(currentDirection, Space.World);
         }
+        */
     }
 }
 

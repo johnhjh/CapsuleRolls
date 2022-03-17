@@ -12,6 +12,8 @@ TagManager:
   - Swiper
   - GoalPost
   - GoalInTrigger
+  - FxTemporaire
+  - Ragdoll
   layers:
   - Default
   - TransparentFX

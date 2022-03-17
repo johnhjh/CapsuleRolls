@@ -14,7 +14,7 @@ namespace Capsule.Game.RollTheBall
         private PlayerRollTheBallMove playerMovement;
         private Rigidbody ballRigidbody;
         public float ballMoveSpeed = 11f;
-        public float MAX_BALL_SPEED = 100f;
+        public float MAX_BALL_SPEED = 300f;
         public float ballPushForce = 30f;
         public float playerMoveSpeed = 5f;
         public float playerRotateSpeed = 80.0f;
@@ -74,8 +74,6 @@ namespace Capsule.Game.RollTheBall
             {
                 SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE);
                 EffectQueueManager.Instance.ShowCollisionEffect(collision, Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
-                collision.collider.transform.GetComponent<RollingBallRotate>().SavedDirection = 
-                    playerTransform.InverseTransformDirection(ballRigidbody.velocity);
                 collision.collider.transform.parent.GetComponent<Rigidbody>().AddForce(
                     ballRigidbody.velocity * ballPushForce, ForceMode.Impulse);
             }
