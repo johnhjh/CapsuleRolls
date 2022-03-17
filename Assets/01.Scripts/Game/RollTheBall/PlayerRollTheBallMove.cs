@@ -8,9 +8,11 @@ namespace Capsule.Game.RollTheBall
 {
     public class PlayerRollTheBallMove : PlayerMove
     {
+        // Components
         private Rigidbody ballRigidbody;
         public float jumpForce = 300f;
         public float diveForce = 700f;
+        public bool isTeamA = false;
         private bool isDiving;
         public bool IsDiving
         {
@@ -19,9 +21,15 @@ namespace Capsule.Game.RollTheBall
             {
                 isDiving = value;
                 if (value)
-                    StartCoroutine(Diving());
+                    diveCoroutine = StartCoroutine(Diving());
+                else
+                {
+                    if (diveCoroutine != null)
+                        StopCoroutine(diveCoroutine);
+                }
             }
         }
+        private Coroutine diveCoroutine = null;
         private bool jumpEnabled = true;
         public bool IsTryJumping { get; private set; }
         private bool isLanded = true;
@@ -32,6 +40,7 @@ namespace Capsule.Game.RollTheBall
             {
                 if (value)
                 {
+                    IsDiving = !value;
                     playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
                     playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
                     StartCoroutine(EnableJump());
@@ -69,36 +78,58 @@ namespace Capsule.Game.RollTheBall
             if (!isMine || IsDead) return;
 
             if (playerInput.Action1 && !IsTryJumping && jumpEnabled)
-            {
-                SFXManager.Instance.StopSFX();
-                SFXManager.Instance.PlayOneShot(GameSFX.JUMP);
-                jumpEnabled = false;
-                IsLanded = false;
-                playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
-                StartCoroutine(Jumping());
-            }
+                JumpAction();
             if (playerInput.Action2 && IsLanded)
-            {
-                SFXManager.Instance.StopSFX();
-                SFXManager.Instance.PlayOneShot(GameSFX.JUMP);
-                IsLanded = false;
-                playerRigidbody.AddForce(transform.forward * diveForce, ForceMode.Impulse);
-                playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_DIVE);
-                IsDiving = true;
-            }
+                DiveAction();
+        }
+
+        public void AIJump()
+        {
+            JumpAction();
+        }
+
+        private void JumpAction()
+        {
+            PlayerAudioStop();
+            PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.JUMP));
+            jumpEnabled = false;
+            IsLanded = false;
+            playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
+            StartCoroutine(TryJumping());
+        }
+
+        private void DiveAction()
+        {
+            PlayerAudioStop();
+            PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.JUMP));
+            IsLanded = false;
+            playerRigidbody.AddForce(transform.forward * diveForce, ForceMode.Impulse);
+            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_DIVE);
+            IsDiving = true;
+            StartCoroutine(TryJumping());
         }
 
         private void OnTeamGoal()
         {
             SFXManager.Instance.PlayOneShot(Announcements.TEAM_GOAL);
-            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
-            playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
+            PlayVictoryAnim();
         }
 
         private void OnEnemyGoal()
         {
             SFXManager.Instance.PlayOneShot(Announcements.ENEMY_GOAL);
+            PlayDisappointAnim();
+        }
+
+        private void PlayDisappointAnim()
+        {
+            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
+            playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
+        }
+
+        private void PlayVictoryAnim()
+        {
             playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
             playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
         }
@@ -109,7 +140,7 @@ namespace Capsule.Game.RollTheBall
             jumpEnabled = true;
         }
 
-        private IEnumerator Jumping()
+        private IEnumerator TryJumping()
         {
             yield return new WaitForSeconds(0.3f);
             IsTryJumping = false;
@@ -119,9 +150,7 @@ namespace Capsule.Game.RollTheBall
         {
             yield return new WaitForSeconds(2.0f);
             if (!transform.parent.GetComponent<RollingBallMove>().IsDead)
-            {
                 PlayerOut();
-            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -139,23 +168,26 @@ namespace Capsule.Game.RollTheBall
             else if (other.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
             {
                 // effect 들어갈 자리
-                RagdollController otherRagdoll = other.transform.parent.GetChild(2).GetComponent<RagdollController>();
-                otherRagdoll.forceVector = playerRigidbody.velocity;
-                otherRagdoll.ChangeRagdoll(true);
-                ragdollController.forceVector = playerRigidbody.velocity;
+                if (isMine)
+                {
+                    RagdollController otherRagdoll = other.transform.parent.GetChild(1).GetComponent<RagdollController>();
+                    otherRagdoll.forceVector = playerRigidbody.velocity;
+                    otherRagdoll.ChangeRagdoll(true);
+                }
                 if (IsLanded)
                     PlayerOut();
                 else
                 {
+                    // effect 들어갈 자리
                     PlayerSuccess();
                 }
             }
             else if (other.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
             {
-                if (other.transform != transform.parent.GetChild(1))
+                if (other.transform != transform.parent.GetChild(2))
                 {
                     // effect 들어갈 자리
-                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE);
+                    PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
                     PlayerOut();
                 }
             }
@@ -171,15 +203,32 @@ namespace Capsule.Game.RollTheBall
             }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL) && !IsTryJumping)
             {
-                SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE);
-                if (collision.collider.transform == transform.parent.GetChild(1))
+                PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
+                if (collision.collider.transform == transform.parent.GetChild(2))
                 {
                     EffectQueueManager.Instance.ShowCollisionEffect(collision);
                     IsLanded = true;
                 }
                 else
                 {
-                    GotHitBySomething(collision);
+                    RollingBallCtrl ballTransform = collision.collider.GetComponent<RollingBallCtrl>();
+                    if (ballTransform.BallParent.TryGetComponent<RollingBallMove>(out RollingBallMove move))
+                    {
+                        if (!move.IsDead)
+                        {
+                            GotHitBySomething(collision);
+                        }
+                        else
+                        {
+                            EffectQueueManager.Instance.ShowCollisionEffect(collision);
+                            ChangeBallParent(ballTransform);
+                        }
+                    }
+                    else
+                    {
+                        EffectQueueManager.Instance.ShowCollisionEffect(collision);
+                        ChangeBallParent(ballTransform);
+                    }
                 }
             }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
@@ -192,14 +241,23 @@ namespace Capsule.Game.RollTheBall
             }
         }
 
+        private void ChangeBallParent(RollingBallCtrl ballTransform)
+        {
+            transform.parent.GetChild(2).GetComponent<RollingBallCtrl>().BallParent = GameManager.Instance.GameObjs.transform;
+            ballTransform.BallParent = transform.parent;
+            ballTransform.isTeamA = this.isTeamA;
+            IsLanded = true;
+        }
+
         private void PlayerSuccess()
         {
-            isDiving = false;
+            IsDiving = false;
             if (isMine)
             {
-                SFXManager.Instance.PlaySFX(Announcements.SUCCESS, 1f);
+                SFXManager.Instance.PlayAnnouncement(Announcements.SUCCESS, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             }
+            PlayVictoryAnim();
             //ragdollController.ChangeRagdoll(true);
         }
 
@@ -207,7 +265,7 @@ namespace Capsule.Game.RollTheBall
         {
             if (isMine)
             {
-                SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);
+                SFXManager.Instance.PlayAnnouncement(Announcements.OUT, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.GROAN);
             }
             ragdollController.ChangeRagdoll(true);
@@ -217,6 +275,17 @@ namespace Capsule.Game.RollTheBall
         {
             EffectQueueManager.Instance.ShowHitEffect(coll);
             PlayerOut();
+        }
+
+        private void PlayerAudioStop()
+        {
+            playerAudioSource.Stop();
+        }
+
+        private void PlayerAudioPlayOneShot(AudioClip clip)
+        {
+            if (clip != null)
+                playerAudioSource.PlayOneShot(clip);
         }
     }
 }

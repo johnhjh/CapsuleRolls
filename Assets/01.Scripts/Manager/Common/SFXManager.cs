@@ -141,7 +141,7 @@ namespace Capsule.Audio
             return null;
         }
 
-        private AudioClip GetAudioClip(GameSFX sfx)
+        public AudioClip GetAudioClip(GameSFX sfx)
         {
             switch (sfx)
             {
@@ -260,12 +260,12 @@ namespace Capsule.Audio
             PlaySFX(GetAudioClip(sfx), delay);
         }
 
-        public void PlaySFX(Announcements sfx)
+        public void PlayAnnouncement(Announcements sfx)
         {
             PlaySFX(GetAudioClip(sfx), true);
         }
 
-        public void PlaySFX(Announcements sfx, float delay)
+        public void PlayAnnouncement(Announcements sfx, float delay)
         {
             PlaySFX(GetAudioClip(sfx), delay, true);
         }

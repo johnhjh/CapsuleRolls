@@ -5,12 +5,12 @@ using UnityEngine.UI;
 using Capsule.Entity;
 using Capsule.Audio;
 
-namespace Capsule.Lobby.Main
+namespace Capsule.Lobby
 {
     public class UserInfoManager : MonoBehaviour
     {
         private static UserInfoManager userInfoMgr;
-        public static UserInfoManager Instacne
+        public static UserInfoManager Instance
         {
             get
             {
@@ -34,6 +34,9 @@ namespace Capsule.Lobby.Main
 
         private CanvasGroup userInfoPopupCG;
 
+        private bool isOpen = false;
+        public bool WasOpen { get; set; }
+
         private void Awake()
         {
             if (userInfoMgr == null)
@@ -46,6 +49,23 @@ namespace Capsule.Lobby.Main
         {
             InitUserInfo();
             SetUserInfo();
+        }
+
+        private void Update()
+        {
+            if (!isOpen) return;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                WasOpen = true;
+                OpenCloseUserInfoPopup(false);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(GameObject.Find("User_Info"));
+            Destroy(GameObject.Find("User_Info_Coin"));
+            Destroy(GameObject.Find("Popup_UserInfo"));
         }
 
         private void InitUserInfo()
@@ -91,6 +111,7 @@ namespace Capsule.Lobby.Main
             userInfoPopupCG.alpha = isOpen ? 1f : 0f;
             userInfoPopupCG.blocksRaycasts = isOpen;
             userInfoPopupCG.interactable = isOpen;
+            this.isOpen = isOpen;
         }
     }
 }

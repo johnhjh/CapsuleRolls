@@ -56,6 +56,21 @@ namespace Capsule.Game
         public event Action OnAddScoreTeamA;
         public event Action OnAddScoreTeamB;
 
+        private GameObject gameObjs = null;
+        public GameObject GameObjs
+        {
+            get 
+            { 
+                if (gameObjs == null)
+                {
+                    gameObjs = GameObject.Find("GameObjects");
+                    if (gameObjs == null)
+                        gameObjs = new GameObject { name = "GameObjects" };
+                }
+                return gameObjs; 
+            }
+        }
+
         private void Awake()
         {
             if (gameMgr == null)
@@ -68,7 +83,7 @@ namespace Capsule.Game
         {
             // 플레이어 생성 위치 들어갈 자리
             SFXManager.Instance.PlayOneShot(Announcements.READY);
-            SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
+            SFXManager.Instance.PlayAnnouncement(Announcements.GO, 2f);
         }
 
         private void Update()

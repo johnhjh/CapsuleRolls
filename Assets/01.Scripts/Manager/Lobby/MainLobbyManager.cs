@@ -48,6 +48,7 @@ namespace Capsule.Lobby.Main
 
         public void MoveToSoloPlayScene()
         {
+            Destroy(UserInfoManager.Instance.gameObject);
             MoveToScene(LobbySceneType.SOLO);
         }
 

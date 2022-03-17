@@ -36,6 +36,8 @@ namespace Capsule.Lobby.Main
         private Slider bgmSlider;
         private Slider sfxSlider;
 
+        private bool isSettingOpen = false;
+
         private void Awake()
         {
             if (settingMgr == null)
@@ -60,6 +62,27 @@ namespace Capsule.Lobby.Main
 
             bgmIcon.sprite = bgmSlider.value == 0f ? bgmOffSprite : bgmOnSprite;
             sfxIcon.sprite = sfxSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (isSettingOpen)
+                {
+                    OnClickExitSetting();
+                }
+                else
+                {
+                    if (UserInfoManager.Instance.WasOpen)
+                    {
+                        UserInfoManager.Instance.WasOpen = false;
+                        return;
+                    }
+                    SFXManager.Instance.PlayOneShot(MenuSFX.OK);
+                    PopUpSetting(true);
+                }
+            }
         }
 
         public void OnBGMVolumeChanged()
@@ -90,6 +113,7 @@ namespace Capsule.Lobby.Main
 
         public void PopUpSetting(bool isPopUp)
         {
+            isSettingOpen = isPopUp;
             settingCG.interactable = isPopUp;
             settingCG.blocksRaycasts = isPopUp;
             settingCG.alpha = isPopUp ? 1f : 0f;

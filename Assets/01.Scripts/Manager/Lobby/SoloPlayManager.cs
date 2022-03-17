@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Capsule.SceneLoad;
 using Capsule.Audio;
+using Capsule.Lobby;
 using Capsule.Player.Lobby;
 
 public class SoloPlayManager : MonoBehaviour
@@ -38,8 +39,11 @@ public class SoloPlayManager : MonoBehaviour
         PlayerTransform.Instance.SetScale(1.18f);
     }
 
+
+
     public void BackToMainLobby()
     {
+        Destroy(UserInfoManager.Instance.gameObject);
         SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
         StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.MAIN_LOBBY, true));
     }

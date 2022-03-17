@@ -4,10 +4,14 @@ using UnityEngine;
 
 namespace Capsule.Game.Player
 {
+    [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(CapsuleCollider))]
+    [RequireComponent(typeof(PlayerInput), typeof(AudioSource))]
     public class PlayerMove : MonoBehaviour
     {
+        // Components
         protected Animator playerAnimator;
         protected Rigidbody playerRigidbody;
+        protected AudioSource playerAudioSource;
         protected CapsuleCollider playerCollider;
         protected PlayerInput playerInput;
         protected RagdollController ragdollController;
@@ -23,11 +27,12 @@ namespace Capsule.Game.Player
             playerRigidbody = GetComponent<Rigidbody>();
             playerCollider = GetComponent<CapsuleCollider>();
             playerInput = GetComponent<PlayerInput>();
+            playerAudioSource = GetComponent<AudioSource>();
         }
 
         protected virtual void Start()
         {
-            ragdollController = transform.parent.GetChild(2).GetComponent<RagdollController>();
+            ragdollController = transform.parent.GetChild(1).GetComponent<RagdollController>();
             if (!isMine) return;
             ragdollController.OnChangeRagdoll += () => {
                 Camera.main.GetComponent<CameraFollow>().targetTransform = ragdollController.spine.transform;
