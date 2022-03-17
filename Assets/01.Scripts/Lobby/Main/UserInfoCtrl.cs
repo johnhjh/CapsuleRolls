@@ -12,14 +12,15 @@ namespace Capsule.Lobby.Main
         private CanvasGroup canvasGroup;
         [Range(0.1f, 2.0f)]
         public float hoverDurationTime = 0.6f;
-        private const float MIN_ALPHA = 0f;
-        private const float MAX_ALPHA = 1f;
-        private float curAlpha = MIN_ALPHA;
+        private readonly float MIN_ALPHA = 0f;
+        private readonly float MAX_ALPHA = 1f;
+        private float curAlpha;
         private Coroutine hoverCoroutine = null;
 
         private void Awake()
         {
             canvasGroup = transform.GetChild(0).GetComponent<CanvasGroup>();
+            curAlpha = MIN_ALPHA;
         }
 
 

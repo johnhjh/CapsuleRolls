@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Capsule.Audio;
 
 namespace Capsule.Game
 {
@@ -28,6 +28,7 @@ namespace Capsule.Game
         public readonly int HASH_TRIG_JUMP = Animator.StringToHash("TrigJump");
         public readonly int HASH_TRIG_STOP_JUMPING = Animator.StringToHash("TrigStopJumping");
         public readonly int HASH_TRIG_DIVE = Animator.StringToHash("TrigDive");
+        public readonly int HASH_TRIG_FALLING = Animator.StringToHash("TrigFalling");
         public readonly int HASH_TRIG_VICTORY = Animator.StringToHash("TrigVictory");
         public readonly int HASH_VICTORY_ANIM = Animator.StringToHash("VictoryAnim");
     }
@@ -66,7 +67,8 @@ namespace Capsule.Game
         private void Start()
         {
             // 플레이어 생성 위치 들어갈 자리
-
+            SFXManager.Instance.PlayOneShot(Announcements.READY);
+            SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
         }
 
         private void Update()

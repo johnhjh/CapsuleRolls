@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Capsule.Game.Player;
+using Capsule.Game.Effect;
 using Capsule.Audio;
 
 namespace Capsule.Game.RollTheBall
@@ -42,12 +43,15 @@ namespace Capsule.Game.RollTheBall
             }
         }
 
+        public bool IsDead { get; set; }
+
         protected override void Start()
         {
             base.Start();
             base.isMovingByInput = false;
             isLanded = true;
             IsDiving = false;
+            IsDead = false;
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
             GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
             GameManager.Instance.OnAddScoreTeamB += OnEnemyGoal;
@@ -61,14 +65,12 @@ namespace Capsule.Game.RollTheBall
             playerAnimator.SetFloat(GameManager.Instance.animData.HASH_VERTICAL, velocity.z);
             playerAnimator.SetFloat(GameManager.Instance.animData.HASH_MOVE_SPEED, magnitude);
             base.Update();
-            if (!isMine) return;
-            if (playerInput.GetInputMovePower() > 0f)
-                playerAnimator.speed = 1f + ballRigidbody.velocity.magnitude / 10f;
-            else
-                playerAnimator.speed = 1f;
+            playerAnimator.speed = 1f + ballRigidbody.velocity.magnitude / 10f;
+            if (!isMine || IsDead) return;
 
             if (playerInput.Action1 && !IsTryJumping && jumpEnabled)
             {
+                SFXManager.Instance.StopSFX();
                 SFXManager.Instance.PlayOneShot(GameSFX.JUMP);
                 jumpEnabled = false;
                 IsLanded = false;
@@ -78,6 +80,7 @@ namespace Capsule.Game.RollTheBall
             }
             if (playerInput.Action2 && IsLanded)
             {
+                SFXManager.Instance.StopSFX();
                 SFXManager.Instance.PlayOneShot(GameSFX.JUMP);
                 IsLanded = false;
                 playerRigidbody.AddForce(transform.forward * diveForce, ForceMode.Impulse);
@@ -123,35 +126,92 @@ namespace Capsule.Game.RollTheBall
         {
             if (other.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
             {
-                ragdollController.ChangeRagdoll(true);
+                // effect 들어갈 자리
+                PlayerOut();
+            }
+            else if (other.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER))
+            {
+                // effect 들어갈 자리
+                PlayerOut();
             }
             else if (other.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
             {
+                // effect 들어갈 자리
                 RagdollController otherRagdoll = other.transform.parent.GetChild(2).GetComponent<RagdollController>();
                 otherRagdoll.forceVector = playerRigidbody.velocity;
                 otherRagdoll.ChangeRagdoll(true);
                 ragdollController.forceVector = playerRigidbody.velocity;
-                ragdollController.ChangeRagdoll(true);
+                if (IsLanded)
+                    PlayerOut();
+                else
+                    PlayerSuccess();
             }
             else if (other.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
             {
                 if (other.transform != transform.parent.GetChild(1))
-                    ragdollController.ChangeRagdoll(true);
+                {
+                    // effect 들어갈 자리
+                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE);
+                    PlayerOut();
+                }
             }
-
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_STAGE) || collision.collider.CompareTag("Swiper"))
-                ragdollController.ChangeRagdoll(true);
+            if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_STAGE) || 
+                collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER) ||
+                collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER))
+            {
+                GotHitBySomething(collision);
+            }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL) && !IsTryJumping)
             {
+                SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE);
                 if (collision.collider.transform == transform.parent.GetChild(1))
+                {
+                    EffectQueueManager.Instance.ShowCollisionEffect(collision);
                     IsLanded = true;
+                }
                 else
-                    ragdollController.ChangeRagdoll(true);
+                {
+                    GotHitBySomething(collision);
+                }
             }
+            else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
+            {
+                EffectQueueManager.Instance.ShowHitEffect(collision);
+                if (isDiving)
+                    PlayerSuccess();
+                else
+                    PlayerOut();
+            }
+        }
+
+        private void PlayerSuccess()
+        {
+            if (isMine)
+            {
+                SFXManager.Instance.PlaySFX(Announcements.SUCCESS, 1f);
+                SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
+            }
+            ragdollController.ChangeRagdoll(true);
+        }
+
+        private void PlayerOut()
+        {
+            if (isMine)
+            {
+                SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);
+                SFXManager.Instance.PlayOneShot(Crowds.GROAN);
+            }
+            ragdollController.ChangeRagdoll(true);
+        }
+
+        private void GotHitBySomething(Collision coll)
+        {
+            EffectQueueManager.Instance.ShowHitEffect(coll);
+            PlayerOut();
         }
     }
 }

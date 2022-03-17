@@ -31,9 +31,9 @@ namespace Capsule.Lobby
         // Floats
         [Range(0.1f, 1.0f)]
         public float sizingDurationTime = 0.2f;
-        private float curFontSize = 63f;
-        private const float MIN_FONT_SIZE = 63f;
-        private const float MAX_FONT_SIZE = 70f;
+        private float curFontSize;
+        private readonly float MIN_FONT_SIZE = 63f;
+        private readonly float MAX_FONT_SIZE = 70f;
 
         private Coroutine hoverCoroutine = null;
 
@@ -41,6 +41,7 @@ namespace Capsule.Lobby
         {
             tabTransform = GetComponent<RectTransform>();
             tabText = GetComponent<Text>();
+            curFontSize = MIN_FONT_SIZE;
         }
 
         public void OnPointerEnter(PointerEventData eventData)

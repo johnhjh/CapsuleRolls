@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8089647173835542908}
   - component: {fileID: 1522319029287175947}
+  - component: {fileID: 148920863}
   m_Layer: 9
   m_Name: SpikeRoller
   m_TagString: SpikeRoller
@@ -24,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7435961338296078361}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.19, y: 1.99, z: -0.34068352}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -51,6 +52,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &148920863
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435961338296078361}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9, y: 2, z: 1.9}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7949903443846696496
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +76,6 @@ GameObject:
   - component: {fileID: 7866294226453135159}
   - component: {fileID: 8362076990550216636}
   - component: {fileID: 3145323966217517131}
-  - component: {fileID: 8390895413645936002}
   m_Layer: 9
   m_Name: spikeRoller
   m_TagString: Untagged
@@ -133,17 +146,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &8390895413645936002
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7949903443846696496}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3933455867438563495, guid: 48b48044691bed948b4ba5fd1beec20a, type: 3}

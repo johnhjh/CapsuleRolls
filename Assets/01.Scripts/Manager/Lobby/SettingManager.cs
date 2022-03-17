@@ -22,15 +22,15 @@ namespace Capsule.Lobby.Main
 
         private CanvasGroup settingCG;
 
-        private const string BGM_VOLUME = "BGM_VOLUME";
-        private const string SFX_VOLUME = "SFX_VOLUME";
+        private readonly string BGM_VOLUME = "BGM_VOLUME";
+        private readonly string SFX_VOLUME = "SFX_VOLUME";
 
         [Header("Setting Icons")]
         public Sprite bgmOnSprite;
         public Sprite bgmOffSprite;
         public Sprite sfxOnSprite;
         public Sprite sfxOffSprite;
-
+        
         private Image bgmIcon;
         private Image sfxIcon;
         private Slider bgmSlider;

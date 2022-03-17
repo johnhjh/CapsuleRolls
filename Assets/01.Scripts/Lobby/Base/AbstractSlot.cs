@@ -31,14 +31,15 @@ namespace Capsule.Lobby
 
         [Range(0.1f, 2.0f)]
         public float hoverDurationTime = 0.6f;
-        private const float MIN_ALPHA = 0.6f;
-        private const float MAX_ALPHA = 1.0f;
-        private float curAlpha = MIN_ALPHA;
+        private readonly float MIN_ALPHA = 0.6f;
+        private readonly float MAX_ALPHA = 1.0f;
+        private float curAlpha;
         private Coroutine hoverCoroutine = null;
 
         private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
+            curAlpha = MIN_ALPHA;
         }
 
         public virtual void OnPointerClick(PointerEventData eventData)

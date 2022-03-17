@@ -152,3 +152,30 @@ MonoBehaviour:
   gameSoundEffects:
     moveClip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
     jumpClip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+    bounceClips:
+    - {fileID: 8300000, guid: 92620a705e466624bb805cdecb384c6a, type: 3}
+    - {fileID: 8300000, guid: 93e36a096c78b2c4aa8147da367bc8f4, type: 3}
+    - {fileID: 8300000, guid: c7d89de7730215641a051d01dd3e82f4, type: 3}
+    - {fileID: 8300000, guid: d64cdd0719195a0418772a6e2fbc4557, type: 3}
+    - {fileID: 8300000, guid: a8095b296625f994dba471939532e63a, type: 3}
+    fallingClip: {fileID: 8300000, guid: dd28a892cd88e4e4d85d600a3f475309, type: 3}
+    popClip: {fileID: 8300000, guid: 5bb50ae1df0abe54c99cbc58bc837e69, type: 3}
+  announceSounds:
+    outClips:
+    - {fileID: 8300000, guid: a5fb1d1665ac56d4f831d067a2621cda, type: 3}
+    - {fileID: 8300000, guid: 88464685145bedc478774fc757e55e89, type: 3}
+    - {fileID: 8300000, guid: 07cd3caea82a17a439fcd3323954a0d3, type: 3}
+    - {fileID: 8300000, guid: 11c2b24ea50eb4a4ea59a4c00e70360c, type: 3}
+    successClips:
+    - {fileID: 8300000, guid: a9a89918502ba634cae838a477d14f0b, type: 3}
+    - {fileID: 8300000, guid: 4545c3c3c06b8c042bc6dea187c3be65, type: 3}
+    - {fileID: 8300000, guid: cb6ea96149e020c4a8bacd5e0e822d3f, type: 3}
+    enemyGoalClip: {fileID: 8300000, guid: fb7e31f6ed5ed3245b6b5bbe085ebbf2, type: 3}
+    teamGoalClip: {fileID: 8300000, guid: f2c5b8a64cbbd254c865a9b1c8a88fa5, type: 3}
+  crowdSounds:
+    groanClips:
+    - {fileID: 8300000, guid: d2b39b467c1878c4a806751abbf384b1, type: 3}
+    - {fileID: 8300000, guid: 9087827677fe7624fb48be2d14cebeb7, type: 3}
+    - {fileID: 8300000, guid: 517913e05a9fae14785324edc3ea11de, type: 3}
+    applauseClips:
+    - {fileID: 8300000, guid: e5eb9bbfa5d4a11498e42e0412f90771, type: 3}

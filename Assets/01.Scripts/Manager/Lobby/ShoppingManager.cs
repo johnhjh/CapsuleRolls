@@ -33,7 +33,6 @@ namespace Capsule.Lobby.Shopping
 
         public GameObject tabFocusImage;
         private GameObject currentTab;
-        private CustomizingType currentCustomize;
 
         private GameObject presetContent;
         private GameObject bodyContent;
@@ -364,8 +363,8 @@ namespace Capsule.Lobby.Shopping
             }
         }
 
-        private const int NORMAL_TAB_FONT_SIZE = 63;
-        private const int FOCUSED_TAB_FONT_SIZE = 70;
+        private readonly int NORMAL_TAB_FONT_SIZE = 63;
+        private readonly int FOCUSED_TAB_FONT_SIZE = 70;
 
         [Header("Character")]
         public float characterScale = 1.3f;
@@ -391,12 +390,11 @@ namespace Capsule.Lobby.Shopping
 
             InitScrollRect();
 
-            GameObject TabPreset = GameObject.Find("Tab_Preset").gameObject;
+            GameObject TabPreset = GameObject.Find("Tab_Preset");
             TabPreset.GetComponent<ShoppingTabCtrl>().IsFocused = true;
 
             currentTab = TabPreset;
             currentContent = presetContent;
-            currentCustomize = CustomizingType.PRESET;
 
             SaveBodyMaterial();
             SaveHeadObj();
@@ -586,7 +584,6 @@ namespace Capsule.Lobby.Shopping
             ccg.blocksRaycasts = false;
 
             currentTab = parent.gameObject;
-            currentCustomize = cType;
             currentContent = GetContentByType(cType);
             scrollRect.content = currentContent.GetComponent<RectTransform>();
             currentContent.GetComponent<RectTransform>().localPosition = new Vector2(0f, 485f);

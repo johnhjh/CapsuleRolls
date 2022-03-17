@@ -25,29 +25,29 @@ namespace Capsule.Lobby
         // Floats
         public float durationTime = 0.2f;
 
-        private float curParentSize = 153f;
-        private const float MIN_PARENT_SIZE = 153f;
-        private const float MAX_PARENT_SIZE = 170f;
+        private float curParentSize;
+        private readonly float MIN_PARENT_SIZE = 153f;
+        private readonly float MAX_PARENT_SIZE = 170f;
         private float parentSizing;
 
-        private float curIconSize = 100f;
-        private const float MIN_ICON_SIZE = 100f;
-        private const float MAX_ICON_SIZE = 110f;
+        private float curIconSize;
+        private readonly float MIN_ICON_SIZE = 100f;
+        private readonly float MAX_ICON_SIZE = 110f;
         private float iconSizing;
 
-        private float curIconPos = 10f;
-        private const float MIN_ICON_POS = 10f;
-        private const float MAX_ICON_POS = 20f;
+        private float curIconPos;
+        private readonly float MIN_ICON_POS = 10f;
+        private readonly float MAX_ICON_POS = 20f;
         private float iconPosing;
 
-        private float curTextSize = 32f;
-        private const float MIN_TEXT_SIZE = 32f;
-        private const float MAX_TEXT_SIZE = 50f;
+        private float curTextSize;
+        private readonly float MIN_TEXT_SIZE = 32f;
+        private readonly float MAX_TEXT_SIZE = 50f;
         private float textSizing;
 
-        private float curFontSize = 24f;
-        private const float MIN_FONT_SIZE = 24f;
-        private const float MAX_FONT_SIZE = 30f;
+        private float curFontSize;
+        private readonly float MIN_FONT_SIZE = 24f;
+        private readonly float MAX_FONT_SIZE = 30f;
         private float fontSizing;
 
         private void Awake()

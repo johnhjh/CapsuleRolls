@@ -74,7 +74,7 @@ namespace Capsule.SceneLoad
         private bool allowNextScene = false;
         public bool AllowNextScene { set { allowNextScene = value; } }
 
-        private WaitForSeconds ws10 = new WaitForSeconds(1.0f);
+        //private WaitForSeconds ws10 = new WaitForSeconds(1.0f);
 
         private void Awake()
         {
@@ -90,13 +90,15 @@ namespace Capsule.SceneLoad
 
         private void InitSceneLoadManager()
         {
-            sceneDictionary = new Dictionary<LobbySceneType, SceneData>();
-            sceneDictionary.Add(LobbySceneType.TITLE, new SceneData(TITLE_SCENE_NAME, LoadSceneMode.Single));
-            sceneDictionary.Add(LobbySceneType.MAIN_LOBBY, new SceneData(MAIN_LOBBY_SCENE_NAME, LoadSceneMode.Additive));
-            sceneDictionary.Add(LobbySceneType.CUSTOMIZE, new SceneData(CUSTOMIZE_SCENE_NAME, LoadSceneMode.Additive));
-            sceneDictionary.Add(LobbySceneType.SOLO, new SceneData(SOLO_PLAY_SCENE_NAME, LoadSceneMode.Additive));
-            sceneDictionary.Add(LobbySceneType.MULTI, new SceneData(MULTI_PLAY_SCENE_NAME, LoadSceneMode.Additive));
-            sceneDictionary.Add(LobbySceneType.SHOPPING, new SceneData(SHOPPING_SCENE_NAME, LoadSceneMode.Additive));
+            sceneDictionary = new Dictionary<LobbySceneType, SceneData>
+            {
+                { LobbySceneType.TITLE, new SceneData(TITLE_SCENE_NAME, LoadSceneMode.Single) },
+                { LobbySceneType.MAIN_LOBBY, new SceneData(MAIN_LOBBY_SCENE_NAME, LoadSceneMode.Additive) },
+                { LobbySceneType.CUSTOMIZE, new SceneData(CUSTOMIZE_SCENE_NAME, LoadSceneMode.Additive) },
+                { LobbySceneType.SOLO, new SceneData(SOLO_PLAY_SCENE_NAME, LoadSceneMode.Additive) },
+                { LobbySceneType.MULTI, new SceneData(MULTI_PLAY_SCENE_NAME, LoadSceneMode.Additive) },
+                { LobbySceneType.SHOPPING, new SceneData(SHOPPING_SCENE_NAME, LoadSceneMode.Additive) }
+            };
         }
 
         private string SceneTypeToString(LobbySceneType sceneType)
@@ -123,11 +125,8 @@ namespace Capsule.SceneLoad
                 yield return StartCoroutine(FadeInLoading());
             //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), 
             //isAuto ? LoadSceneMode.Additive : LoadSceneMode.Single);
-            SceneData sceneData;
-            if (!sceneDictionary.TryGetValue(sceneType, out sceneData))
-            {
+            if (!sceneDictionary.TryGetValue(sceneType, out SceneData sceneData))
                 yield break;
-            }
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneData.sceneName,
                 isAuto ? sceneData.sceneMode : LoadSceneMode.Single);
             asyncOperation.allowSceneActivation = isAuto;

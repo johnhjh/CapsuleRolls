@@ -24,7 +24,6 @@ namespace Capsule.Lobby.Customize
 
         public GameObject tabFocusImage;
         private GameObject currentTab;
-        private CustomizingType currentCustomize;
 
         private Material savedBodyMat;
         private CustomizeSlotBody defaultBodySlot = null;
@@ -207,8 +206,8 @@ namespace Capsule.Lobby.Customize
         private GameObject gloveContent;
         private GameObject clothContent;
 
-        private const int NORMAL_TAB_FONT_SIZE = 63;
-        private const int FOCUSED_TAB_FONT_SIZE = 70;
+        private readonly int NORMAL_TAB_FONT_SIZE = 63;
+        private readonly int FOCUSED_TAB_FONT_SIZE = 70;
 
         private Coroutine MovingCamera = null;
         private readonly Vector3 ORIGIN_CAM_POS = new Vector3(0f, 1f, -10f);
@@ -246,7 +245,7 @@ namespace Capsule.Lobby.Customize
             gloveContent = scrollRectTransform.GetChild(3).gameObject;
             clothContent = scrollRectTransform.GetChild(4).gameObject;
 
-            GameObject TabBody = GameObject.Find("Tab_Body").gameObject;
+            GameObject TabBody = GameObject.Find("Tab_Body");
             TabBody.GetComponent<CustomizeTabCtrl>().IsFocused = true;
 
             defaultBodySlot = bodyContent.transform.GetChild(0).GetComponent<CustomizeSlotBody>();
@@ -257,7 +256,6 @@ namespace Capsule.Lobby.Customize
 
             currentTab = TabBody;
             currentContent = bodyContent;
-            currentCustomize = CustomizingType.BODY;
             scrollRect.content = bodyContent.GetComponent<RectTransform>();
 
             currentBodySlot = InitCustomizeBody();
@@ -279,7 +277,6 @@ namespace Capsule.Lobby.Customize
             ccg.blocksRaycasts = false;
 
             currentTab = parent.gameObject;
-            currentCustomize = cType;
             currentContent = GetContentByType(cType);
             scrollRect.content = currentContent.GetComponent<RectTransform>();
             currentContent.GetComponent<RectTransform>().localPosition = new Vector2(0f, -730f);
