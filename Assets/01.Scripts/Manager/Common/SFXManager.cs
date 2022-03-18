@@ -260,12 +260,22 @@ namespace Capsule.Audio
             PlaySFX(GetAudioClip(sfx), delay);
         }
 
-        public void PlayAnnouncement(Announcements sfx)
+        public void PlaySFX(Crowds sfx)
+        {
+            PlaySFX(GetAudioClip(sfx));
+        }
+
+        public void PlaySFX(Crowds sfx, bool forceToPlay)
+        {
+            PlaySFX(GetAudioClip(sfx), forceToPlay);
+        }
+
+        public void PlaySFX(Announcements sfx)
         {
             PlaySFX(GetAudioClip(sfx), true);
         }
 
-        public void PlayAnnouncement(Announcements sfx, float delay)
+        public void PlaySFX(Announcements sfx, float delay)
         {
             PlaySFX(GetAudioClip(sfx), delay, true);
         }

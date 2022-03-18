@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Capsule.Util;
 
 namespace Capsule.Game.Player
 {
@@ -20,6 +21,7 @@ namespace Capsule.Game.Player
         public float turnAnimateTime = 0.3f;
         protected bool isMovingByInput = true;
         public bool isMine = true;
+        public bool IsDead { get; set; }
 
         private void Awake()
         {
@@ -37,7 +39,7 @@ namespace Capsule.Game.Player
             ragdollController.OnChangeRagdoll += () => {
                 //Camera.main.GetComponent<CameraFollow>().targetTransform = ragdollController.spine.transform;
                 //Camera.main.GetComponent<CameraFollow>().camView = CameraView.QUATER;
-
+                GameCameraManager.Instance.Target = new Tuple<Transform, bool>(ragdollController.spine.transform, true);
             };
         }
 
@@ -64,6 +66,12 @@ namespace Capsule.Game.Player
                 playerAnimator.SetInteger(GameManager.Instance.animData.HASH_ROTATE, 0);
                 playerAnimator.SetBool(GameManager.Instance.animData.HASH_IS_TURNING, false);
             }
+        }
+
+        protected virtual void OnDisable()
+        {
+            if (!IsDead)
+                IsDead = true;
         }
     }
 }

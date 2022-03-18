@@ -83,7 +83,7 @@ namespace Capsule.Game
         {
             // 플레이어 생성 위치 들어갈 자리
             SFXManager.Instance.PlayOneShot(Announcements.READY);
-            SFXManager.Instance.PlayAnnouncement(Announcements.GO, 2f);
+            SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
         }
 
         private void Update()

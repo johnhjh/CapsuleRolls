@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using Capsule.Entity;
 using Capsule.Audio;
+using Capsule.Lobby.Main;
+using System.Text;
 
 namespace Capsule.Lobby
 {
@@ -32,10 +35,15 @@ namespace Capsule.Lobby
         private Text userInfoPopupNickNameText;
         private Text userInfoPopupIDText;
 
-        private CanvasGroup userInfoPopupCG;
+        private InputField changeNameNickNameInput;
+        private Button changeNameConfirmButton;
 
-        private bool isOpen = false;
-        public bool WasOpen { get; set; }
+        private CanvasGroup userInfoPopupCG;
+        private CanvasGroup changeNamePopupCG;
+
+
+        private bool isUserInfoOpen = false;
+        private bool isChangeNameOpen = false;
 
         private void Awake()
         {
@@ -53,11 +61,17 @@ namespace Capsule.Lobby
 
         private void Update()
         {
-            if (!isOpen) return;
+            if (!isUserInfoOpen && !isChangeNameOpen) return;
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                WasOpen = true;
-                OpenCloseUserInfoPopup(false);
+                if (isChangeNameOpen)
+                {
+                    OpenCloseChangeNamePopup(false);
+                }
+                else
+                {
+                    OpenCloseUserInfoPopup(false);
+                }
             }
         }
 
@@ -66,6 +80,7 @@ namespace Capsule.Lobby
             Destroy(GameObject.Find("User_Info"));
             Destroy(GameObject.Find("User_Info_Coin"));
             Destroy(GameObject.Find("Popup_UserInfo"));
+            Destroy(GameObject.Find("Popup_ChangeName"));
         }
 
         private void InitUserInfo()
@@ -76,12 +91,18 @@ namespace Capsule.Lobby
             userInfoMainNickNameText = GameObject.Find("User_Info_NickName").GetComponent<Text>();
             userInfoMainCoinText = GameObject.Find("User_Info_Coin_Text").GetComponent<Text>();
 
+            // Popup User Info
             userInfoPopupCG = GameObject.Find("Popup_UserInfo").GetComponent<CanvasGroup>();
             userInfoPopupExpImage = GameObject.Find("UsePopupExp_Fill").GetComponent<Image>();
             userInfoPopupExpText = GameObject.Find("UserPopupExp_Text").GetComponent<Text>();
             userInfoPopupLevelText = GameObject.Find("UserPopupLevel_Text").GetComponent<Text>();
             userInfoPopupNickNameText = GameObject.Find("UserPopupNickName_Text").GetComponent<Text>();
             userInfoPopupIDText = GameObject.Find("UserPopupID_Text").GetComponent<Text>();
+
+            // Popup Change Name
+            changeNamePopupCG = GameObject.Find("Popup_ChangeName").GetComponent<CanvasGroup>();
+            changeNameNickNameInput = GameObject.Find("InputField_NickName").GetComponent<InputField>();
+            changeNameConfirmButton = GameObject.Find("Button_Confirm").GetComponent<Button>();
         }
 
         private void SetUserInfo()
@@ -103,6 +124,11 @@ namespace Capsule.Lobby
             userInfoPopupExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
             userInfoPopupNickNameText.text = DataManager.Instance.CurrentPlayerData.NickName;
             userInfoPopupIDText.text = "#" + DataManager.Instance.CurrentPlayerData.ID;
+
+            // Popup Change Name
+            changeNameNickNameInput.text = DataManager.Instance.CurrentPlayerData.NickName;
+            changeNameNickNameInput.onValueChanged.AddListener(delegate { OnChangeNameValueChanged(changeNameNickNameInput); });
+            changeNameConfirmButton.onClick.AddListener(delegate { OnChangeNameConfirmButtonClick(); });
         }
 
         public void OpenCloseUserInfoPopup(bool isOpen)
@@ -111,7 +137,57 @@ namespace Capsule.Lobby
             userInfoPopupCG.alpha = isOpen ? 1f : 0f;
             userInfoPopupCG.blocksRaycasts = isOpen;
             userInfoPopupCG.interactable = isOpen;
-            this.isOpen = isOpen;
+            this.isUserInfoOpen = isOpen;
+            if (SettingManager.Instance != null)
+                SettingManager.Instance.OtherOpened = isOpen;
+        }
+
+        public void OpenCloseChangeNamePopup(bool isOpen)
+        {
+            SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.OK : MenuSFX.BACK);
+            changeNamePopupCG.alpha = isOpen ? 1f : 0f;
+            changeNamePopupCG.blocksRaycasts = isOpen;
+            changeNamePopupCG.interactable = isOpen;
+            this.isChangeNameOpen = isOpen;
+        }
+
+        public void OnChangeNameValueChanged(InputField field)
+        {
+            string nickName = field.text;
+            nickName = nickName.Trim();
+            if (Encoding.Default.GetByteCount(nickName) == 0)
+            {
+                changeNameConfirmButton.interactable = false;
+                changeNameNickNameInput.text = "";
+                return;
+            }
+            string match = @"^[a-zA-Z0-9가-힣]*$";
+            if (!Regex.IsMatch(nickName, match))
+            {
+                changeNameConfirmButton.interactable = false;
+                changeNameNickNameInput.text = "";
+                return;
+            }
+            nickName = NickNameCut(nickName);
+            changeNameNickNameInput.text = nickName;
+            changeNameConfirmButton.interactable = true;
+        }
+
+        private string NickNameCut(string nick)
+        {
+            int korLength = (Encoding.Default.GetByteCount(nick) - nick.Length) / 2;
+            if (Encoding.Default.GetByteCount(nick) > 12)
+                return nick.Substring(0, 12 - korLength);
+            else
+                return nick;            
+        }
+
+        public void OnChangeNameConfirmButtonClick()
+        {
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
+            DataManager.Instance.CurrentPlayerData.NickName = changeNameNickNameInput.text;
+            userInfoPopupNickNameText.text = changeNameNickNameInput.text;
+            userInfoMainNickNameText.text = changeNameNickNameInput.text;
         }
     }
 }

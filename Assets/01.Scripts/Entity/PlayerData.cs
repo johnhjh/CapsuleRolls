@@ -78,7 +78,11 @@ namespace Capsule.Entity
         public string NickName
         {
             get { return playerNickName; }
-            private set { playerNickName = value; }
+            set 
+            { 
+                playerNickName = value;
+                PlayerPrefs.SetString("PlayerNick", value);
+            }
         }
         public int Exp
         {

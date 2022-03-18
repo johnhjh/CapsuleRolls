@@ -23,6 +23,7 @@ namespace Capsule.Game.AI
         {
             if (ballMove != null)
             {
+                if (ballMove.IsDead) return;
                 if (ballMove.IsLanded)
                 {
                     if (Time.time > timeBetTime)

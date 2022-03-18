@@ -37,6 +37,7 @@ namespace Capsule.Lobby.Main
         private Slider sfxSlider;
 
         private bool isSettingOpen = false;
+        public bool OtherOpened { get; set; }
 
         private void Awake()
         {
@@ -74,11 +75,7 @@ namespace Capsule.Lobby.Main
                 }
                 else
                 {
-                    if (UserInfoManager.Instance.WasOpen)
-                    {
-                        UserInfoManager.Instance.WasOpen = false;
-                        return;
-                    }
+                    if (OtherOpened) return;
                     SFXManager.Instance.PlayOneShot(MenuSFX.OK);
                     PopUpSetting(true);
                 }

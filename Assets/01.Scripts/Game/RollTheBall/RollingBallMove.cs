@@ -110,6 +110,13 @@ namespace Capsule.Game.RollTheBall
                 playerRigidbody.mass = 1f;
                 playerRigidbody.AddForce(explodePower * Vector3.up, ForceMode.Impulse);
             }
+            else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_GOAL_POST))
+            {
+                BallAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
+                SFXManager.Instance.PlaySFX(Crowds.GROAN);
+                EffectQueueManager.Instance.ShowCollisionEffect(collision,
+                    Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
+            }
         }
 
         private void PlayerAudioStop()

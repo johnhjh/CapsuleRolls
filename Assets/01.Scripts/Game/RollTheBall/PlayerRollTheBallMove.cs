@@ -52,8 +52,6 @@ namespace Capsule.Game.RollTheBall
             }
         }
 
-        public bool IsDead { get; set; }
-
         protected override void Start()
         {
             base.Start();
@@ -81,6 +79,12 @@ namespace Capsule.Game.RollTheBall
                 JumpAction();
             if (playerInput.Action2 && IsLanded)
                 DiveAction();
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            StopAllCoroutines();
         }
 
         public void AIJump()
@@ -112,12 +116,14 @@ namespace Capsule.Game.RollTheBall
 
         private void OnTeamGoal()
         {
+            SFXManager.Instance.PlaySFX(Crowds.APPLOUSE, true);
             SFXManager.Instance.PlayOneShot(Announcements.TEAM_GOAL);
             PlayVictoryAnim();
         }
 
         private void OnEnemyGoal()
         {
+            SFXManager.Instance.PlaySFX(Crowds.GROAN, true);
             SFXManager.Instance.PlayOneShot(Announcements.ENEMY_GOAL);
             PlayDisappointAnim();
         }
@@ -254,7 +260,7 @@ namespace Capsule.Game.RollTheBall
             IsDiving = false;
             if (isMine)
             {
-                SFXManager.Instance.PlayAnnouncement(Announcements.SUCCESS, 1f);
+                SFXManager.Instance.PlaySFX(Announcements.SUCCESS, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             }
             PlayVictoryAnim();
@@ -265,7 +271,7 @@ namespace Capsule.Game.RollTheBall
         {
             if (isMine)
             {
-                SFXManager.Instance.PlayAnnouncement(Announcements.OUT, 1f);
+                SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.GROAN);
             }
             ragdollController.ChangeRagdoll(true);
