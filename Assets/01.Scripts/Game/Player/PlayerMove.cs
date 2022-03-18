@@ -35,8 +35,9 @@ namespace Capsule.Game.Player
             ragdollController = transform.parent.GetChild(1).GetComponent<RagdollController>();
             if (!isMine) return;
             ragdollController.OnChangeRagdoll += () => {
-                Camera.main.GetComponent<CameraFollow>().targetTransform = ragdollController.spine.transform;
-                Camera.main.GetComponent<CameraFollow>().camView = CameraView.QUATER;
+                //Camera.main.GetComponent<CameraFollow>().targetTransform = ragdollController.spine.transform;
+                //Camera.main.GetComponent<CameraFollow>().camView = CameraView.QUATER;
+
             };
         }
 
