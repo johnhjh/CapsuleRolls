@@ -373,8 +373,8 @@ namespace Capsule.Entity
         public int HighestScore
         {
             get { return highestScore; }
-            private set 
-            { 
+            private set
+            {
                 highestScore = value;
                 PlayerPrefs.SetInt("HighestScore", value);
             }
@@ -382,8 +382,8 @@ namespace Capsule.Entity
         public int HighestStage
         {
             get { return highestStage; }
-            private set 
-            { 
+            private set
+            {
                 highestStage = value;
                 PlayerPrefs.SetInt("HighestStage", value);
             }
@@ -391,8 +391,8 @@ namespace Capsule.Entity
         public int CurrentWins
         {
             get { return currentWins; }
-            private set 
-            { 
+            private set
+            {
                 currentWins = value;
                 PlayerPrefs.SetInt("CurrentWins", value);
             }
@@ -400,8 +400,8 @@ namespace Capsule.Entity
         public int MostWins
         {
             get { return mostWins; }
-            private set 
-            { 
+            private set
+            {
                 mostWins = value;
                 PlayerPrefs.SetInt("MostWins", value);
             }
@@ -409,8 +409,8 @@ namespace Capsule.Entity
         public int MultiVictoryCount
         {
             get { return multiVictoryCount; }
-            private set 
-            { 
+            private set
+            {
                 multiVictoryCount = value;
                 PlayerPrefs.SetInt("VictoryCount", value);
             }
@@ -422,8 +422,8 @@ namespace Capsule.Entity
         public int MultiPlayCount
         {
             get { return multiPlayCount; }
-            private set 
-            { 
+            private set
+            {
                 multiPlayCount = value;
                 PlayerPrefs.SetInt("MultiPlayCount", value);
             }
@@ -431,8 +431,8 @@ namespace Capsule.Entity
         public int TotalPlayCount
         {
             get { return totalPlayCount; }
-            private set 
-            { 
+            private set
+            {
                 totalPlayCount = value;
                 PlayerPrefs.SetInt("TotalPlayCount", value);
             }
@@ -440,8 +440,8 @@ namespace Capsule.Entity
         public int TotalKillCount
         {
             get { return totalKillCount; }
-            private set 
-            { 
+            private set
+            {
                 totalKillCount = value;
                 PlayerPrefs.SetInt("TotalKillCount", value);
             }
@@ -449,8 +449,8 @@ namespace Capsule.Entity
         public int TotalDeathCount
         {
             get { return totalDeathCount; }
-            private set 
-            { 
+            private set
+            {
                 totalDeathCount = value;
                 PlayerPrefs.SetInt("TotalDeathCount", value);
             }
@@ -458,8 +458,8 @@ namespace Capsule.Entity
         public int MultiMostKillCount
         {
             get { return multiMostKillCount; }
-            private set 
-            { 
+            private set
+            {
                 multiMostKillCount = value;
                 PlayerPrefs.SetInt("MultiMostKillCount", value);
             }
