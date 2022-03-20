@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Capsule.Entity;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -154,10 +155,12 @@ namespace Capsule.SceneLoad
             SceneManager.LoadScene(SceneTypeToString(sceneType), LoadSceneMode.Single);
         }
 
-        public IEnumerator LoadGameScene()
+        public IEnumerator LoadGameScene(GameData data)
         {
             ResetFields();
-            yield return null;
+            yield return StartCoroutine(FadeInLoading());
+            // GameScene Load Logic 작성할 자리
+            yield return StartCoroutine(FadeOutLoading());
         }
 
         private IEnumerator FadeLoading(float finalAlpha)

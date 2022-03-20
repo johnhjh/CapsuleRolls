@@ -1,8 +1,8 @@
 ﻿// Cristian Pop - https://boxophobic.com/
 
-using UnityEngine;
-using UnityEditor;
 using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace Boxophobic.StyledGUI
 {
@@ -24,7 +24,7 @@ namespace Boxophobic.StyledGUI
 
             UnityEngine.Object materialAsset = null;
 
-            GUILayout.Space(5);            
+            GUILayout.Space(5);
 
             if (material.GetInt(propName) == 0)
             {

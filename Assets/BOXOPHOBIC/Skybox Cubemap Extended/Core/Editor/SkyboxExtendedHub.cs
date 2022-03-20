@@ -1,9 +1,9 @@
 ﻿// Cristian Pop - https://boxophobic.com/
 
-using UnityEngine;
-using UnityEditor;
 using Boxophobic.StyledGUI;
 using Boxophobic.Utils;
+using UnityEditor;
+using UnityEngine;
 
 public class SkyboxExtendedHub : EditorWindow
 {

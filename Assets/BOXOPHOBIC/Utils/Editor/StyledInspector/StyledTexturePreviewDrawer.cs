@@ -1,7 +1,7 @@
 ﻿// Cristian Pop - https://boxophobic.com/
 
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace Boxophobic.StyledGUI
@@ -66,7 +66,7 @@ namespace Boxophobic.StyledGUI
             GUILayout.Label(tex.graphicsFormat.ToString(), styledText);
             GUILayout.Space(-1);
 
-            channel = EditorGUILayout.Popup(channel, new string[] { "RGB", "R", "G", "B", "A" }, styledPopup, GUILayout.MaxWidth(60)); 
+            channel = EditorGUILayout.Popup(channel, new string[] { "RGB", "R", "G", "B", "A" }, styledPopup, GUILayout.MaxWidth(60));
 
             GUILayout.EndHorizontal();
 

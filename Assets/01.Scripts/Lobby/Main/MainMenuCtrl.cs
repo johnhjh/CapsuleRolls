@@ -66,6 +66,7 @@ namespace Capsule.Lobby
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (isSelected) return;
             var mainMenus = GameObject.Find("MainMenu").GetComponentsInChildren<MainMenuCtrl>();
             if (mainMenus != null)
             {

@@ -2,10 +2,10 @@
 {
     public enum GameMode
     {
-        TUTORIAL = 0,
-        PRACTICE,
-        ARCADE,
+        ARCADE = 0,
         STAGE,
+        PRACTICE,
+        BOT,
         MULTI,
         RANK,
         CUSTOM,

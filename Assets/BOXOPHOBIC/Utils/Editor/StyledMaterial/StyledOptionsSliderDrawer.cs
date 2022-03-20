@@ -1,8 +1,8 @@
 ﻿// Cristian Pop - https://boxophobic.com/
 
-using UnityEngine;
-using UnityEditor;
 using System;
+using UnityEditor;
+using UnityEngine;
 
 public class StyledOptionsSliderDrawer : MaterialPropertyDrawer
 {
@@ -119,7 +119,7 @@ public class StyledOptionsSliderDrawer : MaterialPropertyDrawer
 
             GUILayout.Space(2);
 
-            propVector.w = (float)EditorGUILayout.Popup((int)propVector.w, new string[] { "Remap", "Invert", "Simple"}, stylePopup, GUILayout.Width(50));
+            propVector.w = (float)EditorGUILayout.Popup((int)propVector.w, new string[] { "Remap", "Invert", "Simple" }, stylePopup, GUILayout.Width(50));
 
             GUILayout.EndHorizontal();
 
