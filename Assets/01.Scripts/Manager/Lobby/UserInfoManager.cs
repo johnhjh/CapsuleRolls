@@ -54,6 +54,7 @@ namespace Capsule.Lobby
         private void Start()
         {
             InitUserInfo();
+            InitUserGameData();
             SetUserInfo();
         }
 
@@ -104,6 +105,19 @@ namespace Capsule.Lobby
             changeNamePopupCG = GameObject.Find("Popup_ChangeName").GetComponent<CanvasGroup>();
             changeNameNickNameInput = GameObject.Find("InputField_NickName").GetComponent<InputField>();
             changeNameConfirmButton = GameObject.Find("Button_Confirm").GetComponent<Button>();
+        }
+
+        private void InitUserGameData()
+        {
+            GameObject.Find("Text_Value_HighestScore").GetComponent<Text>().text = DataManager.Instance.CurrentPlayerGameData.HighestScore.ToString();
+            GameObject.Find("Text_Value_HighestStage").GetComponent<Text>().text = DataManager.Instance.GetHighestStageString();
+            GameObject.Find("Text_Value_MostWins").GetComponent<Text>().text = DataManager.Instance.CurrentPlayerGameData.MostWins.ToString();
+            GameObject.Find("Text_Value_TotalPlays").GetComponent<Text>().text = DataManager.Instance.CurrentPlayerGameData.TotalPlayCount.ToString();
+            GameObject.Find("Text_Value_SoloPlays").GetComponent<Text>().text = DataManager.Instance.CurrentPlayerGameData.SoloPlayCount.ToString();
+            GameObject.Find("Text_Value_MultiPlays").GetComponent<Text>().text = DataManager.Instance.CurrentPlayerGameData.MultiPlayCount.ToString();
+            GameObject.Find("Text_Value_KillCount").GetComponent<Text>().text = DataManager.Instance.CurrentPlayerGameData.TotalKillCount.ToString();
+            GameObject.Find("Text_Value_DeathCount").GetComponent<Text>().text = DataManager.Instance.CurrentPlayerGameData.TotalDeathCount.ToString();
+            GameObject.Find("Text_Value_MostKills").GetComponent<Text>().text = DataManager.Instance.CurrentPlayerGameData.MultiMostKillCount.ToString();
         }
 
         private void SetUserInfo()

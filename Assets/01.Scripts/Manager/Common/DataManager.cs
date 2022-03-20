@@ -18,6 +18,31 @@ namespace Capsule.Entity
             }
         }
 
+        private void Awake()
+        {
+            if (dataMgr == null)
+            {
+                dataMgr = this;
+                CurrentPlayerData = new PlayerData();
+                CurrentPlayerBuyData = new PlayerBuyData();
+                CurrentPlayerCustomizeItemOpenData = new PlayerCustomizeItemOpenData();
+                CurrentPlayerCustomizeData = new PlayerCustomizeData();
+                CurrentPlayerGameData = new PlayerGameData();
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else if (dataMgr != this)
+                Destroy(this.gameObject);
+        }
+
+        public void ResetAllDatas()
+        {
+            CurrentPlayerData.ResetPlayerData();
+            CurrentPlayerBuyData.ResetPlayerBuyData();
+            CurrentPlayerCustomizeItemOpenData.ResetPlayerCustomizeItemOpenData();
+            CurrentPlayerCustomizeData.ResetPlayerCustomizeData();
+            CurrentPlayerGameData.ResetPlayerGameData();
+        }
+
         public List<CustomizingBodyData> customizingBodyDatas;
         public List<CustomizingHeadData> customizingHeadDatas;
         public List<CustomizingFaceData> customizingFaceDatas;
@@ -146,15 +171,7 @@ namespace Capsule.Entity
             private set { currentPlayerCustomizeData = value; }
         }
 
-        public void ResetAllDatas()
-        {
-            CurrentPlayerData.ResetPlayerData();
-            CurrentPlayerBuyData.ResetPlayerBuyData();
-            CurrentPlayerCustomizeItemOpenData.ResetPlayerCustomizeItemOpenData();
-            CurrentPlayerCustomizeData.ResetPlayerCustomizeData();
-        }
-
-        public void UnlockAllDatas()
+        public void UnlockAllCustomizeDatas()
         {
             CurrentPlayerBuyData.ResetPlayerBuyData();
             CurrentPlayerCustomizeItemOpenData.ResetPlayerCustomizeItemOpenData();
@@ -234,21 +251,6 @@ namespace Capsule.Entity
             }
         }
 
-        private void Awake()
-        {
-            if (dataMgr == null)
-            {
-                dataMgr = this;
-                CurrentPlayerData = new PlayerData();
-                CurrentPlayerBuyData = new PlayerBuyData();
-                CurrentPlayerCustomizeItemOpenData = new PlayerCustomizeItemOpenData();
-                CurrentPlayerCustomizeData = new PlayerCustomizeData();
-                DontDestroyOnLoad(this.gameObject);
-            }
-            else if (dataMgr != this)
-                Destroy(this.gameObject);
-        }
-
         public CustomizingBodyData GetBodyData(CustomizingBody bodyNum)
         {
             var result = from data in customizingBodyDatas
@@ -313,6 +315,52 @@ namespace Capsule.Entity
                 return result.ElementAt<CustomizingPresetData>(0);
             else
                 return null;
+        }
+
+        private PlayerGameData currentPlayerGameData = null;
+        public PlayerGameData CurrentPlayerGameData
+        {
+            get { return currentPlayerGameData; }
+            private set { currentPlayerGameData = value; }
+        }
+
+        public string GetHighestStageString()
+        {
+            return GetStageString((GameStage)currentPlayerGameData.HighestStage);
+        }
+
+        public string GetStageString(GameStage stageNum)
+        {
+            switch (stageNum)
+            {
+                case GameStage.TUTORIAL_0:
+                case GameStage.TUTORIAL_1:
+                case GameStage.TUTORIAL_2:
+                case GameStage.TUTORIAL_3:
+                    return "튜토리얼";
+                case GameStage.STAGE_1:
+                    return "스테이지 1";
+                case GameStage.STAGE_2:
+                    return "스테이지 2";
+                case GameStage.STAGE_3:
+                    return "스테이지 3";
+                case GameStage.STAGE_4:
+                    return "스테이지 4";
+                case GameStage.STAGE_5:
+                    return "스테이지 5";
+                case GameStage.STAGE_6:
+                    return "스테이지 6";
+                case GameStage.STAGE_7:
+                    return "스테이지 7";
+                case GameStage.STAGE_8:
+                    return "스테이지 8";
+                case GameStage.STAGE_9:
+                    return "스테이지 9";
+                case GameStage.STAGE_10:
+                    return "스테이지 10";
+                default:
+                    return "튜토리얼";
+            }
         }
     }
 }

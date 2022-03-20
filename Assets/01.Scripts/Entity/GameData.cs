@@ -14,11 +14,29 @@
     public enum GameKind
     {
         ROLL_THE_BALL = 0,
-        THROWING,
-        KILLINGROBOT,
+        THROWING_FEEDER,
+        ATTACK_INVADER,
     }
 
     public enum GameStage
+    {
+        TUTORIAL_0 = 0,
+        TUTORIAL_1,
+        TUTORIAL_2,
+        TUTORIAL_3,
+        STAGE_1,
+        STAGE_2,
+        STAGE_3,
+        STAGE_4,
+        STAGE_5,
+        STAGE_6,
+        STAGE_7,
+        STAGE_8,
+        STAGE_9,
+        STAGE_10,
+    }
+
+    public enum GameMap
     {
         CUSHION = 0,
     }
@@ -46,8 +64,8 @@
             set { kind = value; }
         }
 
-        private GameStage stage;
-        public GameStage Stage
+        private GameMap stage;
+        public GameMap Stage
         {
             get { return stage; }
             set { stage = value; }

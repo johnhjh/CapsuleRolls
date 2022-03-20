@@ -356,4 +356,193 @@ namespace Capsule.Entity
             BuyData = new List<string>();
         }
     }
+
+    public class PlayerGameData
+    {
+        private int highestScore;
+        private int highestStage;
+        private int currentWins;
+        private int mostWins;
+        private int multiVictoryCount;
+        private int multiPlayCount;
+        private int totalPlayCount;
+        private int totalKillCount;
+        private int totalDeathCount;
+        private int multiMostKillCount;
+
+        public int HighestScore
+        {
+            get { return highestScore; }
+            private set 
+            { 
+                highestScore = value;
+                PlayerPrefs.SetInt("HighestScore", value);
+            }
+        }
+        public int HighestStage
+        {
+            get { return highestStage; }
+            private set 
+            { 
+                highestStage = value;
+                PlayerPrefs.SetInt("HighestStage", value);
+            }
+        }
+        public int CurrentWins
+        {
+            get { return currentWins; }
+            private set 
+            { 
+                currentWins = value;
+                PlayerPrefs.SetInt("CurrentWins", value);
+            }
+        }
+        public int MostWins
+        {
+            get { return mostWins; }
+            private set 
+            { 
+                mostWins = value;
+                PlayerPrefs.SetInt("MostWins", value);
+            }
+        }
+        public int MultiVictoryCount
+        {
+            get { return multiVictoryCount; }
+            private set 
+            { 
+                multiVictoryCount = value;
+                PlayerPrefs.SetInt("VictoryCount", value);
+            }
+        }
+        public int SoloPlayCount
+        {
+            get { return totalPlayCount - multiPlayCount; }
+        }
+        public int MultiPlayCount
+        {
+            get { return multiPlayCount; }
+            private set 
+            { 
+                multiPlayCount = value;
+                PlayerPrefs.SetInt("MultiPlayCount", value);
+            }
+        }
+        public int TotalPlayCount
+        {
+            get { return totalPlayCount; }
+            private set 
+            { 
+                totalPlayCount = value;
+                PlayerPrefs.SetInt("TotalPlayCount", value);
+            }
+        }
+        public int TotalKillCount
+        {
+            get { return totalKillCount; }
+            private set 
+            { 
+                totalKillCount = value;
+                PlayerPrefs.SetInt("TotalKillCount", value);
+            }
+        }
+        public int TotalDeathCount
+        {
+            get { return totalDeathCount; }
+            private set 
+            { 
+                totalDeathCount = value;
+                PlayerPrefs.SetInt("TotalDeathCount", value);
+            }
+        }
+        public int MultiMostKillCount
+        {
+            get { return multiMostKillCount; }
+            private set 
+            { 
+                multiMostKillCount = value;
+                PlayerPrefs.SetInt("MultiMostKillCount", value);
+            }
+        }
+
+        public PlayerGameData()
+        {
+            LoadPlayerGameData();
+        }
+
+        public void LoadPlayerGameData()
+        {
+            HighestScore = PlayerPrefs.GetInt("HighestScore", 0);
+            HighestStage = PlayerPrefs.GetInt("HighestStage", 0);
+            CurrentWins = PlayerPrefs.GetInt("CurrentWins", 0);
+            MostWins = PlayerPrefs.GetInt("MostWins", 0);
+            MultiVictoryCount = PlayerPrefs.GetInt("VictoryCount", 0);
+
+            MultiPlayCount = PlayerPrefs.GetInt("MultiPlayCount", 0);
+            TotalPlayCount = PlayerPrefs.GetInt("TotalPlayCount", 0);
+            TotalKillCount = PlayerPrefs.GetInt("TotalKillCount", 0);
+            TotalDeathCount = PlayerPrefs.GetInt("TotalDeathCount", 0);
+            MultiMostKillCount = PlayerPrefs.GetInt("MultiMostKillCount", 0);
+        }
+
+        public void PlayerScore(int score)
+        {
+            if (score > HighestScore)
+                HighestScore = score;
+        }
+
+        public void PlayerStage(int stage)
+        {
+            if (stage > HighestStage)
+                HighestStage = stage;
+        }
+
+        public void PlayerSoloPlay()
+        {
+            TotalPlayCount += 1;
+        }
+
+        public void PlayerAddKills(int killCount)
+        {
+            TotalKillCount += killCount;
+            if (killCount > MultiMostKillCount)
+                MultiMostKillCount = killCount;
+        }
+
+        public void PlayerAddDeaths(int deathCount)
+        {
+            TotalDeathCount += deathCount;
+        }
+
+        public void PlayerMultiWin()
+        {
+            TotalPlayCount += 1;
+            MultiVictoryCount += 1;
+            MultiPlayCount += 1;
+            CurrentWins += 1;
+            if (CurrentWins > MostWins)
+                MostWins = CurrentWins;
+        }
+
+        public void PlayerMultiLose()
+        {
+            TotalPlayCount += 1;
+            CurrentWins = 0;
+            MultiPlayCount += 1;
+        }
+
+        public void ResetPlayerGameData()
+        {
+            PlayerPrefs.SetInt("HighestScore", 0);
+            PlayerPrefs.SetInt("HighestStage", 0);
+            PlayerPrefs.SetInt("CurrentWins", 0);
+            PlayerPrefs.SetInt("MostWins", 0);
+            PlayerPrefs.SetInt("VictoryCount", 0);
+            PlayerPrefs.SetInt("MultiPlayCount", 0);
+            PlayerPrefs.SetInt("TotalPlayCount", 0);
+            PlayerPrefs.SetInt("TotalKillCount", 0);
+            PlayerPrefs.SetInt("TotalDeathCount", 0);
+            PlayerPrefs.SetInt("MultiMostKillCount", 0);
+        }
+    }
 }

@@ -31,17 +31,28 @@ public class SoloPlayManager : MonoBehaviour
     private readonly string gameModePracticeDetailText = "자유롭게 연습해서 실력상승!";
     private readonly string gameModeBotDetailText = "AI봇과 대전하며 실력상승!";
 
+    private readonly string gameKindRollTheBallDetailText = "공 굴려서 골인~!";
+    private readonly string gameKindThrowingFeederDetailText = "먹이를 던져주자~!";
+    private readonly string gameKindAttackInvaderDetailText = "침략자를 막자~!";
+
     private Text gameModeText;
     private Text gameModeDetailText;
     private Text gameKindDetailText;
     private Image gameKindDetailImage;
     private Text gameScoreDetailText;
+    private Text gameStageDetailText;
+    private Image gameStageDetailImage;
+    private Text gameHighestStageDetailText;
 
     private GameObject gameScoreUI;
     private GameObject gameKindUI;
-    private GameObject gameStageUI;
+    private GameObject gameHighestStageUI;
     private GameObject gameStageSelectUI;
     private GameObject gameBotDifficultyUI;
+
+    public Sprite gameKindRollTheBallDetailImage;
+    public Sprite gameKindThrowingFeederDetailImage;
+    public Sprite gameKindAttackInvaderDetailImage;
 
     private void Awake()
     {
@@ -68,9 +79,14 @@ public class SoloPlayManager : MonoBehaviour
         // Arcade
         gameScoreUI = GameObject.Find("GameScoreUI");
         gameScoreDetailText = gameScoreUI.transform.GetChild(2).GetComponent<Text>();
+        gameScoreDetailText.text = DataManager.Instance.CurrentPlayerGameData.HighestScore.ToString() + " 점";
         // Stage
-        gameStageUI = GameObject.Find("GameStageUI");
         gameStageSelectUI = GameObject.Find("GameStageSelectUI");
+        gameStageDetailText = GameObject.Find("GameStageDetailText").GetComponent<Text>();
+        gameStageDetailImage = GameObject.Find("GameStageDetailImage").GetComponent<Image>();
+        gameHighestStageUI = GameObject.Find("GameHighestStageUI");
+        gameHighestStageDetailText = GameObject.Find("GameHighestStageDetailText").GetComponent<Text>();
+        gameHighestStageDetailText.text = DataManager.Instance.GetHighestStageString();
         // Bot
         gameBotDifficultyUI = GameObject.Find("GameBotDifficultyUI");
 
@@ -79,6 +95,7 @@ public class SoloPlayManager : MonoBehaviour
         arcadeButtonCtrl.finalAlpha = 1f;
         arcadeButtonCtrl.finalFontSize = 105f;
         SelectGameMode(GameMode.ARCADE);
+        SelectGameKind(GameKind.ROLL_THE_BALL);
     }
 
     public void SelectGameMode(GameMode mode)
@@ -91,7 +108,7 @@ public class SoloPlayManager : MonoBehaviour
                 gameModeDetailText.text = gameModeArcadeDetailText;
                 gameKindUI.SetActive(true);
                 gameScoreUI.SetActive(true);
-                gameStageUI.SetActive(false);
+                gameHighestStageUI.SetActive(false);
                 gameStageSelectUI.SetActive(false);
                 gameBotDifficultyUI.SetActive(false);
                 break;
@@ -100,7 +117,7 @@ public class SoloPlayManager : MonoBehaviour
                 gameModeDetailText.text = gameModeStageDetailText;
                 gameKindUI.SetActive(false);
                 gameScoreUI.SetActive(false);
-                gameStageUI.SetActive(true);
+                gameHighestStageUI.SetActive(true);
                 gameStageSelectUI.SetActive(true);
                 gameBotDifficultyUI.SetActive(false);
                 break;
@@ -109,7 +126,7 @@ public class SoloPlayManager : MonoBehaviour
                 gameModeDetailText.text = gameModePracticeDetailText;
                 gameKindUI.SetActive(true);
                 gameScoreUI.SetActive(false);
-                gameStageUI.SetActive(false);
+                gameHighestStageUI.SetActive(false);
                 gameStageSelectUI.SetActive(false);
                 gameBotDifficultyUI.SetActive(false);
                 break;
@@ -118,7 +135,7 @@ public class SoloPlayManager : MonoBehaviour
                 gameModeDetailText.text = gameModeBotDetailText;
                 gameKindUI.SetActive(true);
                 gameScoreUI.SetActive(false);
-                gameStageUI.SetActive(false);
+                gameHighestStageUI.SetActive(false);
                 gameStageSelectUI.SetActive(false);
                 gameBotDifficultyUI.SetActive(true);
                 break;
@@ -127,36 +144,12 @@ public class SoloPlayManager : MonoBehaviour
                 gameModeDetailText.text = gameModeArcadeDetailText;
                 gameKindUI.SetActive(true);
                 gameScoreUI.SetActive(true);
-                gameStageUI.SetActive(false);
+                gameHighestStageUI.SetActive(false);
                 gameStageSelectUI.SetActive(false);
                 gameBotDifficultyUI.SetActive(false);
                 break;
         }
 
-    }
-
-    public void OnClickButtonArcade()
-    {
-        SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-        SelectGameMode(GameMode.ARCADE);
-    }
-
-    public void OnClickButtonStage()
-    {
-        SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-        SelectGameMode(GameMode.STAGE);
-    }
-
-    public void OnClickButtonPractice()
-    {
-        SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-        SelectGameMode(GameMode.PRACTICE);
-    }
-
-    public void OnClickButtonBot()
-    {
-        SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-        SelectGameMode(GameMode.BOT);
     }
 
     public void SelectGameKind(GameKind kind)
@@ -165,21 +158,54 @@ public class SoloPlayManager : MonoBehaviour
         switch (kind)
         {
             case GameKind.ROLL_THE_BALL:
-
+                gameKindDetailText.text = gameKindRollTheBallDetailText;
+                gameKindDetailImage.sprite = gameKindRollTheBallDetailImage;
                 break;
-            case GameKind.THROWING:
-
+            case GameKind.THROWING_FEEDER:
+                gameKindDetailText.text = gameKindThrowingFeederDetailText;
+                gameKindDetailImage.sprite = gameKindThrowingFeederDetailImage;
                 break;
-            case GameKind.KILLINGROBOT:
-
+            case GameKind.ATTACK_INVADER:
+                gameKindDetailText.text = gameKindAttackInvaderDetailText;
+                gameKindDetailImage.sprite = gameKindAttackInvaderDetailImage;
                 break;
             default:
-
+                gameKindDetailText.text = gameKindRollTheBallDetailText;
+                gameKindDetailImage.sprite = gameKindRollTheBallDetailImage;
                 break;
         }
     }
 
-    public void StartGame()
+    public void OnClickAnyButton()
+    {
+        SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
+    }
+
+    public void OnClickButtonArcade()
+    {
+        OnClickAnyButton();
+        SelectGameMode(GameMode.ARCADE);
+    }
+
+    public void OnClickButtonStage()
+    {
+        OnClickAnyButton();
+        SelectGameMode(GameMode.STAGE);
+    }
+
+    public void OnClickButtonPractice()
+    {
+        OnClickAnyButton();
+        SelectGameMode(GameMode.PRACTICE);
+    }
+
+    public void OnClickButtonBot()
+    {
+        OnClickAnyButton();
+        SelectGameMode(GameMode.BOT);
+    }
+
+    public void StartSoloGame()
     {
         Destroy(UserInfoManager.Instance.gameObject);
         SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);

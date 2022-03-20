@@ -139,7 +139,7 @@ namespace Cpasule.Dev
         public void OnClickUnlockAll()
         {
             SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
-            DataManager.Instance.UnlockAllDatas();
+            DataManager.Instance.UnlockAllCustomizeDatas();
         }
 
         public void OnClickResetAll()

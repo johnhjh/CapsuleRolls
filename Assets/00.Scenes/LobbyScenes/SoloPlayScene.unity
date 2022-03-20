@@ -17833,7 +17833,7 @@ GameObject:
   - component: {fileID: 363651523}
   - component: {fileID: 363651522}
   m_Layer: 5
-  m_Name: GameStageText
+  m_Name: GameHighestStageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35949,7 +35949,7 @@ GameObject:
   - component: {fileID: 764254019}
   - component: {fileID: 764254020}
   m_Layer: 5
-  m_Name: GameStageUI
+  m_Name: GameHighestStageUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36992,18 +36992,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799471817}
   m_CullTransparentMesh: 0
---- !u!114 &800403204 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4851594549576929219, guid: f0cb057a9529ea147a43762bb1cbc861,
-    type: 3}
-  m_PrefabInstance: {fileID: 4851594548984684743}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c0b0094754298d46b9a84f4250c8ec0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &802076816
 GameObject:
   m_ObjectHideFlags: 0
@@ -37487,7 +37475,7 @@ GameObject:
   - component: {fileID: 822884472}
   - component: {fileID: 822884471}
   m_Layer: 5
-  m_Name: GameStageDetailText
+  m_Name: GameHighestStageDetailText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117315,6 +117303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a903aa8b2103b429fb24ba1ae30145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameKindRollTheBallDetailImage: {fileID: 0}
+  gameKindThrowingFeederDetailImage: {fileID: 0}
+  gameKindAttackInvaderDetailImage: {fileID: 0}
 --- !u!4 &2099911975
 Transform:
   m_ObjectHideFlags: 0
@@ -119421,11 +119412,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7626195756285435918, guid: 319ce78aff1a5254b8e54182bc875144,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 800403204}
     - target: {fileID: 7626195756425673949, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -119573,6 +119559,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7626195757285400737, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626195757285400737, guid: 319ce78aff1a5254b8e54182bc875144,
+        type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -119659,11 +119650,6 @@ PrefabInstance:
     - target: {fileID: 7626195757870051816, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7626195757870051816, guid: 319ce78aff1a5254b8e54182bc875144,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7626195757870051816, guid: 319ce78aff1a5254b8e54182bc875144,
