@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEditor;
 
 #if (UNITY_EDITOR)
 
@@ -14,26 +13,26 @@ namespace MAST
             // ---------------------------------------------------------------------------
             #region Variable Declaration
             // ---------------------------------------------------------------------------
-            
+
             // Grid Appearance
             [SerializeField] public static bool gridExists = false;
-            
+
             // Grid in Scene
             [SerializeField] private static GameObject gridGameObject;
             [SerializeField] private static Material gridMaterial;
             //[SerializeField] private static GameObject gridParent; // hidden in inspector with child grid left visible so it still draws gizmolines
-            
+
             #endregion
             // ---------------------------------------------------------------------------
-            
+
             // ---------------------------------------------------------------------------
             // Initialize
             // ---------------------------------------------------------------------------
             public static void Initialize()
             {
-                
+
             }
-            
+
             // ---------------------------------------------------------------------------
             #region Grid Location
             // ---------------------------------------------------------------------------
@@ -46,7 +45,7 @@ namespace MAST
                     MoveGridToNewHeight();
                 }
             }
-            
+
             public static void MoveGridDown()
             {
                 if (gridExists)
@@ -56,7 +55,7 @@ namespace MAST
                     MoveGridToNewHeight();
                 }
             }
-            
+
             private static void MoveGridToNewHeight()
             {
                 // Calculate new grid height
@@ -66,17 +65,17 @@ namespace MAST
             }
             #endregion
             // ---------------------------------------------------------------------------
-            
+
             // ---------------------------------------------------------------------------
             #region Create/Destroy Grid
             // ---------------------------------------------------------------------------
-            
+
             // Return if grid reference exists
             public static bool DoesGridExist()
             {
                 return gridExists;
             }
-            
+
             // Change grid visibility
             public static void ChangeGridVisibility()
             {
@@ -87,12 +86,12 @@ namespace MAST
                 else
                 {
                     DestroyGrid();
-                    
+
                     // Deselect draw tool and palette item and destroy any active prefab visualizer
                     GUI.Palette.RemovePrefabSelection();
                 }
             }
-            
+
             // Destroy any existing grid
             public static void DestroyGrid()
             {
@@ -107,10 +106,10 @@ namespace MAST
 
                 // Remove locked layer
                 UnityEditor.Tools.lockedLayers &= ~(1 << Const.Grid.gridLayer);
-                
+
                 gridExists = false;
             }
-            
+
             // Create grid
             public static void CreateGrid()
             {
@@ -118,19 +117,19 @@ namespace MAST
 
                 // Lock the layer the grid is on
                 UnityEditor.Tools.lockedLayers = 1 << Const.Grid.gridLayer;
-                
+
                 gridExists = true;
             }
-            
+
             // Create link to any grid that exists, or create a new grid
             private static void CreateLinkToGrid()
             {
                 gridGameObject = GameObject.Find(Const.Grid.defaultName);
-                
+
                 DestroyGrid();
                 CreateNewGrid();
             }
-            
+
             // ---------------------------------------------------------------------------
             // Create a New Grid in the Hierarchy from the Grid Prefab
             // ---------------------------------------------------------------------------
@@ -141,14 +140,14 @@ namespace MAST
                 gridGameObject.transform.position = new Vector3(0f, 0f, 0f);
                 gridGameObject.name = Const.Grid.defaultName;
                 gridGameObject.layer = Const.Grid.gridLayer;
-                
+
                 // Configure Grid GameObject MeshRenderer
                 MeshRenderer gridMeshRenderer = gridGameObject.GetComponent<MeshRenderer>();
                 gridMeshRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
                 gridMeshRenderer.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
                 gridMeshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 gridMeshRenderer.receiveShadows = false;
-                
+
                 // Configure Grid GameObject Material
                 if (gridMaterial == null)
                 {
@@ -156,19 +155,19 @@ namespace MAST
                 }
                 gridMaterial.SetColor("_Color", Settings.Data.gui.grid.tintColor);
                 gridMeshRenderer.material = gridMaterial;
-                
+
                 // Add MAST_Grid_Component script to grid and pass grid preferences to it
                 UpdateGridSettings();
-                
+
                 // Return the grid to its last saved height
                 MoveGridToNewHeight();
-                
+
                 // Hide the grid in the hierarchy
                 gridGameObject.hideFlags = HideFlags.HideInHierarchy;
             }
             #endregion
             // ---------------------------------------------------------------------------
-            
+
             // ---------------------------------------------------------------------------
             #region Grid Settings
             // ---------------------------------------------------------------------------
@@ -179,14 +178,14 @@ namespace MAST
                     // Scale plane and texture to match new grid size
                     float cellCount = Settings.Data.gui.grid.cellCount;
                     gridGameObject.transform.localScale =
-                        new Vector3(cellCount * Settings.Data.gui.grid.xzUnitSize/ 5f,
+                        new Vector3(cellCount * Settings.Data.gui.grid.xzUnitSize / 5f,
                         1f,
                         cellCount * Settings.Data.gui.grid.xzUnitSize / 5f);
                     gridMaterial.SetTextureScale("_GridTexture", new Vector2(cellCount / 2f, cellCount / 2f));
-                    
+
                     // Update grid color tint
                     gridMaterial.SetColor("_Tint", Settings.Data.gui.grid.tintColor);
-                    
+
                     // Apply updated grid material
                     MeshRenderer gridMeshRenderer = gridGameObject.GetComponent<MeshRenderer>();
                     gridMeshRenderer.sharedMaterial = gridMaterial;

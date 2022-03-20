@@ -1,9 +1,7 @@
-﻿using System.Collections;
+﻿using Capsule.Audio;
+using Capsule.Entity;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Capsule.Entity;
-using Capsule.Lobby;
-using Capsule.Audio;
 
 namespace Capsule.Lobby.Shopping
 {

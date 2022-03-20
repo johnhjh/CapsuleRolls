@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Capsule.Entity
@@ -78,8 +76,8 @@ namespace Capsule.Entity
         public string NickName
         {
             get { return playerNickName; }
-            set 
-            { 
+            set
+            {
                 playerNickName = value;
                 PlayerPrefs.SetString("PlayerNick", value);
             }

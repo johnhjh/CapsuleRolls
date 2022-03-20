@@ -1,11 +1,8 @@
-﻿using System.Collections;
+﻿using Capsule.Audio;
+using Capsule.Entity;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Capsule.SceneLoad;
-using Capsule.Audio;
-using Capsule.Entity;
-using Capsule.Player.Lobby;
 
 namespace Capsule.Lobby.Shopping
 {
@@ -169,7 +166,7 @@ namespace Capsule.Lobby.Shopping
 
         private string GetTypeText(CustomizingType type)
         {
-            switch(type)
+            switch (type)
             {
                 case CustomizingType.BODY:
                     return "색깔";
@@ -190,7 +187,7 @@ namespace Capsule.Lobby.Shopping
 
         private string GetRarityText(CustomizingRarity rarity)
         {
-            switch(rarity)
+            switch (rarity)
             {
                 case CustomizingRarity.COMMON:
                     return "COMMON";

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
 /// <summary> 무한 루프 검사 및 방지(에디터 전용) </summary>
 public static class InfiniteLoopDetector

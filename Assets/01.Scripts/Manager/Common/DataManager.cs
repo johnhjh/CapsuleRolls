@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -49,7 +48,7 @@ namespace Capsule.Entity
         {
             get { return currentPlayerBuyData; }
             private set
-            { 
+            {
                 currentPlayerBuyData = value;
                 bodyBuyData = new List<CustomizingBody>();
                 headBuyData = new List<CustomizingHead>();
@@ -103,8 +102,8 @@ namespace Capsule.Entity
         public PlayerCustomizeItemOpenData CurrentPlayerCustomizeItemOpenData
         {
             get { return currentPlayerCustomizeItemOpenData; }
-            private set 
-            { 
+            private set
+            {
                 currentPlayerCustomizeItemOpenData = value;
                 bodyOpenData = new List<CustomizingBody>();
                 headOpenData = new List<CustomizingHead>();
@@ -178,18 +177,18 @@ namespace Capsule.Entity
                     (int)CustomizingType.PRESET);
                 presetBuyData.Add(data.presetNum);
             }
-            foreach(CustomizingBodyData data in customizingBodyDatas)
+            foreach (CustomizingBodyData data in customizingBodyDatas)
             {
                 if (data.bodyNum != CustomizingBody.DEFAULT)
                 {
                     currentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
-                        (int)data.bodyNum, 
+                        (int)data.bodyNum,
                         (int)CustomizingType.BODY);
                     bodyOpenData.Add(data.bodyNum);
                     bodyBuyData.Add(data.bodyNum);
                 }
             }
-            foreach(CustomizingHeadData data in customizingHeadDatas)
+            foreach (CustomizingHeadData data in customizingHeadDatas)
             {
                 if (data.headNum != CustomizingHead.DEFAULT)
                 {
@@ -200,7 +199,7 @@ namespace Capsule.Entity
                     headBuyData.Add(data.headNum);
                 }
             }
-            foreach(CustomizingFaceData data in customizingFaceDatas)
+            foreach (CustomizingFaceData data in customizingFaceDatas)
             {
                 if (data.faceNum != CustomizingFace.DEFAULT)
                 {
@@ -211,7 +210,7 @@ namespace Capsule.Entity
                     faceBuyData.Add(data.faceNum);
                 }
             }
-            foreach(CustomizingGloveData data in customizingGloveDatas)
+            foreach (CustomizingGloveData data in customizingGloveDatas)
             {
                 if (data.gloveNum != CustomizingGlove.DEFAULT)
                 {
@@ -222,7 +221,7 @@ namespace Capsule.Entity
                     gloveBuyData.Add(data.gloveNum);
                 }
             }
-            foreach(CustomizingClothData data in customizingClothDatas)
+            foreach (CustomizingClothData data in customizingClothDatas)
             {
                 if (data.clothNum != CustomizingCloth.DEFAULT)
                 {

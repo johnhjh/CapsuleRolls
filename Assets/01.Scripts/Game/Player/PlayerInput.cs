@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Capsule.Game.Base;
 using UnityEngine;
-using Capsule.Game.Base;
 
 namespace Capsule.Game.Player
 {

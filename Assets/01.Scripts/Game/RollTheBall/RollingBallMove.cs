@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Capsule.Audio;
+﻿using Capsule.Audio;
 using Capsule.Game.Effect;
 using Capsule.Game.Player;
+using UnityEngine;
 
 namespace Capsule.Game.RollTheBall
 {
-    [RequireComponent (typeof (AudioSource), typeof(Rigidbody))]
+    [RequireComponent(typeof(AudioSource), typeof(Rigidbody))]
     public class RollingBallMove : MonoBehaviour
     {
         // Components
@@ -26,15 +24,15 @@ namespace Capsule.Game.RollTheBall
         public float popVolume = 7f;
         public bool isMine = true;
         private bool isDead = false;
-        public bool IsDead 
-        { 
-            get { return isDead; } 
+        public bool IsDead
+        {
+            get { return isDead; }
             private set
             {
                 isDead = value;
                 transform.GetChild(0).GetComponent<PlayerRollTheBallMove>().IsDead = true;
             }
-        }        
+        }
 
         private void Awake()
         {
@@ -45,7 +43,8 @@ namespace Capsule.Game.RollTheBall
             ballRigidbody = GetComponent<Rigidbody>();
             ballAudioSource = GetComponent<AudioSource>();
 
-            transform.GetChild(1).GetComponent<RagdollController>().OnChangeRagdoll += () => {
+            transform.GetChild(1).GetComponent<RagdollController>().OnChangeRagdoll += () =>
+            {
                 isDead = true;
                 ballRigidbody.freezeRotation = false;
             };
@@ -57,7 +56,7 @@ namespace Capsule.Game.RollTheBall
             if (!isMine) return;
 
             playerTransform.Rotate(playerInput.rotate * playerRotateSpeed * Time.deltaTime * Vector3.up);
-            Vector3 moveDir = (playerTransform.right * playerInput.horizontal) + 
+            Vector3 moveDir = (playerTransform.right * playerInput.horizontal) +
                 (playerTransform.forward * playerInput.vertical);
             if (playerInput.GetInputMovePower() > 1f)
                 moveDir = moveDir.normalized;
@@ -88,7 +87,7 @@ namespace Capsule.Game.RollTheBall
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
             {
                 BallAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
-                EffectQueueManager.Instance.ShowCollisionEffect(collision, 
+                EffectQueueManager.Instance.ShowCollisionEffect(collision,
                     Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
                 ballRigidbody.AddForce(collision.collider.GetComponent<Rigidbody>().velocity);
             }

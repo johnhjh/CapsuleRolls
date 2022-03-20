@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using Capsule.Audio;
+using Capsule.Entity;
+using Capsule.Player.Lobby;
+using Capsule.SceneLoad;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Capsule.SceneLoad;
-using Capsule.Audio;
-using Capsule.Entity;
-using Capsule.Player.Lobby;
 
 namespace Capsule.Lobby.Customize
 {
@@ -14,7 +14,7 @@ namespace Capsule.Lobby.Customize
         private static CustomizeManager customizeMgr;
         public static CustomizeManager Instance
         {
-            get 
+            get
             {
                 if (customizeMgr == null)
                     customizeMgr = FindObjectOfType<CustomizeManager>();
@@ -298,9 +298,9 @@ namespace Capsule.Lobby.Customize
         {
             while (Vector3.Distance(Camera.main.transform.position, pos) >= 0.1f)
             {
-                Camera.main.transform.position = 
-                    Vector3.Slerp(Camera.main.transform.position, 
-                    pos, 
+                Camera.main.transform.position =
+                    Vector3.Slerp(Camera.main.transform.position,
+                    pos,
                     Time.deltaTime * moveDamping);
                 yield return null;
             }
@@ -466,7 +466,7 @@ namespace Capsule.Lobby.Customize
             savedBodyMat = bodySlot.bodyMaterial;
 
             defaultBodySlot.IsLocked = false;
-            
+
             return bodySlot;
         }
 
@@ -525,7 +525,7 @@ namespace Capsule.Lobby.Customize
             int faceNum = DataManager.Instance.CurrentPlayerCustomizeData.Face;
             if (faceSlots != null)
             {
-                for (int i = 0; i <  faceSlots.Length; i++)
+                for (int i = 0; i < faceSlots.Length; i++)
                 {
                     faceSlots[i].IsLocked = true;
                     foreach (CustomizingFace dataNum in DataManager.Instance.FaceOpenData)

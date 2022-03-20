@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Capsule.Audio;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Capsule.Audio;
 
 namespace Capsule.Lobby
 {

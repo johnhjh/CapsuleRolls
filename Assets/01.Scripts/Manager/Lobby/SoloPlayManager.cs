@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using Capsule.SceneLoad;
-using Capsule.Audio;
+﻿using Capsule.Audio;
 using Capsule.Lobby;
 using Capsule.Player.Lobby;
+using Capsule.SceneLoad;
+using UnityEngine;
 
 public class SoloPlayManager : MonoBehaviour
 {

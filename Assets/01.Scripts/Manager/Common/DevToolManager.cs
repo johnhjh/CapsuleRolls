@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using Capsule.Audio;
 using Capsule.Entity;
 using Capsule.SceneLoad;
-using Capsule.Audio;
 using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Cpasule.Dev
 {

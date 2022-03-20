@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Capsule.Entity
+﻿namespace Capsule.Entity
 {
     public class RoomData
     {
@@ -31,7 +27,7 @@ namespace Capsule.Entity
         public int PlayerCount
         {
             get { return playerCount; }
-            set 
+            set
             {
                 if (value > 8) value = 8;
                 else if (value < 1) value = 1;

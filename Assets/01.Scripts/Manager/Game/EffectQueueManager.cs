@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Capsule.Game.Effect
@@ -147,7 +146,7 @@ namespace Capsule.Game.Effect
 
         private Queue<GameObject> GetQueueByType(EffectType effectType)
         {
-            switch(effectType)
+            switch (effectType)
             {
                 case EffectType.COLLISION_ENTER:
                     return collisionEnterQueue;

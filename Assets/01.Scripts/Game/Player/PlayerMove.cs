@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Capsule.Util;
 using UnityEngine;
-using Capsule.Util;
 
 namespace Capsule.Game.Player
 {
@@ -36,7 +34,8 @@ namespace Capsule.Game.Player
         {
             ragdollController = transform.parent.GetChild(1).GetComponent<RagdollController>();
             if (!isMine) return;
-            ragdollController.OnChangeRagdoll += () => {
+            ragdollController.OnChangeRagdoll += () =>
+            {
                 //Camera.main.GetComponent<CameraFollow>().targetTransform = ragdollController.spine.transform;
                 //Camera.main.GetComponent<CameraFollow>().camView = CameraView.QUATER;
                 GameCameraManager.Instance.Target = new Tuple<Transform, bool>(ragdollController.spine.transform, true);

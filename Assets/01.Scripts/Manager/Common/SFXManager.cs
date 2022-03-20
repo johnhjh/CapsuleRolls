@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Capsule.Audio
 {
@@ -55,7 +53,7 @@ namespace Capsule.Audio
     }
 
     public enum GameSFX
-    { 
+    {
         MOVE = 0,
         JUMP,
         BOUNCE,
@@ -237,7 +235,7 @@ namespace Capsule.Audio
         {
             if (clip != null)
             {
-                if(forceToPlay || !sfxAudioSource.isPlaying)
+                if (forceToPlay || !sfxAudioSource.isPlaying)
                 {
                     sfxAudioSource.clip = clip;
                     sfxAudioSource.PlayDelayed(delay);

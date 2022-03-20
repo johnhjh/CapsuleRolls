@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using Capsule.Entity;
+﻿using Capsule.Entity;
 
 namespace Capsule.Lobby.Customize
 {

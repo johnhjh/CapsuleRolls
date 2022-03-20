@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Capsule.Audio;
+using Capsule.Entity;
+using Capsule.Lobby.Main;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
-using Capsule.Entity;
-using Capsule.Audio;
-using Capsule.Lobby.Main;
-using System.Text;
 
 namespace Capsule.Lobby
 {
@@ -62,16 +60,19 @@ namespace Capsule.Lobby
         private void Update()
         {
             if (!isUserInfoOpen && !isChangeNameOpen) return;
+            if (isChangeNameOpen && Input.GetKeyDown(KeyCode.Return))
+            {
+                if (OnChangeNameValueChanged(changeNameNickNameInput))
+                    OnChangeNameConfirmButtonClick();
+                else
+                    SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
+            }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (isChangeNameOpen)
-                {
                     OpenCloseChangeNamePopup(false);
-                }
                 else
-                {
                     OpenCloseUserInfoPopup(false);
-                }
             }
         }
 
@@ -151,7 +152,7 @@ namespace Capsule.Lobby
             this.isChangeNameOpen = isOpen;
         }
 
-        public void OnChangeNameValueChanged(InputField field)
+        public bool OnChangeNameValueChanged(InputField field)
         {
             string nickName = field.text;
             nickName = nickName.Trim();
@@ -159,18 +160,19 @@ namespace Capsule.Lobby
             {
                 changeNameConfirmButton.interactable = false;
                 changeNameNickNameInput.text = "";
-                return;
+                return false;
             }
             string match = @"^[a-zA-Z0-9가-힣]*$";
             if (!Regex.IsMatch(nickName, match))
             {
                 changeNameConfirmButton.interactable = false;
                 changeNameNickNameInput.text = "";
-                return;
+                return false;
             }
             nickName = NickNameCut(nickName);
             changeNameNickNameInput.text = nickName;
             changeNameConfirmButton.interactable = true;
+            return true;
         }
 
         private string NickNameCut(string nick)
@@ -179,7 +181,7 @@ namespace Capsule.Lobby
             if (Encoding.Default.GetByteCount(nick) > 12)
                 return nick.Substring(0, 12 - korLength);
             else
-                return nick;            
+                return nick;
         }
 
         public void OnChangeNameConfirmButtonClick()
@@ -188,6 +190,7 @@ namespace Capsule.Lobby
             DataManager.Instance.CurrentPlayerData.NickName = changeNameNickNameInput.text;
             userInfoPopupNickNameText.text = changeNameNickNameInput.text;
             userInfoMainNickNameText.text = changeNameNickNameInput.text;
+            OpenCloseChangeNamePopup(false);
         }
     }
 }

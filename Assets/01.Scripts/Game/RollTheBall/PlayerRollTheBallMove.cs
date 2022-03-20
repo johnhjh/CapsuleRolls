@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
-using Capsule.Game.Player;
+﻿using Capsule.Audio;
 using Capsule.Game.Effect;
-using Capsule.Audio;
+using Capsule.Game.Player;
+using System.Collections;
+using UnityEngine;
 
 namespace Capsule.Game.RollTheBall
 {
@@ -201,7 +201,7 @@ namespace Capsule.Game.RollTheBall
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_STAGE) || 
+            if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_STAGE) ||
                 collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER) ||
                 collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER))
             {
@@ -249,7 +249,8 @@ namespace Capsule.Game.RollTheBall
 
         private void ChangeBallParent(RollingBallCtrl ballTransform)
         {
-            transform.parent.GetChild(2).GetComponent<RollingBallCtrl>().BallParent = GameManager.Instance.GameObjs.transform;
+            Transform originParent = ballTransform.BallParent;
+            transform.parent.GetChild(2).GetComponent<RollingBallCtrl>().BallParent = originParent;
             ballTransform.BallParent = transform.parent;
             ballTransform.isTeamA = this.isTeamA;
             IsLanded = true;
@@ -274,6 +275,8 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.GROAN);
             }
+
+            transform.parent.GetChild(2).GetComponent<RollingBallCtrl>().BallParent = GameManager.Instance.GetNewGameObj(true).transform;
             ragdollController.ChangeRagdoll(true);
         }
 

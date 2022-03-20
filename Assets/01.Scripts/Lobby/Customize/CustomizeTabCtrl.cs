@@ -1,5 +1,5 @@
-﻿using UnityEngine.EventSystems;
-using Capsule.Entity;
+﻿using Capsule.Entity;
+using UnityEngine.EventSystems;
 
 namespace Capsule.Lobby.Customize
 {

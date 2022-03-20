@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -47,8 +46,8 @@ namespace Capsule.SceneLoad
 
         [SerializeField]
         private LobbySceneType currentScene;
-        public LobbySceneType CurrentScene 
-        { 
+        public LobbySceneType CurrentScene
+        {
             get { return currentScene; }
             set { currentScene = value; }
         }
@@ -103,7 +102,7 @@ namespace Capsule.SceneLoad
 
         private string SceneTypeToString(LobbySceneType sceneType)
         {
-            switch(sceneType)
+            switch (sceneType)
             {
                 case LobbySceneType.TITLE:
                     return TITLE_SCENE_NAME;

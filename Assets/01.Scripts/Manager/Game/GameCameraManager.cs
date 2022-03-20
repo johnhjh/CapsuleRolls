@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Capsule.Util;
 using Cinemachine;
-using Capsule.Util;
+using System.Collections;
+using UnityEngine;
 
 namespace Capsule.Game
 {
@@ -24,7 +23,7 @@ namespace Capsule.Game
                         camTransform.position,
                         -Vector3.forward * distance +
                         Vector3.up * height + targetTransform.position,
-                        Time.deltaTime * moveDamping), 
+                        Time.deltaTime * moveDamping),
                     Quaternion.Slerp(
                         camTransform.rotation,
                         Quaternion.LookRotation(
@@ -53,7 +52,7 @@ namespace Capsule.Game
         private Transform mainCameraTransform;
         private CinemachineVirtualCamera moveFollowCam;
         private Coroutine mainCamCoroutine = null;
-        
+
         private Tuple<Transform, bool> target;
         public Tuple<Transform, bool> Target
         {

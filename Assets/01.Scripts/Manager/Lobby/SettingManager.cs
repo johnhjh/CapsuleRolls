@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Capsule.Audio;
+using Capsule.SceneLoad;
 using UnityEngine;
 using UnityEngine.UI;
-using Capsule.Audio;
-using Capsule.SceneLoad;
 
 namespace Capsule.Lobby.Main
 {
@@ -30,7 +28,7 @@ namespace Capsule.Lobby.Main
         public Sprite bgmOffSprite;
         public Sprite sfxOnSprite;
         public Sprite sfxOffSprite;
-        
+
         private Image bgmIcon;
         private Image sfxIcon;
         private Slider bgmSlider;

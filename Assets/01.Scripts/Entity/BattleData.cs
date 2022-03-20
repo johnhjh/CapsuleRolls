@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Capsule.Entity
+﻿namespace Capsule.Entity
 {
     public enum BattleItemOption
     {

@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Capsule.Entity
+﻿namespace Capsule.Entity
 {
     public enum GameMode
     {
         TUTORIAL = 0,
         PRACTICE,
-        SOLO,
+        ARCADE,
+        STAGE,
         MULTI,
         RANK,
         CUSTOM,
@@ -16,9 +13,9 @@ namespace Capsule.Entity
 
     public enum GameKind
     {
-        THROWING = 0,
+        ROLL_THE_BALL = 0,
+        THROWING,
         KILLINGROBOT,
-        GOALIN,
     }
 
     public enum GameStage
@@ -36,7 +33,7 @@ namespace Capsule.Entity
     public class GameData
     {
         private GameMode mode;
-        public GameMode Mode 
+        public GameMode Mode
         {
             get { return mode; }
             set { mode = value; }

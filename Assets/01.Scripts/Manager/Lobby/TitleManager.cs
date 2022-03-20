@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Capsule.Audio;
+using Capsule.SceneLoad;
+using Capsule.UI;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Capsule.SceneLoad;
-using Capsule.Audio;
-using Capsule.UI;
 
 namespace Capsule.Lobby.Title
 {

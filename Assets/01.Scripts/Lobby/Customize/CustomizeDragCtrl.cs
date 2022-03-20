@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Capsule.Player.Lobby;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using Capsule.Player.Lobby;
 
 namespace Capsule.Lobby.Customize
 {

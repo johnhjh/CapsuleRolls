@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Capsule.Game.RollTheBall;
 using UnityEngine;
-using Capsule.Game.RollTheBall;
 
 namespace Capsule.Game.AI
 {
@@ -31,7 +29,7 @@ namespace Capsule.Game.AI
                         ballMove.AIJump();
                         timeBetTime = Time.time + timeDelayed;
                     }
-                }                
+                }
             }
         }
     }

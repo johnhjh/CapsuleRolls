@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using Capsule.Audio;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Capsule.Audio;
 
 namespace Capsule.Lobby
 {

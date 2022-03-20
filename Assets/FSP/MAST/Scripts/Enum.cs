@@ -2,7 +2,7 @@
 namespace MAST
 {
     // Palette background
-    public enum PaleteBGColor { Dark = 0, Gray = 1 , Light = 2 }
+    public enum PaleteBGColor { Dark = 0, Gray = 1, Light = 2 }
 
     // Toolbar position
     public enum ToolbarPos { Left, Right } // Later add top and bottom for horizontal palette

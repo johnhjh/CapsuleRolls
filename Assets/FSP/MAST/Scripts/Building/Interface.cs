@@ -9,24 +9,24 @@ namespace MAST
     {
         public static class Interface
         {
-            
+
             [SerializeField] public static BuildMode placementMode = BuildMode.None;
-            
-        // ---------------------------------------------------------------------------
-        #region Change Placement Mode
-        // ---------------------------------------------------------------------------
+
+            // ---------------------------------------------------------------------------
+            #region Change Placement Mode
+            // ---------------------------------------------------------------------------
             public static void ChangePlacementMode(BuildMode newPlacementMode)
             {
                 // Get new selected Draw Tool
                 placementMode = newPlacementMode;
-                
+
                 // Remove any previous visualizer
                 Visualizer.RemoveVisualizer();
-                
+
                 // --------------------------------
                 // Create Visualizer
                 // --------------------------------
-                
+
                 // If changed tool to Nothing or Eraser
                 if (placementMode == BuildMode.None || placementMode == BuildMode.Erase)
                 {
@@ -34,7 +34,7 @@ namespace MAST
                     if (placementMode == BuildMode.Erase)
                         ChangePrefabToEraser();
                 }
-                
+
                 // If changed tool to Draw Single, Draw Continuous, Paint Area, or Randomizer
                 else
                 {
@@ -43,7 +43,7 @@ namespace MAST
                     {
                         // Create visualizer from selected item in the palette
                         GUI.Palette.ChangePrefabSelection();
-                        
+
                         // If changed tool to Randomizer
                         if (placementMode == BuildMode.Randomize)
                         {
@@ -52,45 +52,45 @@ namespace MAST
                         }
                     }
                 }
-                
+
                 // If Draw Continuous nor Paint Area tools are selected
                 if (placementMode != BuildMode.DrawContinuous &&
                     placementMode != BuildMode.PaintArea)
                 {
                     // Delete last saved position
                     Placement.lastPosition = Vector3.positiveInfinity;
-                    
+
                     // Remove any paint area visualization
                     PaintArea.DeletePaintArea();
                 }
-                
+
             }
-        #endregion
-            
+            #endregion
+
             // Change visualizer prefab when a new item is selected in the palette menu
             public static void ChangeSelectedPrefab()
             {
                 // Get reference to the MAST script attached to the GameObject or null if no MAST script attached
-                Helper.mastScript = 
+                Helper.mastScript =
                     Palette.Manager.GetSelectedPrefab().GetComponent<Component.MASTPrefabSettings>();
-                
+
                 // Remove any existing visualizer
                 Visualizer.RemoveVisualizer();
-                
+
                 // Create a new visualizer
                 Visualizer.CreateVisualizer(Palette.Manager.GetSelectedPrefab());
             }
-            
+
             // Change visualizer to eraser
             public static void ChangePrefabToEraser()
             {
                 // Remove any existing visualizer
                 Visualizer.RemoveVisualizer();
-                
+
                 // Create a new visualizer with eraser
                 Visualizer.CreateVisualizer(LoadingHelper.GetEraserPrefab());
             }
-            
+
             public static void ErasePrefab()
             {
                 // Get array containing all Colliders within eraser
@@ -98,7 +98,7 @@ namespace MAST
                     Physics.OverlapBox(
                         Visualizer.GetGameObject().transform.position +
                         new Vector3(0f, 0.35f, 0f), new Vector3(0.4f, 0.4f, 0.4f));
-                
+
                 // Loop through each GameObject inside or colliding with this OverlapBox
                 foreach (Collider collider in colliders)
                 {
@@ -110,7 +110,7 @@ namespace MAST
                         {
                             // Get Parent GameObject for the GameObject containing this Collider
                             GameObject objectToDelete = GetPrefabParent(collider.gameObject.transform).gameObject;
-                            
+
                             // If a GameObject placed with MAST was found
                             if (objectToDelete != null)
                             {
@@ -131,7 +131,7 @@ namespace MAST
                     }
                 }
             }
-            
+
             // Get Prefab parent of provided transform
             private static Transform GetPrefabParent(Transform transform)
             {
@@ -142,7 +142,7 @@ namespace MAST
                     try { return GetPrefabParent(transform.parent); }
                     catch { return null; }
                 }
-                
+
                 // If this GameObject has a MAST_Prefab_Component script, return it's transform
                 else
                     return transform;

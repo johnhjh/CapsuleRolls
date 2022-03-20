@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Move : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class Move : MonoBehaviour
     float r = 0f;
     Transform tr;
     public float movespeed = 10f;
-    public float rotSpeed = 80.0f;   
+    public float rotSpeed = 80.0f;
 
     void Start()
     {

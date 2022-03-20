@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Capsule.UI;
+﻿using Capsule.UI;
+using UnityEngine;
 
 namespace Capsule.Lobby.Title
 {

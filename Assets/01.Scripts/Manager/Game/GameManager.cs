@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Capsule.Audio;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Capsule.Audio;
 
 namespace Capsule.Game
 {
+    public class GameNameData
+    {
+        public readonly string NAME_GAME_OBJECTS = "GameObjects";
+        public readonly string NAEM_ROLLING_BALL = "RollingBall";
+    }
+
     public class GameTagData
     {
         public readonly string TAG_PLAYER = "Player";
@@ -48,6 +52,7 @@ namespace Capsule.Game
 
         public GameTagData tagData = new GameTagData();
         public GameAnimData animData = new GameAnimData();
+        public GameNameData nameData = new GameNameData();
 
         public bool IsGameOver { get; private set; }
         private int teamScoreA = 0;
@@ -55,21 +60,6 @@ namespace Capsule.Game
 
         public event Action OnAddScoreTeamA;
         public event Action OnAddScoreTeamB;
-
-        private GameObject gameObjs = null;
-        public GameObject GameObjs
-        {
-            get 
-            { 
-                if (gameObjs == null)
-                {
-                    gameObjs = GameObject.Find("GameObjects");
-                    if (gameObjs == null)
-                        gameObjs = new GameObject { name = "GameObjects" };
-                }
-                return gameObjs; 
-            }
-        }
 
         private void Awake()
         {
@@ -88,11 +78,29 @@ namespace Capsule.Game
 
         private void Update()
         {
-            // 게임 종료 들어갈 자리
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                // 게임 종료 들어갈 자리
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
             }
+        }
+
+        public GameObject GetNewGameObj(bool usingRigidbody = false)
+        {
+            GameObject newGameObj = new GameObject { name = nameData.NAME_GAME_OBJECTS };
+            if (usingRigidbody)
+            {
+                newGameObj.AddComponent<Rigidbody>();
+                Rigidbody newRigidbody = newGameObj.GetComponent<Rigidbody>();
+                newRigidbody.mass = 60f;
+                newRigidbody.drag = 0.05f;
+                newRigidbody.angularDrag = 0.05f;
+                newRigidbody.useGravity = true;
+            }
+            return newGameObj;
         }
 
         public void AddScore(bool isTeamA, int newScore)

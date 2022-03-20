@@ -13,24 +13,24 @@ public enum CameraView
 }
 public class CameraFollow : MonoBehaviour
 {
-    [Header ("Current View")]
+    [Header("Current View")]
     public CameraView camView = CameraView.TPS; // 현재 뷰
     private int currentView = 0;
 
     private Transform cameraTransform;  // 카메라
-    [Header ("Target")]
+    [Header("Target")]
     public Transform targetTransform;   // 추적 대상
     [SerializeField]
     private Vector3 camPos = Vector3.zero;
 
-    [Header ("Cam Setting")]
+    [Header("Cam Setting")]
     public float distance = 4.0f;   // 거리
     public float height = 3.0f; // 높이
     public float moveDamping = 15.0f;   // 이동 속도
     public float rotateDamping = 5.0f;  // 회전 속도
     public float cameraRot = 0f;    // 카메라 높낮이 각도
 
-    [Header ("Field of View")]
+    [Header("Field of View")]
     public int MIN_FIELD_OF_VIEW = 60;
     public int MAX_FIELD_OF_VIEW = 100;
     public float magnification = 30f;
@@ -61,8 +61,8 @@ public class CameraFollow : MonoBehaviour
         {
             case CameraView.TPS:
                 //cameraTransform.position = targetTransform.position - (rot * Vector3.forward * dist) + Vector3.up * height;
-                camPos = targetTransform.position 
-                    - (targetTransform.forward * distance) 
+                camPos = targetTransform.position
+                    - (targetTransform.forward * distance)
                     + (targetTransform.up * height);
                 cameraTransform.position = Vector3.Slerp(cameraTransform.position,
                     camPos,
@@ -70,20 +70,20 @@ public class CameraFollow : MonoBehaviour
                 cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation,
                     targetTransform.rotation,
                     Time.deltaTime * rotateDamping);
-                cameraTransform.LookAt(targetTransform.position 
+                cameraTransform.LookAt(targetTransform.position
                     + targetTransform.up * cameraRot);
                 break;
             case CameraView.TPS2:
                 cameraTransform.position = targetTransform.position - Vector3.forward * distance + Vector3.up * height;
-                cameraTransform.LookAt(targetTransform.position 
+                cameraTransform.LookAt(targetTransform.position
                     + targetTransform.up * cameraRot);
                 break;
             case CameraView.PLANE:
                 if (isChanged)
                 {
                     //cameraTransform.position = targetTransform.position + (Vector3.right * 3.3f) - Vector3.up * -2.6f;
-                    camPos = targetTransform.position 
-                        + (Vector3.right * 3.3f) 
+                    camPos = targetTransform.position
+                        + (Vector3.right * 3.3f)
                         - Vector3.up * -2.6f;
                     isChanged = false;
                 }

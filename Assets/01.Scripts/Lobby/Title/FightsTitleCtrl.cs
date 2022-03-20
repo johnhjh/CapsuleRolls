@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using Capsule.UI;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Capsule.UI;
 
 namespace Capsule.Lobby.Title
 {

@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using Capsule.Entity;
 using System.Collections.Generic;
 using UnityEngine;
-using Capsule.Entity;
 
 namespace Capsule.Player.Lobby
 {
@@ -10,7 +9,7 @@ namespace Capsule.Player.Lobby
         private static PlayerCustomize playerCustomize;
         public static PlayerCustomize Instance
         {
-            get 
+            get
             {
                 if (playerCustomize == null)
                     playerCustomize = FindObjectOfType<PlayerCustomize>();
@@ -69,7 +68,7 @@ namespace Capsule.Player.Lobby
         {
             if (headNum != CustomizingHead.DEFAULT)
             {
-                CustomizingHeadData headData =  DataManager.Instance.GetHeadData(headNum);
+                CustomizingHeadData headData = DataManager.Instance.GetHeadData(headNum);
                 GameObject headItem = GameObject.Instantiate<GameObject>(headData.headItem, headTransform);
                 headItem.transform.localPosition = headData.position;
                 headItem.transform.localRotation = Quaternion.Euler(headData.rotation);

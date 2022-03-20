@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using Capsule.Entity;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using Capsule.Entity;
 
 namespace Capsule.Lobby.Customize
 {
-    [RequireComponent (typeof (CanvasGroup))]
+    [RequireComponent(typeof(CanvasGroup))]
     public abstract class CustomizeSlot : AbstractSlot
     {
         public CustomizingData data;
@@ -14,7 +14,7 @@ namespace Capsule.Lobby.Customize
         public bool IsLocked
         {
             get { return isLocked; }
-            set 
+            set
             {
                 isLocked = value;
                 if (lockImage == null)

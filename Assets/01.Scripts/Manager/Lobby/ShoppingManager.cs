@@ -1,11 +1,10 @@
-﻿using System.Collections;
+﻿using Capsule.Audio;
+using Capsule.Entity;
+using Capsule.Player.Lobby;
+using Capsule.SceneLoad;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Capsule.SceneLoad;
-using Capsule.Audio;
-using Capsule.Entity;
-using Capsule.Player.Lobby;
 
 namespace Capsule.Lobby.Shopping
 {
@@ -44,7 +43,7 @@ namespace Capsule.Lobby.Shopping
         private ShoppingSlotPreset currentPresetSlot = null;
         public ShoppingSlotPreset CurrentPreset
         {
-            set 
+            set
             {
                 if (currentPresetSlot != null)
                     currentPresetSlot.IsSelected = false;
@@ -410,7 +409,7 @@ namespace Capsule.Lobby.Shopping
 
             bodyContent = scrollRectTransform.GetChild(1).gameObject;
             bodyContent.GetComponent<RectTransform>().sizeDelta = new Vector2(bodyContent.transform.childCount * 540f, 855f);
-            foreach(ShoppingSlotBody slot in bodyContent.transform.GetComponentsInChildren<ShoppingSlotBody>())
+            foreach (ShoppingSlotBody slot in bodyContent.transform.GetComponentsInChildren<ShoppingSlotBody>())
             {
                 foreach (CustomizingBody dataNum in DataManager.Instance.BodyOpenData)
                 {
@@ -424,7 +423,7 @@ namespace Capsule.Lobby.Shopping
 
             headContent = scrollRectTransform.GetChild(2).gameObject;
             headContent.GetComponent<RectTransform>().sizeDelta = new Vector2(headContent.transform.childCount * 540f, 855f);
-            foreach(ShoppingSlotHead slot in headContent.transform.GetComponentsInChildren<ShoppingSlotHead>())
+            foreach (ShoppingSlotHead slot in headContent.transform.GetComponentsInChildren<ShoppingSlotHead>())
             {
                 foreach (CustomizingHead dataNum in DataManager.Instance.HeadOpenData)
                 {
@@ -809,10 +808,10 @@ namespace Capsule.Lobby.Shopping
                 if (currentClothSlot != null)
                 {
                     DataManager.Instance.CurrentPlayerBuyData.AddPlayerBuyData(
-                        (int)currentClothSlot.clothNum, 
+                        (int)currentClothSlot.clothNum,
                         (int)CustomizingType.CLOTH);
                     DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(
-                        (int)currentClothSlot.clothNum, 
+                        (int)currentClothSlot.clothNum,
                         (int)CustomizingType.CLOTH);
                     DataManager.Instance.ClothBuyData.Add(currentClothSlot.clothNum);
                     DataManager.Instance.ClothOpenData.Add(currentClothSlot.clothNum);
@@ -845,9 +844,9 @@ namespace Capsule.Lobby.Shopping
             if (currentBodySlot != null)
             {
                 ShoppingPopupManager.Instance.AddShoppingItemInfo(
-                    currentBodySlot.data.preview, 
-                    currentBodySlot.data.rarity, 
-                    currentBodySlot.data.type, 
+                    currentBodySlot.data.preview,
+                    currentBodySlot.data.rarity,
+                    currentBodySlot.data.type,
                     currentBodySlot.price);
             }
 
@@ -940,7 +939,7 @@ namespace Capsule.Lobby.Shopping
                         currentGloveSlot.price);
                 }
             }
-                
+
             ShoppingPopupManager.Instance.OpenCloseShoppingPopup(true);
         }
 
