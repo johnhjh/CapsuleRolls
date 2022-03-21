@@ -324,16 +324,158 @@ namespace Capsule.Entity
             private set { currentPlayerGameData = value; }
         }
 
-        public string GetHighestStageString()
+        public List<GameModeData> gameModeDatas = new List<GameModeData>()
+        { 
+            new GameModeData() 
+            { 
+                mode = GameMode.ARCADE, 
+                name = "아케이드 모드",
+                desc = "최고 스코어에 도전하자!"
+            },
+            new GameModeData() 
+            { 
+                mode = GameMode.STAGE,
+                name = "스테이지 모드",
+                desc = "스테이지 클리어에 도전하자!"
+            },
+            new GameModeData() 
+            { 
+                mode = GameMode.PRACTICE,
+                name = "연습 모드",
+                desc = "자유롭게 연습해서 실력을 키우자!"
+            },
+            new GameModeData() 
+            {
+                mode = GameMode.BOT,
+                name = "AI봇 대전 모드",
+                desc = "AI봇과 대전하며 실력을 키우자!"
+            },
+            new GameModeData()
+            {
+                mode = GameMode.MULTI,
+                name = "랜덤 대전 모드",
+                desc = "랜덤으로 매칭되는 게임을 즐기자!"
+            },
+            new GameModeData()
+            {
+                mode = GameMode.RANK,
+                name = "랭크 대전 모드",
+                desc = "점수를 걸고 실력을 겨루자!"
+            },
+            new GameModeData()
+            {
+                mode = GameMode.CUSTOM,
+                name = "사용자 설정 모드",
+                desc = "자유롭게 설정하여 즐기자!"
+            },
+        };
+
+        public List<GameKindData> gameKindDatas = new List<GameKindData>()
         {
-            return GetStageString((GameStage)currentPlayerGameData.HighestStage);
+            new GameKindData ()
+            {
+                kind = GameKind.ROLL_THE_BALL,
+                preview = null,
+                desc = "공 굴려서 골인~!"
+            },
+            new GameKindData ()
+            {
+                kind = GameKind.THROWING_FEEDER,
+                preview = null,
+                desc = "먹이를 던져주자~!"
+            },
+            new GameKindData ()
+            {
+                kind = GameKind.ATTACK_INVADER,
+                preview = null,
+                desc = "침략자를 막자~!"
+            }
+        };
+
+        public List<GameStageData> gameStageDatas = new List<GameStageData>() 
+        {
+            new GameStageData()
+            {
+                stage = GameStage.TUTORIAL_1,
+                name = "튜토리얼 1",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.TUTORIAL_2,
+                name = "튜토리얼 2",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.TUTORIAL_3,
+                name = "튜토리얼 3",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_1,
+                name = "스테이지 1",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_2,
+                name = "스테이지 2",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_3,
+                name = "스테이지 3",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_4,
+                name = "스테이지 4",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_5,
+                name = "스테이지 5",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_6,
+                name = "스테이지 6",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_7,
+                name = "스테이지 7",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_8,
+                name = "스테이지 8",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_9,
+                name = "스테이지 9",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.STAGE_10,
+                name = "스테이지 10",
+            },
+        };
+        public List<GameStageData> GameStageDatas
+        {
+            get { return gameStageDatas; }
+            private set { gameStageDatas = value; }
         }
 
+        public string GetHighestStageString()
+        {
+            return gameStageDatas[currentPlayerGameData.HighestStage].name;
+            //return GetStageString((GameStage)currentPlayerGameData.HighestStage);
+        }
+        /*
         public string GetStageString(GameStage stageNum)
         {
             switch (stageNum)
             {
-                case GameStage.TUTORIAL_0:
                 case GameStage.TUTORIAL_1:
                 case GameStage.TUTORIAL_2:
                 case GameStage.TUTORIAL_3:
@@ -362,5 +504,6 @@ namespace Capsule.Entity
                     return "튜토리얼";
             }
         }
+        */
     }
 }

@@ -1,4 +1,5 @@
-﻿namespace Capsule.Entity
+﻿using UnityEngine;
+namespace Capsule.Entity
 {
     public enum GameMode
     {
@@ -20,8 +21,7 @@
 
     public enum GameStage
     {
-        TUTORIAL_0 = 0,
-        TUTORIAL_1,
+        TUTORIAL_1 = 0,
         TUTORIAL_2,
         TUTORIAL_3,
         STAGE_1,
@@ -34,6 +34,16 @@
         STAGE_8,
         STAGE_9,
         STAGE_10,
+    }
+
+    public enum RewardKind
+    {
+        COIN = 0,
+        CUSTOMIZING_BODY,
+        CUSTOMIZING_HEAD,
+        CUSTOMIZING_FACE,
+        CUSTOMIZING_GLOVE,
+        CUSTOMIZING_CLOTH,
     }
 
     public enum GameMap
@@ -77,6 +87,38 @@
             get { return difficulty; }
             set { difficulty = value; }
         }
+    }
+
+    public class GameModeData
+    {
+        public GameMode mode;
+        public string name;
+        public string desc;
+    }
+
+    [System.Serializable]
+    public class GameKindData
+    {
+        public GameKind kind;
+        public Sprite preview;
+        public string desc;
+    }
+
+    [System.Serializable]
+    public class GameStageData
+    {
+        public GameStage stage;
+        public Sprite preview;
+        public string name;
+        public string desc;
+    }
+
+    [System.Serializable]
+    public class RewardData
+    {
+        public RewardKind kind;
+        public int reward;
+        public Sprite preview;
     }
 }
 

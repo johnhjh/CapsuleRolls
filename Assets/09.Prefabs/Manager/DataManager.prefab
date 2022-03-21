@@ -668,3 +668,70 @@ MonoBehaviour:
     faceNum: 17
     gloveNum: 4
     clothNum: 8
+  gameKindDatas:
+  - kind: 0
+    preview: {fileID: 0}
+    desc: "\uACF5 \uAD74\uB824\uC11C \uACE8\uC778~!"
+  - kind: 1
+    preview: {fileID: 0}
+    desc: "\uBA39\uC774\uB97C \uB358\uC838\uC8FC\uC790~!"
+  - kind: 2
+    preview: {fileID: 0}
+    desc: "\uCE68\uB7B5\uC790\uB97C \uB9C9\uC790~!"
+  gameStageDatas:
+  - stage: 0
+    preview: {fileID: 0}
+    name: "\uD29C\uD1A0\uB9AC\uC5BC 1"
+    desc: 
+  - stage: 1
+    preview: {fileID: 0}
+    name: "\uD29C\uD1A0\uB9AC\uC5BC 2"
+    desc: 
+  - stage: 2
+    preview: {fileID: 0}
+    name: "\uD29C\uD1A0\uB9AC\uC5BC 3"
+    desc: 
+  - stage: 3
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 1"
+    desc: 
+  - stage: 4
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 2"
+    desc: 
+  - stage: 5
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 3"
+    desc: 
+  - stage: 6
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 4"
+    desc: 
+  - stage: 7
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 5"
+    desc: 
+  - stage: 8
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 6"
+    desc: 
+  - stage: 9
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 7"
+    desc: 
+  - stage: 10
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 8"
+    desc: 
+  - stage: 11
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 9"
+    desc: 
+  - stage: 12
+    preview: {fileID: 0}
+    name: "\uC2A4\uD14C\uC774\uC9C0 10"
+    desc: 
+  - stage: 0
+    preview: {fileID: 0}
+    name: 
+    desc: 
