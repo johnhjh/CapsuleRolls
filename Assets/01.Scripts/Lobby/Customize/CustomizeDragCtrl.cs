@@ -1,4 +1,4 @@
-﻿using Capsule.Player.Lobby;
+﻿using Capsule.Lobby.Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

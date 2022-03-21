@@ -34,6 +34,7 @@ namespace Capsule.Entity
         STAGE_8,
         STAGE_9,
         STAGE_10,
+        STAGE_ALL_CLEAR,
     }
 
     public enum RewardKind

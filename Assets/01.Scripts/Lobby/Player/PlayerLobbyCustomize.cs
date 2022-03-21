@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Capsule.Player.Lobby
+namespace Capsule.Lobby.Player
 {
-    public class PlayerCustomize : MonoBehaviour
+    public class PlayerLobbyCustomize : MonoBehaviour
     {
-        private static PlayerCustomize playerCustomize;
-        public static PlayerCustomize Instance
+        private static PlayerLobbyCustomize playerCustomize;
+        public static PlayerLobbyCustomize Instance
         {
             get
             {
                 if (playerCustomize == null)
-                    playerCustomize = FindObjectOfType<PlayerCustomize>();
+                    playerCustomize = FindObjectOfType<PlayerLobbyCustomize>();
                 return playerCustomize;
             }
         }

@@ -466,8 +466,28 @@ namespace Capsule.Entity
             private set { gameStageDatas = value; }
         }
 
+        public GameStageData GetNextStage(int stage)
+        {
+            int nextStageNum = stage + 1;
+            if ((GameStage)nextStageNum == GameStage.STAGE_ALL_CLEAR)
+                nextStageNum--;
+            return gameStageDatas[nextStageNum];
+        }
+
+        public GameStageData GetNextStage(GameStage stage)
+        {
+            return GetNextStage((int)stage);
+        }
+
+        public string GetNextStageString()
+        {
+            return GetNextStage(currentPlayerGameData.HighestStage).name;
+        }
+
         public string GetHighestStageString()
         {
+            if (currentPlayerGameData.HighestStage == -1)
+                return "없음";
             return gameStageDatas[currentPlayerGameData.HighestStage].name;
             //return GetStageString((GameStage)currentPlayerGameData.HighestStage);
         }

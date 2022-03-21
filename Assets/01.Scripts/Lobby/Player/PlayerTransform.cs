@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Capsule.Player.Lobby
+namespace Capsule.Lobby.Player
 {
     public class PlayerTransform : MonoBehaviour
     {

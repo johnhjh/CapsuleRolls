@@ -473,7 +473,7 @@ namespace Capsule.Entity
         public void LoadPlayerGameData()
         {
             HighestScore = PlayerPrefs.GetInt("HighestScore", 0);
-            HighestStage = PlayerPrefs.GetInt("HighestStage", 0);
+            HighestStage = PlayerPrefs.GetInt("HighestStage", -1);
             CurrentWins = PlayerPrefs.GetInt("CurrentWins", 0);
             MostWins = PlayerPrefs.GetInt("MostWins", 0);
             MultiVictoryCount = PlayerPrefs.GetInt("VictoryCount", 0);
@@ -534,7 +534,7 @@ namespace Capsule.Entity
         public void ResetPlayerGameData()
         {
             PlayerPrefs.SetInt("HighestScore", 0);
-            PlayerPrefs.SetInt("HighestStage", 0);
+            PlayerPrefs.SetInt("HighestStage", -1);
             PlayerPrefs.SetInt("CurrentWins", 0);
             PlayerPrefs.SetInt("MostWins", 0);
             PlayerPrefs.SetInt("VictoryCount", 0);

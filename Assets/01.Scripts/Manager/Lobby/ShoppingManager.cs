@@ -1,6 +1,6 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
-using Capsule.Player.Lobby;
+using Capsule.Lobby.Player;
 using Capsule.SceneLoad;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,7 +56,7 @@ namespace Capsule.Lobby.Shopping
                 {
                     CustomizingPresetData data = DataManager.Instance.GetPresetData(value.prestNum);
                     if (data.bodyNum != CustomizingBody.DEFAULT)
-                        PlayerCustomize.Instance.ChangeBody(data.bodyNum);
+                        PlayerLobbyCustomize.Instance.ChangeBody(data.bodyNum);
                     if (data.headNum != CustomizingHead.DEFAULT)
                     {
                         if (headDictionary.ContainsKey(data.headNum))
@@ -66,7 +66,7 @@ namespace Capsule.Lobby.Shopping
                         }
                         else
                         {
-                            currentHeadObj = PlayerCustomize.Instance.ChangeHead(data.headNum);
+                            currentHeadObj = PlayerLobbyCustomize.Instance.ChangeHead(data.headNum);
                             if (currentHeadObj != null)
                                 headDictionary.Add(data.headNum, currentHeadObj);
                         }
@@ -80,7 +80,7 @@ namespace Capsule.Lobby.Shopping
                         }
                         else
                         {
-                            currentFaceObj = PlayerCustomize.Instance.ChangeFace(data.faceNum);
+                            currentFaceObj = PlayerLobbyCustomize.Instance.ChangeFace(data.faceNum);
                             if (currentFaceObj != null)
                                 faceDictionary.Add(data.faceNum, currentFaceObj);
                         }
@@ -94,7 +94,7 @@ namespace Capsule.Lobby.Shopping
                         }
                         else
                         {
-                            currentClothObj = PlayerCustomize.Instance.ChangeCloth(data.clothNum);
+                            currentClothObj = PlayerLobbyCustomize.Instance.ChangeCloth(data.clothNum);
                             if (currentClothObj != null)
                                 clothDictionary.Add(data.clothNum, currentClothObj);
                         }
@@ -103,7 +103,7 @@ namespace Capsule.Lobby.Shopping
                     {
                         if (leftGloveDictionary.ContainsKey(data.gloveNum))
                         {
-                            PlayerCustomize.Instance.EnableHandMeshes(false);
+                            PlayerLobbyCustomize.Instance.EnableHandMeshes(false);
                             currentLeftGloveObj = leftGloveDictionary[data.gloveNum];
                             leftGloveDictionary[data.gloveNum].SetActive(true);
                             currentRightGloveObj = rightGloveDictionary[data.gloveNum];
@@ -112,14 +112,14 @@ namespace Capsule.Lobby.Shopping
                         else if (rightGloveDictionary.ContainsKey(data.gloveNum))
                         {
                             currentLeftGloveObj = null;
-                            PlayerCustomize.Instance.EnableLeftHandMeshes(true);
-                            PlayerCustomize.Instance.EnableRightHendMeshes(false);
+                            PlayerLobbyCustomize.Instance.EnableLeftHandMeshes(true);
+                            PlayerLobbyCustomize.Instance.EnableRightHendMeshes(false);
                             currentRightGloveObj = rightGloveDictionary[data.gloveNum];
                             rightGloveDictionary[data.gloveNum].SetActive(true);
                         }
                         else
                         {
-                            List<GameObject> gloves = PlayerCustomize.Instance.ChangeGloves(data.gloveNum);
+                            List<GameObject> gloves = PlayerLobbyCustomize.Instance.ChangeGloves(data.gloveNum);
                             if (gloves != null)
                             {
                                 if (gloves.Count == 1)
@@ -157,9 +157,9 @@ namespace Capsule.Lobby.Shopping
                     currentBodySlot.IsSelected = false;
                 currentBodySlot = value;
                 if (value == null)
-                    PlayerCustomize.Instance.ChangeBody(CustomizingBody.DEFAULT);
+                    PlayerLobbyCustomize.Instance.ChangeBody(CustomizingBody.DEFAULT);
                 else
-                    PlayerCustomize.Instance.ChangeBody(value.bodyMaterial);
+                    PlayerLobbyCustomize.Instance.ChangeBody(value.bodyMaterial);
             }
         }
 
@@ -195,7 +195,7 @@ namespace Capsule.Lobby.Shopping
                     }
                     else
                     {
-                        currentHeadObj = PlayerCustomize.Instance.ChangeHead(value.headItem);
+                        currentHeadObj = PlayerLobbyCustomize.Instance.ChangeHead(value.headItem);
                         if (currentHeadObj != null)
                             headDictionary.Add(value.headItem, currentHeadObj);
                     }
@@ -235,7 +235,7 @@ namespace Capsule.Lobby.Shopping
                     }
                     else
                     {
-                        currentFaceObj = PlayerCustomize.Instance.ChangeFace(value.faceItem);
+                        currentFaceObj = PlayerLobbyCustomize.Instance.ChangeFace(value.faceItem);
                         if (currentFaceObj != null)
                             faceDictionary.Add(value.faceItem, currentFaceObj);
                     }
@@ -275,7 +275,7 @@ namespace Capsule.Lobby.Shopping
                     }
                     else
                     {
-                        currentClothObj = PlayerCustomize.Instance.ChangeCloth(value.clothNum);
+                        currentClothObj = PlayerLobbyCustomize.Instance.ChangeCloth(value.clothNum);
                         if (currentClothObj != null)
                             clothDictionary.Add(value.clothNum, currentClothObj);
                     }
@@ -317,7 +317,7 @@ namespace Capsule.Lobby.Shopping
                 {
                     if (leftGloveDictionary.ContainsKey(value.gloveNum))
                     {
-                        PlayerCustomize.Instance.EnableHandMeshes(false);
+                        PlayerLobbyCustomize.Instance.EnableHandMeshes(false);
                         currentLeftGloveObj = leftGloveDictionary[value.gloveNum];
                         leftGloveDictionary[value.gloveNum].SetActive(true);
                         currentRightGloveObj = rightGloveDictionary[value.gloveNum];
@@ -326,14 +326,14 @@ namespace Capsule.Lobby.Shopping
                     else if (rightGloveDictionary.ContainsKey(value.gloveNum))
                     {
                         currentLeftGloveObj = null;
-                        PlayerCustomize.Instance.EnableLeftHandMeshes(true);
-                        PlayerCustomize.Instance.EnableRightHendMeshes(false);
+                        PlayerLobbyCustomize.Instance.EnableLeftHandMeshes(true);
+                        PlayerLobbyCustomize.Instance.EnableRightHendMeshes(false);
                         currentRightGloveObj = rightGloveDictionary[value.gloveNum];
                         rightGloveDictionary[value.gloveNum].SetActive(true);
                     }
                     else
                     {
-                        List<GameObject> gloves = PlayerCustomize.Instance.ChangeGloves(value.gloveNum);
+                        List<GameObject> gloves = PlayerLobbyCustomize.Instance.ChangeGloves(value.gloveNum);
                         if (gloves != null)
                         {
                             if (gloves.Count == 1)
@@ -358,7 +358,7 @@ namespace Capsule.Lobby.Shopping
                     }
                 }
                 else
-                    PlayerCustomize.Instance.EnableHandMeshes(true);
+                    PlayerLobbyCustomize.Instance.EnableHandMeshes(true);
             }
         }
 
@@ -504,9 +504,9 @@ namespace Capsule.Lobby.Shopping
         {
             CustomizingHead headNum = (CustomizingHead)DataManager.Instance.CurrentPlayerCustomizeData.Head;
 
-            if (PlayerCustomize.Instance.headTransform.childCount >= 1)
+            if (PlayerLobbyCustomize.Instance.headTransform.childCount >= 1)
             {
-                savedHeadObj = PlayerCustomize.Instance.headTransform.GetChild(0).gameObject;
+                savedHeadObj = PlayerLobbyCustomize.Instance.headTransform.GetChild(0).gameObject;
                 headDictionary.Add(headNum, savedHeadObj);
             }
             else
@@ -519,9 +519,9 @@ namespace Capsule.Lobby.Shopping
         {
             CustomizingFace faceNum = (CustomizingFace)DataManager.Instance.CurrentPlayerCustomizeData.Face;
 
-            if (PlayerCustomize.Instance.faceTransform.childCount >= 1)
+            if (PlayerLobbyCustomize.Instance.faceTransform.childCount >= 1)
             {
-                savedFaceObj = PlayerCustomize.Instance.faceTransform.GetChild(0).gameObject;
+                savedFaceObj = PlayerLobbyCustomize.Instance.faceTransform.GetChild(0).gameObject;
                 faceDictionary.Add(faceNum, savedFaceObj);
             }
             else
@@ -534,9 +534,9 @@ namespace Capsule.Lobby.Shopping
         {
             CustomizingCloth clothNum = (CustomizingCloth)DataManager.Instance.CurrentPlayerCustomizeData.Cloth;
 
-            if (PlayerCustomize.Instance.clothTransform.childCount >= 1)
+            if (PlayerLobbyCustomize.Instance.clothTransform.childCount >= 1)
             {
-                savedClothObj = PlayerCustomize.Instance.clothTransform.GetChild(0).gameObject;
+                savedClothObj = PlayerLobbyCustomize.Instance.clothTransform.GetChild(0).gameObject;
                 clothDictionary.Add(clothNum, savedClothObj);
             }
             else
@@ -549,13 +549,13 @@ namespace Capsule.Lobby.Shopping
         {
             CustomizingGlove gloveNum = (CustomizingGlove)DataManager.Instance.CurrentPlayerCustomizeData.Glove;
 
-            if (PlayerCustomize.Instance.rightHandTransform.childCount >= 1)
+            if (PlayerLobbyCustomize.Instance.rightHandTransform.childCount >= 1)
             {
-                savedRightGloveObj = PlayerCustomize.Instance.rightHandTransform.GetChild(0).gameObject;
+                savedRightGloveObj = PlayerLobbyCustomize.Instance.rightHandTransform.GetChild(0).gameObject;
                 rightGloveDictionary.Add(gloveNum, savedRightGloveObj);
-                if (PlayerCustomize.Instance.leftHandTransform.childCount >= 1)
+                if (PlayerLobbyCustomize.Instance.leftHandTransform.childCount >= 1)
                 {
-                    savedLeftGloveObj = PlayerCustomize.Instance.leftHandTransform.GetChild(0).gameObject;
+                    savedLeftGloveObj = PlayerLobbyCustomize.Instance.leftHandTransform.GetChild(0).gameObject;
                     leftGloveDictionary.Add(gloveNum, savedLeftGloveObj);
                 }
                 else
@@ -947,7 +947,7 @@ namespace Capsule.Lobby.Shopping
         {
             SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
 
-            PlayerCustomize.Instance.ChangeBody(savedBodyMaterial);
+            PlayerLobbyCustomize.Instance.ChangeBody(savedBodyMaterial);
 
             if (headDictionary.Count > 0)
             {
@@ -989,7 +989,7 @@ namespace Capsule.Lobby.Shopping
             if (savedRightGloveObj != null && !savedRightGloveObj.activeSelf)
                 savedRightGloveObj.SetActive(true);
             if (savedRightGloveObj == null)
-                PlayerCustomize.Instance.EnableHandMeshes(true);
+                PlayerLobbyCustomize.Instance.EnableHandMeshes(true);
 
             if (clothDictionary.Count > 0)
             {

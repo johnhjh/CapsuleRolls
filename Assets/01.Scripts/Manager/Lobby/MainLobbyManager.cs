@@ -1,5 +1,5 @@
 ﻿using Capsule.Audio;
-using Capsule.Player.Lobby;
+using Capsule.Lobby.Player;
 using Capsule.SceneLoad;
 using UnityEngine;
 
