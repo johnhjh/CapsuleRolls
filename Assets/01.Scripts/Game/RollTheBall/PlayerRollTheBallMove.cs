@@ -217,7 +217,7 @@ namespace Capsule.Game.RollTheBall
                 }
                 else
                 {
-                    RollingBallCtrl ballTransform = collision.collider.GetComponent<RollingBallCtrl>();
+                    RollingBallRotate ballTransform = collision.collider.GetComponent<RollingBallRotate>();
                     if (ballTransform.BallParent.TryGetComponent<RollingBallMove>(out RollingBallMove move))
                     {
                         if (!move.IsDead)
@@ -247,10 +247,10 @@ namespace Capsule.Game.RollTheBall
             }
         }
 
-        private void ChangeBallParent(RollingBallCtrl ballTransform)
+        private void ChangeBallParent(RollingBallRotate ballTransform)
         {
             Transform originParent = ballTransform.BallParent;
-            transform.parent.GetChild(2).GetComponent<RollingBallCtrl>().BallParent = originParent;
+            transform.parent.GetChild(2).GetComponent<RollingBallRotate>().BallParent = originParent;
             ballTransform.BallParent = transform.parent;
             ballTransform.isTeamA = this.isTeamA;
             IsLanded = true;
@@ -276,7 +276,9 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlayOneShot(Crowds.GROAN);
             }
 
-            transform.parent.GetChild(2).GetComponent<RollingBallCtrl>().BallParent = GameManager.Instance.GetNewGameObj(true).transform;
+            GameObject newGameObj = GameManager.Instance.GetNewGameObj(true);
+            newGameObj.AddComponent<RollingBallCtrl>();
+            transform.parent.GetChild(2).GetComponent<RollingBallRotate>().BallParent = newGameObj.transform;
             ragdollController.ChangeRagdoll(true);
         }
 

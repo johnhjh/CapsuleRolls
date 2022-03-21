@@ -9,7 +9,7 @@ namespace Capsule.Game.RollTheBall
         {
             if (other.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
             {
-                if (other.transform.TryGetComponent<RollingBallCtrl>(out RollingBallCtrl rollingBall))
+                if (other.transform.TryGetComponent<RollingBallRotate>(out RollingBallRotate rollingBall))
                 {
                     if (rollingBall.isTeamA != this.isTeamA)
                     {

@@ -1,89 +1,69 @@
-﻿using UnityEngine;
+﻿using Capsule.Audio;
+using Capsule.Game.Effect;
+using System.Collections;
+using UnityEngine;
 
 namespace Capsule.Game.RollTheBall
 {
     public class RollingBallCtrl : MonoBehaviour
     {
-        public bool isTeamA = false;
-        public float radius = 1.5f;
-        public float ballRotateSpeed = 40f;
+        private AudioSource ballAudioSource;
+        private Rigidbody ballRigidbody;
+        public float ballPushForce = 30f;
+        public float popVolume = 7f;
 
-        private Rigidbody ballRigidbody = null;
-        private Transform ballParent;
-        public Transform BallParent
+        private void Awake()
         {
-            get { return ballParent; }
-            set
+            ballRigidbody = GetComponent<Rigidbody>();
+            ballAudioSource = GetComponent<AudioSource>();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
             {
-                ballParent = value;
-                transform.parent = value;
-                if (value.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+                BallAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
+                EffectQueueManager.Instance.ShowCollisionEffect(collision, Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
+                if (collision.collider.transform.parent.TryGetComponent<Rigidbody>(out Rigidbody collRigidbody))
                 {
-                    ballRigidbody = rigidbody;
-                    rigidbody.freezeRotation = true;
+                    collRigidbody.AddForce(
+                        ballRigidbody.velocity * ballPushForce, ForceMode.Impulse);
                 }
-                else
-                    ballRigidbody = null;
             }
-        }
-        /*
-        private PlayerInput playerInput;
-        private PlayerRollTheBallMove playerMovement;
-        private Transform playerTransform;
-        private Vector3 savedDirection = Vector3.zero;
-        public Vector3 SavedDirection
-        {
-            set 
+            else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
             {
-                if (savedDirection == Vector3.zero)
-                    savedDirection = value;
+                BallAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
+                EffectQueueManager.Instance.ShowCollisionEffect(collision,
+                    Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
+                ballRigidbody.AddForce(collision.collider.GetComponent<Rigidbody>().velocity);
             }
-        }
-        */
-
-        private void Start()
-        {
-            //playerTransform = transform.parent.GetChild(0).GetComponent<Transform>();
-            //playerInput = playerTransform.GetComponent<PlayerInput>();
-            //playerMovement = playerTransform.GetComponent<PlayerRollTheBallMove>();
-            BallParent = transform.parent;
-        }
-
-        private void FixedUpdate()
-        {
-            if (ballRigidbody == null) return;
-            RotateByVelocity();
-        }
-
-        private void RotateByVelocity()
-        {
-            Vector3 ballDirection = Time.deltaTime * ballRotateSpeed / radius * ballRigidbody.velocity;
-            ballDirection = -Vector3.forward * ballDirection.x + Vector3.right * ballDirection.z;
-            transform.Rotate(ballDirection, Space.World);
-        }
-        /*
-        private void PastRotate()
-        {
-            Vector3 currentDirection;
-            if (playerMovement.IsLanded)
+            else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER))
             {
-                Vector3 direction = (-playerTransform.forward * playerInput.horizontal +
-                    playerTransform.right * playerInput.vertical);
-                direction = direction.normalized;
-                if (playerInput.GetInputMovePower() <= 0.2f)
-                    direction = savedDirection;
-                savedDirection = direction;
-                currentDirection = direction;
+                BallAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.POP), popVolume);
+                Transform ballTransform = transform.GetChild(0);
+                EffectQueueManager.Instance.ShowExplosionEffect(ballTransform.position);
+                ballTransform.gameObject.SetActive(false);
+                StartCoroutine(DestroyAfter3Sec());
             }
-            else
-                currentDirection = savedDirection;
-            currentDirection *= Time.deltaTime * ballRotateSpeed / radius;
-            currentDirection *= ballRigidbody.velocity.magnitude;
-            if (ballRigidbody.velocity.magnitude < 0.1f)
-                savedDirection = Vector3.zero;
-            transform.Rotate(currentDirection, Space.World);
         }
-        */
+
+        private void BallAudioPlayOneShot(AudioClip clip, float volume)
+        {
+            if (clip != null)
+                ballAudioSource.PlayOneShot(clip, volume);
+        }
+
+        private void BallAudioPlayOneShot(AudioClip clip)
+        {
+            if (clip != null)
+                ballAudioSource.PlayOneShot(clip);
+        }
+
+        private IEnumerator DestroyAfter3Sec()
+        {
+            yield return new WaitForSeconds(3.0f);
+            Destroy(this.gameObject);
+        }
     }
 }
 

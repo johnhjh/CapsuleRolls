@@ -19,26 +19,6 @@ public class SoloPlayManager : MonoBehaviour
         }
     }
 
-    /*
-    private readonly string gameModeArcadeText = "아케이드 모드";
-    private readonly string gameModeStageText = "스테이지 모드";
-    private readonly string gameModePracticeText = "연습 모드";
-    private readonly string gameModeBotText = "AI봇 대전 모드";
-
-    private readonly string gameModeArcadeDetailText = "최고 스코어에 도전하자!";
-    private readonly string gameModeStageDetailText = "스테이지 클리어에 도전하자!";
-    private readonly string gameModePracticeDetailText = "자유롭게 연습해서 실력을 키우자!";
-    private readonly string gameModeBotDetailText = "AI봇과 대전하며 실력을 키우자!";
-
-    private readonly string gameKindRollTheBallDetailText = "공 굴려서 골인~!";
-    private readonly string gameKindThrowingFeederDetailText = "먹이를 던져주자~!";
-    private readonly string gameKindAttackInvaderDetailText = "침략자를 막자~!";
-
-    public Sprite gameKindRollTheBallDetailImage;
-    public Sprite gameKindThrowingFeederDetailImage;
-    public Sprite gameKindAttackInvaderDetailImage;
-    */
-
     private GameData gameData = new GameData();
     private Text gameModeText;
     private Text gameModeDetailText;
@@ -154,8 +134,6 @@ public class SoloPlayManager : MonoBehaviour
         switch (mode)
         {
             case GameMode.ARCADE:
-                //gameModeText.text = gameModeArcadeText;
-                //gameModeDetailText.text = gameModeArcadeDetailText;
                 gameKindUI.SetActive(true);
                 gameScoreUI.SetActive(true);
                 gameHighestStageUI.SetActive(false);
@@ -163,8 +141,6 @@ public class SoloPlayManager : MonoBehaviour
                 gameBotDifficultyUI.SetActive(false);
                 break;
             case GameMode.STAGE:
-                //gameModeText.text = gameModeStageText;
-                //gameModeDetailText.text = gameModeStageDetailText;
                 gameKindUI.SetActive(false);
                 gameScoreUI.SetActive(false);
                 gameHighestStageUI.SetActive(true);
@@ -172,8 +148,6 @@ public class SoloPlayManager : MonoBehaviour
                 gameBotDifficultyUI.SetActive(false);
                 break;
             case GameMode.PRACTICE:
-                //gameModeText.text = gameModePracticeText;
-                //gameModeDetailText.text = gameModePracticeDetailText;
                 gameKindUI.SetActive(true);
                 gameScoreUI.SetActive(false);
                 gameHighestStageUI.SetActive(false);
@@ -181,8 +155,6 @@ public class SoloPlayManager : MonoBehaviour
                 gameBotDifficultyUI.SetActive(false);
                 break;
             case GameMode.BOT:
-                //gameModeText.text = gameModeBotText;
-                //gameModeDetailText.text = gameModeBotDetailText;
                 gameKindUI.SetActive(true);
                 gameScoreUI.SetActive(false);
                 gameHighestStageUI.SetActive(false);
@@ -190,8 +162,6 @@ public class SoloPlayManager : MonoBehaviour
                 gameBotDifficultyUI.SetActive(true);
                 break;
             default:
-                //gameModeText.text = gameModeArcadeText;
-                //gameModeDetailText.text = gameModeArcadeDetailText;
                 gameKindUI.SetActive(true);
                 gameScoreUI.SetActive(true);
                 gameHighestStageUI.SetActive(false);
