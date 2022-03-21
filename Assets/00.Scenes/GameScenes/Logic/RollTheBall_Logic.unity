@@ -650,7 +650,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112411489}
-  m_LocalRotation: {x: 0.051049422, y: 4.9097066e-15, z: -1.5787807e-16, w: 0.99869615}
+  m_LocalRotation: {x: 0.051049396, y: -0.000000029995086, z: 0.0000000015332301,
+    w: 0.99869615}
   m_LocalPosition: {x: 0, y: 4.351, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1162,6 +1163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPushForce: 30
+  popVolume: 7
 --- !u!82 &310539339
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1384,7 +1386,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333539787}
-  m_LocalRotation: {x: 0.051049422, y: 4.9097066e-15, z: -1.5787807e-16, w: 0.99869615}
+  m_LocalRotation: {x: 0.051049396, y: -0.000000029995086, z: 0.0000000015332301,
+    w: 0.99869615}
   m_LocalPosition: {x: 0, y: 4.351, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

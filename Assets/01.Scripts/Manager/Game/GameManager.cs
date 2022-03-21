@@ -1,4 +1,5 @@
 ﻿using Capsule.Audio;
+using Capsule.Entity;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -50,6 +51,8 @@ namespace Capsule.Game
             }
         }
 
+        private GameData currentGameData = null;
+
         public GameTagData tagData = new GameTagData();
         public GameAnimData animData = new GameAnimData();
         public GameNameData nameData = new GameNameData();
@@ -72,8 +75,10 @@ namespace Capsule.Game
         private void Start()
         {
             // 플레이어 생성 위치 들어갈 자리
+            BGMManager.Instance.ChangeBGM(BGMType.ARCADE);
             SFXManager.Instance.PlayOneShot(Announcements.READY);
             SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
+            currentGameData = DataManager.Instance.CurrentGameData;
         }
 
         private void Update()
@@ -88,17 +93,23 @@ namespace Capsule.Game
             }
         }
 
-        public GameObject GetNewGameObj(bool usingRigidbody = false)
+        public GameObject GetNewGameObj(bool usingRigidbody = false, bool usingAudioSource = false)
         {
             GameObject newGameObj = new GameObject { name = nameData.NAME_GAME_OBJECTS };
             if (usingRigidbody)
             {
-                newGameObj.AddComponent<Rigidbody>();
-                Rigidbody newRigidbody = newGameObj.GetComponent<Rigidbody>();
+                Rigidbody newRigidbody = newGameObj.AddComponent<Rigidbody>();
                 newRigidbody.mass = 60f;
                 newRigidbody.drag = 0.05f;
                 newRigidbody.angularDrag = 0.05f;
                 newRigidbody.useGravity = true;
+            }
+            if (usingAudioSource)
+            {
+                AudioSource newAudioSource = newGameObj.AddComponent<AudioSource>();
+                newAudioSource.playOnAwake = false;
+                newAudioSource.minDistance = 1f;
+                newAudioSource.maxDistance = 5f;
             }
             return newGameObj;
         }

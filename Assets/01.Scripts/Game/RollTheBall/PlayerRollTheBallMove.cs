@@ -274,9 +274,10 @@ namespace Capsule.Game.RollTheBall
             {
                 SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.GROAN);
+                BGMManager.Instance.PlayGameOver();
             }
 
-            GameObject newGameObj = GameManager.Instance.GetNewGameObj(true);
+            GameObject newGameObj = GameManager.Instance.GetNewGameObj(true, true);
             newGameObj.AddComponent<RollingBallCtrl>();
             transform.parent.GetChild(2).GetComponent<RollingBallRotate>().BallParent = newGameObj.transform;
             ragdollController.ChangeRagdoll(true);

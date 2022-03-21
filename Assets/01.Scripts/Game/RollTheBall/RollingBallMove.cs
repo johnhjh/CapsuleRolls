@@ -76,6 +76,7 @@ namespace Capsule.Game.RollTheBall
         {
             if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
             {
+                GameCameraManager.Instance.CameraShake();
                 BallAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
                 EffectQueueManager.Instance.ShowCollisionEffect(collision, Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
                 if (collision.collider.transform.parent.TryGetComponent<Rigidbody>(out Rigidbody collRigidbody))
@@ -86,6 +87,7 @@ namespace Capsule.Game.RollTheBall
             }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
             {
+                GameCameraManager.Instance.CameraShake();
                 BallAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
                 EffectQueueManager.Instance.ShowCollisionEffect(collision,
                     Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
@@ -111,6 +113,7 @@ namespace Capsule.Game.RollTheBall
             }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_GOAL_POST))
             {
+                GameCameraManager.Instance.CameraShake();
                 BallAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
                 SFXManager.Instance.PlaySFX(Crowds.GROAN);
                 EffectQueueManager.Instance.ShowCollisionEffect(collision,

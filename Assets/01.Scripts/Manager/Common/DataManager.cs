@@ -525,5 +525,7 @@ namespace Capsule.Entity
             }
         }
         */
+
+        public GameData CurrentGameData { get; set; }
     }
 }

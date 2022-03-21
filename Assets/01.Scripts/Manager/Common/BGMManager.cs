@@ -8,6 +8,8 @@ namespace Capsule.Audio
         CUSTOMIZE,
         BATTLE,
         CREDIT,
+        ARCADE,
+        GAMEOVER,
     }
 
     public class BGMManager : MonoBehaviour
@@ -18,6 +20,8 @@ namespace Capsule.Audio
         public AudioClip customizeMusic;
         public AudioClip battleMusic;
         public AudioClip creditMusic;
+        public AudioClip arcadeMusic;
+        public AudioClip gameOverMusic;
 
         private static BGMManager bgmManager;
         public static BGMManager Instance
@@ -63,6 +67,10 @@ namespace Capsule.Audio
                     return battleMusic;
                 case BGMType.CREDIT:
                     return creditMusic;
+                case BGMType.ARCADE:
+                    return arcadeMusic;
+                case BGMType.GAMEOVER:
+                    return gameOverMusic;
                 default:
                     return mainThemeMusic;
             }
@@ -70,10 +78,21 @@ namespace Capsule.Audio
 
         public void ChangeBGM(BGMType bgm)
         {
-            if (currentBGM == bgm) return;
+            if (currentBGM == bgm)
+            {
+                if (!bgmAudioSource.isPlaying)
+                    bgmAudioSource.Play();
+                return;
+            }
             currentBGM = bgm;
             bgmAudioSource.clip = GetBGMAudioClip(bgm);
             bgmAudioSource.Play();
+        }
+
+        public void PlayGameOver()
+        {
+            bgmAudioSource.Stop();
+            bgmAudioSource.PlayOneShot(GetBGMAudioClip(BGMType.GAMEOVER));
         }
 
         public void SetVolume(float volume)

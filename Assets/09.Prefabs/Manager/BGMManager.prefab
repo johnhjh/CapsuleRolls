@@ -145,3 +145,5 @@ MonoBehaviour:
   customizeMusic: {fileID: 8300000, guid: e8fdf6c790c118a4c83714016df9317b, type: 3}
   battleMusic: {fileID: 8300000, guid: 55a445026207d274cb542fee51fda613, type: 3}
   creditMusic: {fileID: 8300000, guid: 55a445026207d274cb542fee51fda613, type: 3}
+  arcadeMusic: {fileID: 8300000, guid: 565bdf823534d2244a91e618f748c2e0, type: 3}
+  gameOverMusic: {fileID: 8300000, guid: a1ed704f746a5714ca986035bcb1132f, type: 3}

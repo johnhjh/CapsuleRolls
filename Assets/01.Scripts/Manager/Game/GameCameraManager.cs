@@ -76,6 +76,8 @@ namespace Capsule.Game
                 {
                     moveFollowCam.enabled = false;
                     deadCameraAction.isActive = true;
+                    if (mainCamCoroutine != null)
+                        StopCoroutine(mainCamCoroutine);
                     mainCamCoroutine = StartCoroutine(deadCameraAction.SetCameraQuater(mainCameraTransform, target.First));
                 }
                 else
@@ -93,7 +95,6 @@ namespace Capsule.Game
             }
         }
 
-
         private void Awake()
         {
             target = new Tuple<Transform, bool>();
@@ -102,9 +103,10 @@ namespace Capsule.Game
             moveFollowCam = GameObject.Find("MoveFollowCam").GetComponent<CinemachineVirtualCamera>();
         }
 
-        private void Start()
+        public void CameraShake()
         {
-
+            if (Target.Second) return;
+            // 추후 구현
         }
     }
 }
