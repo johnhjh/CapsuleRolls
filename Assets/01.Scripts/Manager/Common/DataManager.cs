@@ -325,26 +325,26 @@ namespace Capsule.Entity
         }
 
         public List<GameModeData> gameModeDatas = new List<GameModeData>()
-        { 
-            new GameModeData() 
-            { 
-                mode = GameMode.ARCADE, 
+        {
+            new GameModeData()
+            {
+                mode = GameMode.ARCADE,
                 name = "아케이드 모드",
                 desc = "최고 스코어에 도전하자!"
             },
-            new GameModeData() 
-            { 
+            new GameModeData()
+            {
                 mode = GameMode.STAGE,
                 name = "스테이지 모드",
                 desc = "스테이지 클리어에 도전하자!"
             },
-            new GameModeData() 
-            { 
+            new GameModeData()
+            {
                 mode = GameMode.PRACTICE,
                 name = "연습 모드",
                 desc = "자유롭게 연습해서 실력을 키우자!"
             },
-            new GameModeData() 
+            new GameModeData()
             {
                 mode = GameMode.BOT,
                 name = "AI봇 대전 모드",
@@ -392,7 +392,7 @@ namespace Capsule.Entity
             }
         };
 
-        public List<GameStageData> gameStageDatas = new List<GameStageData>() 
+        public List<GameStageData> gameStageDatas = new List<GameStageData>()
         {
             new GameStageData()
             {
