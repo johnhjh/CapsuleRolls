@@ -1,5 +1,9 @@
-﻿using UnityEditor;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 using UnityEngine;
+using UnityEditor;
 
 #if (UNITY_EDITOR)
 
@@ -12,19 +16,19 @@ namespace MAST
             public class MeshTools : EditorWindow
             {
                 [SerializeField] private GUISkin guiSkin;
-
-                void OnFocus() { }
-
-                void OnDestroy() { }
-
+                
+                void OnFocus() {}
+                
+                void OnDestroy() {}
+                
                 // ---------------------------------------------------------------------------
                 // Main interface
                 // ---------------------------------------------------------------------------
                 void OnGUI()
                 {
-
+                    
                 }
-
+                
             }
         }
     }

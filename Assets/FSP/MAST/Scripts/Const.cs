@@ -13,7 +13,7 @@ namespace MAST
             public static int gridLayer = 4;
         }
         //public static Grid_Class grid = new Grid_Class();
-
+        
         // Placement
         public static class Placement
         {
@@ -22,8 +22,8 @@ namespace MAST
             public static int visualizerLayer = 2;
         }
         //public static Placement_Class placement = new Placement_Class();
-
-
+        
+        
     }
 }
 #endif

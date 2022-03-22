@@ -10,16 +10,13 @@ namespace MAST
         {
             public class Core : ScriptableObject
             {
-                [SerializeField]
-                public string guiSettingsPath =
+                [SerializeField] public string guiSettingsPath =
                     MAST.LoadingHelper.GetMASTRootFolder() + "/Settings/GUI.asset";
-
-                [SerializeField]
-                public string placementSettingsPath =
+                    
+                [SerializeField] public string placementSettingsPath =
                     MAST.LoadingHelper.GetMASTRootFolder() + "/Settings/Placement.asset";
-
-                [SerializeField]
-                public string hotkeySettingsPath =
+                    
+                [SerializeField] public string hotkeySettingsPath =
                     MAST.LoadingHelper.GetMASTRootFolder() + "/Settings/Hotkey.asset";
             }
         }

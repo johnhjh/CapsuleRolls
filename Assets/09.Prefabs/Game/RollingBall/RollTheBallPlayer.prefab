@@ -444,6 +444,8 @@ MonoBehaviour:
   clothTransform: {fileID: 7805598252361977784}
   leftHandSkinnedMeshRenderer: {fileID: 279716125645361774}
   rightHandSkinnedMeshRenderer: {fileID: 2931676313573558492}
+  isMine: 1
+  isRagdoll: 0
 --- !u!1 &1382890517412444479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,8 +1665,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4565102304685772597}
   - component: {fileID: 4565102304685772599}
-  - component: {fileID: 4565102304685772598}
   - component: {fileID: 4565102304685772600}
+  - component: {fileID: 4565102304685772598}
   m_Layer: 0
   m_Name: RollTheBallPlayer
   m_TagString: Untagged
@@ -1705,26 +1707,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4565102304685772598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4565102304685772596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae850f0824daa10428630be52d7aa562, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballMoveSpeed: 11
-  MAX_BALL_SPEED: 300
-  ballPushForce: 30
-  playerMoveSpeed: 5
-  playerRotateSpeed: 80
-  explodePower: 10
-  popVolume: 7
-  isMine: 1
 --- !u!82 &4565102304685772600
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1821,6 +1803,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4565102304685772598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4565102304685772596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae850f0824daa10428630be52d7aa562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballMoveSpeed: 11
+  MAX_BALL_SPEED: 300
+  ballPushForce: 30
+  playerMoveSpeed: 5
+  playerRotateSpeed: 80
+  explodePower: 10
+  popVolume: 7
+  isMine: 1
 --- !u!1 &5152597597487352726
 GameObject:
   m_ObjectHideFlags: 0

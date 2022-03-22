@@ -11,21 +11,21 @@ namespace MAST
         {
             // Layer that the MAST grid is set to
             [SerializeField] private static int theLayerTheGridIsOn = 1 << Const.Grid.gridLayer;
-
+            
             // MAST script component attached the GameObjects
             [SerializeField] public static Component.MASTPrefabSettings mastScript;
-
-            // ---------------------------------------------------------------------------
-            #region Get Mouse Position on Grid (with or without snap)
-            // ---------------------------------------------------------------------------
+            
+        // ---------------------------------------------------------------------------
+        #region Get Mouse Position on Grid (with or without snap)
+        // ---------------------------------------------------------------------------
             // Converts a position on the grid object into a position snapped to the grid
             public static Vector3 GetPositionOnGridClosestToMousePointer()
             {
                 Physics.queriesHitBackfaces = true;
-
+                
                 // Create a ray starting from the current point the mouse is
                 Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-
+                
                 // Raycast to grid layer
                 Visualizer.visualizerOnGrid =
                     Physics.Raycast(ray.origin,
@@ -33,7 +33,7 @@ namespace MAST
                     out RaycastHit hit,
                     Mathf.Infinity,
                     theLayerTheGridIsOn);
-
+                
                 // Calculate closest grid position to hit
                 float xPos, zPos;
                 if (Settings.Data.placement.snapToGrid)
@@ -47,7 +47,7 @@ namespace MAST
                     xPos = hit.point.x;
                     zPos = hit.point.z;
                 }
-
+                
                 // If raycast reached infinity *** Not sure if this will ever happen ***
                 if (xPos == Mathf.Infinity || zPos == Mathf.Infinity)
                 {
@@ -55,27 +55,27 @@ namespace MAST
                     xPos = 0;
                     zPos = 0;
                 }
-
+                
                 // Calculate current placement position on the grid
                 Vector3 placementPosition = new Vector3(xPos, Settings.Data.gui.grid.gridHeight * Settings.Data.gui.grid.yUnitSize, zPos);
-
+                
                 // Calculate placement position by raycast from current placement position
                 if (PlacementRaycast.GetUseRaycast())
                     placementPosition = GetRaycastPosition(placementPosition);
-
+                    
                 // Return the closest grid position
                 return placementPosition;
             }
-
+            
             // Calculate closest position to the grid - offset to grid center
             private static float RoundToNearestGridCenter(float positionOnAxis)
             {
                 return (Mathf.Floor(positionOnAxis / Settings.Data.gui.grid.xzUnitSize) + 0.5f) * Settings.Data.gui.grid.xzUnitSize;
-
+                
                 //return (Mathf.Round((positionOnAxis + (MAST_Settings.gui.grid.xzUnitSize / 2f))
                 //    / MAST_Settings.gui.grid.xzUnitSize) - 0.5f) * MAST_Settings.gui.grid.xzUnitSize;
             }
-
+            
             // Get placement position based on raycast operation
             private static Vector3 GetRaycastPosition(Vector3 placementPosition)
             {
@@ -83,39 +83,39 @@ namespace MAST
                 Vector3 raycastDirection = new Vector3();
                 switch (PlacementRaycast.GetDirection())
                 {
-                    case DirectionVector.Down: raycastDirection = Vector3.down; break;
-                    case DirectionVector.Up: raycastDirection = Vector3.up; break;
-                    case DirectionVector.Left: raycastDirection = Vector3.left; break;
-                    case DirectionVector.Right: raycastDirection = Vector3.right; break;
-                    case DirectionVector.Forward: raycastDirection = Vector3.forward; break;
-                    case DirectionVector.Back: raycastDirection = Vector3.back; break;
+                    case DirectionVector.Down:      raycastDirection = Vector3.down;    break;
+                    case DirectionVector.Up:        raycastDirection = Vector3.up;      break;
+                    case DirectionVector.Left:      raycastDirection = Vector3.left;    break;
+                    case DirectionVector.Right:     raycastDirection = Vector3.right;   break;
+                    case DirectionVector.Forward:   raycastDirection = Vector3.forward; break;
+                    case DirectionVector.Back:      raycastDirection = Vector3.back;    break;
                 }
-
+                
                 // Create a layer mask that excludes the grid
                 int rayCastLayers = ~(1 << Const.Grid.gridLayer | 1 << Const.Placement.visualizerLayer);
-
+                
                 // If Raycast from current placement position is successful
-                if (Physics.Raycast(placementPosition + PlacementRaycast.GetStartOffset(),
+                if(Physics.Raycast(placementPosition + PlacementRaycast.GetStartOffset(),
                     raycastDirection, out RaycastHit hit, Mathf.Infinity, rayCastLayers))
-                {
-                    // If the raycast distance did not reach infinity *** Not sure if this will ever happen ***
-                    if (hit.point.x != Mathf.Infinity && hit.point.y != Mathf.Infinity && hit.point.z != Mathf.Infinity)
                     {
-                        // Get Placement Position from the raycast hit point
-                        placementPosition = hit.point;
+                        // If the raycast distance did not reach infinity *** Not sure if this will ever happen ***
+                        if (hit.point.x != Mathf.Infinity && hit.point.y != Mathf.Infinity && hit.point.z != Mathf.Infinity)
+                        {
+                            // Get Placement Position from the raycast hit point
+                            placementPosition = hit.point;
+                        }
                     }
-                }
-
+                
                 // Return with the Placement Position
                 return placementPosition;
             }
-
-            #endregion
-            // ---------------------------------------------------------------------------
-
-            // ---------------------------------------------------------------------------
-            #region Get Values from Prefab or Settings
-            // ---------------------------------------------------------------------------
+            
+        #endregion
+        // ---------------------------------------------------------------------------
+            
+        // ---------------------------------------------------------------------------
+        #region Get Values from Prefab or Settings
+        // ---------------------------------------------------------------------------
             // Get offset position
             public static Vector3 GetOffsetPosition()
             {
@@ -125,7 +125,7 @@ namespace MAST
                     try { return mastScript.offsetPosition; }
                     catch { return Settings.Data.placement.offset.pos; }
             }
-
+            
             // Get rotation step
             public static Vector3 GetRotationStep()
             {
@@ -134,8 +134,8 @@ namespace MAST
                 else
                     try { return mastScript.rotationStep; }
                     catch { return Settings.Data.placement.rotation.step; }
-            }
-
+            }  
+            
             // ---------------------------------------------------------------------------
             // Placement Raycast
             // ---------------------------------------------------------------------------
@@ -150,14 +150,14 @@ namespace MAST
                         try { return mastScript.placementRaycast.useRaycast; }
                         catch { return Settings.Data.placement.placementRaycast.useRaycast; }
                 }
-
+                
                 // Get Raycast Direction
                 public static DirectionVector GetDirection()
                 {
                     try { return mastScript.placementRaycast.direction; }
                     catch { return Settings.Data.placement.placementRaycast.direction; }
                 }
-
+                
                 // Get Raycast Start Offset
                 public static Vector3 GetStartOffset()
                 {
@@ -165,7 +165,7 @@ namespace MAST
                     catch { return Settings.Data.placement.placementRaycast.startOffset; }
                 }
             }
-
+            
             // ---------------------------------------------------------------------------
             // Randomizer
             // ---------------------------------------------------------------------------
@@ -180,7 +180,7 @@ namespace MAST
                         try { return mastScript.randomizer.useRandomizer; }
                         catch { return Settings.Data.placement.randomizer.useRandomizer; }
                 }
-
+                
                 // Randomize rotation
                 public class Replace
                 {
@@ -190,7 +190,7 @@ namespace MAST
                         try { return mastScript.randomizer.allowReplacement; }
                         catch { return false; }
                     }
-
+                    
                     // Get replace ID int
                     public static int GetReplaceID()
                     {
@@ -198,7 +198,7 @@ namespace MAST
                         catch { return 0; }
                     }
                 }
-
+                
                 // Randomize rotation
                 public class Rotation
                 {
@@ -218,7 +218,7 @@ namespace MAST
                         catch { return Settings.Data.placement.randomizer.rotateMax; }
                     }
                 }
-
+                
                 // Randomize scale
                 public class Scale
                 {
@@ -238,7 +238,7 @@ namespace MAST
                         catch { return Settings.Data.placement.randomizer.scaleLock; }
                     }
                 }
-
+                
                 // Randomize position
                 public class Position
                 {
@@ -253,7 +253,7 @@ namespace MAST
                         catch { return Settings.Data.placement.randomizer.posMax; }
                     }
                 }
-
+                
                 // Randomize flip
                 public class Flip
                 {
@@ -274,22 +274,22 @@ namespace MAST
                     }
                 }
             }
-
+            
             // Can prefab be placed inside others?
             public static bool GetAllowOverlap()
             {
                 try { return mastScript.allowOverlap; }
                 catch { return true; }
             }
-
+            
             // Can prefab be scaled?
             public static bool GetPaintAreaStretch()
             {
                 try { return mastScript.paintAreaStretch; }
                 catch { return true; }
             }
-            #endregion
-            // ---------------------------------------------------------------------------
+        #endregion
+        // ---------------------------------------------------------------------------
 
         }
     }

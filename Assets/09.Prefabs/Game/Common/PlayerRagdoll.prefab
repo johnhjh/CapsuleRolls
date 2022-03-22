@@ -1813,7 +1813,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &15254118863762541
 Transform:
   m_ObjectHideFlags: 0
@@ -1849,6 +1849,8 @@ MonoBehaviour:
   clothTransform: {fileID: 3433137349111750168}
   leftHandSkinnedMeshRenderer: {fileID: 7549558651287844418}
   rightHandSkinnedMeshRenderer: {fileID: 5985380068579927300}
+  isMine: 1
+  isRagdoll: 1
 --- !u!1 &4934003984429097252
 GameObject:
   m_ObjectHideFlags: 0

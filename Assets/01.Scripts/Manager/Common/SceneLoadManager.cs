@@ -61,7 +61,8 @@ namespace Capsule.SceneLoad
         private const string LOADING_SCENE_NAME = "LoadingScene";
         private const string SHOPPING_SCENE_NAME = "ShoppingScene";
 
-        private Dictionary<LobbySceneType, SceneData> sceneDictionary;
+        private Dictionary<LobbySceneType, SceneData> lobbySceneDictionary;
+        private Dictionary<GameSceneType, SceneData> gameSceneDictionary;
 
         private CanvasGroup fadeLoadingCG;
         [Range(0.5f, 2.0f)]
@@ -90,7 +91,7 @@ namespace Capsule.SceneLoad
 
         private void InitSceneLoadManager()
         {
-            sceneDictionary = new Dictionary<LobbySceneType, SceneData>
+            lobbySceneDictionary = new Dictionary<LobbySceneType, SceneData>
             {
                 { LobbySceneType.TITLE, new SceneData(TITLE_SCENE_NAME, LoadSceneMode.Single) },
                 { LobbySceneType.MAIN_LOBBY, new SceneData(MAIN_LOBBY_SCENE_NAME, LoadSceneMode.Additive) },
@@ -125,7 +126,7 @@ namespace Capsule.SceneLoad
                 yield return StartCoroutine(FadeInLoading());
             //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), 
             //isAuto ? LoadSceneMode.Additive : LoadSceneMode.Single);
-            if (!sceneDictionary.TryGetValue(sceneType, out SceneData sceneData))
+            if (!lobbySceneDictionary.TryGetValue(sceneType, out SceneData sceneData))
                 yield break;
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneData.sceneName,
                 isAuto ? sceneData.sceneMode : LoadSceneMode.Single);
@@ -158,7 +159,7 @@ namespace Capsule.SceneLoad
         public IEnumerator LoadGameScene(GameData data)
         {
             ResetFields();
-            yield return StartCoroutine(FadeInLoading());
+            yield return StartCoroutine(FadeInLoading(data.Kind));
             // GameScene Load Logic 작성할 자리
             yield return StartCoroutine(FadeOutLoading());
         }
@@ -178,6 +179,34 @@ namespace Capsule.SceneLoad
             yield return SceneManager.LoadSceneAsync(LOADING_SCENE_NAME, LoadSceneMode.Additive);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(LOADING_SCENE_NAME));
             fadeLoadingCG = GameObject.Find("LoadingScenePanel").GetComponent<CanvasGroup>();
+            if (fadeLoadingCG != null)
+            {
+                fadeLoadingCG.blocksRaycasts = true;
+                fadeLoadingCG.interactable = true;
+                yield return StartCoroutine(FadeLoading(1f));
+            }
+        }
+
+        private string GetLoadingPanelStringByGameKind(GameKind kind)
+        {
+            switch (kind)
+            {
+                case GameKind.ROLL_THE_BALL:
+                    return "LoadingScenePanel_RollTheBall";
+                case GameKind.THROWING_FEEDER:
+                    return "LoadingScenePanel";
+                case GameKind.ATTACK_INVADER:
+                    return "LoadingScenePanel";
+                default:
+                    return "LoadingScenePanel";
+            }
+        }
+
+        private IEnumerator FadeInLoading(GameKind kind)
+        {
+            yield return SceneManager.LoadSceneAsync(LOADING_SCENE_NAME, LoadSceneMode.Additive);
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(LOADING_SCENE_NAME));
+            fadeLoadingCG = GameObject.Find(GetLoadingPanelStringByGameKind(kind)).GetComponent<CanvasGroup>();
             if (fadeLoadingCG != null)
             {
                 fadeLoadingCG.blocksRaycasts = true;

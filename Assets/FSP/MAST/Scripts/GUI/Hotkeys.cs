@@ -12,13 +12,13 @@ namespace MAST
             {
                 // Set change made to false
                 bool changeMade = false;
-
+                
                 // Get current event
                 Event currentEvent = Event.current;
-
+                
                 // Get the control's ID
                 int controlID = GUIUtility.GetControlID(FocusType.Passive);
-
+                
                 // If a key is pressed
                 if (Event.current.GetTypeForControl(controlID) == EventType.KeyDown)
                 {
@@ -31,7 +31,7 @@ namespace MAST
                         MAST.Building.GridManager.ChangeGridVisibility();
                         changeMade = true;
                     }
-
+                    
                     // Move grid up
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.moveGridUpKey,
@@ -40,7 +40,7 @@ namespace MAST
                         MAST.Building.GridManager.MoveGridUp();
                         changeMade = true;
                     }
-
+                    
                     // Move grid down
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.moveGridDownKey,
@@ -49,7 +49,7 @@ namespace MAST
                         MAST.Building.GridManager.MoveGridDown();
                         changeMade = true;
                     }
-
+                    
                     // Deselect prefab in palette or draw tool
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.deselectPrefabKey,
@@ -63,7 +63,7 @@ namespace MAST
                                 MAST.Building.GUI.Palette.RemovePrefabSelection();
                                 changeMade = true;
                                 break;
-
+                                
                             // Paint tab
                             case 1:
                                 // Deselect material in palette and paint tool
@@ -74,7 +74,7 @@ namespace MAST
                                 break;
                         }
                     }
-
+                    
                     // Draw single
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.drawSingleKey,
@@ -89,7 +89,7 @@ namespace MAST
                         else
                         {
                             // If Draw Single was selected, deselect it
-                            if (MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 0)
+                            if(MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 0)
                             {
                                 MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex = -1;
                                 MAST.Building.Interface.ChangePlacementMode(BuildMode.None);
@@ -97,7 +97,7 @@ namespace MAST
                         }
                         changeMade = true;
                     }
-
+                    
                     // Draw Continuous
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.drawContinuousKey,
@@ -112,7 +112,7 @@ namespace MAST
                         else
                         {
                             // If Draw continuous was selected, deselect it
-                            if (MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 1)
+                            if(MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 1)
                             {
                                 MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex = -1;
                                 MAST.Building.Interface.ChangePlacementMode(BuildMode.None);
@@ -120,7 +120,7 @@ namespace MAST
                         }
                         changeMade = true;
                     }
-
+                    
                     // Paint square
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.paintSquareKey,
@@ -135,7 +135,7 @@ namespace MAST
                         else
                         {
                             // If Paint Square was selected, deselect it
-                            if (MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 2)
+                            if(MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 2)
                             {
                                 MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex = -1;
                                 MAST.Building.Interface.ChangePlacementMode(BuildMode.None);
@@ -143,7 +143,7 @@ namespace MAST
                         }
                         changeMade = true;
                     }
-
+                    
                     // Toggle randomizer
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.randomizerKey,
@@ -158,7 +158,7 @@ namespace MAST
                         else
                         {
                             // If Randomizer was selected, deselect it
-                            if (MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 3)
+                            if(MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 3)
                             {
                                 MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex = -1;
                                 MAST.Building.Interface.ChangePlacementMode(BuildMode.None);
@@ -166,7 +166,7 @@ namespace MAST
                         }
                         changeMade = true;
                     }
-
+                    
                     // Toggle erase
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.eraseKey,
@@ -181,7 +181,7 @@ namespace MAST
                         else
                         {
                             // If Erase was selected, deselect it
-                            if (MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 4)
+                            if(MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex == 4)
                             {
                                 MAST.Settings.Data.gui.toolbar.selectedDrawToolIndex = -1;
                                 MAST.Building.Interface.ChangePlacementMode(BuildMode.None);
@@ -189,7 +189,7 @@ namespace MAST
                         }
                         changeMade = true;
                     }
-
+                    
                     // New random seed
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.newRandomSeedKey,
@@ -198,7 +198,7 @@ namespace MAST
                         MAST.Building.Randomizer.GenerateNewRandomSeed();
                         changeMade = true;
                     }
-
+                    
                     // Rotate prefab
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.rotatePrefabKey,
@@ -207,7 +207,7 @@ namespace MAST
                         MAST.Building.Manipulate.RotateObject();
                         changeMade = true;
                     }
-
+                    
                     // Flip prefab
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.flipPrefabKey,
@@ -216,7 +216,7 @@ namespace MAST
                         MAST.Building.Manipulate.FlipObject();
                         changeMade = true;
                     }
-
+                    
                     // Toggle paint material
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.paintMaterialKey,
@@ -230,7 +230,7 @@ namespace MAST
                         else
                         {
                             // If Paint Material was selected, deselect it
-                            if (MAST.Settings.Data.gui.toolbar.selectedPaintToolIndex == 0)
+                            if(MAST.Settings.Data.gui.toolbar.selectedPaintToolIndex == 0)
                             {
                                 MAST.Settings.Data.gui.toolbar.selectedPaintToolIndex = -1;
                                 MAST.Painting.Painter.ClearCurrentMaterialPaintPreview();
@@ -238,7 +238,7 @@ namespace MAST
                         }
                         changeMade = true;
                     }
-
+                    
                     // Toggle restore material
                     if (KeysPressed(currentEvent,
                         MAST.Settings.Data.hotkey.restoreMaterialKey,
@@ -252,7 +252,7 @@ namespace MAST
                         else
                         {
                             // If Restore Material was selected, deselect it
-                            if (MAST.Settings.Data.gui.toolbar.selectedPaintToolIndex == 1)
+                            if(MAST.Settings.Data.gui.toolbar.selectedPaintToolIndex == 1)
                             {
                                 MAST.Settings.Data.gui.toolbar.selectedPaintToolIndex = -1;
                                 MAST.Painting.Painter.ClearCurrentMaterialPaintPreview();
@@ -261,10 +261,10 @@ namespace MAST
                         changeMade = true;
                     }
                 }
-
+                
                 return changeMade;
             }
-
+            
             // All these key methods could be grouped up a lot nicer later using delegates and refs
             private bool KeysPressed(Event currentEvent, KeyCode key, HotkeyModifier mod)
             {
@@ -275,21 +275,21 @@ namespace MAST
                     if (IsModifierPressed(currentEvent, mod))
                         return true;
                 }
-
+                
                 return false;
             }
-
+            
             // Return true if the correct modifier key is held down
             private bool IsModifierPressed(Event currentEvent, HotkeyModifier modifier)
             {
                 // If SHIFT is needed and is held down, return true
                 if (modifier == HotkeyModifier.SHIFT && currentEvent.shift)
                     return true;
-
+                
                 // If SHIFT is not needed and SHIFT is not held down, return true
                 else if (modifier == HotkeyModifier.NONE && !currentEvent.shift)
                     return true;
-
+                
                 return false;
             }
         }
