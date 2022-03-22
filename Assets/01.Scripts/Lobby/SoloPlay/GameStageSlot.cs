@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using Capsule.Entity;
+﻿using Capsule.Entity;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Capsule.Lobby.SoloPlay
 {
     public class GameStageSlot : AbstractSlot
     {
         public GameStage stage;
+        [HideInInspector]
+        public GameStageData data;
         private bool isLocked;
         public bool IsLocked
         {
@@ -20,7 +21,7 @@ namespace Capsule.Lobby.SoloPlay
                 if (value)
                 {
                     slotImage.sprite = SoloPlayManager.Instance.lockedStageSlot;
-                    if(childTransform.TryGetComponent<Text>(out Text stageNumText))
+                    if (childTransform.TryGetComponent<Text>(out Text stageNumText))
                         stageNumText.color = SoloPlayManager.Instance.LockedStageTextColor;
                     else
                     {
@@ -62,12 +63,14 @@ namespace Capsule.Lobby.SoloPlay
         public override void OnPointerEnter(PointerEventData eventData)
         {
             //if (IsLocked || IsSelected) return;
+            SoloPlayManager.Instance.CurrentHoverStageSlot = this;
             base.OnPointerEnter(eventData);
         }
 
         public override void OnPointerExit(PointerEventData eventData)
         {
             //if (IsLocked || IsSelected) return;
+            SoloPlayManager.Instance.CurrentHoverStageSlot = null;
             base.OnPointerExit(eventData);
         }
 

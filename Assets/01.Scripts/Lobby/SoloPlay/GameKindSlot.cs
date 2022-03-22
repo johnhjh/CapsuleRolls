@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using Capsule.Entity;
+﻿using Capsule.Entity;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Capsule.Lobby.SoloPlay
 {
@@ -33,7 +33,7 @@ namespace Capsule.Lobby.SoloPlay
                 canvasGroup.interactable = false;
             StartCoroutine(SetData());
         }
-        
+
         private IEnumerator SetData()
         {
             yield return new WaitForSeconds(1.0f);

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using Capsule.Audio;
+﻿using Capsule.Audio;
 using Capsule.Entity;
-using Capsule.Lobby;
 using Capsule.Lobby.Player;
 using Capsule.SceneLoad;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,15 +41,14 @@ namespace Capsule.Lobby.SoloPlay
         private Button gameBotDifficultyHard;
         private RectTransform gameBotDifficultySelected;
 
+        // Game Kind Select PopUp
         private CanvasGroup gameKindSelectPopupCG;
-        private CanvasGroup gameStageSelectPopupCG;
-
         private GameKindSlot currentKindSlot = null;
         public GameKindSlot CurrentKindSlot
         {
             get { return currentKindSlot; }
-            set 
-            { 
+            set
+            {
                 if (currentKindSlot != null)
                 {
                     currentKindSlot.IsSelected = false;
@@ -60,15 +58,19 @@ namespace Capsule.Lobby.SoloPlay
             }
         }
 
+        // Game Stage Select PopUp
+        private CanvasGroup gameStageSelectPopupCG;
         public Sprite unlockedStageSlot;
         public Sprite lockedStageSlot;
         public Sprite focusedStageSlot;
         private Color lockedStageColor = new Color(0.3921569f, 0.4941176f, 0.5686275f, 1f);
         public Color LockedStageTextColor { get { return lockedStageColor; } }
+        private Text gameStageSelectPopupDetailName;
+        private Image gameStageSelectPopupDetailKindPreview;
 
         private GameStageSlot currentStageSlot = null;
-        public GameStageSlot CurrentStageSlot 
-        { 
+        public GameStageSlot CurrentStageSlot
+        {
             get { return currentStageSlot; }
             set
             {
@@ -78,6 +80,22 @@ namespace Capsule.Lobby.SoloPlay
                     currentStageSlot.CancelSelect();
                 }
                 currentStageSlot = value;
+            }
+        }
+        public GameStageSlot CurrentHoverStageSlot
+        {
+            set
+            {
+                if (value == null)
+                {
+                    gameStageSelectPopupDetailName.text = CurrentStageSlot.data.name;
+                    gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].preview;
+                }
+                else
+                {
+                    gameStageSelectPopupDetailName.text = value.data.name;
+                    gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)value.data.kind].preview;
+                }
             }
         }
 
@@ -130,6 +148,8 @@ namespace Capsule.Lobby.SoloPlay
             // Popups
             gameKindSelectPopupCG = GameObject.Find("Popup_GameKind_Select").GetComponent<CanvasGroup>();
             gameStageSelectPopupCG = GameObject.Find("Popup_GameStage_Select").GetComponent<CanvasGroup>();
+            gameStageSelectPopupDetailName = GameObject.Find("Popup_GameStage_Detail_Name").GetComponent<Text>();
+            gameStageSelectPopupDetailKindPreview = GameObject.Find("Popup_GameStage_Detail_Kind_Preview").GetComponent<Image>();
 
             MainMenuCtrl arcadeButtonCtrl = GameObject.Find("Button_Arcade").GetComponent<MainMenuCtrl>();
             arcadeButtonCtrl.IsSelected = true;
@@ -155,13 +175,14 @@ namespace Capsule.Lobby.SoloPlay
             int nextStage = DataManager.Instance.CurrentPlayerGameData.HighestStage + 1;
             foreach (GameStageSlot slot in stageSlotContents.GetComponentsInChildren<GameStageSlot>())
             {
+                slot.data = DataManager.Instance.GameStageDatas[counter];
                 if (counter == nextStage)
                 {
                     slot.IsLocked = false;
                     slot.SelectSlot();
                     counter++;
                     continue;
-                } 
+                }
                 slot.IsLocked = !DataManager.Instance.CurrentPlayerStageClearData.ClearData[counter];
                 counter++;
             }
@@ -274,9 +295,20 @@ namespace Capsule.Lobby.SoloPlay
             */
         }
 
+        public void OnClickConfirmSelectStage()
+        {
+            if (CurrentStageSlot != null)
+                SelectGameStage(CurrentStageSlot.stage);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
+            gameStageSelectPopupCG.alpha = 0f;
+            gameStageSelectPopupCG.blocksRaycasts = false;
+            gameStageSelectPopupCG.interactable = false;
+        }
+
         public void SelectGameStage(GameStage stage)
         {
-
+            gameData.Stage = stage;
+            gameStageDetailText.text = DataManager.Instance.GameStageDatas[(int)stage].name;
         }
 
         public void OnClickAnyButton()

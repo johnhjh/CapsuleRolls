@@ -51,6 +51,8 @@ namespace Capsule.Entity
     public enum GameMap
     {
         CUSHION = 0,
+        BEACH,
+        LARVA,
     }
 
     public enum AIDifficulty
@@ -69,6 +71,13 @@ namespace Capsule.Entity
             set { mode = value; }
         }
 
+        private GameStage stage;
+        public GameStage Stage
+        {
+            get { return stage; }
+            set { stage = value; }
+        }
+
         private GameKind kind;
         public GameKind Kind
         {
@@ -76,11 +85,11 @@ namespace Capsule.Entity
             set { kind = value; }
         }
 
-        private GameMap stage;
-        public GameMap Stage
+        private GameMap map;
+        public GameMap Map
         {
-            get { return stage; }
-            set { stage = value; }
+            get { return map; }
+            set { map = value; }
         }
 
         private AIDifficulty difficulty;
@@ -113,6 +122,7 @@ namespace Capsule.Entity
         public GameStage stage;
         public string name;
         public string desc;
+        public RewardData[] rewards;
     }
 
     [System.Serializable]
