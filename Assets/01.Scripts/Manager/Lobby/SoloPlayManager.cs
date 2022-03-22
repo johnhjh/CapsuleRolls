@@ -6,245 +6,272 @@ using Capsule.SceneLoad;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoloPlayManager : MonoBehaviour
+namespace Capsule.Lobby.SoloPlay
 {
-    private static SoloPlayManager soloPlayMgr;
-    public static SoloPlayManager Instance
+    public class SoloPlayManager : MonoBehaviour
     {
-        get
+        private static SoloPlayManager soloPlayMgr;
+        public static SoloPlayManager Instance
+        {
+            get
+            {
+                if (soloPlayMgr == null)
+                    soloPlayMgr = FindObjectOfType<SoloPlayManager>();
+                return soloPlayMgr;
+            }
+        }
+
+        private GameData gameData = new GameData();
+        private Text gameModeText;
+        private Text gameModeDetailText;
+        private Text gameKindDetailText;
+        private Image gameKindDetailImage;
+        private Text gameScoreDetailText;
+        private Text gameStageDetailText;
+        private Image gameStageDetailImage;
+        private Text gameHighestStageDetailText;
+
+        private GameObject gameScoreUI;
+        private GameObject gameKindUI;
+        private GameObject gameHighestStageUI;
+        private GameObject gameStageSelectUI;
+        private GameObject gameBotDifficultyUI;
+
+        private Button gameBotDifficultyEasy;
+        private Button gameBotDifficultyMedium;
+        private Button gameBotDifficultyHard;
+        private RectTransform gameBotDifficultySelected;
+
+        private CanvasGroup gameKindSelectPopupCG;
+        private CanvasGroup gameStageSelectPopupCG;
+
+        private GameKindSlot currentKindSlot = null;
+        public GameKindSlot CurrentKindSlot
+        {
+            get { return currentKindSlot; }
+            set 
+            { 
+                if (currentKindSlot != null)
+                {
+                    currentKindSlot.IsSelected = false;
+                    currentKindSlot.CancelSelect();
+                }
+                currentKindSlot = value;
+            }
+        }
+
+        private void Awake()
         {
             if (soloPlayMgr == null)
-                soloPlayMgr = FindObjectOfType<SoloPlayManager>();
-            return soloPlayMgr;
+                soloPlayMgr = this;
+            else if (soloPlayMgr != this)
+                Destroy(this.gameObject);
         }
-    }
 
-    private GameData gameData = new GameData();
-    private Text gameModeText;
-    private Text gameModeDetailText;
-    private Text gameKindDetailText;
-    private Image gameKindDetailImage;
-    private Text gameScoreDetailText;
-    private Text gameStageDetailText;
-    private Image gameStageDetailImage;
-    private Text gameHighestStageDetailText;
-
-    private GameObject gameScoreUI;
-    private GameObject gameKindUI;
-    private GameObject gameHighestStageUI;
-    private GameObject gameStageSelectUI;
-    private GameObject gameBotDifficultyUI;
-
-    private Button gameBotDifficultyEasy;
-    private Button gameBotDifficultyMedium;
-    private Button gameBotDifficultyHard;
-    private RectTransform gameBotDifficultySelected;
-
-    private CanvasGroup gameKindSelectPopupCG;
-    private CanvasGroup gameStageSelectPopupCG;
-
-    private void Awake()
-    {
-        if (soloPlayMgr == null)
-            soloPlayMgr = this;
-        else if (soloPlayMgr != this)
-            Destroy(this.gameObject);
-    }
-
-    private void Start()
-    {
-        BGMManager.Instance.ChangeBGM(BGMType.BATTLE);
-        SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
-        SceneLoadManager.Instance.CurrentScene = LobbySceneType.SOLO;
-        PlayerTransform.Instance.SetPosition(new Vector3(0.07f, -0.4f, -4.34f));
-        PlayerTransform.Instance.SetRotation(Quaternion.Euler(8.2f, 177.6f, 0f));
-        PlayerTransform.Instance.SetScale(1.18f);
-
-        gameModeText = GameObject.Find("GameModeText").GetComponent<Text>();
-        gameModeDetailText = GameObject.Find("GameModeDetailText").GetComponent<Text>();
-        gameKindDetailText = GameObject.Find("GameKindDetailText").GetComponent<Text>();
-        gameKindDetailImage = GameObject.Find("GameKindDetailImage").GetComponent<Image>();
-        gameKindUI = GameObject.Find("GameKindUI");
-        // Arcade
-        gameScoreUI = GameObject.Find("GameScoreUI");
-        gameScoreDetailText = gameScoreUI.transform.GetChild(2).GetComponent<Text>();
-        gameScoreDetailText.text = DataManager.Instance.CurrentPlayerGameData.HighestScore.ToString() + " 점";
-        // Stage
-        gameStageSelectUI = GameObject.Find("GameStageSelectUI");
-        gameStageDetailText = GameObject.Find("GameStageDetailText").GetComponent<Text>();
-        gameStageDetailText.text = DataManager.Instance.GetNextStageString();
-        gameStageDetailImage = GameObject.Find("GameStageDetailImage").GetComponent<Image>();
-        gameHighestStageUI = GameObject.Find("GameHighestStageUI");
-        gameHighestStageDetailText = GameObject.Find("GameHighestStageDetailText").GetComponent<Text>();
-        gameHighestStageDetailText.text = DataManager.Instance.GetHighestStageString();
-        // Bot
-        gameBotDifficultyUI = GameObject.Find("GameBotDifficultyUI");
-        gameBotDifficultySelected = GameObject.Find("GameBotDifficultySelected").GetComponent<RectTransform>();
-        gameBotDifficultyEasy = GameObject.Find("GameBotDifficultyEasy").GetComponent<Button>();
-        gameBotDifficultyEasy.onClick.AddListener(
-            delegate { ChangeAIDifficulty(AIDifficulty.EASY, gameBotDifficultyEasy.transform); });
-        gameBotDifficultyMedium = GameObject.Find("GameBotDifficultyMedium").GetComponent<Button>();
-        gameBotDifficultyMedium.onClick.AddListener(
-            delegate { ChangeAIDifficulty(AIDifficulty.MEDIUM, gameBotDifficultyMedium.transform); });
-        gameBotDifficultyHard = GameObject.Find("GameBotDifficultyHard").GetComponent<Button>();
-        gameBotDifficultyHard.onClick.AddListener(
-            delegate { ChangeAIDifficulty(AIDifficulty.HARD, gameBotDifficultyHard.transform); });
-
-        // Popups
-        gameKindSelectPopupCG = GameObject.Find("Popup_GameKind_Select").GetComponent<CanvasGroup>();
-        gameStageSelectPopupCG = GameObject.Find("Popup_GameStage_Select").GetComponent<CanvasGroup>();
-
-        MainMenuCtrl arcadeButtonCtrl = GameObject.Find("Button_Arcade").GetComponent<MainMenuCtrl>();
-        arcadeButtonCtrl.IsSelected = true;
-        arcadeButtonCtrl.finalAlpha = 1f;
-        arcadeButtonCtrl.finalFontSize = 105f;
-        SelectGameMode(GameMode.ARCADE);
-        SelectGameKind(GameKind.ROLL_THE_BALL);
-    }
-
-    private void ChangeAIDifficulty(AIDifficulty difficulty, Transform parent)
-    {
-        SFXManager.Instance.PlayOneShot(MenuSFX.OK);
-        gameData.Difficulty = difficulty;
-        gameBotDifficultySelected.SetParent(parent);
-        gameBotDifficultySelected.localPosition = new Vector2(100, -50);
-    }
-
-    public void PopupGameKindSelect(bool isOpen)
-    {
-        SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.OK : MenuSFX.BACK);
-        gameKindSelectPopupCG.alpha = isOpen ? 1.0f : 0f;
-        gameKindSelectPopupCG.blocksRaycasts = isOpen;
-        gameKindSelectPopupCG.interactable = isOpen;
-    }
-
-    public void PopupGameStageSelect(bool isOpen)
-    {
-        SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.OK : MenuSFX.BACK);
-        gameStageSelectPopupCG.alpha = isOpen ? 1.0f : 0f;
-        gameStageSelectPopupCG.blocksRaycasts = isOpen;
-        gameStageSelectPopupCG.interactable = isOpen;
-    }
-
-    public void SelectGameMode(GameMode mode)
-    {
-        gameData.Mode = mode;
-        gameModeText.text = DataManager.Instance.gameModeDatas[(int)mode].name;
-        gameModeDetailText.text = DataManager.Instance.gameModeDatas[(int)mode].desc;
-        switch (mode)
+        private void Start()
         {
-            case GameMode.ARCADE:
-                gameKindUI.SetActive(true);
-                gameScoreUI.SetActive(true);
-                gameHighestStageUI.SetActive(false);
-                gameStageSelectUI.SetActive(false);
-                gameBotDifficultyUI.SetActive(false);
-                break;
-            case GameMode.STAGE:
-                gameKindUI.SetActive(false);
-                gameScoreUI.SetActive(false);
-                gameHighestStageUI.SetActive(true);
-                gameStageSelectUI.SetActive(true);
-                gameBotDifficultyUI.SetActive(false);
-                break;
-            case GameMode.PRACTICE:
-                gameKindUI.SetActive(true);
-                gameScoreUI.SetActive(false);
-                gameHighestStageUI.SetActive(false);
-                gameStageSelectUI.SetActive(false);
-                gameBotDifficultyUI.SetActive(false);
-                break;
-            case GameMode.BOT:
-                gameKindUI.SetActive(true);
-                gameScoreUI.SetActive(false);
-                gameHighestStageUI.SetActive(false);
-                gameStageSelectUI.SetActive(false);
-                gameBotDifficultyUI.SetActive(true);
-                break;
-            default:
-                gameKindUI.SetActive(true);
-                gameScoreUI.SetActive(true);
-                gameHighestStageUI.SetActive(false);
-                gameStageSelectUI.SetActive(false);
-                gameBotDifficultyUI.SetActive(false);
-                break;
+            BGMManager.Instance.ChangeBGM(BGMType.BATTLE);
+            SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
+            SceneLoadManager.Instance.CurrentScene = LobbySceneType.SOLO;
+            PlayerTransform.Instance.SetPosition(new Vector3(0.07f, -0.4f, -4.34f));
+            PlayerTransform.Instance.SetRotation(Quaternion.Euler(8.2f, 177.6f, 0f));
+            PlayerTransform.Instance.SetScale(1.18f);
+
+            gameModeText = GameObject.Find("GameModeText").GetComponent<Text>();
+            gameModeDetailText = GameObject.Find("GameModeDetailText").GetComponent<Text>();
+            gameKindDetailText = GameObject.Find("GameKindDetailText").GetComponent<Text>();
+            gameKindDetailImage = GameObject.Find("GameKindDetailImage").GetComponent<Image>();
+            gameKindUI = GameObject.Find("GameKindUI");
+            // Arcade
+            gameScoreUI = GameObject.Find("GameScoreUI");
+            gameScoreDetailText = gameScoreUI.transform.GetChild(2).GetComponent<Text>();
+            gameScoreDetailText.text = DataManager.Instance.CurrentPlayerGameData.HighestScore.ToString() + " 점";
+            // Stage
+            gameStageSelectUI = GameObject.Find("GameStageSelectUI");
+            gameStageDetailText = GameObject.Find("GameStageDetailText").GetComponent<Text>();
+            gameStageDetailText.text = DataManager.Instance.GetNextStageString();
+            gameStageDetailImage = GameObject.Find("GameStageDetailImage").GetComponent<Image>();
+            gameHighestStageUI = GameObject.Find("GameHighestStageUI");
+            gameHighestStageDetailText = GameObject.Find("GameHighestStageDetailText").GetComponent<Text>();
+            gameHighestStageDetailText.text = DataManager.Instance.GetHighestStageString();
+            // Bot
+            gameBotDifficultyUI = GameObject.Find("GameBotDifficultyUI");
+            gameBotDifficultySelected = GameObject.Find("GameBotDifficultySelected").GetComponent<RectTransform>();
+            gameBotDifficultyEasy = GameObject.Find("GameBotDifficultyEasy").GetComponent<Button>();
+            gameBotDifficultyEasy.onClick.AddListener(
+                delegate { ChangeAIDifficulty(AIDifficulty.EASY, gameBotDifficultyEasy.transform); });
+            gameBotDifficultyMedium = GameObject.Find("GameBotDifficultyMedium").GetComponent<Button>();
+            gameBotDifficultyMedium.onClick.AddListener(
+                delegate { ChangeAIDifficulty(AIDifficulty.MEDIUM, gameBotDifficultyMedium.transform); });
+            gameBotDifficultyHard = GameObject.Find("GameBotDifficultyHard").GetComponent<Button>();
+            gameBotDifficultyHard.onClick.AddListener(
+                delegate { ChangeAIDifficulty(AIDifficulty.HARD, gameBotDifficultyHard.transform); });
+
+            // Popups
+            gameKindSelectPopupCG = GameObject.Find("Popup_GameKind_Select").GetComponent<CanvasGroup>();
+            gameStageSelectPopupCG = GameObject.Find("Popup_GameStage_Select").GetComponent<CanvasGroup>();
+
+            MainMenuCtrl arcadeButtonCtrl = GameObject.Find("Button_Arcade").GetComponent<MainMenuCtrl>();
+            arcadeButtonCtrl.IsSelected = true;
+            arcadeButtonCtrl.finalAlpha = 1f;
+            arcadeButtonCtrl.finalFontSize = 105f;
+            SelectGameMode(GameMode.ARCADE);
+            SelectGameKind(GameKind.ROLL_THE_BALL);
         }
 
-    }
-
-    public void SelectGameKind(GameKind kind)
-    {
-        gameData.Kind = kind;
-        gameKindDetailText.text = DataManager.Instance.gameKindDatas[(int)kind].desc;
-        gameKindDetailImage.sprite = DataManager.Instance.gameKindDatas[(int)kind].preview;
-        /*
-        switch (kind)
+        private void ChangeAIDifficulty(AIDifficulty difficulty, Transform parent)
         {
-            case GameKind.ROLL_THE_BALL:
-                gameKindDetailText.text = gameKindRollTheBallDetailText;
-                gameKindDetailImage.sprite = gameKindRollTheBallDetailImage;
-                break;
-            case GameKind.THROWING_FEEDER:
-                gameKindDetailText.text = gameKindThrowingFeederDetailText;
-                gameKindDetailImage.sprite = gameKindThrowingFeederDetailImage;
-                break;
-            case GameKind.ATTACK_INVADER:
-                gameKindDetailText.text = gameKindAttackInvaderDetailText;
-                gameKindDetailImage.sprite = gameKindAttackInvaderDetailImage;
-                break;
-            default:
-                gameKindDetailText.text = gameKindRollTheBallDetailText;
-                gameKindDetailImage.sprite = gameKindRollTheBallDetailImage;
-                break;
+            SFXManager.Instance.PlayOneShot(MenuSFX.OK);
+            gameData.Difficulty = difficulty;
+            gameBotDifficultySelected.SetParent(parent);
+            gameBotDifficultySelected.localPosition = new Vector2(100, -50);
         }
-        */
-    }
 
-    public void SelectGameStage(GameStage stage)
-    {
+        public void PopupGameKindSelect(bool isOpen)
+        {
+            SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.OK : MenuSFX.BACK);
+            gameKindSelectPopupCG.alpha = isOpen ? 1.0f : 0f;
+            gameKindSelectPopupCG.blocksRaycasts = isOpen;
+            gameKindSelectPopupCG.interactable = isOpen;
+        }
 
-    }
+        public void PopupGameStageSelect(bool isOpen)
+        {
+            SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.OK : MenuSFX.BACK);
+            gameStageSelectPopupCG.alpha = isOpen ? 1.0f : 0f;
+            gameStageSelectPopupCG.blocksRaycasts = isOpen;
+            gameStageSelectPopupCG.interactable = isOpen;
+        }
 
-    public void OnClickAnyButton()
-    {
-        SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-    }
+        public void SelectGameMode(GameMode mode)
+        {
+            gameData.Mode = mode;
+            gameModeText.text = DataManager.Instance.gameModeDatas[(int)mode].name;
+            gameModeDetailText.text = DataManager.Instance.gameModeDatas[(int)mode].desc;
+            switch (mode)
+            {
+                case GameMode.ARCADE:
+                    gameKindUI.SetActive(true);
+                    gameScoreUI.SetActive(true);
+                    gameHighestStageUI.SetActive(false);
+                    gameStageSelectUI.SetActive(false);
+                    gameBotDifficultyUI.SetActive(false);
+                    break;
+                case GameMode.STAGE:
+                    gameKindUI.SetActive(false);
+                    gameScoreUI.SetActive(false);
+                    gameHighestStageUI.SetActive(true);
+                    gameStageSelectUI.SetActive(true);
+                    gameBotDifficultyUI.SetActive(false);
+                    break;
+                case GameMode.PRACTICE:
+                    gameKindUI.SetActive(true);
+                    gameScoreUI.SetActive(false);
+                    gameHighestStageUI.SetActive(false);
+                    gameStageSelectUI.SetActive(false);
+                    gameBotDifficultyUI.SetActive(false);
+                    break;
+                case GameMode.BOT:
+                    gameKindUI.SetActive(true);
+                    gameScoreUI.SetActive(false);
+                    gameHighestStageUI.SetActive(false);
+                    gameStageSelectUI.SetActive(false);
+                    gameBotDifficultyUI.SetActive(true);
+                    break;
+                default:
+                    gameKindUI.SetActive(true);
+                    gameScoreUI.SetActive(true);
+                    gameHighestStageUI.SetActive(false);
+                    gameStageSelectUI.SetActive(false);
+                    gameBotDifficultyUI.SetActive(false);
+                    break;
+            }
+        }
 
-    public void OnClickButtonArcade()
-    {
-        OnClickAnyButton();
-        SelectGameMode(GameMode.ARCADE);
-    }
+        public void OnClickConfirmSelectKind()
+        {
+            if (CurrentKindSlot != null)
+                SelectGameKind(CurrentKindSlot.kind);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
+            gameKindSelectPopupCG.alpha = 0f;
+            gameKindSelectPopupCG.blocksRaycasts = false;
+            gameKindSelectPopupCG.interactable = false;
+        }
 
-    public void OnClickButtonStage()
-    {
-        OnClickAnyButton();
-        SelectGameMode(GameMode.STAGE);
-    }
+        public void SelectGameKind(GameKind kind)
+        {
+            gameData.Kind = kind;
+            gameKindDetailText.text = DataManager.Instance.gameKindDatas[(int)kind].desc;
+            gameKindDetailImage.sprite = DataManager.Instance.gameKindDatas[(int)kind].preview;
+            /*
+            switch (kind)
+            {
+                case GameKind.ROLL_THE_BALL:
+                    gameKindDetailText.text = gameKindRollTheBallDetailText;
+                    gameKindDetailImage.sprite = gameKindRollTheBallDetailImage;
+                    break;
+                case GameKind.THROWING_FEEDER:
+                    gameKindDetailText.text = gameKindThrowingFeederDetailText;
+                    gameKindDetailImage.sprite = gameKindThrowingFeederDetailImage;
+                    break;
+                case GameKind.ATTACK_INVADER:
+                    gameKindDetailText.text = gameKindAttackInvaderDetailText;
+                    gameKindDetailImage.sprite = gameKindAttackInvaderDetailImage;
+                    break;
+                default:
+                    gameKindDetailText.text = gameKindRollTheBallDetailText;
+                    gameKindDetailImage.sprite = gameKindRollTheBallDetailImage;
+                    break;
+            }
+            */
+        }
 
-    public void OnClickButtonPractice()
-    {
-        OnClickAnyButton();
-        SelectGameMode(GameMode.PRACTICE);
-    }
+        public void SelectGameStage(GameStage stage)
+        {
 
-    public void OnClickButtonBot()
-    {
-        OnClickAnyButton();
-        SelectGameMode(GameMode.BOT);
-    }
+        }
 
-    public void StartSoloGame()
-    {
-        Destroy(UserInfoManager.Instance.gameObject);
-        SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
-        StartCoroutine(SceneLoadManager.Instance.LoadGameScene(gameData));
-    }
+        public void OnClickAnyButton()
+        {
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
+        }
 
-    public void BackToMainLobby()
-    {
-        Destroy(UserInfoManager.Instance.gameObject);
-        SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
-        StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.MAIN_LOBBY, true));
+        public void OnClickButtonArcade()
+        {
+            OnClickAnyButton();
+            SelectGameMode(GameMode.ARCADE);
+        }
+
+        public void OnClickButtonStage()
+        {
+            OnClickAnyButton();
+            SelectGameMode(GameMode.STAGE);
+        }
+
+        public void OnClickButtonPractice()
+        {
+            OnClickAnyButton();
+            SelectGameMode(GameMode.PRACTICE);
+        }
+
+        public void OnClickButtonBot()
+        {
+            OnClickAnyButton();
+            SelectGameMode(GameMode.BOT);
+        }
+
+        public void StartSoloGame()
+        {
+            Destroy(UserInfoManager.Instance.gameObject);
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
+            StartCoroutine(SceneLoadManager.Instance.LoadGameScene(gameData));
+        }
+
+        public void BackToMainLobby()
+        {
+            Destroy(UserInfoManager.Instance.gameObject);
+            SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
+            StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.MAIN_LOBBY, true));
+        }
     }
 }

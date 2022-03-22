@@ -89,12 +89,6 @@ namespace Capsule.Audio
             bgmAudioSource.Play();
         }
 
-        public void PlayGameOver()
-        {
-            bgmAudioSource.Stop();
-            bgmAudioSource.PlayOneShot(GetBGMAudioClip(BGMType.GAMEOVER));
-        }
-
         public void SetVolume(float volume)
         {
             bgmAudioSource.volume = volume;

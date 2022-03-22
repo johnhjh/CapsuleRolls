@@ -1,4 +1,5 @@
 ﻿using Capsule.Entity;
+using UnityEngine;
 
 namespace Capsule.Game.Player
 {
@@ -21,6 +22,16 @@ namespace Capsule.Game.Player
             if (isMine)
             {
                 data = DataManager.Instance.CurrentPlayerCustomizeData;
+                PlayerCustomizeInit();
+            }
+            else
+            {
+                data = new PlayerCustomizeData(
+                    Random.Range(1, (int)CustomizingBody.STAR),
+                    Random.Range(1, (int)CustomizingHead.OUTLAW),
+                    Random.Range(1, (int)CustomizingFace.SANTA),
+                    Random.Range(1, (int)CustomizingGlove.HOOK),
+                    Random.Range(1, (int)CustomizingCloth.SANTA));
                 PlayerCustomizeInit();
             }
             if (isRagdoll)

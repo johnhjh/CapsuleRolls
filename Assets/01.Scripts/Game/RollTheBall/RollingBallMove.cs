@@ -65,7 +65,7 @@ namespace Capsule.Game.RollTheBall
                 playerTransform.Translate(playerMoveSpeed * Time.deltaTime * moveDir, Space.World);
             else
             {
-                if (playerInput.GetInputMovePower() > 0.2f)
+                if (playerInput.GetInputMovePower() > 0.2f && ballRigidbody.velocity.sqrMagnitude > 0.2f)
                     PlayerAudioPlay(SFXManager.Instance.GetAudioClip(GameSFX.MOVE), Random.Range(0.3f, 0.4f));
                 if (ballRigidbody.velocity.sqrMagnitude <= MAX_BALL_SPEED)
                     ballRigidbody.velocity += ballMoveSpeed * Time.deltaTime * moveDir;

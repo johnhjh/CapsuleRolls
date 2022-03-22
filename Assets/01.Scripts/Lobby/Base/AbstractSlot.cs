@@ -36,7 +36,7 @@ namespace Capsule.Lobby
         private float curAlpha;
         private Coroutine hoverCoroutine = null;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
             curAlpha = MIN_ALPHA;
