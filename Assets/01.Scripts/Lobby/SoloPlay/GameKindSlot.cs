@@ -18,8 +18,8 @@ namespace Capsule.Lobby.SoloPlay
         {
             base.Awake();
             hoverImage = transform.GetChild(3).GetComponent<Image>();
-            hoverImage.color = new Color(1f, 1f, 1f, 0f);
             selectImage = transform.GetChild(4).GetComponent<Image>();
+            hoverImage.color = new Color(1f, 1f, 1f, 0f);
             selectImage.color = new Color(1f, 1f, 1f, 0f);
         }
 
@@ -75,6 +75,5 @@ namespace Capsule.Lobby.SoloPlay
         {
             selectImage.color = new Color(1f, 1f, 1f, 0f);
         }
-
     }
 }

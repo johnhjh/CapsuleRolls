@@ -22,24 +22,25 @@ namespace Capsule.Entity
     public enum GameStage
     {
         TUTORIAL_1 = 0,
-        TUTORIAL_2,
-        TUTORIAL_3,
         STAGE_1,
+        TUTORIAL_2,
         STAGE_2,
+        TUTORIAL_3,
         STAGE_3,
         STAGE_4,
+        STAGE_ALL_CLEAR,
         STAGE_5,
         STAGE_6,
         STAGE_7,
         STAGE_8,
         STAGE_9,
         STAGE_10,
-        STAGE_ALL_CLEAR,
     }
 
     public enum RewardKind
     {
         COIN = 0,
+        EXP,
         CUSTOMIZING_BODY,
         CUSTOMIZING_HEAD,
         CUSTOMIZING_FACE,
@@ -108,8 +109,8 @@ namespace Capsule.Entity
     [System.Serializable]
     public class GameStageData
     {
+        public GameKind kind;
         public GameStage stage;
-        public Sprite preview;
         public string name;
         public string desc;
     }
@@ -118,8 +119,9 @@ namespace Capsule.Entity
     public class RewardData
     {
         public RewardKind kind;
-        public int reward;
+        public int amount;
         public Sprite preview;
+        public bool onlyOnce;
     }
 }
 

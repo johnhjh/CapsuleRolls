@@ -357,6 +357,56 @@ namespace Capsule.Entity
         }
     }
 
+    public class PlayerStageClearData
+    {
+        private List<bool> playerStageClearData;
+        public List<bool> ClearData
+        {
+            get { return playerStageClearData; }
+            private set { playerStageClearData = value; }
+        }
+        public PlayerStageClearData()
+        {
+            LoadPlayerStageClearData();
+        }
+
+        private void LoadPlayerStageClearData()
+        {
+            ClearData = new List<bool>();
+            for (int i = 0; i < (int)GameStage.STAGE_ALL_CLEAR; i++)
+            {
+                if (PlayerPrefs.GetInt("Stage" + i.ToString(), 0) == 0)
+                    ClearData.Add(false);
+                else
+                    ClearData.Add(true);
+            }
+        }
+
+        public void StageClear(int stageNum)
+        {
+            string savedStage = "Stage" + stageNum.ToString();
+            PlayerPrefs.SetInt(savedStage, PlayerPrefs.GetInt(savedStage, 0) + 1);
+
+            if (stageNum > PlayerPrefs.GetInt("HighestStage", 0))
+                PlayerPrefs.SetInt("HighestStage", stageNum);
+        }
+
+        public void StageClear(GameStage stage)
+        {
+            StageClear(((int)stage));
+        }
+
+        public void ResetPlayerStageClearData()
+        {
+            for (int i = 0; i < ClearData.Count; i++)
+            {
+                PlayerPrefs.SetInt("Stage" + i.ToString(), 0);
+                ClearData[i] = false;
+            }
+            PlayerPrefs.SetInt("HighestStage", -1);
+        }
+    }
+
     public class PlayerGameData
     {
         private int highestScore;

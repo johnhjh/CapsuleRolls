@@ -28,6 +28,7 @@ namespace Capsule.Entity
                 CurrentPlayerCustomizeItemOpenData = new PlayerCustomizeItemOpenData();
                 CurrentPlayerCustomizeData = new PlayerCustomizeData();
                 CurrentPlayerGameData = new PlayerGameData();
+                CurrentPlayerStageClearData = new PlayerStageClearData();
                 DontDestroyOnLoad(this.gameObject);
             }
             else if (dataMgr != this)
@@ -41,6 +42,7 @@ namespace Capsule.Entity
             CurrentPlayerCustomizeItemOpenData.ResetPlayerCustomizeItemOpenData();
             CurrentPlayerCustomizeData.ResetPlayerCustomizeData();
             CurrentPlayerGameData.ResetPlayerGameData();
+            CurrentPlayerStageClearData.ResetPlayerStageClearData();
         }
 
         public List<CustomizingBodyData> customizingBodyDatas;
@@ -323,6 +325,12 @@ namespace Capsule.Entity
             get { return currentPlayerGameData; }
             private set { currentPlayerGameData = value; }
         }
+        private PlayerStageClearData currentPlayerStageClearData = null;
+        public PlayerStageClearData CurrentPlayerStageClearData
+        {
+            get { return currentPlayerStageClearData; }
+            private set { currentPlayerStageClearData = value; }
+        }
 
         public List<GameModeData> gameModeDatas = new List<GameModeData>()
         {
@@ -392,7 +400,7 @@ namespace Capsule.Entity
             }
         };
 
-        public List<GameStageData> gameStageDatas = new List<GameStageData>()
+        private List<GameStageData> gameStageDatas = new List<GameStageData>()
         {
             new GameStageData()
             {
@@ -401,23 +409,23 @@ namespace Capsule.Entity
             },
             new GameStageData()
             {
-                stage = GameStage.TUTORIAL_2,
-                name = "튜토리얼 2",
-            },
-            new GameStageData()
-            {
-                stage = GameStage.TUTORIAL_3,
-                name = "튜토리얼 3",
-            },
-            new GameStageData()
-            {
                 stage = GameStage.STAGE_1,
                 name = "스테이지 1",
             },
             new GameStageData()
             {
+                stage = GameStage.TUTORIAL_2,
+                name = "튜토리얼 2",
+            },
+            new GameStageData()
+            {
                 stage = GameStage.STAGE_2,
                 name = "스테이지 2",
+            },
+            new GameStageData()
+            {
+                stage = GameStage.TUTORIAL_3,
+                name = "튜토리얼 3",
             },
             new GameStageData()
             {

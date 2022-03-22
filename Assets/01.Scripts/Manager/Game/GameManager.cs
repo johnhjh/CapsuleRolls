@@ -9,7 +9,7 @@ namespace Capsule.Game
     public class GameNameData
     {
         public readonly string NAME_GAME_OBJECTS = "GameObjects";
-        public readonly string NAEM_ROLLING_BALL = "RollingBall";
+        public readonly string NAME_ROLLING_BALL = "RollingBall";
     }
 
     public class GameTagData
@@ -22,6 +22,7 @@ namespace Capsule.Game
         public readonly string TAG_GOAL_POST = "GoalPost";
         public readonly string TAG_GOAL_IN = "GoalInTrigger";
         public readonly string TAG_BARRICADE = "Barricade";
+        public readonly string TAG_DEAD_ZONE = "DeadZone";
     }
     public class GameAnimData
     {

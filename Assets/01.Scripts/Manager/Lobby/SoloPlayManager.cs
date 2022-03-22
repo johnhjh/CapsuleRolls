@@ -1,4 +1,5 @@
-﻿using Capsule.Audio;
+﻿using System.Collections;
+using Capsule.Audio;
 using Capsule.Entity;
 using Capsule.Lobby;
 using Capsule.Lobby.Player;
@@ -28,7 +29,6 @@ namespace Capsule.Lobby.SoloPlay
         private Image gameKindDetailImage;
         private Text gameScoreDetailText;
         private Text gameStageDetailText;
-        private Image gameStageDetailImage;
         private Text gameHighestStageDetailText;
 
         private GameObject gameScoreUI;
@@ -57,6 +57,27 @@ namespace Capsule.Lobby.SoloPlay
                     currentKindSlot.CancelSelect();
                 }
                 currentKindSlot = value;
+            }
+        }
+
+        public Sprite unlockedStageSlot;
+        public Sprite lockedStageSlot;
+        public Sprite focusedStageSlot;
+        private Color lockedStageColor = new Color(0.3921569f, 0.4941176f, 0.5686275f, 1f);
+        public Color LockedStageTextColor { get { return lockedStageColor; } }
+
+        private GameStageSlot currentStageSlot = null;
+        public GameStageSlot CurrentStageSlot 
+        { 
+            get { return currentStageSlot; }
+            set
+            {
+                if (currentStageSlot != null)
+                {
+                    currentStageSlot.IsSelected = false;
+                    currentStageSlot.CancelSelect();
+                }
+                currentStageSlot = value;
             }
         }
 
@@ -90,7 +111,6 @@ namespace Capsule.Lobby.SoloPlay
             gameStageSelectUI = GameObject.Find("GameStageSelectUI");
             gameStageDetailText = GameObject.Find("GameStageDetailText").GetComponent<Text>();
             gameStageDetailText.text = DataManager.Instance.GetNextStageString();
-            gameStageDetailImage = GameObject.Find("GameStageDetailImage").GetComponent<Image>();
             gameHighestStageUI = GameObject.Find("GameHighestStageUI");
             gameHighestStageDetailText = GameObject.Find("GameHighestStageDetailText").GetComponent<Text>();
             gameHighestStageDetailText.text = DataManager.Instance.GetHighestStageString();
@@ -115,8 +135,36 @@ namespace Capsule.Lobby.SoloPlay
             arcadeButtonCtrl.IsSelected = true;
             arcadeButtonCtrl.finalAlpha = 1f;
             arcadeButtonCtrl.finalFontSize = 105f;
+
+            GameKindSlot kindSlot = GameObject.Find("Game_Kind_List").transform.GetChild(0).GetComponent<GameKindSlot>();
+            kindSlot.SelectSlot();
+
+            gameData.Difficulty = AIDifficulty.EASY;
+
             SelectGameMode(GameMode.ARCADE);
             SelectGameKind(GameKind.ROLL_THE_BALL);
+
+            StartCoroutine(InitStageSlots());
+        }
+
+        private IEnumerator InitStageSlots()
+        {
+            yield return new WaitForSeconds(1.0f);
+            int counter = 0;
+            Transform stageSlotContents = GameObject.Find("StageSlotContents").transform;
+            int nextStage = DataManager.Instance.CurrentPlayerGameData.HighestStage + 1;
+            foreach (GameStageSlot slot in stageSlotContents.GetComponentsInChildren<GameStageSlot>())
+            {
+                if (counter == nextStage)
+                {
+                    slot.IsLocked = false;
+                    slot.SelectSlot();
+                    counter++;
+                    continue;
+                } 
+                slot.IsLocked = !DataManager.Instance.CurrentPlayerStageClearData.ClearData[counter];
+                counter++;
+            }
         }
 
         private void ChangeAIDifficulty(AIDifficulty difficulty, Transform parent)
