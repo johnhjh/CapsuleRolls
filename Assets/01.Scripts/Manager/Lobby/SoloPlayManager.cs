@@ -67,6 +67,9 @@ namespace Capsule.Lobby.SoloPlay
         public Color LockedStageTextColor { get { return lockedStageColor; } }
         private Text gameStageSelectPopupDetailName;
         private Image gameStageSelectPopupDetailKindPreview;
+        private Text gameStageSelectPopupDetailKindDesc;
+        private Text gameStageSelectPopupDetailDesc;
+        //private RewardCtrl gameStageSelectPopupDetailReward;
 
         private GameStageSlot currentStageSlot = null;
         public GameStageSlot CurrentStageSlot
@@ -80,22 +83,29 @@ namespace Capsule.Lobby.SoloPlay
                     currentStageSlot.CancelSelect();
                 }
                 currentStageSlot = value;
+                SetGameStageSelectPopupDetail(value);
             }
         }
         public GameStageSlot CurrentHoverStageSlot
         {
-            set
+            set { SetGameStageSelectPopupDetail(value); }
+        }
+
+        public void SetGameStageSelectPopupDetail(GameStageSlot stageSlot)
+        {
+            if (stageSlot == null)
             {
-                if (value == null)
-                {
-                    gameStageSelectPopupDetailName.text = CurrentStageSlot.data.name;
-                    gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].preview;
-                }
-                else
-                {
-                    gameStageSelectPopupDetailName.text = value.data.name;
-                    gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)value.data.kind].preview;
-                }
+                gameStageSelectPopupDetailName.text = CurrentStageSlot.data.name;
+                gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].preview;
+                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].desc;
+                gameStageSelectPopupDetailDesc.text = CurrentStageSlot.data.desc;
+            }
+            else
+            {
+                gameStageSelectPopupDetailName.text = stageSlot.data.name;
+                gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].preview;
+                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].desc;
+                gameStageSelectPopupDetailDesc.text = stageSlot.data.desc;
             }
         }
 
@@ -150,6 +160,8 @@ namespace Capsule.Lobby.SoloPlay
             gameStageSelectPopupCG = GameObject.Find("Popup_GameStage_Select").GetComponent<CanvasGroup>();
             gameStageSelectPopupDetailName = GameObject.Find("Popup_GameStage_Detail_Name").GetComponent<Text>();
             gameStageSelectPopupDetailKindPreview = GameObject.Find("Popup_GameStage_Detail_Kind_Preview").GetComponent<Image>();
+            gameStageSelectPopupDetailKindDesc = GameObject.Find("Popup_GameStage_Detail_Kind_Desc").GetComponent<Text>();
+            gameStageSelectPopupDetailDesc = GameObject.Find("Popup_GameStage_Detail_Desc").GetComponent<Text>();
 
             MainMenuCtrl arcadeButtonCtrl = GameObject.Find("Button_Arcade").GetComponent<MainMenuCtrl>();
             arcadeButtonCtrl.IsSelected = true;

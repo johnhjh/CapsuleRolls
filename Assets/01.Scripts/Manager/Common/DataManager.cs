@@ -404,56 +404,75 @@ namespace Capsule.Entity
         {
             new GameStageData()
             {
+                kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.TUTORIAL_1,
                 name = "튜토리얼 1",
+                desc = "[공 굴려서 골인~!]의 기본적인 조작을 배워보자!",
             },
             new GameStageData()
             {
+                kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.STAGE_1,
                 name = "스테이지 1",
+                desc = "장애물을 돌파해 클리어하자!",
             },
             new GameStageData()
             {
+                kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.TUTORIAL_2,
                 name = "튜토리얼 2",
+                desc = "[공 굴려서 골인~!]의 특별한 조작을 배워보자!",
             },
             new GameStageData()
             {
+                kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.STAGE_2,
                 name = "스테이지 2",
+                desc = "장애물을 돌파해 클리어하자!",
             },
             new GameStageData()
             {
+                kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.TUTORIAL_3,
                 name = "튜토리얼 3",
+                desc = "[공 굴려서 골인~!]의 도움이 될 테크닉을 배워보자!",
             },
             new GameStageData()
             {
+                kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.STAGE_3,
                 name = "스테이지 3",
+                desc = "지금까지 배운걸 최대한 활용해보자!",
             },
             new GameStageData()
             {
+                kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.STAGE_4,
                 name = "스테이지 4",
+                desc = "지금까지 배운걸 최대한 활용해보자!",
             },
             new GameStageData()
             {
+                kind = GameKind.ATTACK_INVADER,
                 stage = GameStage.STAGE_5,
                 name = "스테이지 5",
+                desc = "[CapsuleFights]의 기본적인 조작을 배워보자!",
             },
             new GameStageData()
             {
+                kind = GameKind.ATTACK_INVADER,
                 stage = GameStage.STAGE_6,
                 name = "스테이지 6",
             },
             new GameStageData()
             {
+                kind = GameKind.ATTACK_INVADER,
                 stage = GameStage.STAGE_7,
                 name = "스테이지 7",
             },
             new GameStageData()
             {
+                kind = GameKind.ATTACK_INVADER,
                 stage = GameStage.STAGE_8,
                 name = "스테이지 8",
             },
