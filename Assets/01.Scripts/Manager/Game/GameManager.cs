@@ -2,6 +2,7 @@
 using Capsule.Entity;
 using Capsule.Game.UI;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -92,7 +93,8 @@ namespace Capsule.Game
 
         public event Action OnAddScoreTeamA;
         public event Action OnAddScoreTeamB;
-        public event Action OnClearStage;
+        public event Action OnStageClear;
+        public event Action OnStageFailure;
         public event Action OnStartGame;
 
         private void Awake()
@@ -117,6 +119,8 @@ namespace Capsule.Game
             }
             SFXManager.Instance.PlayOneShot(Announcements.READY);
             SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
+            if (GameUIManager.Instance != null)
+                GameUIManager.Instance.IsLoading = false;
             if (OnStartGame != null)
                 OnStartGame();
         }
@@ -177,8 +181,34 @@ namespace Capsule.Game
         {
             SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             SFXManager.Instance.PlayOneShot(Announcements.CLEAR);
-            if (OnClearStage != null)
-                OnClearStage();
+            if (OnStageClear != null)
+                OnStageClear();
+            DataManager.Instance.CurrentPlayerStageClearData.StageClear(CurrentGameData.Stage);
+            DataManager.Instance.CurrentPlayerGameData.PlayerStagePlayed((int)CurrentGameData.Stage, true);
+            StartCoroutine(PopupClearUI());
+        }
+
+        public void StageFailure()
+        {
+            if (OnStageFailure != null)
+                OnStageFailure();
+            DataManager.Instance.CurrentPlayerGameData.PlayerStagePlayed((int)CurrentGameData.Stage, false);
+            StartCoroutine(PopupFailureUI());
+        }
+
+        private IEnumerator PopupClearUI()
+        {
+            yield return new WaitForSeconds(3.0f);
+            SFXManager.Instance.PlayOneShot(Announcements.CONGRAT);
+            if (GameUIManager.Instance != null)
+                GameUIManager.Instance.OnStageClear();
+        }
+
+        private IEnumerator PopupFailureUI()
+        {
+            yield return new WaitForSeconds(3.0f);
+            if (GameUIManager.Instance != null)
+                GameUIManager.Instance.OnStageFailure();
         }
 
         public void AddScore(bool isTeamA, int newScore)

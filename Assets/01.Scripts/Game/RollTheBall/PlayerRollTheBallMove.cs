@@ -62,6 +62,7 @@ namespace Capsule.Game.RollTheBall
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
             GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
             GameManager.Instance.OnAddScoreTeamB += OnEnemyGoal;
+            GameManager.Instance.OnStageClear += PlayVictoryAnim;
         }
 
         protected override void Update()
@@ -277,12 +278,8 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlayOneShot(Crowds.GROAN);
                 BGMManager.Instance.ChangeBGM(BGMType.GAMEOVER);
             }
-            /*
-            GameObject newGameObj = GameManager.Instance.GetNewGameObj(true, true);
-            newGameObj.AddComponent<RollingBallCtrl>();
-            transform.parent.GetChild(2).GetComponent<RollingBallRotate>().BallParent = newGameObj.transform;
-            */
             ragdollController.ChangeRagdoll(true);
+            GameManager.Instance.StageFailure();
         }
 
         private void GotHitBySomething(Collision coll)

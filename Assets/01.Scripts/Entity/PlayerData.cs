@@ -437,7 +437,6 @@ namespace Capsule.Entity
             private set
             {
                 highestStage = value;
-                PlayerPrefs.SetInt("HighestStage", value);
             }
         }
         public int CurrentWins
@@ -543,9 +542,10 @@ namespace Capsule.Entity
                 HighestScore = score;
         }
 
-        public void PlayerStage(int stage)
+        public void PlayerStagePlayed(int stage, bool isCleared)
         {
-            if (stage > HighestStage)
+            PlayerSoloPlay();
+            if (isCleared && stage > HighestStage)
                 HighestStage = stage;
         }
 
