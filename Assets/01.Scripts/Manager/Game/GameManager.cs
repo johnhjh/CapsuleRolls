@@ -67,6 +67,8 @@ namespace Capsule.Game
 
         private void Awake()
         {
+            if (AudioListenerManager.Instance != null)
+                Destroy(AudioListenerManager.Instance.gameObject);
             if (gameMgr == null)
                 gameMgr = this;
             else if (gameMgr != this)
@@ -76,10 +78,11 @@ namespace Capsule.Game
         private void Start()
         {
             // 플레이어 생성 위치 들어갈 자리
+            currentGameData = DataManager.Instance.CurrentGameData;
+
             BGMManager.Instance.ChangeBGM(BGMType.ARCADE);
             SFXManager.Instance.PlayOneShot(Announcements.READY);
             SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
-            currentGameData = DataManager.Instance.CurrentGameData;
         }
 
         private void Update()

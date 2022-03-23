@@ -97,14 +97,14 @@ namespace Capsule.Lobby.SoloPlay
             {
                 gameStageSelectPopupDetailName.text = CurrentStageSlot.data.name;
                 gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].preview;
-                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].desc;
+                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].name;
                 gameStageSelectPopupDetailDesc.text = CurrentStageSlot.data.desc;
             }
             else
             {
                 gameStageSelectPopupDetailName.text = stageSlot.data.name;
                 gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].preview;
-                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].desc;
+                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].name;
                 gameStageSelectPopupDetailDesc.text = stageSlot.data.desc;
             }
         }
@@ -282,7 +282,7 @@ namespace Capsule.Lobby.SoloPlay
         public void SelectGameKind(GameKind kind)
         {
             gameData.Kind = kind;
-            gameKindDetailText.text = DataManager.Instance.gameKindDatas[(int)kind].desc;
+            gameKindDetailText.text = DataManager.Instance.gameKindDatas[(int)kind].name;
             gameKindDetailImage.sprite = DataManager.Instance.gameKindDatas[(int)kind].preview;
             /*
             switch (kind)
@@ -354,7 +354,9 @@ namespace Capsule.Lobby.SoloPlay
 
         public void StartSoloGame()
         {
+            Destroy(GameObject.Find("Player"));
             Destroy(UserInfoManager.Instance.gameObject);
+            DataManager.Instance.CurrentGameData = gameData;
             SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             StartCoroutine(SceneLoadManager.Instance.LoadGameScene(gameData));
         }

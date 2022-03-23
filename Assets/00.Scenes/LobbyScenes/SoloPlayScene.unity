@@ -3116,12 +3116,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6394963416376359763, guid: 73fd3a26c38d2b444989e5fa7fd986c0,
-        type: 3}
-      propertyPath: gameKindDatas.Array.data[0].preview
-      value: 
-      objectReference: {fileID: 21300000, guid: e0831e7a87ccacd4b9419d372c1e14c2,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73fd3a26c38d2b444989e5fa7fd986c0, type: 3}
 --- !u!1 &374332221
@@ -15006,8 +15000,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClickSaveBtn
+      - m_Target: {fileID: 2099911974}
+        m_MethodName: StartSoloGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -40887,7 +40881,7 @@ PrefabInstance:
     - target: {fileID: 7626195756239086253, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 739.55975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7626195756239086253, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}
@@ -40912,7 +40906,7 @@ PrefabInstance:
     - target: {fileID: 7626195756425673949, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 739.55975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7626195756425673949, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}
@@ -41112,7 +41106,7 @@ PrefabInstance:
     - target: {fileID: 7626195757776422859, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 739.55975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7626195757776422859, guid: 319ce78aff1a5254b8e54182bc875144,
         type: 3}

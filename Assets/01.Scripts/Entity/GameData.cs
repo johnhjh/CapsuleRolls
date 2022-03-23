@@ -112,6 +112,7 @@ namespace Capsule.Entity
     {
         public GameKind kind;
         public Sprite preview;
+        public string name;
         public string desc;
     }
 

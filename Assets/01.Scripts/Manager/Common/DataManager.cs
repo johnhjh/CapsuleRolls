@@ -384,19 +384,22 @@ namespace Capsule.Entity
             {
                 kind = GameKind.ROLL_THE_BALL,
                 preview = null,
-                desc = "공 굴려서 골인~!"
+                name = "공 굴려서 골인~!",
+                desc = "골을 더 많이 넣으면 승리!!\n장애물을 피해 골대까지 굴러가자!\n점프로 상대팀을 저지하자!"
             },
             new GameKindData ()
             {
                 kind = GameKind.THROWING_FEEDER,
                 preview = null,
-                desc = "먹이를 던져주자~!"
+                name = "먹이를 던져주자~!",
+                desc = "먹이를 더 많이 먹이면 승리!!\n과일이 아니면 싫어한다구!\n과일이 아니면 상대팀한테 던지자!"
             },
             new GameKindData ()
             {
                 kind = GameKind.ATTACK_INVADER,
                 preview = null,
-                desc = "침략자를 막자~!"
+                name = "침략자를 막자~!",
+                desc = "침략자를 더 많이 막으면 승리!!\n무기는 죽을 때 마다 계속 바뀐다구!\n상대팀도 공격해서 방해하자!"
             }
         };
 

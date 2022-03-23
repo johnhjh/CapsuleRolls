@@ -10107,6 +10107,11 @@ PrefabInstance:
       propertyPath: isMine
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3805706594890608558, guid: 44f874af50699ec4ab904fd2417e01c6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4565102304244039914, guid: 44f874af50699ec4ab904fd2417e01c6,
         type: 3}
       propertyPath: spine

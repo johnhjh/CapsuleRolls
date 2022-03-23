@@ -19,20 +19,22 @@ namespace Capsule.Entity
 
     public static class LevelExpCalc
     {
-        private static List<int> levelExpList;
+        private readonly static List<int> levelExpList;
 
         static LevelExpCalc()
         {
-            levelExpList = new List<int>();
-            levelExpList.Add((int)LevelExp.LEVEL_1);
-            levelExpList.Add((int)LevelExp.LEVEL_2);
-            levelExpList.Add((int)LevelExp.LEVEL_3);
-            levelExpList.Add((int)LevelExp.LEVEL_4);
-            levelExpList.Add((int)LevelExp.LEVEL_5);
-            levelExpList.Add((int)LevelExp.LEVEL_6);
-            levelExpList.Add((int)LevelExp.LEVEL_7);
-            levelExpList.Add((int)LevelExp.LEVEL_8);
-            levelExpList.Add((int)LevelExp.LEVEL_9);
+            levelExpList = new List<int>
+            {
+                (int)LevelExp.LEVEL_1,
+                (int)LevelExp.LEVEL_2,
+                (int)LevelExp.LEVEL_3,
+                (int)LevelExp.LEVEL_4,
+                (int)LevelExp.LEVEL_5,
+                (int)LevelExp.LEVEL_6,
+                (int)LevelExp.LEVEL_7,
+                (int)LevelExp.LEVEL_8,
+                (int)LevelExp.LEVEL_9
+            };
         }
 
         public static int GetExpData(int level)
