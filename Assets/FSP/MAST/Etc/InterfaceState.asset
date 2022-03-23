@@ -15,9 +15,9 @@ MonoBehaviour:
   selectedInterfaceTab: 0
   gridExists: 1
   previousBuildToolIndex: -1
-  selectedBuildToolIndex: 0
-  selectedPrefabIndex: 90
-  prefabPath: Assets/FSP/KayKitModels
+  selectedBuildToolIndex: -1
+  selectedPrefabIndex: 98
+  prefabPath: Assets/FSP/KayKitModels/Prefabs
   selectedPrefabPaletteFolderIndex: 0
   prefabPaletteColumnCount: 3
   previousPaintToolIndex: -1

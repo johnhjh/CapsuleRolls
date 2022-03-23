@@ -203,7 +203,8 @@ namespace Capsule.Game.RollTheBall
         {
             if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_STAGE) ||
                 collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER) ||
-                collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER))
+                collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER) ||
+                collision.collider.CompareTag(GameManager.Instance.tagData.TAG_DEAD_ZONE))
             {
                 GotHitBySomething(collision);
             }

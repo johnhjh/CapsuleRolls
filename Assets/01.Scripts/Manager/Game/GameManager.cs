@@ -1,5 +1,6 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
+using Capsule.Game.UI;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,6 +54,25 @@ namespace Capsule.Game
         }
 
         private GameData currentGameData = null;
+        public GameData CurrentGameData
+        {
+            get
+            {
+                if (currentGameData == null)
+                {
+                    if (DataManager.Instance != null)
+                        currentGameData = DataManager.Instance.CurrentGameData;
+                    if (currentGameData == null)
+                        currentGameData = new GameData
+                        {
+                            Mode = GameMode.STAGE,
+                            Kind = GameKind.ROLL_THE_BALL,
+                            Stage = GameStage.TUTORIAL_1,
+                        };
+                }
+                return currentGameData;
+            }
+        }
 
         public GameTagData tagData = new GameTagData();
         public GameAnimData animData = new GameAnimData();
@@ -60,10 +80,20 @@ namespace Capsule.Game
 
         public bool IsGameOver { get; private set; }
         private int teamScoreA = 0;
+        public int TeamScoreA
+        {
+            get { return teamScoreA; }
+        }
         private int teamScoreB = 0;
+        public int TeamScoreB
+        {
+            get { return teamScoreB; }
+        }
 
         public event Action OnAddScoreTeamA;
         public event Action OnAddScoreTeamB;
+        public event Action OnClearStage;
+        public event Action OnStartGame;
 
         private void Awake()
         {
@@ -77,23 +107,48 @@ namespace Capsule.Game
 
         private void Start()
         {
-            // 플레이어 생성 위치 들어갈 자리
             currentGameData = DataManager.Instance.CurrentGameData;
-
-            BGMManager.Instance.ChangeBGM(BGMType.ARCADE);
+            if (CurrentGameData != null)
+            {
+                if (CurrentGameData.Mode == GameMode.ARCADE)
+                    BGMManager.Instance.ChangeBGM(BGMType.ARCADE);
+                else if (CurrentGameData.Mode == GameMode.STAGE)
+                    BGMManager.Instance.ChangeBGM(BGMType.BATTLE);
+            }
             SFXManager.Instance.PlayOneShot(Announcements.READY);
             SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
+            if (OnStartGame != null)
+                OnStartGame();
+        }
+
+        public bool CheckSoloGame()
+        {
+            switch (CurrentGameData.Mode)
+            {
+                case GameMode.ARCADE:
+                case GameMode.STAGE:
+                case GameMode.PRACTICE:
+                case GameMode.BOT:
+                    return true;
+            }
+            return false;
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                // 게임 종료 들어갈 자리
+                if (GameUIManager.Instance != null)
+                {
+                    if (CheckSoloGame())
+                        GameUIManager.Instance.PauseGame();
+                    else
+                        GameUIManager.Instance.ShowGameSetting();
+                }
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Space))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+                RestartGame();
             }
         }
 
@@ -118,23 +173,36 @@ namespace Capsule.Game
             return newGameObj;
         }
 
+        public void StageClear()
+        {
+            SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
+            SFXManager.Instance.PlayOneShot(Announcements.CLEAR);
+            if (OnClearStage != null)
+                OnClearStage();
+        }
+
         public void AddScore(bool isTeamA, int newScore)
         {
             if (!IsGameOver)
             {
                 if (isTeamA)
                 {
+                    teamScoreA += newScore;
                     if (OnAddScoreTeamA != null)
                         OnAddScoreTeamA();
-                    teamScoreA += newScore;
                 }
                 else
                 {
+                    teamScoreB += newScore;
                     if (OnAddScoreTeamB != null)
                         OnAddScoreTeamB();
-                    teamScoreB += newScore;
                 }
             }
+        }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
         }
 
         public void EndGame()

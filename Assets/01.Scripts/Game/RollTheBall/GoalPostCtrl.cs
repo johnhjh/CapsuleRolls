@@ -7,10 +7,12 @@ namespace Capsule.Game.RollTheBall
         public bool isTeamA = false;
         private void OnTriggerEnter(Collider other)
         {
+            /*
             if (other.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
             {
 
             }
+            */
         }
     }
 }

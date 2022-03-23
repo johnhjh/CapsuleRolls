@@ -168,7 +168,8 @@ namespace Capsule.SceneLoad
             if (isAuto && sceneData.sceneMode == LoadSceneMode.Additive)
             {
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(0));
-                SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
+                //SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneData.sceneName));
                 yield return StartCoroutine(FadeOutLoading());
             }
         }
@@ -342,7 +343,6 @@ namespace Capsule.SceneLoad
             Image loadingProgressBar = GameObject.Find(LOADING_PROGRESS_BAR).GetComponent<Image>();
             Text loadingProgressText = GameObject.Find(LOADING_PROGRESS_TEXT).GetComponent<Text>();
 
-            // GameScene Load Logic 작성할 자리
             Dictionary<GameSceneType, SceneData> gameSceneDictionary = MakeGameSceneDictionary(data);
             float totalProgress = 0f;
             foreach (var loadScene in gameSceneDictionary)
@@ -362,8 +362,30 @@ namespace Capsule.SceneLoad
             }
             SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(0));
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameSceneDictionary[GameSceneType.LEVEL].sceneName));
-            // GameScene Load Logic 끝
 
+            yield return StartCoroutine(FadeOutLoading());
+        }
+
+        public IEnumerator LoadLobbySceneFromGame(LobbySceneType sceneType)
+        {
+            ResetFields();
+            yield return StartCoroutine(FadeInLoading());
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), LoadSceneMode.Additive);
+            asyncOperation.allowSceneActivation = true;
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+                progressAmount = asyncOperation.progress;
+                if (asyncOperation.progress >= 0.9f)
+                    isLoadingDone = true;
+                InfiniteLoopDetector.Run();
+            }
+
+            Dictionary<GameSceneType, SceneData> gameSceneDictionary = MakeGameSceneDictionary(DataManager.Instance.CurrentGameData);
+            foreach (var data in gameSceneDictionary)
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(data.Value.sceneName));
+
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneTypeToString(sceneType)));
             yield return StartCoroutine(FadeOutLoading());
         }
 

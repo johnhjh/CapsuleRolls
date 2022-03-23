@@ -1,12 +1,5 @@
 ﻿namespace Capsule.Entity
 {
-    public enum BattleItemOption
-    {
-        NONE = 0,
-        NORMAL,
-        DYNAMIC,
-    }
-
     public class BattleData
     {
         private int roundCount;
@@ -42,13 +35,6 @@
         {
             get { return winScore; }
             set { winScore = value; }
-        }
-
-        private BattleItemOption itemOption;
-        public BattleItemOption ItemOption
-        {
-            get { return itemOption; }
-            set { itemOption = value; }
         }
     }
 }

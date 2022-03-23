@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1583217966064894589}
   - component: {fileID: 1583217966064894590}
   - component: {fileID: 6976792803908219547}
-  - component: {fileID: 3458452622145729184}
   m_Layer: 9
   m_Name: GoalPost
   m_TagString: GoalPost
@@ -29,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817714323197913121}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.675673, y: -0.0000008019276, z: -12.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -127,18 +126,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 14.347334, y: 6.331543, z: 1.6504349}
   m_Center: {x: -0.023612022, y: 3.1659727, z: -0.00000059604645}
---- !u!114 &3458452622145729184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817714323197913121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80d6d4be9f2fdf44b3f1aca3d7bd59e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8882564611519641386
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482219372458364970}
   - component: {fileID: 6064381837992694446}
+  - component: {fileID: 1583217965833441797}
   m_Layer: 9
   m_Name: GoalInTrigger
   m_TagString: GoalInTrigger
@@ -183,3 +171,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 14.94421, y: 6.0257387, z: 1.773654}
   m_Center: {x: 0.12223625, y: 3.5128694, z: 0.386827}
+--- !u!114 &1583217965833441797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8882564611519641386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 086519baf99910f4e90429cbd2bbab5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTeamA: 0

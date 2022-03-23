@@ -113,6 +113,7 @@ namespace Capsule.Entity
         public GameKind kind;
         public Sprite preview;
         public string name;
+        [TextAreaAttribute]
         public string desc;
     }
 

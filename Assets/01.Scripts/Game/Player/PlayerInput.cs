@@ -12,6 +12,10 @@ namespace Capsule.Game.Player
         public bool isMine = true;
         public bool Action1 { get; private set; }
         public bool Action2 { get; private set; }
+        //[HideInInspector]
+        public bool usingActiion1 = true;
+        //[HideInInspector]
+        public bool usingAction2 = true;
 
         private void Update()
         {
@@ -28,8 +32,10 @@ namespace Capsule.Game.Player
             horizontal = Input.GetAxis(AXIS_NAME_HORIZONTAL);
             vertical = Input.GetAxis(AXIS_NAME_VERTICAL);
             rotate = Input.GetAxis(AXIS_NAME_MOUSE_X);
-            Action1 = Input.GetMouseButtonDown(0);
-            Action2 = Input.GetMouseButtonDown(1);
+            if (usingActiion1)
+                Action1 = Input.GetMouseButtonDown(0);
+            if (usingAction2)
+                Action2 = Input.GetMouseButtonDown(1);
         }
 
         public float GetInputMovePower()

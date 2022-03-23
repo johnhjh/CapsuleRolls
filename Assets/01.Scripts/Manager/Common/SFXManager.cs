@@ -32,6 +32,8 @@ namespace Capsule.Audio
         public AudioClip teamGoalClip;
         public AudioClip readyClip;
         public AudioClip goClip;
+        public AudioClip clearClip;
+        public AudioClip congratulateClip;
     }
     [System.Serializable]
     public class CrowdSounds
@@ -75,6 +77,8 @@ namespace Capsule.Audio
         TEAM_GOAL,
         READY,
         GO,
+        CLEAR,
+        CONGRAT,
     }
 
 
@@ -173,6 +177,10 @@ namespace Capsule.Audio
                     return announceSounds.readyClip;
                 case Announcements.GO:
                     return announceSounds.goClip;
+                case Announcements.CLEAR:
+                    return announceSounds.clearClip;
+                case Announcements.CONGRAT:
+                    return announceSounds.congratulateClip;
             }
             return null;
         }
