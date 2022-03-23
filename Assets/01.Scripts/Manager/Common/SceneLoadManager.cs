@@ -178,7 +178,7 @@ namespace Capsule.SceneLoad
             SceneManager.LoadScene(SceneTypeToString(sceneType), LoadSceneMode.Single);
         }
 
-        private string GetCommonUIName (GameMode mode)
+        private string GetCommonUIName(GameMode mode)
         {
             switch (mode)
             {
@@ -395,8 +395,8 @@ namespace Capsule.SceneLoad
             yield return SceneManager.LoadSceneAsync(LOADING_SCENE_NAME, LoadSceneMode.Additive);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(LOADING_SCENE_NAME));
             fadeLoadingCG = GameObject.Find(LOADING_GAME_SCENE_PANEL).GetComponent<CanvasGroup>();
-            if (DataManager.Instance != null && 
-                DataManager.Instance.gameKindDatas != null && 
+            if (DataManager.Instance != null &&
+                DataManager.Instance.gameKindDatas != null &&
                 DataManager.Instance.gameKindDatas.Count >= (int)kind + 1)
             {
                 GameObject.Find(LOADING_GAME_PREVIEW_IMAGE).GetComponent<Image>().sprite = DataManager.Instance.gameKindDatas[(int)kind].preview;
