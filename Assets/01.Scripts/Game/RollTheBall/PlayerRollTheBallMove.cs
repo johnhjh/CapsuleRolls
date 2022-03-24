@@ -60,10 +60,22 @@ namespace Capsule.Game.RollTheBall
             IsDiving = false;
             IsDead = false;
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
-            GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
-            GameManager.Instance.OnAddScoreTeamB += OnEnemyGoal;
-            GameManager.Instance.OnStageClear += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_CLEAR); };
-            GameManager.Instance.OnStageFailure += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_FAILURE); };
+
+            if (isTeamA)
+            {
+                GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
+                GameManager.Instance.OnAddScoreTeamB += OnEnemyGoal;
+            }
+            else
+            {
+                GameManager.Instance.OnAddScoreTeamA += OnEnemyGoal;
+                GameManager.Instance.OnAddScoreTeamB += OnTeamGoal;
+            }
+            if (isMine)
+            {
+                GameManager.Instance.OnStageClear += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_CLEAR); };
+                GameManager.Instance.OnStageFailure += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_FAILURE); };
+            }
         }
 
         protected override void Update()

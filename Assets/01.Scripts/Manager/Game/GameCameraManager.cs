@@ -35,6 +35,28 @@ namespace Capsule.Game
                 InfiniteLoopDetector.Run();
             }
         }
+
+        public IEnumerator MoveCameraByPos(Transform camTransform, Transform targetTransform, Vector3 position)
+        {
+            if (camTransform == null || targetTransform == null)
+                yield break;
+            Vector3 camOriginPos = camTransform.position;
+            while (isActive)
+            {
+                camTransform.SetPositionAndRotation(
+                    Vector3.Slerp(
+                        camTransform.position,
+                        1.8f * targetTransform.position - camOriginPos + position,
+                        Time.deltaTime * moveDamping),
+                    Quaternion.Slerp(
+                        camTransform.rotation,
+                        Quaternion.LookRotation(
+                            (targetTransform.position - camTransform.position + position).normalized),
+                        Time.deltaTime * rotateDamping));
+                yield return new WaitForSeconds(0.02f);
+                InfiniteLoopDetector.Run();
+            }
+        }
     }
 
     public class GameCameraManager : MonoBehaviour
@@ -93,7 +115,7 @@ namespace Capsule.Game
         {
             if (Camera.main != null)
                 mainCameraTransform = Camera.main.transform;
-            GameManager.Instance.OnStageClear += SetCameraQuater;
+            GameManager.Instance.OnStageClear += () => { MoveCameraByPos(3f * Vector3.up); };
         }
 
         public void ActivateFollowCam()
@@ -109,18 +131,29 @@ namespace Capsule.Game
             moveFollowCam.enabled = true;
         }
 
-        public void SetCameraQuater()
+        private bool UsingScriptedCamera()
         {
             moveFollowCam.enabled = false;
             scriptedCameraAction.isActive = true;
             if (mainCameraTransform == null && Camera.main != null)
                 mainCameraTransform = Camera.main.transform;
-            if (mainCameraTransform != null)
-            {
-                if (mainCamCoroutine != null)
-                    StopCoroutine(mainCamCoroutine);
-                mainCamCoroutine = StartCoroutine(scriptedCameraAction.SetCameraQuater(mainCameraTransform, Target.First));
-            }
+            if (mainCamCoroutine != null)
+                StopCoroutine(mainCamCoroutine);
+            return mainCameraTransform != null;
+        }
+
+        public void SetCameraQuater()
+        {
+            if (UsingScriptedCamera())
+                mainCamCoroutine = StartCoroutine(
+                    scriptedCameraAction.SetCameraQuater(mainCameraTransform, Target.First));
+        }
+
+        public void MoveCameraByPos(Vector3 pos)
+        {
+            if (UsingScriptedCamera())
+                mainCamCoroutine = StartCoroutine(
+                    scriptedCameraAction.MoveCameraByPos(mainCameraTransform, Target.First, pos));
         }
 
         public void CameraShake()

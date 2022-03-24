@@ -36,12 +36,12 @@ namespace Capsule.Game.RollTheBall
         {
             while (GameManager.Instance.IsGameOver)
             {
-                Vector3 fireWorkPosition = Random.Range(9.0f, 13.0f) * Vector3.up
+                Vector3 fireWorkPosition = Random.Range(8.0f, 11.0f) * Vector3.up
                     + Random.Range(-10.0f, 10.0f) * Vector3.right
                     + goalPostTransform.position;
-                SFXManager.Instance.PlayOneShot(GameSFX.FIREWORK, fireWorkPosition, 7f);
+                SFXManager.Instance.PlayOneShot(GameSFX.FIREWORK, fireWorkPosition, 10f);
                 EffectQueueManager.Instance.ShowFireworkEffect(fireWorkPosition);
-                yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
+                yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
                 InfiniteLoopDetector.Run();
             }
         }
