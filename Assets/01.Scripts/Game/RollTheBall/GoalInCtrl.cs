@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using Capsule.Audio;
+﻿using Capsule.Audio;
 using Capsule.Entity;
 using Capsule.Game.Effect;
+using System.Collections;
 using UnityEngine;
 
 namespace Capsule.Game.RollTheBall
@@ -36,8 +36,8 @@ namespace Capsule.Game.RollTheBall
         {
             while (GameManager.Instance.IsGameOver)
             {
-                Vector3 fireWorkPosition = Random.Range(9.0f, 13.0f) * Vector3.up 
-                    + Random.Range(-10.0f, 10.0f) * Vector3.right 
+                Vector3 fireWorkPosition = Random.Range(9.0f, 13.0f) * Vector3.up
+                    + Random.Range(-10.0f, 10.0f) * Vector3.right
                     + goalPostTransform.position;
                 SFXManager.Instance.PlayOneShot(GameSFX.FIREWORK, fireWorkPosition, 7f);
                 EffectQueueManager.Instance.ShowFireworkEffect(fireWorkPosition);
