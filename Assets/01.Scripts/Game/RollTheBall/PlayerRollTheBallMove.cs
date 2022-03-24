@@ -74,12 +74,6 @@ namespace Capsule.Game.RollTheBall
             playerAnimator.SetFloat(GameManager.Instance.animData.HASH_MOVE_SPEED, magnitude);
             base.Update();
             playerAnimator.speed = 1f + ballRigidbody.velocity.magnitude / 10f;
-            if (!isMine || IsDead) return;
-
-            if (playerInput.Action1 && !IsTryJumping && jumpEnabled)
-                JumpAction();
-            if (playerInput.Action2 && IsLanded)
-                DiveAction();
         }
 
         protected override void OnDisable()
@@ -91,6 +85,18 @@ namespace Capsule.Game.RollTheBall
         public void AIJump()
         {
             JumpAction();
+        }
+
+        protected override void Action1()
+        {
+            if (isMine && !IsDead && !IsTryJumping && jumpEnabled)
+                JumpAction();
+        }
+
+        protected override void Action2()
+        {
+            if (isMine && !IsDead && IsLanded)
+                DiveAction();
         }
 
         private void JumpAction()

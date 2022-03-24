@@ -1,11 +1,12 @@
-﻿using Capsule.Util;
+﻿using Capsule.Game.UI;
+using Capsule.Util;
 using UnityEngine;
 
 namespace Capsule.Game.Player
 {
     [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(CapsuleCollider))]
     [RequireComponent(typeof(PlayerInput), typeof(AudioSource))]
-    public class PlayerMove : MonoBehaviour
+    public abstract class PlayerMove : MonoBehaviour
     {
         // Components
         protected Animator playerAnimator;
@@ -40,6 +41,12 @@ namespace Capsule.Game.Player
                 //Camera.main.GetComponent<CameraFollow>().camView = CameraView.QUATER;
                 GameCameraManager.Instance.Target = new Tuple<Transform, bool>(ragdollController.spine.transform, true);
             };
+            ActionButton1Ctrl actionButton1 = GameObject.FindObjectOfType<ActionButton1Ctrl>();
+            if (actionButton1 != null)
+                actionButton1.OnClickActionButton1 += Action1;
+            ActionButton2Ctrl actionButton2 = GameObject.FindObjectOfType<ActionButton2Ctrl>();
+            if (actionButton2 != null)
+                actionButton2.OnClickActionButton2 += Action2;
         }
 
         protected virtual void Update()
@@ -65,6 +72,10 @@ namespace Capsule.Game.Player
                 playerAnimator.SetInteger(GameManager.Instance.animData.HASH_ROTATE, 0);
                 playerAnimator.SetBool(GameManager.Instance.animData.HASH_IS_TURNING, false);
             }
+            if (playerInput.Action1)
+                Action1();
+            if (playerInput.Action2)
+                Action2();
         }
 
         protected virtual void OnDisable()
@@ -72,6 +83,9 @@ namespace Capsule.Game.Player
             if (!IsDead)
                 IsDead = true;
         }
+
+        protected abstract void Action1();
+
+        protected abstract void Action2();
     }
 }
-

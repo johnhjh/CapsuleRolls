@@ -121,8 +121,7 @@ namespace Capsule.Game
             SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
             if (GameUIManager.Instance != null)
                 GameUIManager.Instance.IsLoading = false;
-            if (OnStartGame != null)
-                OnStartGame();
+            OnStartGame?.Invoke();
         }
 
         public bool CheckSoloGame()
@@ -179,10 +178,10 @@ namespace Capsule.Game
 
         public void StageClear()
         {
+            IsGameOver = true;
             SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             SFXManager.Instance.PlayOneShot(Announcements.CLEAR);
-            if (OnStageClear != null)
-                OnStageClear();
+            OnStageClear?.Invoke();
             DataManager.Instance.CurrentPlayerStageClearData.StageClear(CurrentGameData.Stage);
             DataManager.Instance.CurrentPlayerGameData.PlayerStagePlayed((int)CurrentGameData.Stage, true);
             StartCoroutine(PopupClearUI());
@@ -190,8 +189,8 @@ namespace Capsule.Game
 
         public void StageFailure()
         {
-            if (OnStageFailure != null)
-                OnStageFailure();
+            IsGameOver = true;
+            OnStageFailure?.Invoke();
             DataManager.Instance.CurrentPlayerGameData.PlayerStagePlayed((int)CurrentGameData.Stage, false);
             StartCoroutine(PopupFailureUI());
         }
@@ -218,14 +217,12 @@ namespace Capsule.Game
                 if (isTeamA)
                 {
                     teamScoreA += newScore;
-                    if (OnAddScoreTeamA != null)
-                        OnAddScoreTeamA();
+                    OnAddScoreTeamA?.Invoke();
                 }
                 else
                 {
                     teamScoreB += newScore;
-                    if (OnAddScoreTeamB != null)
-                        OnAddScoreTeamB();
+                    OnAddScoreTeamB?.Invoke();
                 }
             }
         }

@@ -1,6 +1,8 @@
-﻿using Capsule.SceneLoad;
+﻿using Capsule.Entity;
+using Capsule.SceneLoad;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Capsule.Game.UI
 {
@@ -25,11 +27,17 @@ namespace Capsule.Game.UI
         public bool IsLoading { get; set; }
         [HideInInspector]
         public bool IsStagePopupActive { get; set; }
+        [HideInInspector]
+        public bool IsUIHover { get; set; }
 
         private CanvasGroup gamePauseCG = null;
         private CanvasGroup gameSettingCG = null;
         private CanvasGroup gameStageClearCG = null;
         private CanvasGroup gameStageFailureCG = null;
+
+        private Text userInfoLevelText = null;
+        private Text userInfoExpText = null;
+        private Image userInfoExpImage = null;
 
         private void Awake()
         {
@@ -45,10 +53,29 @@ namespace Capsule.Game.UI
             IsSetting = false;
             IsLoading = false;
             IsStagePopupActive = false;
+
             gamePauseCG = GameObject.Find("GameUIPause").GetComponent<CanvasGroup>();
             gameSettingCG = GameObject.Find("GameUISetting").GetComponent<CanvasGroup>();
             gameStageClearCG = GameObject.Find("GameUIStageClear").GetComponent<CanvasGroup>();
             gameStageFailureCG = GameObject.Find("GameUIStageFailure").GetComponent<CanvasGroup>();
+            userInfoLevelText = GameObject.Find("User_Info_Level_Text").GetComponent<Text>();
+            userInfoExpText = GameObject.Find("User_Info_Exp_Text").GetComponent<Text>();
+            userInfoExpImage = GameObject.Find("User_Info_Exp_Fill").GetComponent<Image>();
+
+            if (DataManager.Instance != null)
+            {
+                int currentLevel = DataManager.Instance.CurrentPlayerData.Level;
+                int currentExp = DataManager.Instance.CurrentPlayerData.Exp;
+                int requiredExp = LevelExpCalc.GetExpData(currentLevel + 1);
+                userInfoLevelText.text = currentLevel.ToString();
+                userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
+                userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
+            }
+        }
+
+        public bool CheckUIActive()
+        {
+            return IsPaused || IsSetting || IsStagePopupActive || IsLoading;
         }
 
         private IEnumerator FadeInCG(CanvasGroup cg)
@@ -100,10 +127,10 @@ namespace Capsule.Game.UI
         public void ShowGameSetting(bool isSetting)
         {
             if (this.IsLoading || this.IsStagePopupActive) return;
-            this.IsSetting = isSetting;
             gameSettingCG.alpha = isSetting ? 1f : 0f;
             gameSettingCG.blocksRaycasts = isSetting;
             gameSettingCG.interactable = isSetting;
+            this.IsSetting = isSetting;
         }
 
         public void OnClickSetting()

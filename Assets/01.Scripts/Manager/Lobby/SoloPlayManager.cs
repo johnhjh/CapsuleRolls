@@ -163,17 +163,17 @@ namespace Capsule.Lobby.SoloPlay
             gameStageSelectPopupDetailKindDesc = GameObject.Find("Popup_GameStage_Detail_Kind_Desc").GetComponent<Text>();
             gameStageSelectPopupDetailDesc = GameObject.Find("Popup_GameStage_Detail_Desc").GetComponent<Text>();
 
-            MainMenuCtrl arcadeButtonCtrl = GameObject.Find("Button_Arcade").GetComponent<MainMenuCtrl>();
-            arcadeButtonCtrl.IsSelected = true;
-            arcadeButtonCtrl.finalAlpha = 1f;
-            arcadeButtonCtrl.finalFontSize = 105f;
+            MainMenuCtrl stageButtonCtrl = GameObject.Find("Button_Stage").GetComponent<MainMenuCtrl>();
+            stageButtonCtrl.IsSelected = true;
+            stageButtonCtrl.finalAlpha = 1f;
+            stageButtonCtrl.finalFontSize = 105f;
 
             GameKindSlot kindSlot = GameObject.Find("Game_Kind_List").transform.GetChild(0).GetComponent<GameKindSlot>();
             kindSlot.SelectSlot();
 
             gameData.Difficulty = AIDifficulty.EASY;
 
-            SelectGameMode(GameMode.ARCADE);
+            SelectGameMode(GameMode.STAGE);
             SelectGameKind(GameKind.ROLL_THE_BALL);
 
             StartCoroutine(InitStageSlots());
@@ -355,6 +355,7 @@ namespace Capsule.Lobby.SoloPlay
         public void StartSoloGame()
         {
             Destroy(GameObject.Find("Player"));
+            Destroy(GameObject.Find("Stage"));
             Destroy(UserInfoManager.Instance.gameObject);
             DataManager.Instance.CurrentGameData = gameData;
             SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);

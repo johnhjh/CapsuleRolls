@@ -388,7 +388,8 @@ namespace Capsule.Entity
         {
             string savedStage = "Stage" + stageNum.ToString();
             PlayerPrefs.SetInt(savedStage, PlayerPrefs.GetInt(savedStage, 0) + 1);
-
+            if (ClearData.Count > stageNum)
+                ClearData[stageNum] = true;
             if (stageNum > PlayerPrefs.GetInt("HighestStage", 0))
                 PlayerPrefs.SetInt("HighestStage", stageNum);
         }

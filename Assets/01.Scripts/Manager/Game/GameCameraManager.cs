@@ -16,6 +16,8 @@ namespace Capsule.Game
         public bool isActive = false;
         public IEnumerator SetCameraQuater(Transform camTransform, Transform targetTransform)
         {
+            if (camTransform == null || targetTransform == null)
+                yield break;
             while (isActive)
             {
                 camTransform.SetPositionAndRotation(
@@ -78,6 +80,8 @@ namespace Capsule.Game
                     deadCameraAction.isActive = true;
                     if (mainCamCoroutine != null)
                         StopCoroutine(mainCamCoroutine);
+                    if (mainCameraTransform == null && Camera.main != null)
+                        mainCameraTransform = Camera.main.transform;
                     mainCamCoroutine = StartCoroutine(deadCameraAction.SetCameraQuater(mainCameraTransform, target.First));
                 }
                 else
@@ -99,8 +103,13 @@ namespace Capsule.Game
         {
             target = new Tuple<Transform, bool>();
             deadCameraAction = new DeadCameraAction();
-            mainCameraTransform = Camera.main.transform;
             moveFollowCam = GameObject.Find("MoveFollowCam").GetComponent<CinemachineVirtualCamera>();
+        }
+
+        private void Start()
+        {
+            if (Camera.main != null)
+                mainCameraTransform = Camera.main.transform;
         }
 
         public void CameraShake()

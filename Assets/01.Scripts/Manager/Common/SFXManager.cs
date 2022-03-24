@@ -334,3 +334,23 @@ namespace Capsule.Audio
         }
     }
 }
+
+/*
+ 
+    // 공용함수 : 사운드 처리
+    public void PlaySfx(Vector2 pos, AudioClip sfx)
+    {
+        if (isSfxMute) return;
+        // 동적할당 될 때의 오브젝트 이름
+        GameObject soundObj = new GameObject("sfx");
+        soundObj.transform.position = pos;
+        AudioSource audiosource = soundObj.AddComponent<AudioSource>();
+        audiosource.clip = sfx;
+        audiosource.minDistance = 10.0f;
+        audiosource.maxDistance = 30.0f;
+        audiosource.volume = sfxVolume;
+        audiosource.Play();
+        Destroy(soundObj, 3.0f);
+    }
+ 
+ */

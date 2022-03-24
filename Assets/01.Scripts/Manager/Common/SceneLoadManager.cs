@@ -305,9 +305,9 @@ namespace Capsule.SceneLoad
             Dictionary<GameSceneType, SceneData> gameSceneDictionary = new Dictionary<GameSceneType, SceneData>()
             {
                 { GameSceneType.LEVEL, new SceneData(GetGameSceneLevelName(data), LoadSceneMode.Additive) },
-                { GameSceneType.LOGIC, new SceneData(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive) },
                 { GameSceneType.COMMON_UI, new SceneData(GetCommonUIName(data.Mode), LoadSceneMode.Additive) },
                 { GameSceneType.UI, new SceneData(GetGameSceneUIName(data.Kind), LoadSceneMode.Additive) },
+                { GameSceneType.LOGIC, new SceneData(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive) },
             };
 
             Debug.Log(gameSceneDictionary[GameSceneType.COMMON_UI].sceneName);
@@ -425,7 +425,7 @@ namespace Capsule.SceneLoad
         {
             ResetFields();
             yield return StartCoroutine(FadeInLoading());
-            
+
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), LoadSceneMode.Additive);
             asyncOperation.allowSceneActivation = true;
             while (!asyncOperation.isDone)
@@ -442,7 +442,7 @@ namespace Capsule.SceneLoad
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(data.Value.sceneName));
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneTypeToString(sceneType)));
-            
+
             yield return StartCoroutine(FadeOutLoading());
         }
 
