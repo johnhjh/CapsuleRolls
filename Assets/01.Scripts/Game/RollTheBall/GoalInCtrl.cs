@@ -1,4 +1,7 @@
-﻿using Capsule.Entity;
+﻿using System.Collections;
+using Capsule.Audio;
+using Capsule.Entity;
+using Capsule.Game.Effect;
 using UnityEngine;
 
 namespace Capsule.Game.RollTheBall
@@ -15,6 +18,7 @@ namespace Capsule.Game.RollTheBall
                     if (GameManager.Instance.CurrentGameData.Mode == GameMode.STAGE)
                     {
                         GameManager.Instance.StageClear();
+                        StartCoroutine(FireWorks(transform.parent));
                         return;
                     }
                     if (other.transform.TryGetComponent<RollingBallRotate>(out RollingBallRotate rollingBall))
@@ -25,6 +29,20 @@ namespace Capsule.Game.RollTheBall
                         }
                     }
                 }
+            }
+        }
+
+        private IEnumerator FireWorks(Transform goalPostTransform)
+        {
+            while (GameManager.Instance.IsGameOver)
+            {
+                Vector3 fireWorkPosition = Random.Range(9.0f, 13.0f) * Vector3.up 
+                    + Random.Range(-10.0f, 10.0f) * Vector3.right 
+                    + goalPostTransform.position;
+                SFXManager.Instance.PlayOneShot(GameSFX.FIREWORK, fireWorkPosition, 7f);
+                EffectQueueManager.Instance.ShowFireworkEffect(fireWorkPosition);
+                yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
+                InfiniteLoopDetector.Run();
             }
         }
     }

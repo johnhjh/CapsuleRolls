@@ -55,14 +55,15 @@ namespace Capsule.Game.RollTheBall
         protected override void Start()
         {
             base.Start();
-            base.isMovingByInput = false;
+            isMovingByInput = false;
             isLanded = true;
             IsDiving = false;
             IsDead = false;
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
             GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
             GameManager.Instance.OnAddScoreTeamB += OnEnemyGoal;
-            GameManager.Instance.OnStageClear += PlayVictoryAnim;
+            GameManager.Instance.OnStageClear += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_CLEAR); };
+            GameManager.Instance.OnStageFailure += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_FAILURE); };
         }
 
         protected override void Update()
@@ -102,7 +103,8 @@ namespace Capsule.Game.RollTheBall
         private void JumpAction()
         {
             PlayerAudioStop();
-            PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.JUMP));
+            //PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.JUMP));
+            SFXManager.Instance.PlayOneShot(GameSFX.JUMP, playerAudioSource);
             jumpEnabled = false;
             IsLanded = false;
             playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -113,7 +115,8 @@ namespace Capsule.Game.RollTheBall
         private void DiveAction()
         {
             PlayerAudioStop();
-            PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.JUMP));
+            //PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.JUMP));
+            SFXManager.Instance.PlayOneShot(GameSFX.JUMP, playerAudioSource);
             IsLanded = false;
             playerRigidbody.AddForce(transform.forward * diveForce, ForceMode.Impulse);
             playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_DIVE);
@@ -200,7 +203,8 @@ namespace Capsule.Game.RollTheBall
                 if (other.transform != transform.parent.GetChild(2))
                 {
                     // effect 들어갈 자리
-                    PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
+                    //PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
+                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, playerAudioSource);
                     PlayerOut();
                 }
             }
@@ -217,7 +221,8 @@ namespace Capsule.Game.RollTheBall
             }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL) && !IsTryJumping)
             {
-                PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
+                //PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
+                SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, playerAudioSource);
                 if (collision.collider.transform == transform.parent.GetChild(2))
                 {
                     EffectQueueManager.Instance.ShowCollisionEffect(collision);
@@ -273,7 +278,6 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             }
             PlayVictoryAnim();
-            //ragdollController.ChangeRagdoll(true);
         }
 
         private void PlayerOut()
@@ -283,9 +287,9 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.GROAN);
                 BGMManager.Instance.ChangeBGM(BGMType.GAMEOVER);
+                GameManager.Instance.StageFailure();
             }
             ragdollController.ChangeRagdoll(true);
-            GameManager.Instance.StageFailure();
         }
 
         private void GotHitBySomething(Collision coll)
@@ -298,11 +302,12 @@ namespace Capsule.Game.RollTheBall
         {
             playerAudioSource.Stop();
         }
-
+        /*
         private void PlayerAudioPlayOneShot(AudioClip clip)
         {
             if (clip != null)
                 playerAudioSource.PlayOneShot(clip);
         }
+        */
     }
 }

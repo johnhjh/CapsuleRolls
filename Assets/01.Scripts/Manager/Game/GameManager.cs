@@ -39,6 +39,8 @@ namespace Capsule.Game
         public readonly int HASH_TRIG_FALLING = Animator.StringToHash("TrigFalling");
         public readonly int HASH_TRIG_VICTORY = Animator.StringToHash("TrigVictory");
         public readonly int HASH_VICTORY_ANIM = Animator.StringToHash("VictoryAnim");
+        public readonly int HASH_TRIG_STAGE_CLEAR = Animator.StringToHash("TrigStageClear");
+        public readonly int HASH_TRIG_STAGE_FAILURE = Animator.StringToHash("TrigStageFailure");
     }
 
     public class GameManager : MonoBehaviour

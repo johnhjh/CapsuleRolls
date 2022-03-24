@@ -160,6 +160,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: a8095b296625f994dba471939532e63a, type: 3}
     fallingClip: {fileID: 8300000, guid: dd28a892cd88e4e4d85d600a3f475309, type: 3}
     popClip: {fileID: 8300000, guid: 5bb50ae1df0abe54c99cbc58bc837e69, type: 3}
+    fireworkClip: {fileID: 8300000, guid: 5bb50ae1df0abe54c99cbc58bc837e69, type: 3}
   announceSounds:
     outClips:
     - {fileID: 8300000, guid: a5fb1d1665ac56d4f831d067a2621cda, type: 3}

@@ -236,5 +236,14 @@ namespace Capsule.Game.Effect
             explosionEffect.SetActive(true);
             return explosionEffect;
         }
+
+        public GameObject ShowFireworkEffect(Vector3 position)
+        {
+            GameObject fireworkEffect = DeQueueEffect(EffectType.FIREWORK);
+            fireworkEffect.transform.SetPositionAndRotation(position, Quaternion.identity);
+            fireworkEffect.transform.localScale = Random.Range(1.0f, 3.0f) * Vector3.one;
+            fireworkEffect.SetActive(true);
+            return fireworkEffect;
+        }
     }
 }

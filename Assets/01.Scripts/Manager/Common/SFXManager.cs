@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Capsule.Audio
 {
@@ -22,6 +23,7 @@ namespace Capsule.Audio
         public AudioClip[] bounceClips;
         public AudioClip fallingClip;
         public AudioClip popClip;
+        public AudioClip fireworkClip;
     }
     [System.Serializable]
     public class AnnoucementSounds
@@ -61,6 +63,7 @@ namespace Capsule.Audio
         BOUNCE,
         FALLING,
         POP,
+        FIREWORK,
     }
 
     public enum Crowds
@@ -101,6 +104,7 @@ namespace Capsule.Audio
         }
 
         private AudioSource sfxAudioSource;
+        private float announceVolume = 1f;
 
         private void Awake()
         {
@@ -117,6 +121,16 @@ namespace Capsule.Audio
         private void Start()
         {
             sfxAudioSource.volume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
+            announceVolume = PlayerPrefs.GetFloat("ANNOUNCE_VOLUME", 1f);
+        }
+
+        private void OnDestroy()
+        {
+            if (sfxManager == this)
+            {
+                PlayerPrefs.SetFloat("SFX_VOLUME", sfxAudioSource.volume);
+                PlayerPrefs.SetFloat("ANNOUNCE_VOLUME", announceVolume);
+            }
         }
 
         private AudioClip GetAudioClip(MenuSFX sfx)
@@ -157,6 +171,8 @@ namespace Capsule.Audio
                     return gameSoundEffects.fallingClip;
                 case GameSFX.POP:
                     return gameSoundEffects.popClip;
+                case GameSFX.FIREWORK:
+                    return gameSoundEffects.fireworkClip;
             }
             return null;
         }
@@ -203,8 +219,10 @@ namespace Capsule.Audio
                 sfxAudioSource.Stop();
         }
 
+        // Plays
         private void PlaySFX(AudioClip clip)
         {
+            if (sfxAudioSource.volume == 0f) return;
             if (clip != null)
             {
                 if (!sfxAudioSource.isPlaying)
@@ -217,6 +235,7 @@ namespace Capsule.Audio
 
         private void PlaySFX(AudioClip clip, bool forceToPlay)
         {
+            if (sfxAudioSource.volume == 0f) return;
             if (clip != null)
             {
                 if (forceToPlay || !sfxAudioSource.isPlaying)
@@ -229,6 +248,7 @@ namespace Capsule.Audio
 
         private void PlaySFX(AudioClip clip, float delay)
         {
+            if (sfxAudioSource.volume == 0f) return;
             if (clip != null)
             {
                 if (!sfxAudioSource.isPlaying)
@@ -241,12 +261,73 @@ namespace Capsule.Audio
 
         private void PlaySFX(AudioClip clip, float delay, bool forceToPlay)
         {
+            if (sfxAudioSource.volume == 0f) return;
             if (clip != null)
             {
                 if (forceToPlay || !sfxAudioSource.isPlaying)
                 {
                     sfxAudioSource.clip = clip;
                     sfxAudioSource.PlayDelayed(delay);
+                }
+            }
+        }
+
+        public void PlaySFX(AudioClip clip, AudioSource source)
+        {
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null && source != null)
+            {
+                if (source.volume != sfxAudioSource.volume)
+                    source.volume = sfxAudioSource.volume;
+                if (!source.isPlaying)
+                {
+                    source.clip = clip;
+                    source.Play();
+                }
+            }
+        }
+
+        public void PlaySFX(AudioClip clip, AudioSource source, bool forceToPlay)
+        {
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null && source != null)
+            {
+                if (source.volume != sfxAudioSource.volume)
+                    source.volume = sfxAudioSource.volume;
+                if (forceToPlay || !source.isPlaying)
+                {
+                    source.clip = clip;
+                    source.Play();
+                }
+            }
+        }
+
+        public void PlaySFX(AudioClip clip, AudioSource source, float delay)
+        {
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null && source != null)
+            {
+                if (source.volume != sfxAudioSource.volume)
+                    source.volume = sfxAudioSource.volume;
+                if (!source.isPlaying)
+                {
+                    source.clip = clip;
+                    source.PlayDelayed(delay);
+                }
+            }
+        }
+
+        public void PlaySFX(AudioClip clip, AudioSource source, float delay, bool forceToPlay)
+        {
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null && source != null)
+            {
+                if (source.volume != sfxAudioSource.volume)
+                    source.volume = sfxAudioSource.volume;
+                if (forceToPlay || !source.isPlaying)
+                {
+                    source.clip = clip;
+                    source.PlayDelayed(delay);
                 }
             }
         }
@@ -266,6 +347,26 @@ namespace Capsule.Audio
             PlaySFX(GetAudioClip(sfx), delay);
         }
 
+        public void PlaySFX(GameSFX sfx, AudioSource source)
+        {
+            PlaySFX(GetAudioClip(sfx), source);
+        }
+
+        public void PlaySFX(GameSFX sfx, AudioSource source, bool forceToPlay)
+        {
+            PlaySFX(GetAudioClip(sfx), source, forceToPlay);
+        }
+
+        public void PlaySFX(GameSFX sfx, AudioSource source, float delay)
+        {
+            PlaySFX(GetAudioClip(sfx), source, delay);
+        }
+
+        public void PlaySFX(GameSFX sfx, AudioSource source, float delay, bool forceToPlay)
+        {
+            PlaySFX(GetAudioClip(sfx), source, delay, forceToPlay);
+        }
+
         public void PlaySFX(Crowds sfx)
         {
             PlaySFX(GetAudioClip(sfx));
@@ -276,26 +377,88 @@ namespace Capsule.Audio
             PlaySFX(GetAudioClip(sfx), forceToPlay);
         }
 
-        public void PlaySFX(Announcements sfx)
-        {
-            PlaySFX(GetAudioClip(sfx), true);
-        }
-
         public void PlaySFX(Announcements sfx, float delay)
         {
-            PlaySFX(GetAudioClip(sfx), delay, true);
+            StartCoroutine(PlayOneShotDelayed(GetAudioClip(sfx), delay, announceVolume, true));
         }
 
+        // PlayOneShots
         private void PlayOneShot(AudioClip clip)
         {
+            if (sfxAudioSource.volume == 0f) return;
             if (clip != null)
                 sfxAudioSource.PlayOneShot(clip);
         }
 
         private void PlayOneShot(AudioClip clip, float volume)
         {
-            if (clip != null)
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null && volume > 0f)
+                sfxAudioSource.PlayOneShot(clip, sfxAudioSource.volume * volume);
+        }
+
+        private void PlayOneShot(AudioClip clip, float volume, bool usingSelfVolume)
+        {
+            if (usingSelfVolume && clip != null && volume > 0f)
                 sfxAudioSource.PlayOneShot(clip, volume);
+            else
+                PlayOneShot(clip, volume);
+        }
+
+        private void PlayOneShot(AudioClip clip, Vector3 position)
+        {
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null)
+            {
+                GameObject soundObj = new GameObject("sfx");
+                soundObj.transform.position = position;
+                AudioSource audiosource = soundObj.AddComponent<AudioSource>();
+                audiosource.clip = clip;
+                audiosource.minDistance = 1f;
+                audiosource.maxDistance = 30f;
+                audiosource.volume = sfxAudioSource.volume;
+                audiosource.Play();
+                Destroy(soundObj, clip.length);
+            }
+        }
+
+        private void PlayOneShot(AudioClip clip, Vector3 position, float volume)
+        {
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null)
+            {
+                GameObject soundObj = new GameObject("sfx");
+                soundObj.transform.position = position;
+                AudioSource audiosource = soundObj.AddComponent<AudioSource>();
+                audiosource.clip = clip;
+                audiosource.minDistance = 1f;
+                audiosource.maxDistance = 30f;
+                audiosource.volume = sfxAudioSource.volume * volume;
+                audiosource.Play();
+                Destroy(soundObj, clip.length);
+            }
+        }
+
+        private void PlayOneShot(AudioClip clip, AudioSource source)
+        {
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null && source != null)
+            {
+                if (source.volume != sfxAudioSource.volume)
+                    source.volume = sfxAudioSource.volume;
+                source.PlayOneShot(clip, sfxAudioSource.volume);
+            }
+        }
+
+        private void PlayOneShot(AudioClip clip, AudioSource source, float volume)
+        {
+            if (sfxAudioSource.volume == 0f) return;
+            if (clip != null && source != null)
+            {
+                if (source.volume != sfxAudioSource.volume)
+                    source.volume = sfxAudioSource.volume;
+                source.PlayOneShot(clip, sfxAudioSource.volume * volume);
+            }
         }
 
         public void PlayOneShot(MenuSFX sfx)
@@ -313,14 +476,29 @@ namespace Capsule.Audio
             PlayOneShot(GetAudioClip(sfx), volume);
         }
 
-        public void PlayOneShot(Announcements announce)
+        public void PlayOneShot(GameSFX sfx, Vector3 position)
         {
-            PlayOneShot(GetAudioClip(announce));
+            PlayOneShot(GetAudioClip(sfx), position);
         }
 
-        public void PlayOneShot(Announcements announce, float volume)
+        public void PlayOneShot(GameSFX sfx, Vector3 position, float volume)
         {
-            PlayOneShot(GetAudioClip(announce), volume);
+            PlayOneShot(GetAudioClip(sfx), position, volume);
+        }
+
+        public void PlayOneShot(GameSFX sfx, AudioSource source)
+        {
+            PlayOneShot(GetAudioClip(sfx), source);
+        }
+
+        public void PlayOneShot(GameSFX sfx, AudioSource source, float volume)
+        {
+            PlayOneShot(GetAudioClip(sfx), source, volume);
+        }
+
+        public void PlayOneShot(Announcements announce)
+        {
+            PlayOneShot(GetAudioClip(announce), announceVolume, true);
         }
 
         public void PlayOneShot(Crowds crowd)
@@ -328,29 +506,27 @@ namespace Capsule.Audio
             PlayOneShot(GetAudioClip(crowd));
         }
 
+        private IEnumerator PlayOneShotDelayed(AudioClip clip, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            PlayOneShot(clip);
+        }
+
+        private IEnumerator PlayOneShotDelayed(AudioClip clip, float delay, float volume, bool usingSelfVolume)
+        {
+            yield return new WaitForSeconds(delay);
+            PlayOneShot(clip, volume, usingSelfVolume);
+        }
+
+        // Volume Settings
         public void SetVolume(float volume)
         {
             sfxAudioSource.volume = volume;
         }
+
+        public void SetAnnounceVolume(float volume)
+        {
+            announceVolume = volume;
+        }
     }
 }
-
-/*
- 
-    // 공용함수 : 사운드 처리
-    public void PlaySfx(Vector2 pos, AudioClip sfx)
-    {
-        if (isSfxMute) return;
-        // 동적할당 될 때의 오브젝트 이름
-        GameObject soundObj = new GameObject("sfx");
-        soundObj.transform.position = pos;
-        AudioSource audiosource = soundObj.AddComponent<AudioSource>();
-        audiosource.clip = sfx;
-        audiosource.minDistance = 10.0f;
-        audiosource.maxDistance = 30.0f;
-        audiosource.volume = sfxVolume;
-        audiosource.Play();
-        Destroy(soundObj, 3.0f);
-    }
- 
- */

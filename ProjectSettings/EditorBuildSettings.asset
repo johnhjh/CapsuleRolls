@@ -27,18 +27,21 @@ EditorBuildSettings:
     path: Assets/00.Scenes/LobbyScenes/ShoppingScene.unity
     guid: 53baec91e2fb1cb48abd9d84e74028fd
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Logic/RollTheBallLogic_Solo.unity
-    guid: da50b9934c718384a81552a713bdcb87
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Arcade.unity
+    guid: e62e3f6a0aa253f498bfb96dd11ff586
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage0.unity
     guid: 27512da8cda7c5d4fb344593698200bf
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage1.unity
-    guid: 3c1276790c4d4bc4eaa6ef866c598d55
+    guid: d4389b51b9ccb67408bd5de26c900582
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/UI/CommonUI_Solo.unity
     guid: 2bd2872b24d73cc4396696762291b8b9
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/UI/RollTheBallUI.unity
     guid: 5119cb20712d3b64cb5a82ef55b288d4
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Logic/RollTheBallLogic_Solo.unity
+    guid: da50b9934c718384a81552a713bdcb87
   m_configObjects: {}

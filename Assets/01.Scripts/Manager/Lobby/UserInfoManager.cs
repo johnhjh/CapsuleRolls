@@ -79,10 +79,13 @@ namespace Capsule.Lobby
 
         private void OnDestroy()
         {
-            Destroy(GameObject.Find("User_Info"));
-            Destroy(GameObject.Find("User_Info_Coin"));
-            Destroy(GameObject.Find("Popup_UserInfo"));
-            Destroy(GameObject.Find("Popup_ChangeName"));
+            if (userInfoMgr == this)
+            {
+                Destroy(GameObject.Find("User_Info"));
+                Destroy(GameObject.Find("User_Info_Coin"));
+                Destroy(GameObject.Find("Popup_UserInfo"));
+                Destroy(GameObject.Find("Popup_ChangeName"));
+            }
         }
 
         private void InitUserInfo()

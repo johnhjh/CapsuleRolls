@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Capsule.Game
 {
     [System.Serializable]
-    public class DeadCameraAction
+    public class ScriptedCameraAction
     {
         [Header("Cam Move Setting")]
         public float distance = 8.0f;
@@ -50,7 +50,7 @@ namespace Capsule.Game
             }
         }
 
-        public DeadCameraAction deadCameraAction;
+        public ScriptedCameraAction scriptedCameraAction;
         private Transform mainCameraTransform;
         private CinemachineVirtualCamera moveFollowCam;
         private Coroutine mainCamCoroutine = null;
@@ -74,42 +74,53 @@ namespace Capsule.Game
             {
                 target.First = value.First;
                 target.Second = value.Second;
-                if (target.Second)
-                {
-                    moveFollowCam.enabled = false;
-                    deadCameraAction.isActive = true;
-                    if (mainCamCoroutine != null)
-                        StopCoroutine(mainCamCoroutine);
-                    if (mainCameraTransform == null && Camera.main != null)
-                        mainCameraTransform = Camera.main.transform;
-                    mainCamCoroutine = StartCoroutine(deadCameraAction.SetCameraQuater(mainCameraTransform, target.First));
-                }
+                if (value.Second)
+                    SetCameraQuater();
                 else
-                {
-                    deadCameraAction.isActive = false;
-                    if (mainCamCoroutine != null)
-                    {
-                        StopCoroutine(mainCamCoroutine);
-                        mainCamCoroutine = null;
-                    }
-                    moveFollowCam.Follow = target.First;
-                    moveFollowCam.LookAt = target.First;
-                    moveFollowCam.enabled = true;
-                }
+                    ActivateFollowCam();
             }
         }
 
         private void Awake()
         {
             target = new Tuple<Transform, bool>();
-            deadCameraAction = new DeadCameraAction();
+            scriptedCameraAction = new ScriptedCameraAction();
             moveFollowCam = GameObject.Find("MoveFollowCam").GetComponent<CinemachineVirtualCamera>();
+            target.First = moveFollowCam.Follow;
         }
 
         private void Start()
         {
             if (Camera.main != null)
                 mainCameraTransform = Camera.main.transform;
+            GameManager.Instance.OnStageClear += SetCameraQuater;
+        }
+
+        public void ActivateFollowCam()
+        {
+            scriptedCameraAction.isActive = false;
+            if (mainCamCoroutine != null)
+            {
+                StopCoroutine(mainCamCoroutine);
+                mainCamCoroutine = null;
+            }
+            moveFollowCam.Follow = Target.First;
+            moveFollowCam.LookAt = Target.First;
+            moveFollowCam.enabled = true;
+        }
+
+        public void SetCameraQuater()
+        {
+            moveFollowCam.enabled = false;
+            scriptedCameraAction.isActive = true;
+            if (mainCameraTransform == null && Camera.main != null)
+                mainCameraTransform = Camera.main.transform;
+            if (mainCameraTransform != null)
+            {
+                if (mainCamCoroutine != null)
+                    StopCoroutine(mainCamCoroutine);
+                mainCamCoroutine = StartCoroutine(scriptedCameraAction.SetCameraQuater(mainCameraTransform, Target.First));
+            }
         }
 
         public void CameraShake()
