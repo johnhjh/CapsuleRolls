@@ -82,11 +82,6 @@ namespace Capsule.Lobby.SoloPlay
             focusImage.color = new Color(1f, 1f, 1f, 1f);
         }
 
-        public void LockSlot()
-        {
-
-        }
-
         public void CancelSelect()
         {
             slotImage.sprite = SoloPlayManager.Instance.unlockedStageSlot;

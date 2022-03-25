@@ -22,6 +22,7 @@ namespace Capsule.Lobby.SoloPlay
         }
 
         private GameData gameData = new GameData();
+        private RectTransform gameSettingUIList;
         private Text gameModeText;
         private Text gameModeDetailText;
         private Text gameKindDetailText;
@@ -42,6 +43,7 @@ namespace Capsule.Lobby.SoloPlay
         private RectTransform gameBotDifficultySelected;
 
         // Game Kind Select PopUp
+        private bool gameKindSelectPopupIsOpened = false;
         private CanvasGroup gameKindSelectPopupCG;
         private GameKindSlot currentKindSlot = null;
         public GameKindSlot CurrentKindSlot
@@ -59,6 +61,7 @@ namespace Capsule.Lobby.SoloPlay
         }
 
         // Game Stage Select PopUp
+        private bool gameStageSelectPopupIsOpened = false;
         private CanvasGroup gameStageSelectPopupCG;
         public Sprite unlockedStageSlot;
         public Sprite lockedStageSlot;
@@ -126,6 +129,7 @@ namespace Capsule.Lobby.SoloPlay
             PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(8.2f, 177.6f, 0f));
             PlayerLobbyTransform.Instance.SetScale(1.18f);
 
+            gameSettingUIList = GameObject.Find("GameSettingUIList").GetComponent<RectTransform>();
             gameModeText = GameObject.Find("GameModeText").GetComponent<Text>();
             gameModeDetailText = GameObject.Find("GameModeDetailText").GetComponent<Text>();
             gameKindDetailText = GameObject.Find("GameKindDetailText").GetComponent<Text>();
@@ -179,12 +183,27 @@ namespace Capsule.Lobby.SoloPlay
             StartCoroutine(InitStageSlots());
         }
 
+        private void Update()
+        {
+            if (!gameKindSelectPopupIsOpened && !gameStageSelectPopupIsOpened) return;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (gameKindSelectPopupIsOpened)
+                    PopupGameKindSelect(false);
+                if (gameStageSelectPopupIsOpened)
+                    PopupGameStageSelect(false);
+            }
+        }
+
         private IEnumerator InitStageSlots()
         {
             yield return new WaitForSeconds(1.0f);
             int counter = 0;
             Transform stageSlotContents = GameObject.Find("StageSlotContents").transform;
-            int nextStage = DataManager.Instance.CurrentPlayerGameData.HighestStage + 1;
+            
+            int nextStage = DataManager.Instance.CurrentPlayerGameData.HighestStage;
+            if (DataManager.Instance.HasNextStage(nextStage))
+                nextStage++;
             foreach (GameStageSlot slot in stageSlotContents.GetComponentsInChildren<GameStageSlot>())
             {
                 slot.data = DataManager.Instance.GameStageDatas[counter];
@@ -198,6 +217,7 @@ namespace Capsule.Lobby.SoloPlay
                 slot.IsLocked = !DataManager.Instance.CurrentPlayerStageClearData.ClearData[counter];
                 counter++;
             }
+            gameData.Stage = (GameStage)nextStage;
         }
 
         private void ChangeAIDifficulty(AIDifficulty difficulty, Transform parent)
@@ -210,6 +230,9 @@ namespace Capsule.Lobby.SoloPlay
 
         public void PopupGameKindSelect(bool isOpen)
         {
+            if (LobbySettingManager.Instance != null)
+                LobbySettingManager.Instance.OtherOpened = isOpen;
+            gameKindSelectPopupIsOpened = isOpen;
             SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.OK : MenuSFX.BACK);
             gameKindSelectPopupCG.alpha = isOpen ? 1.0f : 0f;
             gameKindSelectPopupCG.blocksRaycasts = isOpen;
@@ -218,6 +241,9 @@ namespace Capsule.Lobby.SoloPlay
 
         public void PopupGameStageSelect(bool isOpen)
         {
+            if (LobbySettingManager.Instance != null)
+                LobbySettingManager.Instance.OtherOpened = isOpen;
+            gameStageSelectPopupIsOpened = isOpen;
             SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.OK : MenuSFX.BACK);
             gameStageSelectPopupCG.alpha = isOpen ? 1.0f : 0f;
             gameStageSelectPopupCG.blocksRaycasts = isOpen;
@@ -226,6 +252,7 @@ namespace Capsule.Lobby.SoloPlay
 
         public void SelectGameMode(GameMode mode)
         {
+            gameSettingUIList.position -= 800f * Vector3.up;
             gameData.Mode = mode;
             gameModeText.text = DataManager.Instance.gameModeDatas[(int)mode].name;
             gameModeDetailText.text = DataManager.Instance.gameModeDatas[(int)mode].desc;
@@ -356,7 +383,10 @@ namespace Capsule.Lobby.SoloPlay
         {
             Destroy(GameObject.Find("Player"));
             Destroy(GameObject.Find("Stage"));
-            Destroy(UserInfoManager.Instance.gameObject);
+            if (UserInfoManager.Instance != null)
+                Destroy(UserInfoManager.Instance.gameObject);
+            if (LobbySettingManager.Instance != null)
+                Destroy(LobbySettingManager.Instance.gameObject);
             DataManager.Instance.CurrentGameData = gameData;
             SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             StartCoroutine(SceneLoadManager.Instance.LoadGameScene(gameData));
@@ -364,7 +394,10 @@ namespace Capsule.Lobby.SoloPlay
 
         public void BackToMainLobby()
         {
-            Destroy(UserInfoManager.Instance.gameObject);
+            if (UserInfoManager.Instance != null)
+                Destroy(UserInfoManager.Instance.gameObject);
+            if (LobbySettingManager.Instance != null)
+                Destroy(LobbySettingManager.Instance.gameObject);
             SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
             StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.MAIN_LOBBY, true));
         }

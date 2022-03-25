@@ -38,7 +38,7 @@ namespace Capsule.Lobby.SoloPlay
         {
             yield return new WaitForSeconds(1.0f);
             GameKindData data = DataManager.Instance.gameKindDatas[(int)kind];
-            transform.GetChild(2).GetComponent<Text>().text = data.desc;
+            transform.GetChild(2).GetComponent<Text>().text = data.name;
             if (data.preview != null)
                 transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = data.preview;
         }

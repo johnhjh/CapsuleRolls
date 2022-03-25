@@ -383,7 +383,7 @@ namespace Capsule.Entity
                 desc = "자유롭게 설정하여 즐기자!"
             },
         };
-
+        
         public List<GameKindData> gameKindDatas = new List<GameKindData>()
         {
             new GameKindData ()
@@ -391,14 +391,14 @@ namespace Capsule.Entity
                 kind = GameKind.ROLL_THE_BALL,
                 preview = null,
                 name = "공 굴려서 골인~!",
-                desc = "골을 더 많이 넣으면 승리!!\n\n장애물을 피해 골대까지 굴러가자!\n\n점프로 상대팀을 저지하자!"
+                desc = "골대까지 공을 굴려가자!!\n\n무시무시한 장애물들을 피해야해!\n\n점프와 다이브를 적극 활용하자!"
             },
             new GameKindData ()
             {
                 kind = GameKind.THROWING_FEEDER,
                 preview = null,
                 name = "먹이를 던져주자~!",
-                desc = "먹이를 더 많이 먹이면 승리!!\n\n과일이 아니면 싫어한다구!\n\n과일이 아니면 상대팀한테 던지자!"
+                desc = "배고프지 않게 먹이를 먹여주자!!\n\n과일이 아니면 싫어한다구!\n\n과일이 아니면 상대팀한테 던지자!"
             },
             new GameKindData ()
             {
@@ -502,10 +502,20 @@ namespace Capsule.Entity
             private set { gameStageDatas = value; }
         }
 
+        public bool HasNextStage(int stageNum)
+        {
+            return stageNum + 1 < (int)GameStage.STAGE_ALL_CLEAR;
+        }
+
+        public GameStageData GetNextStage()
+        {
+            return GetNextStage(CurrentPlayerGameData.HighestStage);
+        }
+
         public GameStageData GetNextStage(int stage)
         {
             int nextStageNum = stage + 1;
-            if ((GameStage)nextStageNum == GameStage.STAGE_ALL_CLEAR)
+            if (!HasNextStage(stage))
                 nextStageNum--;
             return gameStageDatas[nextStageNum];
         }
