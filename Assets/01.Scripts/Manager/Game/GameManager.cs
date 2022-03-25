@@ -98,6 +98,7 @@ namespace Capsule.Game
         public event Action OnStageClear;
         public event Action OnStageFailure;
         public event Action OnStartGame;
+        public event Action OnTimeEnded;
 
         private void Awake()
         {
@@ -111,6 +112,7 @@ namespace Capsule.Game
 
         private void Start()
         {
+            IsGameOver = false;
             currentGameData = DataManager.Instance.CurrentGameData;
             if (CurrentGameData != null)
             {
@@ -119,8 +121,8 @@ namespace Capsule.Game
                 else if (CurrentGameData.Mode == GameMode.STAGE)
                     BGMManager.Instance.ChangeBGM(BGMType.BATTLE);
             }
-            SFXManager.Instance.PlayOneShot(Announcements.READY);
-            SFXManager.Instance.PlaySFX(Announcements.GO, 2f);
+            SFXManager.Instance.PlaySFX(Announcements.READY, 1f);
+            SFXManager.Instance.PlaySFX(Announcements.GO, 3f);
             if (GameUIManager.Instance != null)
                 GameUIManager.Instance.IsLoading = false;
             OnStartGame?.Invoke();
@@ -178,8 +180,28 @@ namespace Capsule.Game
             return newGameObj;
         }
 
+        public void TimeEnded()
+        {
+            if (IsGameOver) return;
+            OnTimeEnded?.Invoke();
+            switch(CurrentGameData.Mode)
+            {
+                case GameMode.ARCADE:
+                    // 점수 계산 후 데이터 갱신 할 자리
+                    break;
+                case GameMode.STAGE:
+                    StageFailure();
+                    break;
+                case GameMode.BOT:
+                    // 점수 계산 후 승자를 가리는 자리
+                    break;
+            }
+
+        }
+
         public void StageClear()
         {
+            if (IsGameOver) return;
             IsGameOver = true;
             SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             SFXManager.Instance.PlayOneShot(Announcements.CLEAR);
@@ -191,6 +213,7 @@ namespace Capsule.Game
 
         public void StageFailure()
         {
+            if (IsGameOver) return;
             IsGameOver = true;
             OnStageFailure?.Invoke();
             DataManager.Instance.CurrentPlayerGameData.PlayerStagePlayed((int)CurrentGameData.Stage, false);

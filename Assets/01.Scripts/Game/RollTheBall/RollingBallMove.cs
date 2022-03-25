@@ -1,6 +1,8 @@
 ﻿using Capsule.Audio;
+using Capsule.Entity;
 using Capsule.Game.Effect;
 using Capsule.Game.Player;
+using Capsule.Game.UI;
 using UnityEngine;
 
 namespace Capsule.Game.RollTheBall
@@ -50,7 +52,31 @@ namespace Capsule.Game.RollTheBall
             };
         }
 
-        void Update()
+        private void Start()
+        {
+            if (GameManager.Instance.CurrentGameData.Mode == GameMode.STAGE)
+            {
+                switch (GameManager.Instance.CurrentGameData.Stage)
+                {
+                    case GameStage.TUTORIAL_1:
+                    case GameStage.STAGE_1:
+                        playerInput.usingAction1 = false;
+                        playerInput.usingAction2 = false;
+                        break;
+                    case GameStage.TUTORIAL_2:
+                    case GameStage.STAGE_2:
+                        playerInput.usingAction1 = true;
+                        playerInput.usingAction2 = false;
+                        break;
+                    default:
+                        playerInput.usingAction1 = true;
+                        playerInput.usingAction2 = true;
+                        break;
+                }
+            }
+        }
+
+        private void Update()
         {
             if (isDead) return;
             if (!isMine) return;

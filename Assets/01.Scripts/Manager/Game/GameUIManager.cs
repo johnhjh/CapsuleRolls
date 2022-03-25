@@ -52,10 +52,21 @@ namespace Capsule.Game.UI
         private Image userInfoExpImage = null;
         private Text pausePlayInfoText = null;
 
+        private Button buttonPauseGame = null;
         private GameObject buttonClearExitGame = null;
         private GameObject buttonClearNextStage = null;
         private GameObject buttonClearReplayGame = null;
         private GameObject buttonClearAllCleared = null;
+
+        private GameObject timeSoloScoreBoard = null;
+        private GameObject timeTeamScoreBoard = null;
+        private GameObject timeOnlyBoard = null;
+
+        private Text soloTimeText = null;
+        private Text teamTimeText = null;
+        private Text onlyTimeText = null;
+        private int remainedTime = 100;
+        private Coroutine timeCoroutine;
 
         private void Awake()
         {
@@ -90,14 +101,25 @@ namespace Capsule.Game.UI
             userInfoExpImage = GameObject.Find("User_Info_Exp_Fill").GetComponent<Image>();
             pausePlayInfoText = GameObject.Find("Pause_PlayInfo_Text").GetComponent<Text>();
 
+            buttonPauseGame = GameObject.Find("Button_Pause_Game").GetComponent<Button>();
+            buttonPauseGame.onClick.AddListener(delegate { PauseGame(true); });
+
             buttonClearExitGame = GameObject.Find("Button_Clear_ExitGame");
             buttonClearNextStage = GameObject.Find("Button_Clear_NextStage");
             buttonClearReplayGame = GameObject.Find("Button_Clear_ReplayGame");
             buttonClearAllCleared = GameObject.Find("Button_Clear_AllCleared");
+
+            timeSoloScoreBoard = GameObject.Find("Time_Solo_Score_Board");
+            soloTimeText = timeSoloScoreBoard.transform.GetChild(0).GetComponent<Text>();
+            timeTeamScoreBoard = GameObject.Find("Time_Team_Score_Board");
+            teamTimeText = timeTeamScoreBoard.transform.GetChild(0).GetComponent<Text>();
+            timeOnlyBoard = GameObject.Find("Time_Only_Board");
+            onlyTimeText = timeOnlyBoard.transform.GetChild(0).GetComponent<Text>();
         }
 
         private void SetGameUIInfo()
         {
+            remainedTime = 100;
             int currentLevel = DataManager.Instance.CurrentPlayerData.Level;
             int currentExp = DataManager.Instance.CurrentPlayerData.Exp;
             int requiredExp = LevelExpCalc.GetExpData(currentLevel + 1);
@@ -109,15 +131,65 @@ namespace Capsule.Game.UI
             {
                 case GameMode.ARCADE:
                     pausePlayInfoText.text = "아케이드 모드";
+                    timeSoloScoreBoard.SetActive(true);
+                    timeTeamScoreBoard.SetActive(false);
+                    timeOnlyBoard.SetActive(false);
+                    soloTimeText.text = remainedTime.ToString();
+                    timeCoroutine = StartCoroutine(SetTimeUIText(soloTimeText));
                     break;
                 case GameMode.STAGE:
                     pausePlayInfoText.text = "스테이지 모드 - " + DataManager.Instance.GetCurrentStageString();
+                    timeSoloScoreBoard.SetActive(false);
+                    timeTeamScoreBoard.SetActive(false);
+                    timeOnlyBoard.SetActive(true);
+                    onlyTimeText.text = remainedTime.ToString();
+                    switch(DataManager.Instance.CurrentGameData.Stage)
+                    {
+                        case GameStage.TUTORIAL_1:
+                            ActionButton1Ctrl.Instance.IsActivated = false;
+                            ActionButton2Ctrl.Instance.IsActivated = false;
+                            onlyTimeText.text = "∞";
+                            break;
+                        case GameStage.STAGE_1:
+                            ActionButton1Ctrl.Instance.IsActivated = false;
+                            ActionButton2Ctrl.Instance.IsActivated = false;
+                            timeCoroutine = StartCoroutine(SetTimeUIText(onlyTimeText));
+                            break;
+                        case GameStage.TUTORIAL_2:
+                            ActionButton1Ctrl.Instance.IsActivated = true;
+                            ActionButton2Ctrl.Instance.IsActivated = false;
+                            onlyTimeText.text = "∞";
+                            break;
+                        case GameStage.STAGE_2:
+                            ActionButton1Ctrl.Instance.IsActivated = true;
+                            ActionButton2Ctrl.Instance.IsActivated = false;
+                            timeCoroutine = StartCoroutine(SetTimeUIText(onlyTimeText));
+                            break;
+                        case GameStage.TUTORIAL_3:
+                            ActionButton1Ctrl.Instance.IsActivated = true;
+                            ActionButton2Ctrl.Instance.IsActivated = true;
+                            onlyTimeText.text = "∞";
+                            break;
+                        default:
+                            ActionButton1Ctrl.Instance.IsActivated = true;
+                            ActionButton2Ctrl.Instance.IsActivated = true;
+                            timeCoroutine = StartCoroutine(SetTimeUIText(onlyTimeText));
+                            break;
+                    }
                     break;
                 case GameMode.BOT:
                     pausePlayInfoText.text = "AI봇 대전 모드";
+                    timeSoloScoreBoard.SetActive(false);
+                    timeTeamScoreBoard.SetActive(true);
+                    timeOnlyBoard.SetActive(false);
+                    teamTimeText.text = remainedTime.ToString();
+                    timeCoroutine = StartCoroutine(SetTimeUIText(teamTimeText));
                     break;
                 case GameMode.PRACTICE:
                     pausePlayInfoText.text = "연습 모드";
+                    timeSoloScoreBoard.SetActive(false);
+                    timeTeamScoreBoard.SetActive(false);
+                    timeOnlyBoard.SetActive(false);
                     break;
             }
             if (DataManager.Instance.HasNextStage())
@@ -138,6 +210,25 @@ namespace Capsule.Game.UI
             return IsPaused || IsSetting || IsStagePopupActive || IsLoading;
         }
 
+        private IEnumerator SetTimeUIText(Text timeText)
+        {
+            yield return new WaitForSeconds(3.0f);
+            while (!GameManager.Instance.IsGameOver || remainedTime-- < 0)
+            {
+                yield return new WaitForSeconds(1.0f);
+                timeText.text = remainedTime.ToString();
+                if (remainedTime <= 5)
+                {
+
+                }
+                if (remainedTime == 0)
+                {
+                    GameManager.Instance.TimeEnded();
+                    yield break;
+                }
+            }
+        }
+
         private IEnumerator FadeInCG(CanvasGroup cg)
         {
             IsStagePopupActive = true;
@@ -154,11 +245,15 @@ namespace Capsule.Game.UI
 
         public void OnStageClear()
         {
+            if (timeCoroutine != null)
+                StopCoroutine(timeCoroutine);
             StartCoroutine(FadeInCG(gameStageClearCG));
         }
 
         public void OnStageFailure()
         {
+            if (timeCoroutine != null)
+                StopCoroutine(timeCoroutine);
             StartCoroutine(FadeInCG(gameStageFailureCG));
         }
 

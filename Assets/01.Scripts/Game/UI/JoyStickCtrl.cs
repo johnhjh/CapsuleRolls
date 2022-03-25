@@ -118,7 +118,10 @@ namespace Capsule.Game.UI
                     if (touch.phase == TouchPhase.Ended)
                     {
                         if (touchID == i)
+                        {
                             touchID = -1;
+                            HandleInput(startPos);
+                        }
                     }
                 }
             }
