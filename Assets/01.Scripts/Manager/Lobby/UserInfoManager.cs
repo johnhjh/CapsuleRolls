@@ -1,6 +1,5 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
-using Capsule.Lobby.Main;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
