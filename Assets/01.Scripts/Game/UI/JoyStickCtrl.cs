@@ -1,4 +1,5 @@
 ﻿using Capsule.Game.Player;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,8 +11,8 @@ namespace Capsule.Game.UI
         private RectTransform touchPad;
         private int touchID = -1;
         private Vector3 startPos = Vector3.zero;
-        public float dragRadius = 150f;
-        public float touchableRadius = 260f;
+        private float dragRadius;
+        private float touchableRadius;
 
         private PlayerInput playerInput = null;
         public PlayerInput InputPlayer { set { playerInput = value; } }
@@ -31,7 +32,7 @@ namespace Capsule.Game.UI
         private readonly Color unFocusedColor = new Color(1f, 1f, 1f, 0f);
         private readonly Color focusedColor = new Color(1f, 1f, 1f, 1f);
 
-        public Vector3 GizmoPosition = new Vector3();
+        private RectTransform joystickBack;
 
         private bool joyStickPressed = false;
         public bool JoyStickPressed
@@ -49,7 +50,15 @@ namespace Capsule.Game.UI
             topRightFocus = transform.parent.GetChild(1).GetComponent<Image>();
             bottomLeftFocus = transform.parent.GetChild(2).GetComponent<Image>();
             bottomRightFocus = transform.parent.GetChild(3).GetComponent<Image>();
-        }
+
+            joystickBack = transform.parent.GetComponent<RectTransform>();
+            joystickBack.sizeDelta = new Vector2(500f, 500f);
+            dragRadius = Screen.height * 0.12f;
+            //Debug.Log("drag : " + dragRadius);
+            touchableRadius = Screen.height * 0.14f;
+            //Debug.Log("touchable : " + touchableRadius);
+
+        }       
 
         private void Update()
         {
@@ -149,12 +158,6 @@ namespace Capsule.Game.UI
                 bottomRightFocus.color = focusedColor;
             else if (x < 0 && y < 0)
                 bottomLeftFocus.color = focusedColor;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(GizmoPosition, touchableRadius);
         }
     }
 }

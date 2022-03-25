@@ -395,6 +395,7 @@ namespace Capsule.SceneLoad
             yield return SceneManager.UnloadSceneAsync(GetGameSceneLevelName(data));
             yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind));
             data.Stage = (GameStage)((int)data.Stage + 1);
+            DataManager.Instance.CurrentGameData.Stage = data.Stage;
             Dictionary<GameSceneType, SceneData> gameSceneDictionary = MakeGameSceneDictionary(data);
             float totalProgress = 0f;
             foreach (var loadScene in gameSceneDictionary)

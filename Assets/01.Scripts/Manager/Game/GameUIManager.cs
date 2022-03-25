@@ -1,4 +1,5 @@
-﻿using Capsule.Entity;
+﻿using Capsule.Audio;
+using Capsule.Entity;
 using Capsule.SceneLoad;
 using System.Collections;
 using UnityEngine;
@@ -23,8 +24,18 @@ namespace Capsule.Game.UI
         public bool IsPaused { get; set; }
         [HideInInspector]
         public bool IsSetting { get; set; }
+        private bool isLoading = false;
         [HideInInspector]
-        public bool IsLoading { get; set; }
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set
+            {
+                isLoading = value;
+                if (!value)
+                    SetGameUIInfo();
+            }
+        }
         [HideInInspector]
         public bool IsStagePopupActive { get; set; }
         [HideInInspector]
@@ -35,9 +46,16 @@ namespace Capsule.Game.UI
         private CanvasGroup gameStageClearCG = null;
         private CanvasGroup gameStageFailureCG = null;
 
+        private Text labelStageClearText = null;
         private Text userInfoLevelText = null;
         private Text userInfoExpText = null;
         private Image userInfoExpImage = null;
+        private Text pausePlayInfoText = null;
+
+        private GameObject buttonClearExitGame = null;
+        private GameObject buttonClearNextStage = null;
+        private GameObject buttonClearReplayGame = null;
+        private GameObject buttonClearAllCleared = null;
 
         private void Awake()
         {
@@ -49,28 +67,70 @@ namespace Capsule.Game.UI
 
         private void Start()
         {
+            InitGameUIComponents();
+            if (DataManager.Instance != null)
+                SetGameUIInfo();
+        }
+
+        private void InitGameUIComponents()
+        {
             IsPaused = false;
             IsSetting = false;
-            IsLoading = false;
+            IsLoading = true;
             IsStagePopupActive = false;
 
             gamePauseCG = GameObject.Find("GameUIPause").GetComponent<CanvasGroup>();
             gameSettingCG = GameObject.Find("GameUISetting").GetComponent<CanvasGroup>();
             gameStageClearCG = GameObject.Find("GameUIStageClear").GetComponent<CanvasGroup>();
             gameStageFailureCG = GameObject.Find("GameUIStageFailure").GetComponent<CanvasGroup>();
+
+            labelStageClearText = GameObject.Find("Label_StageClear_Text").GetComponent<Text>();
             userInfoLevelText = GameObject.Find("User_Info_Level_Text").GetComponent<Text>();
             userInfoExpText = GameObject.Find("User_Info_Exp_Text").GetComponent<Text>();
             userInfoExpImage = GameObject.Find("User_Info_Exp_Fill").GetComponent<Image>();
+            pausePlayInfoText = GameObject.Find("Pause_PlayInfo_Text").GetComponent<Text>();
 
-            if (DataManager.Instance != null)
+            buttonClearExitGame = GameObject.Find("Button_Clear_ExitGame");
+            buttonClearNextStage = GameObject.Find("Button_Clear_NextStage");
+            buttonClearReplayGame = GameObject.Find("Button_Clear_ReplayGame");
+            buttonClearAllCleared = GameObject.Find("Button_Clear_AllCleared");
+        }
+
+        private void SetGameUIInfo()
+        {
+            int currentLevel = DataManager.Instance.CurrentPlayerData.Level;
+            int currentExp = DataManager.Instance.CurrentPlayerData.Exp;
+            int requiredExp = LevelExpCalc.GetExpData(currentLevel + 1);
+            userInfoLevelText.text = currentLevel.ToString();
+            userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
+            userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
+            labelStageClearText.text = DataManager.Instance.GetCurrentStageString() + " 클리어!";
+            switch(DataManager.Instance.CurrentGameData.Mode)
             {
-                int currentLevel = DataManager.Instance.CurrentPlayerData.Level;
-                int currentExp = DataManager.Instance.CurrentPlayerData.Exp;
-                int requiredExp = LevelExpCalc.GetExpData(currentLevel + 1);
-                userInfoLevelText.text = currentLevel.ToString();
-                userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
-                userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
+                case GameMode.ARCADE:
+                    pausePlayInfoText.text = "아케이드 모드";
+                    break;
+                case GameMode.STAGE:
+                    pausePlayInfoText.text = "스테이지 모드 - " + DataManager.Instance.GetCurrentStageString();
+                    break;
+                case GameMode.BOT:
+                    pausePlayInfoText.text = "AI봇 대전 모드";
+                    break;
+                case GameMode.PRACTICE:
+                    pausePlayInfoText.text = "연습 모드";
+                    break;
             }
+            if (DataManager.Instance.HasNextStage())
+            {
+                buttonClearExitGame.SetActive(true);
+                buttonClearNextStage.SetActive(true);
+                if (buttonClearReplayGame.activeSelf)
+                    buttonClearReplayGame.SetActive(false);
+                if (buttonClearAllCleared.activeSelf)
+                    buttonClearAllCleared.SetActive(false);
+            }
+            else
+                StageAllClearedUI();
         }
 
         public bool CheckUIActive()
@@ -151,6 +211,12 @@ namespace Capsule.Game.UI
 
         public void OnClickNextStage()
         {
+            if (!DataManager.Instance.HasNextStage(GameManager.Instance.CurrentGameData.Stage))
+            {
+                SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
+                StageAllClearedUI();
+                return;
+            }
             IsLoading = true;
             Time.timeScale = 1f;
             gameStageClearCG.alpha = 0f;
@@ -176,6 +242,17 @@ namespace Capsule.Game.UI
         {
             IsLoading = true;
             StartCoroutine(SceneLoadManager.Instance.LoadLobbySceneFromGame(sceneType));
+        }
+
+        public void StageAllClearedUI()
+        {
+            labelStageClearText.text = "스테이지 올 클리어!!";
+            if (buttonClearExitGame.activeSelf)
+                buttonClearExitGame.SetActive(false);
+            if (buttonClearNextStage.activeSelf)
+                buttonClearNextStage.SetActive(false);
+            buttonClearReplayGame.SetActive(true);
+            buttonClearAllCleared.SetActive(true);
         }
     }
 }

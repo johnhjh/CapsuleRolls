@@ -502,9 +502,19 @@ namespace Capsule.Entity
             private set { gameStageDatas = value; }
         }
 
+        public bool HasNextStage()
+        {
+            return HasNextStage(CurrentGameData.Stage);
+        }
+
         public bool HasNextStage(int stageNum)
         {
             return stageNum + 1 < (int)GameStage.STAGE_ALL_CLEAR;
+        }
+
+        public bool HasNextStage(GameStage stage)
+        {
+            return (int)stage + 1 < (int)GameStage.STAGE_ALL_CLEAR;
         }
 
         public GameStageData GetNextStage()
@@ -528,6 +538,11 @@ namespace Capsule.Entity
         public string GetNextStageString()
         {
             return GetNextStage(currentPlayerGameData.HighestStage).name;
+        }
+
+        public string GetCurrentStageString()
+        {
+            return gameStageDatas[(int)CurrentGameData.Stage].name;
         }
 
         public string GetHighestStageString()
