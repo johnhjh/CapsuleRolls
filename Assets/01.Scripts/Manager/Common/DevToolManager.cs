@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Cpasule.Dev
+namespace Capsule.Dev
 {
     public class DevToolManager : MonoBehaviour
     {
@@ -20,7 +20,7 @@ namespace Cpasule.Dev
             }
         }
 
-        private CanvasGroup devToolCG;
+        private CanvasGroup devToolCG = null;
         private InputField expInput;
         private InputField coinInput;
         private InputField ratingInput;
@@ -30,10 +30,31 @@ namespace Cpasule.Dev
             if (devToolMgr == null)
                 devToolMgr = this;
             else if (devToolMgr != this)
-                Destroy(this.gameObject);
+            {
+                Destroy(devToolMgr.gameObject);
+                devToolMgr = this;
+                InitDevToolManager();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (devToolCG != null)
+            {
+                Destroy(devToolCG.gameObject);
+                devToolCG = null;
+            }
+            if (devToolMgr == this)
+                devToolMgr = null;
         }
 
         private void Start()
+        {
+            if (devToolCG == null)
+                InitDevToolManager();
+        }
+
+        private void InitDevToolManager()
         {
             devToolCG = GameObject.Find("Popup_DevTool").GetComponent<CanvasGroup>();
             expInput = GameObject.Find("InputField_Exp").GetComponent<InputField>();
@@ -159,7 +180,7 @@ namespace Cpasule.Dev
             Destroy(BGMManager.Instance.gameObject);
             Destroy(SFXManager.Instance.gameObject);
             Destroy(AudioListenerManager.Instance.gameObject);
-
+            Destroy(devToolCG.gameObject);
             SceneLoadManager.Instance.ReLoadScene(LobbySceneType.TITLE);
         }
 
@@ -168,6 +189,7 @@ namespace Cpasule.Dev
             SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             Destroy(GameObject.Find("Player"));
             Destroy(DataManager.Instance.gameObject);
+            Destroy(devToolCG.gameObject);
             SceneLoadManager.Instance.ReLoadScene(LobbySceneType.MAIN_LOBBY);
         }
     }

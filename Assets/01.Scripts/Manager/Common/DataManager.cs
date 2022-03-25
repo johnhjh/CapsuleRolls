@@ -35,6 +35,12 @@ namespace Capsule.Entity
                 Destroy(this.gameObject);
         }
 
+        public void SaveBeforeQuit()
+        {
+            CurrentPlayerData.SavePlayerData();
+            CurrentPlayerCustomizeData.SavePlayerCustomizeData();
+        }
+
         public void ResetAllDatas()
         {
             CurrentPlayerData.ResetPlayerData();

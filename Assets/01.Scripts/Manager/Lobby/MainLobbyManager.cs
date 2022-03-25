@@ -61,6 +61,8 @@ namespace Capsule.Lobby.Main
 
         public void MoveToScene(LobbySceneType sceneType)
         {
+            if (LobbySettingManager.Instance != null)
+                Destroy(LobbySettingManager.Instance.gameObject);
             StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(sceneType, true));
         }
 

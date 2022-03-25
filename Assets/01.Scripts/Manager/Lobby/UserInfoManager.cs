@@ -156,8 +156,8 @@ namespace Capsule.Lobby
             userInfoPopupCG.blocksRaycasts = isOpen;
             userInfoPopupCG.interactable = isOpen;
             this.isUserInfoOpen = isOpen;
-            if (SettingManager.Instance != null)
-                SettingManager.Instance.OtherOpened = isOpen;
+            if (LobbySettingManager.Instance != null)
+                LobbySettingManager.Instance.OtherOpened = isOpen;
         }
 
         public void OpenCloseChangeNamePopup(bool isOpen)

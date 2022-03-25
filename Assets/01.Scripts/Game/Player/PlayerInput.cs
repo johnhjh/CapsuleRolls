@@ -59,9 +59,13 @@ namespace Capsule.Game.Player
             }
             else
             {
-                horizontal = Input.GetAxis(AXIS_NAME_HORIZONTAL);
-                vertical = Input.GetAxis(AXIS_NAME_VERTICAL);
-                rotate = Input.GetAxis(AXIS_NAME_MOUSE_X);
+                if (Application.platform != RuntimePlatform.Android &&
+                    Application.platform != RuntimePlatform.IPhonePlayer)
+                {
+                    horizontal = Input.GetAxis(AXIS_NAME_HORIZONTAL);
+                    vertical = Input.GetAxis(AXIS_NAME_VERTICAL);
+                    rotate = Input.GetAxis(AXIS_NAME_MOUSE_X);
+                }
             }
             if (GameUIManager.Instance != null && GameUIManager.Instance.IsUIHover)
             {

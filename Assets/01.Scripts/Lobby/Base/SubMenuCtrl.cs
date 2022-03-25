@@ -5,16 +5,12 @@ using UnityEngine.UI;
 
 namespace Capsule.Lobby
 {
-    public class SubMenuCtrl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class SubMenuCtrl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         // Components
-        [SerializeField]
         private RectTransform parentTransform;
-        [SerializeField]
         private RectTransform iconTransform;
-        [SerializeField]
         private RectTransform textTransform;
-        [SerializeField]
         private Text textFont;
 
         // Bool
@@ -72,15 +68,20 @@ namespace Capsule.Lobby
             fontSizing = (MAX_FONT_SIZE - MIN_FONT_SIZE) / durationTime;
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             isHovering = true;
             SFXManager.Instance.PlayOneShot(MenuSFX.HOVER);
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
             isHovering = false;
+        }
+
+        public virtual void OnPointerClick(PointerEventData eventData)
+        {
+            SFXManager.Instance.PlayOneShot(MenuSFX.OK);
         }
 
         private void Update()

@@ -10,7 +10,8 @@ namespace Capsule.Game.UI
         private RectTransform touchPad;
         private int touchID = -1;
         private Vector3 startPos = Vector3.zero;
-        public float dragRadius = 120f;
+        public float dragRadius = 150f;
+        public float touchableRadius = 260f;
 
         private PlayerInput playerInput = null;
         public PlayerInput InputPlayer { set { playerInput = value; } }
@@ -29,6 +30,8 @@ namespace Capsule.Game.UI
 
         private readonly Color unFocusedColor = new Color(1f, 1f, 1f, 0f);
         private readonly Color focusedColor = new Color(1f, 1f, 1f, 1f);
+
+        public Vector3 GizmoPosition = new Vector3();
 
         private bool joyStickPressed = false;
         public bool JoyStickPressed
@@ -94,8 +97,8 @@ namespace Capsule.Game.UI
                     Vector2 touchPos = new Vector2(touch.position.x, touch.position.y);
                     if (touch.phase == TouchPhase.Began)
                     {
-                        if (touch.position.x <= (startPos.x + dragRadius) &&
-                            touch.position.y <= (startPos.y + dragRadius))
+                        if (touch.position.x <= (startPos.x + touchableRadius) &&
+                            touch.position.y <= (startPos.y + touchableRadius))
                             touchID = i;
                     }
                     if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
@@ -146,6 +149,12 @@ namespace Capsule.Game.UI
                 bottomRightFocus.color = focusedColor;
             else if (x < 0 && y < 0)
                 bottomLeftFocus.color = focusedColor;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(GizmoPosition, touchableRadius);
         }
     }
 }

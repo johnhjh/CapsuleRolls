@@ -105,6 +105,7 @@ namespace Capsule.Audio
 
         private AudioSource sfxAudioSource;
         private float announceVolume = 1f;
+        private bool announceTesting = false;
 
         private void Awake()
         {
@@ -527,6 +528,21 @@ namespace Capsule.Audio
         public void SetAnnounceVolume(float volume)
         {
             announceVolume = volume;
+        }
+
+        public void PlayAnnouncementTest()
+        {
+            if (announceTesting) return;
+            announceTesting = true;
+            AudioClip announceClip = GetAudioClip(Announcements.READY);
+            PlayOneShot(announceClip, announceVolume, true);
+            StartCoroutine(AnnouncementTest(announceClip.length));
+        }
+
+        private IEnumerator AnnouncementTest(float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            announceTesting = false;
         }
     }
 }
