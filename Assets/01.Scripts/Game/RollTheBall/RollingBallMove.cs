@@ -2,7 +2,6 @@
 using Capsule.Entity;
 using Capsule.Game.Effect;
 using Capsule.Game.Player;
-using Capsule.Game.UI;
 using UnityEngine;
 
 namespace Capsule.Game.RollTheBall

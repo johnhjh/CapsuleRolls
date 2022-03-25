@@ -184,7 +184,7 @@ namespace Capsule.Game
         {
             if (IsGameOver) return;
             OnTimeEnded?.Invoke();
-            switch(CurrentGameData.Mode)
+            switch (CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
                     // 점수 계산 후 데이터 갱신 할 자리

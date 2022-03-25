@@ -383,7 +383,7 @@ namespace Capsule.Entity
                 desc = "자유롭게 설정하여 즐기자!"
             },
         };
-        
+
         public List<GameKindData> gameKindDatas = new List<GameKindData>()
         {
             new GameKindData ()

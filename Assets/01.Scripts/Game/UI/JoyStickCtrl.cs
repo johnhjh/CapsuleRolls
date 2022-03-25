@@ -1,5 +1,4 @@
 ﻿using Capsule.Game.Player;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -58,7 +57,7 @@ namespace Capsule.Game.UI
             touchableRadius = Screen.height * 0.14f;
             //Debug.Log("touchable : " + touchableRadius);
 
-        }       
+        }
 
         private void Update()
         {

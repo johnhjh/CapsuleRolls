@@ -200,7 +200,7 @@ namespace Capsule.Lobby.SoloPlay
             yield return new WaitForSeconds(1.0f);
             int counter = 0;
             Transform stageSlotContents = GameObject.Find("StageSlotContents").transform;
-            
+
             int nextStage = DataManager.Instance.CurrentPlayerGameData.HighestStage;
             if (DataManager.Instance.HasNextStage(nextStage))
                 nextStage++;

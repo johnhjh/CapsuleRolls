@@ -127,7 +127,7 @@ namespace Capsule.Game.UI
             userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
             userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
             labelStageClearText.text = DataManager.Instance.GetCurrentStageString() + " 클리어!";
-            switch(DataManager.Instance.CurrentGameData.Mode)
+            switch (DataManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
                     pausePlayInfoText.text = "아케이드 모드";
@@ -143,7 +143,7 @@ namespace Capsule.Game.UI
                     timeTeamScoreBoard.SetActive(false);
                     timeOnlyBoard.SetActive(true);
                     onlyTimeText.text = remainedTime.ToString();
-                    switch(DataManager.Instance.CurrentGameData.Stage)
+                    switch (DataManager.Instance.CurrentGameData.Stage)
                     {
                         case GameStage.TUTORIAL_1:
                             ActionButton1Ctrl.Instance.IsActivated = false;
