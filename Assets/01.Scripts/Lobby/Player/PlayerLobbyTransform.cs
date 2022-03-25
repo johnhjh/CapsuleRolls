@@ -2,15 +2,15 @@
 
 namespace Capsule.Lobby.Player
 {
-    public class PlayerTransform : MonoBehaviour
+    public class PlayerLobbyTransform : MonoBehaviour
     {
-        private static PlayerTransform playerTransform;
-        public static PlayerTransform Instance
+        private static PlayerLobbyTransform playerTransform;
+        public static PlayerLobbyTransform Instance
         {
             get
             {
                 if (playerTransform == null)
-                    playerTransform = FindObjectOfType<PlayerTransform>();
+                    playerTransform = FindObjectOfType<PlayerLobbyTransform>();
                 return playerTransform;
             }
         }

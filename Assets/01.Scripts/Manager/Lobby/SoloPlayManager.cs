@@ -122,9 +122,9 @@ namespace Capsule.Lobby.SoloPlay
             BGMManager.Instance.ChangeBGM(BGMType.BATTLE);
             SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.SOLO;
-            PlayerTransform.Instance.SetPosition(new Vector3(0.07f, -0.4f, -4.34f));
-            PlayerTransform.Instance.SetRotation(Quaternion.Euler(8.2f, 177.6f, 0f));
-            PlayerTransform.Instance.SetScale(1.18f);
+            PlayerLobbyTransform.Instance.SetPosition(new Vector3(0.07f, -0.4f, -4.34f));
+            PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(8.2f, 177.6f, 0f));
+            PlayerLobbyTransform.Instance.SetScale(1.18f);
 
             gameModeText = GameObject.Find("GameModeText").GetComponent<Text>();
             gameModeDetailText = GameObject.Find("GameModeDetailText").GetComponent<Text>();

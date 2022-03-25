@@ -39,11 +39,6 @@ namespace Capsule.Dev
 
         private void OnDestroy()
         {
-            if (devToolCG != null)
-            {
-                Destroy(devToolCG.gameObject);
-                devToolCG = null;
-            }
             if (devToolMgr == this)
                 devToolMgr = null;
         }
@@ -65,6 +60,8 @@ namespace Capsule.Dev
         public void PopupDevTool(bool isOpen)
         {
             SFXManager.Instance.PlayOneShot(isOpen ? MenuSFX.POPUP : MenuSFX.BACK);
+            if (devToolCG == null)
+                InitDevToolManager();
             devToolCG.interactable = isOpen;
             devToolCG.blocksRaycasts = isOpen;
             devToolCG.alpha = isOpen ? 1f : 0f;

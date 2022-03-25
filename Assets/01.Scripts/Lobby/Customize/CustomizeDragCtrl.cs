@@ -21,7 +21,7 @@ namespace Capsule.Lobby.Customize
 
         public void OnDrag(PointerEventData eventData)
         {
-            PlayerTransform.Instance.Rotate(Vector3.up, -Input.GetAxis("Mouse X") * rotSpeed);
+            PlayerLobbyTransform.Instance.Rotate(Vector3.up, -Input.GetAxis("Mouse X") * rotSpeed);
         }
 
         public void OnEndDrag(PointerEventData eventData)

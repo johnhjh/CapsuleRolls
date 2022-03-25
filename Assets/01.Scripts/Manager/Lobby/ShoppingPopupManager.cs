@@ -46,6 +46,8 @@ namespace Capsule.Lobby.Shopping
             get { return toggleCheckSaving; }
         }
 
+        private bool isShoppingPopupOpened = false;
+
         private void Awake()
         {
             if (shoppingPopupMgr == null)
@@ -70,6 +72,16 @@ namespace Capsule.Lobby.Shopping
             toggleCheckImage.color = new Color(1f, 1f, 1f, 1f);
             notEnoughCoinCG.alpha = 0f;
             toggleCheckSaving = true;
+        }
+
+        private void Update()
+        {
+            if (!isShoppingPopupOpened) return;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PlayBackSound();
+                OpenCloseShoppingPopup(false);
+            }
         }
 
         private void ResetShoppingInfo()
@@ -115,6 +127,9 @@ namespace Capsule.Lobby.Shopping
 
         public void OpenCloseShoppingPopup(bool isOpen)
         {
+            if (LobbySettingManager.Instance != null)
+                LobbySettingManager.Instance.OtherOpened = isOpen;
+            isShoppingPopupOpened = isOpen;
             if (!isOpen)
                 ResetShoppingInfo();
             else

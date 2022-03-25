@@ -383,9 +383,9 @@ namespace Capsule.Lobby.Shopping
             BGMManager.Instance.ChangeBGM(BGMType.CUSTOMIZE);
             SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.SHOPPING;
-            PlayerTransform.Instance.SetPosition(new Vector3(3.25f, -0.27f, -5.3f));
-            PlayerTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
-            PlayerTransform.Instance.SetScale(characterScale);
+            PlayerLobbyTransform.Instance.SetPosition(new Vector3(3.25f, -0.27f, -5.3f));
+            PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
+            PlayerLobbyTransform.Instance.SetScale(characterScale);
 
             InitScrollRect();
 
@@ -946,6 +946,8 @@ namespace Capsule.Lobby.Shopping
         public void BackToMainLobby()
         {
             SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
+            if (LobbySettingManager.Instance != null)
+                Destroy(LobbySettingManager.Instance.gameObject);
 
             PlayerLobbyCustomize.Instance.ChangeBody(savedBodyMaterial);
 
@@ -984,12 +986,17 @@ namespace Capsule.Lobby.Shopping
                         Destroy(obj);
                 }
             }
+            PlayerLobbyCustomize.Instance.EnableHandMeshes(true);
             if (savedLeftGloveObj != null && !savedLeftGloveObj.activeSelf)
+            {
                 savedLeftGloveObj.SetActive(true);
+                PlayerLobbyCustomize.Instance.EnableLeftHandMeshes(false);
+            }
             if (savedRightGloveObj != null && !savedRightGloveObj.activeSelf)
+            {
                 savedRightGloveObj.SetActive(true);
-            if (savedRightGloveObj == null)
-                PlayerLobbyCustomize.Instance.EnableHandMeshes(true);
+                PlayerLobbyCustomize.Instance.EnableRightHendMeshes(false);
+            }
 
             if (clothDictionary.Count > 0)
             {

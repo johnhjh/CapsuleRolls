@@ -233,9 +233,9 @@ namespace Capsule.Lobby.Customize
             BGMManager.Instance.ChangeBGM(BGMType.CUSTOMIZE);
             SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.CUSTOMIZE;
-            PlayerTransform.Instance.SetPosition(new Vector3(2.6f, -0.54f, -5f));
-            PlayerTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
-            PlayerTransform.Instance.SetScale(characterScale);
+            PlayerLobbyTransform.Instance.SetPosition(new Vector3(2.6f, -0.54f, -5f));
+            PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
+            PlayerLobbyTransform.Instance.SetScale(characterScale);
 
             RectTransform scrollRectTransform = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
             scrollRect = scrollRectTransform.GetComponent<ScrollRect>();
@@ -375,6 +375,8 @@ namespace Capsule.Lobby.Customize
         public void BackToMainLobby()
         {
             SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
+            if (LobbySettingManager.Instance != null)
+                Destroy(LobbySettingManager.Instance.gameObject);
 
             if (savedBodyMat != currentBodySlot.bodyMaterial)
                 PlayerLobbyCustomize.Instance.ChangeBody(savedBodyMat);

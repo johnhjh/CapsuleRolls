@@ -32,10 +32,10 @@ namespace Capsule.Lobby.Main
             BGMManager.Instance.ChangeBGM(BGMType.MAIN);
             SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.MAIN_LOBBY;
-            PlayerTransform.Instance.SetPosition(new Vector3(2.29f, -0.17f, -5.4f));
-            PlayerTransform.Instance.SetRotation(Quaternion.Euler(19.94f, 202f, -4.7f));
+            PlayerLobbyTransform.Instance.SetPosition(new Vector3(2.29f, -0.17f, -5.4f));
+            PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(19.94f, 202f, -4.7f));
             //PlayerTransform.Instance.SetScale(new Vector3(1.18f, 1.18f, 1.18f));
-            PlayerTransform.Instance.SetScale(1.18f);
+            PlayerLobbyTransform.Instance.SetScale(1.18f);
         }
 
         public void MoveToCustomizeScene()

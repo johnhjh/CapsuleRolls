@@ -39,8 +39,6 @@ namespace Capsule.Lobby
 
         private void OnDestroy()
         {
-            if (settingCG != null)
-                Destroy(settingCG.gameObject);
             if (DevToolManager.Instance != null)
                 Destroy(DevToolManager.Instance.gameObject);
             if (settingMgr == this)
@@ -109,6 +107,8 @@ namespace Capsule.Lobby
         public void PopUpSetting(bool isPopUp)
         {
             isSettingOpen = isPopUp;
+            if (settingCG == null)
+                InitLobbySettingManager();
             settingCG.interactable = isPopUp;
             settingCG.blocksRaycasts = isPopUp;
             settingCG.alpha = isPopUp ? 1f : 0f;
