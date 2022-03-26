@@ -24,7 +24,7 @@ namespace Capsule.Game.Player
         {
             if (isMine)
             {
-                joyStick = GameObject.FindObjectOfType<JoyStickCtrl>();
+                joyStick = FindObjectOfType<JoyStickCtrl>();
                 if (joyStick != null)
                     joyStick.InputPlayer = this;
             }
@@ -32,7 +32,7 @@ namespace Capsule.Game.Player
 
         private void Update()
         {
-            if (GameManager.Instance.IsGameOver)
+            if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
             {
                 horizontal = 0f;
                 vertical = 0f;

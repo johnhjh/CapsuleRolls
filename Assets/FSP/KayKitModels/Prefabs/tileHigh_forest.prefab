@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 41008144471708138}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileHigh_forest
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 949217987518978723}
   - component: {fileID: 5267657108579416356}
   - component: {fileID: 5496960445228008590}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileHigh_forest
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +123,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5471682570697589864}
 --- !u!43 &-5471682570697589864

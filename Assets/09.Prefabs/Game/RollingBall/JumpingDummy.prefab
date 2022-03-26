@@ -910,8 +910,8 @@ GameObject:
   - component: {fileID: 381778849447271517}
   - component: {fileID: 3509384868069101775}
   - component: {fileID: 5658393419627980396}
-  - component: {fileID: 6845228209230668913}
   - component: {fileID: 1361995424279012777}
+  - component: {fileID: 8879276607458231246}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1096,6 +1096,8 @@ MonoBehaviour:
   vertical: 0
   rotate: 0
   isMine: 0
+  usingAction1: 1
+  usingAction2: 1
 --- !u!114 &5658393419627980396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1113,25 +1115,6 @@ MonoBehaviour:
   jumpForce: 300
   diveForce: 700
   isTeamA: 1
---- !u!114 &6845228209230668913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3184773807459767616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc72a73fe1438447b5e5cfaadf37ac6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  headTransform: {fileID: 1329001287587090991}
-  faceTransform: {fileID: 7265216463435870946}
-  leftHandTransform: {fileID: 3807353486775989050}
-  rightHandTransform: {fileID: 6996394579014273870}
-  clothTransform: {fileID: 4545149444913915585}
-  leftHandSkinnedMeshRenderer: {fileID: 8572794872271868057}
-  rightHandSkinnedMeshRenderer: {fileID: 2927404788148850224}
 --- !u!114 &1361995424279012777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,6 +1128,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeDelayed: 2
+--- !u!114 &8879276607458231246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184773807459767616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 609bd35376061044cbf344e8ffd4244b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headTransform: {fileID: 1329001287587090991}
+  faceTransform: {fileID: 7265216463435870946}
+  leftHandTransform: {fileID: 3807353486775989050}
+  rightHandTransform: {fileID: 6996394579014273870}
+  clothTransform: {fileID: 4545149444913915585}
+  leftHandSkinnedMeshRenderer: {fileID: 8572794872271868057}
+  rightHandSkinnedMeshRenderer: {fileID: 2927404788148850224}
+  isRagdoll: 0
+  isRandom: 0
+  body: 4
+  head: 23
+  face: 13
+  glove: 0
+  cloth: 3
 --- !u!1 &3463764590608070066
 GameObject:
   m_ObjectHideFlags: 0

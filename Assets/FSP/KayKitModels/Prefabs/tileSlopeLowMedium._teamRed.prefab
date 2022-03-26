@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2835400014930165118}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileSlopeLowMedium._teamRed
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 6986484093746332589}
   - component: {fileID: 8690796163324923482}
   - component: {fileID: 6138019873623877166}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileSlopeLowMedium._teamRed
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

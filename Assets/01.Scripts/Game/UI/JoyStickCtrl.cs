@@ -107,7 +107,11 @@ namespace Capsule.Game.UI
                     {
                         if (touch.position.x <= (startPos.x + touchableRadius) &&
                             touch.position.y <= (startPos.y + touchableRadius))
+                        {
+                            JoyStickPressed = true;
                             touchID = i;
+                            HandleInput(touchPos);
+                        }
                     }
                     if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
                     {
@@ -119,6 +123,7 @@ namespace Capsule.Game.UI
                         if (touchID == i)
                         {
                             touchID = -1;
+                            JoyStickPressed = false;
                             HandleInput(startPos);
                         }
                     }

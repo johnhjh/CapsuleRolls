@@ -430,28 +430,28 @@ namespace Capsule.Entity
                 kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.TUTORIAL_2,
                 name = "튜토리얼 2",
-                desc = "[공 굴려서 골인~!]의 특별한 조작을 배워보자!",
+                desc = "[공 굴려서 골인~!]의 [점프] 조작을 배워보자!",
             },
             new GameStageData()
             {
                 kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.STAGE_2,
                 name = "스테이지 2",
-                desc = "장애물을 돌파해 클리어하자!",
+                desc = "[점프]를 적극 활용해 장애물을 돌파하자!",
             },
             new GameStageData()
             {
                 kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.TUTORIAL_3,
                 name = "튜토리얼 3",
-                desc = "[공 굴려서 골인~!]의 도움이 될 테크닉을 배워보자!",
+                desc = "[공 굴려서 골인~!]의 [다이브] 조작을 배워보자!",
             },
             new GameStageData()
             {
                 kind = GameKind.ROLL_THE_BALL,
                 stage = GameStage.STAGE_3,
                 name = "스테이지 3",
-                desc = "지금까지 배운걸 최대한 활용해보자!",
+                desc = "[다이브]를 적극 활용해 장애물을 돌파하자!",
             },
             new GameStageData()
             {

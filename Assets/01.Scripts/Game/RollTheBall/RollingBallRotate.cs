@@ -17,7 +17,7 @@ namespace Capsule.Game.RollTheBall
             {
                 ballParent = value;
                 transform.parent = value;
-                if (value.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+                if (value.TryGetComponent(out Rigidbody rigidbody))
                 {
                     ballRigidbody = rigidbody;
                     rigidbody.freezeRotation = true;

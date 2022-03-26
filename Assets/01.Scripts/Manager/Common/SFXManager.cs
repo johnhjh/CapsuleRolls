@@ -36,6 +36,9 @@ namespace Capsule.Audio
         public AudioClip goClip;
         public AudioClip clearClip;
         public AudioClip congratulateClip;
+        public AudioClip[] countClips;
+        public AudioClip timesUpClip;
+        public AudioClip newRecordClip;
     }
     [System.Serializable]
     public class CrowdSounds
@@ -82,6 +85,9 @@ namespace Capsule.Audio
         GO,
         CLEAR,
         CONGRAT,
+        COUNT,
+        TIMES_UP,
+        NEW_RECORD,
     }
 
 
@@ -122,7 +128,7 @@ namespace Capsule.Audio
         private void Start()
         {
             sfxAudioSource.volume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
-            announceVolume = PlayerPrefs.GetFloat("ANNOUNCE_VOLUME", 1f);
+            announceVolume = PlayerPrefs.GetFloat("ANNOUNCE_VOLUME", 3f);
         }
 
         private void OnDestroy()
@@ -198,8 +204,20 @@ namespace Capsule.Audio
                     return announceSounds.clearClip;
                 case Announcements.CONGRAT:
                     return announceSounds.congratulateClip;
+                case Announcements.TIMES_UP:
+                    return announceSounds.timesUpClip;
+                case Announcements.NEW_RECORD:
+                    return announceSounds.newRecordClip;
             }
             return null;
+        }
+
+        private AudioClip GetCountAudioClip(int count)
+        {
+            if (count <= announceSounds.countClips.Length)
+                return announceSounds.countClips[count - 1];
+            else
+                return null;
         }
 
         private AudioClip GetAudioClip(Crowds sfx)
@@ -400,7 +418,7 @@ namespace Capsule.Audio
 
         private void PlayOneShot(AudioClip clip, float volume, bool usingSelfVolume)
         {
-            if (usingSelfVolume && clip != null && volume > 0f)
+            if (clip != null && usingSelfVolume && volume > 0f)
                 sfxAudioSource.PlayOneShot(clip, volume);
             else
                 PlayOneShot(clip, volume);
@@ -500,6 +518,12 @@ namespace Capsule.Audio
         public void PlayOneShot(Announcements announce)
         {
             PlayOneShot(GetAudioClip(announce), announceVolume, true);
+        }
+
+        public void PlayOneShot(Announcements announce, int count)
+        {
+            if (announce == Announcements.COUNT)
+                PlayOneShot(GetCountAudioClip(count), announceVolume, true);
         }
 
         public void PlayOneShot(Crowds crowd)

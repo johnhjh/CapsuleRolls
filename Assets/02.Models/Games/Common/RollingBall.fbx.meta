@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Blue
-    second: {fileID: 2100000, guid: 6e54fd6448dfafd4d816b3969d90dcf2, type: 2}
+    second: {fileID: 2100000, guid: ce33eb6bcd383ae448aeaaf95e45aaea, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: White
-    second: {fileID: 2100000, guid: c34c48e0a892e67479d18c1db8152a12, type: 2}
+    second: {fileID: 2100000, guid: e05b3cde4086e8b4aa654d7187d7c736, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -55,7 +55,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

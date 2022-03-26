@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 358621231710741406}
   - component: {fileID: 435594090117537073}
   - component: {fileID: 808880124376739333}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileSlopeLowMedium_forest
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5236466177655112800}
 --- !u!1 &3561198225700445495
@@ -104,9 +104,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7309903839131108280}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileSlopeLowMedium_forest
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

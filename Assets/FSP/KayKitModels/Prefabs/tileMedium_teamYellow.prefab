@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7018971531145517197}
   - component: {fileID: 1107294163081846634}
   - component: {fileID: 1637682675308168093}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileMedium_teamYellow
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 9136286684117471321}
 --- !u!1 &7019580746503717010
@@ -104,9 +104,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8696054884897583869}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileMedium_teamYellow
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -36,6 +36,24 @@ EditorBuildSettings:
     path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage1.unity
     guid: d4389b51b9ccb67408bd5de26c900582
   - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage2.unity
+    guid: b6e873f2b96d3dd48b0acd44ccb5a33e
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage3.unity
+    guid: 6855c87587c4922428d93ea4f61940c3
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage4.unity
+    guid: a366d832de499e741b66da96aef14930
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage5.unity
+    guid: f7f01aff037836e4b9528d006b4b8403
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage6.unity
+    guid: e8e60bb044c1c41449f1fb27027dd9e5
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
     path: Assets/00.Scenes/GameScenes/UI/CommonUI_Solo.unity
     guid: 2bd2872b24d73cc4396696762291b8b9
   - enabled: 1

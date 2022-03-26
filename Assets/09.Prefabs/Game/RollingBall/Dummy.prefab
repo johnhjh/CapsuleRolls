@@ -198,34 +198,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!135 &131794001999808818
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942747811278348671}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.5
-  m_Center: {x: -0.00000047683716, y: 0, z: 0.000000059604645}
---- !u!114 &131794001999808821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942747811278348671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc4b6df5da93804e85483663eefb2ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTeamA: 0
-  radius: 1.5
-  ballRotateSpeed: 40
 --- !u!1 &131794002683297542
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +452,34 @@ Transform:
   m_Father: {fileID: 8971778903221790805}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &131794001999808818
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942747811278348671}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: -0.00000047683716, y: 0, z: 0.000000059604645}
+--- !u!114 &131794001999808821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942747811278348671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc4b6df5da93804e85483663eefb2ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTeamA: 0
+  radius: 1.5
+  ballRotateSpeed: 40
 --- !u!1 &1171552039147405147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1243,7 @@ GameObject:
   - component: {fileID: 8197546921571394658}
   - component: {fileID: 5820690209530548478}
   - component: {fileID: 1390625113794389779}
-  - component: {fileID: 4227362294695641687}
+  - component: {fileID: 7147368522300270268}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1428,6 +1428,8 @@ MonoBehaviour:
   vertical: 0
   rotate: 0
   isMine: 0
+  usingAction1: 1
+  usingAction2: 1
 --- !u!114 &1390625113794389779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1445,7 +1447,7 @@ MonoBehaviour:
   jumpForce: 300
   diveForce: 700
   isTeamA: 1
---- !u!114 &4227362294695641687
+--- !u!114 &7147368522300270268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1454,7 +1456,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2668426381526555307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc72a73fe1438447b5e5cfaadf37ac6, type: 3}
+  m_Script: {fileID: 11500000, guid: 609bd35376061044cbf344e8ffd4244b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   headTransform: {fileID: 8484216192340571363}
@@ -1464,6 +1466,13 @@ MonoBehaviour:
   clothTransform: {fileID: 2728063078101798329}
   leftHandSkinnedMeshRenderer: {fileID: 8859043026244113077}
   rightHandSkinnedMeshRenderer: {fileID: 3575781797145822042}
+  isRagdoll: 0
+  isRandom: 0
+  body: 5
+  head: 26
+  face: 14
+  glove: 0
+  cloth: 6
 --- !u!1 &2793161248123244356
 GameObject:
   m_ObjectHideFlags: 0

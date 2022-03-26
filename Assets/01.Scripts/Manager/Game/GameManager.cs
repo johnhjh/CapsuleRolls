@@ -25,6 +25,16 @@ namespace Capsule.Game
         public readonly string TAG_GOAL_IN = "GoalInTrigger";
         public readonly string TAG_BARRICADE = "Barricade";
         public readonly string TAG_DEAD_ZONE = "DeadZone";
+        public readonly string TAG_WAY_POINT = "WayPoint";
+        public readonly string TAG_TUTORIAL_1 = "Tutorial1";
+        public readonly string TAG_TUTORIAL_2 = "Tutorial2";
+        public readonly string TAG_TUTORIAL_3 = "Tutorial3";
+        public readonly string TAG_TUTORIAL_4 = "Tutorial4";
+        public readonly string TAG_TUTORIAL_5 = "Tutorial5";
+        public readonly string TAG_TUTORIAL_6 = "Tutorial6";
+        public readonly string TAG_TUTORIAL_7 = "Tutorial7";
+        public readonly string TAG_TUTORIAL_8 = "Tutorial8";
+        public readonly string TAG_TUTORIAL_9 = "Tutorial9";
     }
     public class GameAnimData
     {
@@ -68,9 +78,8 @@ namespace Capsule.Game
                     if (currentGameData == null)
                         currentGameData = new GameData
                         {
-                            Mode = GameMode.STAGE,
+                            Mode = GameMode.PRACTICE,
                             Kind = GameKind.ROLL_THE_BALL,
-                            Stage = GameStage.TUTORIAL_1,
                         };
                 }
                 return currentGameData;

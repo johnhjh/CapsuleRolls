@@ -23,6 +23,34 @@ namespace Capsule
         protected Slider sfxSlider;
         protected Slider announceSlider;
 
+        protected virtual void Start()
+        {
+            SetSoundSettings();
+        }
+
+        protected void SetSoundSettings()
+        {
+            bgmIcon = GameObject.Find("Icon_BGM").GetComponent<Image>();
+            sfxIcon = GameObject.Find("Icon_SFX").GetComponent<Image>();
+            announceIcon = GameObject.Find("Icon_ANNOUNCE").GetComponent<Image>();
+
+            bgmSlider = GameObject.Find("Slider_BGM").GetComponent<Slider>();
+            sfxSlider = GameObject.Find("Slider_SFX").GetComponent<Slider>();
+            announceSlider = GameObject.Find("Slider_ANNOUNCE").GetComponent<Slider>();
+
+            bgmSlider.value = PlayerPrefs.GetFloat(BGM_VOLUME, 1f);
+            sfxSlider.value = PlayerPrefs.GetFloat(SFX_VOLUME, 1f);
+            announceSlider.value = PlayerPrefs.GetFloat(ANNOUCE_VOLUME, 1f);
+
+            bgmIcon.sprite = bgmSlider.value == 0f ? bgmOffSprite : bgmOnSprite;
+            sfxIcon.sprite = sfxSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
+            announceIcon.sprite = announceSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
+
+            bgmSlider.onValueChanged.AddListener(delegate { OnBGMVolumeChanged(); });
+            sfxSlider.onValueChanged.AddListener(delegate { OnSFXVolumeChanged(); });
+            announceSlider.onValueChanged.AddListener(delegate { OnAnnounceVolumeChanged(); });
+        }
+
         public void OnBGMVolumeChanged()
         {
             SFXManager.Instance.PlaySFX(MenuSFX.HOVER);

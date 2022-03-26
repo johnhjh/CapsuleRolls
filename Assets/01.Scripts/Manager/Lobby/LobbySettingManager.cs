@@ -41,39 +41,22 @@ namespace Capsule.Lobby
         {
             if (DevToolManager.Instance != null)
                 Destroy(DevToolManager.Instance.gameObject);
+            if (settingCG != null)
+                Destroy(settingCG.gameObject);
             if (settingMgr == this)
                 settingMgr = null;
         }
 
-        private void Start()
+        protected override void Start()
         {
             InitLobbySettingManager();
         }
 
         private void InitLobbySettingManager()
         {
+            SetSoundSettings();
             settingCG = GameObject.Find("Popup_Setting").GetComponent<CanvasGroup>();
             PopUpSetting(false);
-
-            bgmIcon = GameObject.Find("Icon_BGM").GetComponent<Image>();
-            sfxIcon = GameObject.Find("Icon_SFX").GetComponent<Image>();
-            announceIcon = GameObject.Find("Icon_ANNOUNCE").GetComponent<Image>();
-
-            bgmSlider = GameObject.Find("Slider_BGM").GetComponent<Slider>();
-            sfxSlider = GameObject.Find("Slider_SFX").GetComponent<Slider>();
-            announceSlider = GameObject.Find("Slider_ANNOUNCE").GetComponent<Slider>();
-
-            bgmSlider.value = PlayerPrefs.GetFloat(BGM_VOLUME, 1f);
-            sfxSlider.value = PlayerPrefs.GetFloat(SFX_VOLUME, 1f);
-            announceSlider.value = PlayerPrefs.GetFloat(ANNOUCE_VOLUME, 1f);
-
-            bgmIcon.sprite = bgmSlider.value == 0f ? bgmOffSprite : bgmOnSprite;
-            sfxIcon.sprite = sfxSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
-            announceIcon.sprite = announceSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
-
-            bgmSlider.onValueChanged.AddListener(delegate { OnBGMVolumeChanged(); });
-            sfxSlider.onValueChanged.AddListener(delegate { OnSFXVolumeChanged(); });
-            announceSlider.onValueChanged.AddListener(delegate { OnAnnounceVolumeChanged(); });
 
             Button buttonCloseSetting = GameObject.Find("Button_CloseSetting").GetComponent<Button>();
             buttonCloseSetting.onClick.AddListener(delegate { OnClickExitSetting(); });

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8350434172478742289}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileLarge_teamYellow
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 5230837690874171976}
   - component: {fileID: 6935083383149633426}
   - component: {fileID: 1288652679347774318}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tileLarge_teamYellow
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

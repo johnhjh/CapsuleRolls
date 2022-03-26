@@ -41,8 +41,11 @@ namespace Capsule.Game.RollTheBall
                 if (value)
                 {
                     IsDiving = !value;
-                    playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
-                    playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
+                    if (GameManager.Instance != null)
+                    {
+                        playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
+                        playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
+                    }
                     StartCoroutine(EnableJump());
                 }
                 isLanded = value;
@@ -60,33 +63,38 @@ namespace Capsule.Game.RollTheBall
             IsDiving = false;
             IsDead = false;
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
-
-            if (isTeamA)
+            if (GameManager.Instance != null)
             {
-                GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
-                GameManager.Instance.OnAddScoreTeamB += OnEnemyGoal;
-            }
-            else
-            {
-                GameManager.Instance.OnAddScoreTeamA += OnEnemyGoal;
-                GameManager.Instance.OnAddScoreTeamB += OnTeamGoal;
-            }
-            if (isMine)
-            {
-                GameManager.Instance.OnStageClear += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_CLEAR); };
-                GameManager.Instance.OnStageFailure += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_FAILURE); };
+                if (isTeamA)
+                {
+                    GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
+                    GameManager.Instance.OnAddScoreTeamB += OnEnemyGoal;
+                }
+                else
+                {
+                    GameManager.Instance.OnAddScoreTeamA += OnEnemyGoal;
+                    GameManager.Instance.OnAddScoreTeamB += OnTeamGoal;
+                }
+                if (isMine)
+                {
+                    GameManager.Instance.OnStageClear += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_CLEAR); };
+                    GameManager.Instance.OnStageFailure += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_FAILURE); };
+                }
             }
         }
 
         protected override void Update()
         {
-            Vector3 velocity = transform.InverseTransformDirection(ballRigidbody.velocity);
-            float magnitude = Mathf.Clamp(velocity.magnitude / 10f, 0f, 2f);
-            playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, velocity.x);
-            playerAnimator.SetFloat(GameManager.Instance.animData.HASH_VERTICAL, velocity.z);
-            playerAnimator.SetFloat(GameManager.Instance.animData.HASH_MOVE_SPEED, magnitude);
-            base.Update();
-            playerAnimator.speed = 1f + ballRigidbody.velocity.magnitude / 10f;
+            if (GameManager.Instance != null)
+            {
+                Vector3 velocity = transform.InverseTransformDirection(ballRigidbody.velocity);
+                float magnitude = Mathf.Clamp(velocity.magnitude / 10f, 0f, 2f);
+                playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, velocity.x);
+                playerAnimator.SetFloat(GameManager.Instance.animData.HASH_VERTICAL, velocity.z);
+                playerAnimator.SetFloat(GameManager.Instance.animData.HASH_MOVE_SPEED, magnitude);
+                base.Update();
+                playerAnimator.speed = 1f + ballRigidbody.velocity.magnitude / 10f;
+            }
         }
 
         protected override void OnDisable()
@@ -115,7 +123,6 @@ namespace Capsule.Game.RollTheBall
         private void JumpAction()
         {
             PlayerAudioStop();
-            //PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.JUMP));
             SFXManager.Instance.PlayOneShot(GameSFX.JUMP, playerAudioSource);
             jumpEnabled = false;
             IsLanded = false;
@@ -127,10 +134,9 @@ namespace Capsule.Game.RollTheBall
         private void DiveAction()
         {
             PlayerAudioStop();
-            //PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.JUMP));
             SFXManager.Instance.PlayOneShot(GameSFX.JUMP, playerAudioSource);
             IsLanded = false;
-            playerRigidbody.AddForce(transform.forward * diveForce, ForceMode.Impulse);
+            playerRigidbody.AddForce(transform.forward * diveForce + transform.up * 100f, ForceMode.Impulse);
             playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_DIVE);
             IsDiving = true;
             StartCoroutine(TryJumping());
@@ -152,14 +158,20 @@ namespace Capsule.Game.RollTheBall
 
         private void PlayDisappointAnim()
         {
-            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
-            playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
+            if (GameManager.Instance != null)
+            {
+                playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
+                playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
+            }
         }
 
         private void PlayVictoryAnim()
         {
-            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
-            playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
+            if (GameManager.Instance != null)
+            {
+                playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_VICTORY);
+                playerAnimator.SetInteger(GameManager.Instance.animData.HASH_VICTORY_ANIM, Random.Range(0, 3));
+            }
         }
 
         private IEnumerator EnableJump()
@@ -183,71 +195,80 @@ namespace Capsule.Game.RollTheBall
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
+            if (GameManager.Instance != null)
             {
-                // effect 들어갈 자리
-                PlayerOut();
-            }
-            else if (other.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER))
-            {
-                // effect 들어갈 자리
-                PlayerOut();
-            }
-            else if (other.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
-            {
-                // effect 들어갈 자리
-                if (isMine)
-                {
-                    RagdollController otherRagdoll = other.transform.parent.GetChild(1).GetComponent<RagdollController>();
-                    otherRagdoll.forceVector = playerRigidbody.velocity;
-                    otherRagdoll.ChangeRagdoll(true);
-                }
-                if (IsLanded)
-                    PlayerOut();
-                else
+                if (other.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
                 {
                     // effect 들어갈 자리
-                    PlayerSuccess();
+                    PlayerOut();
                 }
-            }
-            else if (other.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
-            {
-                if (other.transform != transform.parent.GetChild(2))
+                else if (other.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER))
                 {
                     // effect 들어갈 자리
-                    //PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
-                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, playerAudioSource);
                     PlayerOut();
+                }
+                else if (other.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
+                {
+                    // effect 들어갈 자리
+                    if (isMine)
+                    {
+                        RagdollController otherRagdoll = other.transform.parent.GetChild(1).GetComponent<RagdollController>();
+                        otherRagdoll.forceVector = playerRigidbody.velocity;
+                        otherRagdoll.ChangeRagdoll(true);
+                    }
+                    if (IsLanded)
+                        PlayerOut();
+                    else
+                    {
+                        // effect 들어갈 자리
+                        PlayerSuccess();
+                    }
+                }
+                else if (other.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
+                {
+                    if (other.transform != transform.parent.GetChild(2))
+                    {
+                        // effect 들어갈 자리
+                        SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, playerAudioSource);
+                        PlayerOut();
+                    }
                 }
             }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_STAGE) ||
-                collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER) ||
-                collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER) ||
-                collision.collider.CompareTag(GameManager.Instance.tagData.TAG_DEAD_ZONE))
+            if (GameManager.Instance != null)
             {
-                GotHitBySomething(collision);
-            }
-            else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL) && !IsTryJumping)
-            {
-                //PlayerAudioPlayOneShot(SFXManager.Instance.GetAudioClip(GameSFX.BOUNCE));
-                SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, playerAudioSource);
-                if (collision.collider.transform == transform.parent.GetChild(2))
+                if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_STAGE) ||
+                    collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER) ||
+                    collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER) ||
+                    collision.collider.CompareTag(GameManager.Instance.tagData.TAG_DEAD_ZONE))
                 {
-                    EffectQueueManager.Instance.ShowCollisionEffect(collision);
-                    IsLanded = true;
+                    GotHitBySomething(collision);
                 }
-                else
+                else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL) && !IsTryJumping)
                 {
-                    RollingBallRotate ballTransform = collision.collider.GetComponent<RollingBallRotate>();
-                    if (ballTransform.BallParent.TryGetComponent<RollingBallMove>(out RollingBallMove move))
+                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, playerAudioSource);
+                    if (collision.collider.transform == transform.parent.GetChild(2))
                     {
-                        if (!move.IsDead)
+                        EffectQueueManager.Instance.ShowCollisionEffect(collision);
+                        IsLanded = true;
+                    }
+                    else
+                    {
+                        RollingBallRotate ballTransform = collision.collider.GetComponent<RollingBallRotate>();
+                        if (ballTransform.BallParent.TryGetComponent(out RollingBallMove move))
                         {
-                            GotHitBySomething(collision);
+                            if (!move.IsDead)
+                            {
+                                GotHitBySomething(collision);
+                            }
+                            else
+                            {
+                                EffectQueueManager.Instance.ShowCollisionEffect(collision);
+                                ChangeBallParent(ballTransform);
+                            }
                         }
                         else
                         {
@@ -255,20 +276,15 @@ namespace Capsule.Game.RollTheBall
                             ChangeBallParent(ballTransform);
                         }
                     }
-                    else
-                    {
-                        EffectQueueManager.Instance.ShowCollisionEffect(collision);
-                        ChangeBallParent(ballTransform);
-                    }
                 }
-            }
-            else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
-            {
-                EffectQueueManager.Instance.ShowHitEffect(collision);
-                if (isDiving)
-                    PlayerSuccess();
-                else
-                    PlayerOut();
+                else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
+                {
+                    EffectQueueManager.Instance.ShowHitEffect(collision);
+                    if (isDiving)
+                        PlayerSuccess();
+                    else
+                        PlayerOut();
+                }
             }
         }
 
@@ -314,12 +330,5 @@ namespace Capsule.Game.RollTheBall
         {
             playerAudioSource.Stop();
         }
-        /*
-        private void PlayerAudioPlayOneShot(AudioClip clip)
-        {
-            if (clip != null)
-                playerAudioSource.PlayOneShot(clip);
-        }
-        */
     }
 }

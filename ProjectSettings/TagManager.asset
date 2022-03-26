@@ -15,6 +15,7 @@ TagManager:
   - FxTemporaire
   - Ragdoll
   - DeadZone
+  - WayPoint
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Player
   - Stage
   - LoadingUI
-  - 
+  - WayPoint
   - 
   - 
   - 

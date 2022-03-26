@@ -23,7 +23,7 @@ namespace Capsule.Game.UI
         [HideInInspector]
         public bool IsPaused { get; set; }
         [HideInInspector]
-        public bool IsSetting { get; set; }
+        public bool IsSettingOpen { get; set; }
         private bool isLoading = false;
         [HideInInspector]
         public bool IsLoading
@@ -62,6 +62,7 @@ namespace Capsule.Game.UI
         private GameObject timeTeamScoreBoard = null;
         private GameObject timeOnlyBoard = null;
 
+        private Text gameDescText = null;
         private Text soloTimeText = null;
         private Text teamTimeText = null;
         private Text onlyTimeText = null;
@@ -86,7 +87,7 @@ namespace Capsule.Game.UI
         private void InitGameUIComponents()
         {
             IsPaused = false;
-            IsSetting = false;
+            IsSettingOpen = false;
             IsLoading = true;
             IsStagePopupActive = false;
 
@@ -109,6 +110,7 @@ namespace Capsule.Game.UI
             buttonClearReplayGame = GameObject.Find("Button_Clear_ReplayGame");
             buttonClearAllCleared = GameObject.Find("Button_Clear_AllCleared");
 
+            gameDescText = GameObject.Find("GameUIDesc_Text").GetComponent<Text>();
             timeSoloScoreBoard = GameObject.Find("Time_Solo_Score_Board");
             soloTimeText = timeSoloScoreBoard.transform.GetChild(0).GetComponent<Text>();
             timeTeamScoreBoard = GameObject.Find("Time_Team_Score_Board");
@@ -119,7 +121,6 @@ namespace Capsule.Game.UI
 
         private void SetGameUIInfo()
         {
-            remainedTime = 100;
             int currentLevel = DataManager.Instance.CurrentPlayerData.Level;
             int currentExp = DataManager.Instance.CurrentPlayerData.Exp;
             int requiredExp = LevelExpCalc.GetExpData(currentLevel + 1);
@@ -127,10 +128,14 @@ namespace Capsule.Game.UI
             userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
             userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
             labelStageClearText.text = DataManager.Instance.GetCurrentStageString() + " 클리어!";
+            if (timeCoroutine != null)
+                StopCoroutine(timeCoroutine);
             switch (DataManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
+                    remainedTime = 100;
                     pausePlayInfoText.text = "아케이드 모드";
+                    gameDescText.text = "아케이드 모드";
                     timeSoloScoreBoard.SetActive(true);
                     timeTeamScoreBoard.SetActive(false);
                     timeOnlyBoard.SetActive(false);
@@ -138,17 +143,21 @@ namespace Capsule.Game.UI
                     timeCoroutine = StartCoroutine(SetTimeUIText(soloTimeText));
                     break;
                 case GameMode.STAGE:
+                    remainedTime = 60;
                     pausePlayInfoText.text = "스테이지 모드 - " + DataManager.Instance.GetCurrentStageString();
+                    gameDescText.text = "스테이지 모드 - " + DataManager.Instance.GetCurrentStageString();
                     timeSoloScoreBoard.SetActive(false);
                     timeTeamScoreBoard.SetActive(false);
                     timeOnlyBoard.SetActive(true);
                     onlyTimeText.text = remainedTime.ToString();
+                    onlyTimeText.fontSize = 80;
                     switch (DataManager.Instance.CurrentGameData.Stage)
                     {
                         case GameStage.TUTORIAL_1:
                             ActionButton1Ctrl.Instance.IsActivated = false;
                             ActionButton2Ctrl.Instance.IsActivated = false;
                             onlyTimeText.text = "∞";
+                            onlyTimeText.fontSize = 200;
                             break;
                         case GameStage.STAGE_1:
                             ActionButton1Ctrl.Instance.IsActivated = false;
@@ -159,6 +168,7 @@ namespace Capsule.Game.UI
                             ActionButton1Ctrl.Instance.IsActivated = true;
                             ActionButton2Ctrl.Instance.IsActivated = false;
                             onlyTimeText.text = "∞";
+                            onlyTimeText.fontSize = 200;
                             break;
                         case GameStage.STAGE_2:
                             ActionButton1Ctrl.Instance.IsActivated = true;
@@ -169,6 +179,7 @@ namespace Capsule.Game.UI
                             ActionButton1Ctrl.Instance.IsActivated = true;
                             ActionButton2Ctrl.Instance.IsActivated = true;
                             onlyTimeText.text = "∞";
+                            onlyTimeText.fontSize = 200;
                             break;
                         default:
                             ActionButton1Ctrl.Instance.IsActivated = true;
@@ -178,7 +189,9 @@ namespace Capsule.Game.UI
                     }
                     break;
                 case GameMode.BOT:
+                    remainedTime = 100;
                     pausePlayInfoText.text = "AI봇 대전 모드";
+                    gameDescText.text = "AI봇 대전 모드";
                     timeSoloScoreBoard.SetActive(false);
                     timeTeamScoreBoard.SetActive(true);
                     timeOnlyBoard.SetActive(false);
@@ -187,9 +200,12 @@ namespace Capsule.Game.UI
                     break;
                 case GameMode.PRACTICE:
                     pausePlayInfoText.text = "연습 모드";
+                    gameDescText.text = "연습 모드";
                     timeSoloScoreBoard.SetActive(false);
                     timeTeamScoreBoard.SetActive(false);
-                    timeOnlyBoard.SetActive(false);
+                    timeOnlyBoard.SetActive(true);
+                    onlyTimeText.text = "∞";
+                    onlyTimeText.fontSize = 200;
                     break;
             }
             if (DataManager.Instance.HasNextStage())
@@ -205,26 +221,38 @@ namespace Capsule.Game.UI
                 StageAllClearedUI();
         }
 
+        public void StageAllClearedUI()
+        {
+            labelStageClearText.text = "스테이지 올 클리어!!";
+            if (buttonClearExitGame.activeSelf)
+                buttonClearExitGame.SetActive(false);
+            if (buttonClearNextStage.activeSelf)
+                buttonClearNextStage.SetActive(false);
+            buttonClearReplayGame.SetActive(true);
+            buttonClearAllCleared.SetActive(true);
+        }
+
         public bool CheckUIActive()
         {
-            return IsPaused || IsSetting || IsStagePopupActive || IsLoading;
+            return IsPaused || IsSettingOpen || IsStagePopupActive || IsLoading;
         }
 
         private IEnumerator SetTimeUIText(Text timeText)
         {
             yield return new WaitForSeconds(3.0f);
-            while (!GameManager.Instance.IsGameOver || remainedTime-- < 0)
+            while (!GameManager.Instance.IsGameOver && remainedTime-- >= 0)
             {
                 yield return new WaitForSeconds(1.0f);
                 timeText.text = remainedTime.ToString();
-                if (remainedTime <= 5)
-                {
-
-                }
                 if (remainedTime == 0)
                 {
                     GameManager.Instance.TimeEnded();
+                    SFXManager.Instance.PlayOneShot(Announcements.TIMES_UP);
                     yield break;
+                }
+                else if (remainedTime <= 3)
+                {
+                    SFXManager.Instance.PlayOneShot(Announcements.COUNT, remainedTime);
                 }
             }
         }
@@ -265,7 +293,7 @@ namespace Capsule.Game.UI
         public void PauseGame(bool isPaused)
         {
             if (this.IsLoading || this.IsStagePopupActive) return;
-            if (this.IsSetting)
+            if (this.IsSettingOpen)
                 ShowGameSetting(false);
             this.IsPaused = isPaused;
             Time.timeScale = isPaused ? 0f : 1f;
@@ -276,7 +304,7 @@ namespace Capsule.Game.UI
 
         public void ShowGameSetting()
         {
-            ShowGameSetting(!this.IsSetting);
+            ShowGameSetting(!this.IsSettingOpen);
         }
 
         public void ShowGameSetting(bool isSetting)
@@ -285,7 +313,7 @@ namespace Capsule.Game.UI
             gameSettingCG.alpha = isSetting ? 1f : 0f;
             gameSettingCG.blocksRaycasts = isSetting;
             gameSettingCG.interactable = isSetting;
-            this.IsSetting = isSetting;
+            this.IsSettingOpen = isSetting;
         }
 
         public void OnClickSetting()
@@ -335,19 +363,11 @@ namespace Capsule.Game.UI
 
         public void MoveToScene(LobbySceneType sceneType)
         {
+            Destroy(userInfoLevelText.gameObject);
+            Destroy(userInfoExpText.gameObject);
+            Destroy(userInfoExpImage.gameObject);
             IsLoading = true;
             StartCoroutine(SceneLoadManager.Instance.LoadLobbySceneFromGame(sceneType));
-        }
-
-        public void StageAllClearedUI()
-        {
-            labelStageClearText.text = "스테이지 올 클리어!!";
-            if (buttonClearExitGame.activeSelf)
-                buttonClearExitGame.SetActive(false);
-            if (buttonClearNextStage.activeSelf)
-                buttonClearNextStage.SetActive(false);
-            buttonClearReplayGame.SetActive(true);
-            buttonClearAllCleared.SetActive(true);
         }
     }
 }

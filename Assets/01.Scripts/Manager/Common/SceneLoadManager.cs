@@ -370,7 +370,13 @@ namespace Capsule.SceneLoad
         {
             ResetFields();
             yield return StartCoroutine(FadeInLoading());
+            if (data.Stage != GameStage.TUTORIAL_1 && data.Stage != GameStage.STAGE_1)
+                yield return SceneManager.UnloadSceneAsync(GetGameSceneLevelName(data));
             yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind));
+            if (data.Stage != GameStage.TUTORIAL_1 && data.Stage != GameStage.STAGE_1)
+                yield return SceneManager.LoadSceneAsync(GetGameSceneLevelName(data), LoadSceneMode.Additive);
+            yield return SceneManager.LoadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive);
+            /*
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive);
             asyncOperation.allowSceneActivation = true;
             while (!asyncOperation.isDone)
@@ -381,7 +387,8 @@ namespace Capsule.SceneLoad
                     isLoadingDone = true;
                 InfiniteLoopDetector.Run();
             }
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(GetGameSceneLogicName(data.Mode, data.Kind)));
+            */
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(GetGameSceneLevelName(data)));
             yield return StartCoroutine(FadeOutLoading());
         }
 
