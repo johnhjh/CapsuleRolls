@@ -65,8 +65,8 @@ namespace Capsule.Lobby.Shopping
             currentRemainCoin = DataManager.Instance.CurrentPlayerData.Coin;
             mainGoldText = GameObject.Find("Text_Gold").GetComponent<Text>();
             mainGoldText.text = currentRemainCoin.ToString("###,###,##0");
-            remainingCoinText = GameObject.Find("TotalInfo").transform.GetChild(1).GetChild(1).GetComponent<Text>();
-            totalPriceText = GameObject.Find("TotalInfo").transform.GetChild(3).GetChild(1).GetComponent<Text>();
+            remainingCoinText = GameObject.Find("TotalInfo").transform.GetChild(2).GetChild(1).GetComponent<Text>();
+            totalPriceText = GameObject.Find("TotalInfo").transform.GetChild(4).GetChild(1).GetComponent<Text>();
             purchaseButton = GameObject.Find("Button_Purchase").GetComponent<Button>();
             toggleCheckImage = GameObject.Find("ToggleCheckImage").GetComponent<Image>();
             toggleCheckImage.color = new Color(1f, 1f, 1f, 1f);
