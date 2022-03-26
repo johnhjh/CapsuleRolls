@@ -39,7 +39,7 @@ namespace Capsule.Game.RollTheBall
                         Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
                     ballRigidbody.AddForce(collision.collider.GetComponent<Rigidbody>().velocity);
                 }
-                else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER) || 
+                else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER) ||
                     collision.collider.CompareTag(GameManager.Instance.tagData.TAG_DEAD_ZONE))
                 {
                     SFXManager.Instance.PlayOneShot(GameSFX.POP, ballAudioSource, popVolume);

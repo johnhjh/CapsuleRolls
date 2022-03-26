@@ -1,6 +1,4 @@
-﻿using Capsule.Audio;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Capsule.Game
 {

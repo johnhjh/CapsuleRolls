@@ -33,7 +33,7 @@ namespace Capsule.Game.AI
                 wayPoints != null &&
                 wayPoints.Count > 0)
             {
-                foreach(Transform wayPoint in wayPoints)
+                foreach (Transform wayPoint in wayPoints)
                     wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
                 StartCoroutine(AIMove());
             }
