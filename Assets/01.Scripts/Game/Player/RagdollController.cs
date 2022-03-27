@@ -41,7 +41,7 @@ namespace Capsule.Game.Player
         {
             charObj.transform.GetComponent<Animator>().enabled = isOn;
             charObj.transform.GetComponent<CapsuleCollider>().enabled = isOn;
-            foreach(SkinnedMeshRenderer skinnedMesh in charObj.transform.GetComponentsInChildren<SkinnedMeshRenderer>())
+            foreach (SkinnedMeshRenderer skinnedMesh in charObj.transform.GetComponentsInChildren<SkinnedMeshRenderer>())
                 skinnedMesh.enabled = isOn;
             foreach (MeshRenderer meshRenderer in charObj.transform.GetComponentsInChildren<MeshRenderer>())
                 meshRenderer.enabled = isOn;

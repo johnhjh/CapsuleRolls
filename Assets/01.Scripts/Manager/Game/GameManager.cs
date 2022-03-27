@@ -4,7 +4,6 @@ using Capsule.Game.UI;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Capsule.Game
 {

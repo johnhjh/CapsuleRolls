@@ -331,7 +331,7 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.GROAN);
             }
-            switch(GameManager.Instance.CurrentGameData.Mode)
+            switch (GameManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
                     if (isMine)
