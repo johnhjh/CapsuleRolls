@@ -10,6 +10,7 @@ namespace Capsule.Audio
         CREDIT,
         ARCADE,
         GAMEOVER,
+        STAGE,
     }
 
     public class BGMManager : MonoBehaviour
@@ -22,6 +23,7 @@ namespace Capsule.Audio
         public AudioClip creditMusic;
         public AudioClip arcadeMusic;
         public AudioClip gameOverMusic;
+        public AudioClip stageMusic;
 
         private static BGMManager bgmManager;
         public static BGMManager Instance
@@ -71,6 +73,8 @@ namespace Capsule.Audio
                     return arcadeMusic;
                 case BGMType.GAMEOVER:
                     return gameOverMusic;
+                case BGMType.STAGE:
+                    return stageMusic;
                 default:
                     return mainThemeMusic;
             }

@@ -127,7 +127,11 @@ namespace Capsule.Game
                 if (CurrentGameData.Mode == GameMode.ARCADE)
                     BGMManager.Instance.ChangeBGM(BGMType.ARCADE);
                 else if (CurrentGameData.Mode == GameMode.STAGE)
-                    BGMManager.Instance.ChangeBGM(BGMType.BATTLE);
+                    BGMManager.Instance.ChangeBGM(BGMType.STAGE);
+                else if (CurrentGameData.Mode == GameMode.PRACTICE)
+                    BGMManager.Instance.ChangeBGM(BGMType.MAIN);
+                else if (CurrentGameData.Mode == GameMode.BOT)
+                    BGMManager.Instance.ChangeBGM(BGMType.MAIN);
             }
             SFXManager.Instance.PlaySFX(Announcements.READY, 1f);
             SFXManager.Instance.PlaySFX(Announcements.GO, 3f);

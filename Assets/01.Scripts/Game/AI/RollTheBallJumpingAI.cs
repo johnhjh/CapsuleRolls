@@ -13,11 +13,12 @@ namespace Capsule.Game.AI
         private void Start()
         {
             if (TryGetComponent(out PlayerRollTheBallMove move))
+            {
                 ballMove = move;
+                StartCoroutine(AIJump());
+            }
             else
                 ballMove = null;
-            if (ballMove != null)
-                StartCoroutine(AIJump());
         }
 
         private IEnumerator AIJump()

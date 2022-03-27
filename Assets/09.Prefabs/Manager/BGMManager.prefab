@@ -42,7 +42,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5a98635e132bb87469c0ee7b34dbe721, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 55a445026207d274cb542fee51fda613, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
@@ -140,10 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c90a31cf8ee884ba9837a5d6967f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBGM: 0
+  currentBGM: 2
   mainThemeMusic: {fileID: 8300000, guid: 5a98635e132bb87469c0ee7b34dbe721, type: 3}
   customizeMusic: {fileID: 8300000, guid: e8fdf6c790c118a4c83714016df9317b, type: 3}
   battleMusic: {fileID: 8300000, guid: 55a445026207d274cb542fee51fda613, type: 3}
   creditMusic: {fileID: 8300000, guid: 55a445026207d274cb542fee51fda613, type: 3}
   arcadeMusic: {fileID: 8300000, guid: 565bdf823534d2244a91e618f748c2e0, type: 3}
   gameOverMusic: {fileID: 8300000, guid: a1ed704f746a5714ca986035bcb1132f, type: 3}
+  stageMusic: {fileID: 8300000, guid: 4850ccdc11ebf254a9362cbc60febede, type: 3}

@@ -19,16 +19,25 @@ EditorBuildSettings:
     guid: 92b4846e3a0e0c04ab671e6d07eaab2c
   - enabled: 1
     path: Assets/00.Scenes/LobbyScenes/MultiPlayScene.unity
-    guid: d3a72b6f7430ac943af9863d597ca085
+    guid: 01b533ba9671b4245ac935f6218e2816
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/00.Scenes/LobbyScenes/CustomizeScene.unity
     guid: 546fb308d7bbe6145b0cdc60ba4aa282
   - enabled: 1
     path: Assets/00.Scenes/LobbyScenes/ShoppingScene.unity
     guid: 53baec91e2fb1cb48abd9d84e74028fd
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Arcade.unity
-    guid: e62e3f6a0aa253f498bfb96dd11ff586
+    guid: 57867300077e16047b4817836828fd45
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Practice.unity
     guid: 4472d0aad9ebf434594a8323d31a1a96

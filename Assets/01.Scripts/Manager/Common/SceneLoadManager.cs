@@ -429,7 +429,7 @@ namespace Capsule.SceneLoad
             yield return StartCoroutine(FadeOutLoading());
         }
 
-        public IEnumerator ReLoadPracticeScene(GameData data)
+        public IEnumerator ReLoadGameScene(GameData data)
         {
             ResetFields();
             yield return StartCoroutine(FadeInLoading());

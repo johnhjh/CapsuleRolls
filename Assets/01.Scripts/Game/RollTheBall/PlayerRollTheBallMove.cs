@@ -118,6 +118,12 @@ namespace Capsule.Game.RollTheBall
             JumpAction();
         }
 
+        public void AIDive()
+        {
+            if (IsDead) return;
+            DiveAction();
+        }
+
         protected override void Action1()
         {
             if (isMine && !IsDead && !IsTryJumping && jumpEnabled)

@@ -1,6 +1,5 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
-using Capsule.Game.Effect;
 using Capsule.SceneLoad;
 using System.Collections;
 using UnityEngine;
@@ -359,6 +358,7 @@ namespace Capsule.Game.UI
             switch (GameManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
+                    StartCoroutine(SceneLoadManager.Instance.ReLoadGameScene(GameManager.Instance.CurrentGameData));
                     break;
                 case GameMode.STAGE:
                     gameStageFailureCG.alpha = 0f;
@@ -367,9 +367,10 @@ namespace Capsule.Game.UI
                     StartCoroutine(SceneLoadManager.Instance.ReLoadStageScene(GameManager.Instance.CurrentGameData));
                     break;
                 case GameMode.PRACTICE:
-                    StartCoroutine(SceneLoadManager.Instance.ReLoadPracticeScene(GameManager.Instance.CurrentGameData));
+                    StartCoroutine(SceneLoadManager.Instance.ReLoadGameScene(GameManager.Instance.CurrentGameData));
                     break;
                 case GameMode.BOT:
+                    StartCoroutine(SceneLoadManager.Instance.ReLoadGameScene(GameManager.Instance.CurrentGameData));
                     break;
             }
         }
@@ -379,8 +380,8 @@ namespace Capsule.Game.UI
             Destroy(userInfoLevelText.gameObject);
             Destroy(userInfoExpText.gameObject);
             Destroy(userInfoExpImage.gameObject);
-            if (EffectQueueManager.Instance != null)
-                Destroy(EffectQueueManager.Instance.gameObject);
+            if (Effect.EffectQueueManager.Instance != null)
+                Destroy(Effect.EffectQueueManager.Instance.gameObject);
             IsLoading = true;
             StartCoroutine(SceneLoadManager.Instance.LoadLobbySceneFromGame(sceneType));
         }
