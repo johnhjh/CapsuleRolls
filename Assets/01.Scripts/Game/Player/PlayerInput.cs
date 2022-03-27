@@ -32,7 +32,7 @@ namespace Capsule.Game.Player
 
         private void Update()
         {
-            if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+            if (IsDead || GameManager.Instance != null && GameManager.Instance.IsGameOver)
             {
                 horizontal = 0f;
                 vertical = 0f;

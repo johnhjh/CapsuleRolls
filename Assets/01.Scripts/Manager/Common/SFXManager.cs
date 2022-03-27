@@ -110,7 +110,7 @@ namespace Capsule.Audio
         }
 
         private AudioSource sfxAudioSource;
-        private float announceVolume = 1f;
+        private AudioSource announceSource;
         private bool announceTesting = false;
 
         private void Awake()
@@ -119,6 +119,7 @@ namespace Capsule.Audio
             {
                 sfxManager = this;
                 sfxAudioSource = GetComponent<AudioSource>();
+                announceSource = transform.GetChild(0).GetComponent<AudioSource>();
                 DontDestroyOnLoad(sfxManager);
             }
             else if (sfxManager != this)
@@ -128,7 +129,7 @@ namespace Capsule.Audio
         private void Start()
         {
             sfxAudioSource.volume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
-            announceVolume = PlayerPrefs.GetFloat("ANNOUNCE_VOLUME", 3f);
+            announceSource.volume = PlayerPrefs.GetFloat("ANNOUNCE_VOLUME", 1f);
         }
 
         private void OnDestroy()
@@ -136,7 +137,7 @@ namespace Capsule.Audio
             if (sfxManager == this)
             {
                 PlayerPrefs.SetFloat("SFX_VOLUME", sfxAudioSource.volume);
-                PlayerPrefs.SetFloat("ANNOUNCE_VOLUME", announceVolume);
+                PlayerPrefs.SetFloat("ANNOUNCE_VOLUME", announceSource.volume);
             }
         }
 
@@ -398,7 +399,7 @@ namespace Capsule.Audio
 
         public void PlaySFX(Announcements sfx, float delay)
         {
-            StartCoroutine(PlayOneShotDelayed(GetAudioClip(sfx), delay, announceVolume, true));
+            StartCoroutine(PlayOneShotDelayed(GetAudioClip(sfx), announceSource, delay));
         }
 
         // PlayOneShots
@@ -414,14 +415,6 @@ namespace Capsule.Audio
             if (sfxAudioSource.volume == 0f) return;
             if (clip != null && volume > 0f)
                 sfxAudioSource.PlayOneShot(clip, sfxAudioSource.volume * volume);
-        }
-
-        private void PlayOneShot(AudioClip clip, float volume, bool usingSelfVolume)
-        {
-            if (clip != null && usingSelfVolume && volume > 0f)
-                sfxAudioSource.PlayOneShot(clip, volume);
-            else
-                PlayOneShot(clip, volume);
         }
 
         private void PlayOneShot(AudioClip clip, Vector3 position)
@@ -517,13 +510,13 @@ namespace Capsule.Audio
 
         public void PlayOneShot(Announcements announce)
         {
-            PlayOneShot(GetAudioClip(announce), announceVolume, true);
+            announceSource.PlayOneShot(GetAudioClip(announce));
         }
 
         public void PlayOneShot(Announcements announce, int count)
         {
             if (announce == Announcements.COUNT)
-                PlayOneShot(GetCountAudioClip(count), announceVolume, true);
+                announceSource.PlayOneShot(GetCountAudioClip(count));
         }
 
         public void PlayOneShot(Crowds crowd)
@@ -537,10 +530,10 @@ namespace Capsule.Audio
             PlayOneShot(clip);
         }
 
-        private IEnumerator PlayOneShotDelayed(AudioClip clip, float delay, float volume, bool usingSelfVolume)
+        private IEnumerator PlayOneShotDelayed(AudioClip clip, AudioSource source, float delay)
         {
             yield return new WaitForSeconds(delay);
-            PlayOneShot(clip, volume, usingSelfVolume);
+            PlayOneShot(clip, source);
         }
 
         // Volume Settings
@@ -551,7 +544,7 @@ namespace Capsule.Audio
 
         public void SetAnnounceVolume(float volume)
         {
-            announceVolume = volume;
+            announceSource.volume = volume;
         }
 
         public void PlayAnnouncementTest()
@@ -559,7 +552,7 @@ namespace Capsule.Audio
             if (announceTesting) return;
             announceTesting = true;
             AudioClip announceClip = GetAudioClip(Announcements.READY);
-            PlayOneShot(announceClip, announceVolume, true);
+            announceSource.PlayOneShot(announceClip);
             StartCoroutine(AnnouncementTest(announceClip.length));
         }
 

@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Arcade.unity
     guid: e62e3f6a0aa253f498bfb96dd11ff586
   - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Practice.unity
+    guid: 4472d0aad9ebf434594a8323d31a1a96
+  - enabled: 1
     path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage0.unity
     guid: 27512da8cda7c5d4fb344593698200bf
   - enabled: 1

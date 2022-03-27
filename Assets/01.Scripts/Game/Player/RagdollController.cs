@@ -8,7 +8,6 @@ namespace Capsule.Game.Player
         public GameObject charObj;
         public GameObject ragdollObj;
         public Rigidbody spine;
-        public Vector3 forceVector = new Vector3(0f, 0f, 0f);
         public bool isRagdoll;
 
         public event Action OnChangeRagdoll;
@@ -18,13 +17,39 @@ namespace Capsule.Game.Player
             if (usingRagdoll)
                 CopyOriginTransformToTarget(charObj.transform, ragdollObj.transform);
 
-            charObj.SetActive(!usingRagdoll);
+            //charObj.SetActive(!usingRagdoll);
+            SetCharacterMeshOnOff(!usingRagdoll);
+            if (!usingRagdoll)
+                SetRagdollMeshOnOff(true);
             ragdollObj.SetActive(usingRagdoll);
+
             if (usingRagdoll)
-            {
                 OnChangeRagdoll?.Invoke();
-                spine.AddForce(forceVector, ForceMode.Impulse);
-            }
+        }
+
+        public void SetRagdollMeshOnOff(bool isOn)
+        {
+            foreach (Collider coll in ragdollObj.transform.GetComponentsInChildren<Collider>())
+                coll.enabled = isOn;
+            foreach (SkinnedMeshRenderer skinnedMesh in ragdollObj.transform.GetComponentsInChildren<SkinnedMeshRenderer>())
+                skinnedMesh.enabled = isOn;
+            foreach (MeshRenderer meshRenderer in ragdollObj.transform.GetComponentsInChildren<MeshRenderer>())
+                meshRenderer.enabled = isOn;
+        }
+
+        public void SetCharacterMeshOnOff(bool isOn)
+        {
+            charObj.transform.GetComponent<Animator>().enabled = isOn;
+            charObj.transform.GetComponent<CapsuleCollider>().enabled = isOn;
+            foreach(SkinnedMeshRenderer skinnedMesh in charObj.transform.GetComponentsInChildren<SkinnedMeshRenderer>())
+                skinnedMesh.enabled = isOn;
+            foreach (MeshRenderer meshRenderer in charObj.transform.GetComponentsInChildren<MeshRenderer>())
+                meshRenderer.enabled = isOn;
+        }
+
+        public void AddForceToRagdoll(Vector3 forceVector)
+        {
+            spine.AddForce(forceVector, ForceMode.Impulse);
         }
 
         private void CopyOriginTransformToTarget(Transform originTransform, Transform targetTransform)

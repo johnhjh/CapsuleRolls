@@ -48,3 +48,5 @@ MonoBehaviour:
   fireworkObj: {fileID: 1247311384876784, guid: 4adffb0018aeda44e9263f901167af1f,
     type: 3}
   explosionObj: {fileID: 100018, guid: 81fdb0f97f7e96141b7b5d675fc73123, type: 3}
+  portalCallObj: {fileID: 100010, guid: c98be9ff8d0b99c4f8857faf470634cf, type: 3}
+  portalSpawnObj: {fileID: 100010, guid: a8d006cd19a6a1b4b95ac07a6075d297, type: 3}

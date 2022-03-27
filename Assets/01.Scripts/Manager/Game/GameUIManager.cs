@@ -1,5 +1,6 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
+using Capsule.Game.Effect;
 using Capsule.SceneLoad;
 using System.Collections;
 using UnityEngine;
@@ -37,7 +38,7 @@ namespace Capsule.Game.UI
             }
         }
         [HideInInspector]
-        public bool IsStagePopupActive { get; set; }
+        public bool IsPopupActive { get; set; }
         [HideInInspector]
         public bool IsUIHover { get; set; }
 
@@ -89,7 +90,7 @@ namespace Capsule.Game.UI
             IsPaused = false;
             IsSettingOpen = false;
             IsLoading = true;
-            IsStagePopupActive = false;
+            IsPopupActive = false;
 
             gamePauseCG = GameObject.Find("GameUIPause").GetComponent<CanvasGroup>();
             gameSettingCG = GameObject.Find("GameUISetting").GetComponent<CanvasGroup>();
@@ -127,7 +128,6 @@ namespace Capsule.Game.UI
             userInfoLevelText.text = currentLevel.ToString();
             userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
             userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
-            labelStageClearText.text = DataManager.Instance.GetCurrentStageString() + " 클리어!";
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
             switch (DataManager.Instance.CurrentGameData.Mode)
@@ -144,6 +144,7 @@ namespace Capsule.Game.UI
                     break;
                 case GameMode.STAGE:
                     remainedTime = 60;
+                    labelStageClearText.text = DataManager.Instance.GetCurrentStageString() + " 클리어!";
                     pausePlayInfoText.text = "스테이지 모드 - " + DataManager.Instance.GetCurrentStageString();
                     gameDescText.text = "스테이지 모드 - " + DataManager.Instance.GetCurrentStageString();
                     timeSoloScoreBoard.SetActive(false);
@@ -187,6 +188,17 @@ namespace Capsule.Game.UI
                             timeCoroutine = StartCoroutine(SetTimeUIText(onlyTimeText));
                             break;
                     }
+                    if (DataManager.Instance.HasNextStage())
+                    {
+                        buttonClearExitGame.SetActive(true);
+                        buttonClearNextStage.SetActive(true);
+                        if (buttonClearReplayGame.activeSelf)
+                            buttonClearReplayGame.SetActive(false);
+                        if (buttonClearAllCleared.activeSelf)
+                            buttonClearAllCleared.SetActive(false);
+                    }
+                    else
+                        StageAllClearedUI();
                     break;
                 case GameMode.BOT:
                     remainedTime = 100;
@@ -208,17 +220,6 @@ namespace Capsule.Game.UI
                     onlyTimeText.fontSize = 200;
                     break;
             }
-            if (DataManager.Instance.HasNextStage())
-            {
-                buttonClearExitGame.SetActive(true);
-                buttonClearNextStage.SetActive(true);
-                if (buttonClearReplayGame.activeSelf)
-                    buttonClearReplayGame.SetActive(false);
-                if (buttonClearAllCleared.activeSelf)
-                    buttonClearAllCleared.SetActive(false);
-            }
-            else
-                StageAllClearedUI();
         }
 
         public void StageAllClearedUI()
@@ -234,7 +235,7 @@ namespace Capsule.Game.UI
 
         public bool CheckUIActive()
         {
-            return IsPaused || IsSettingOpen || IsStagePopupActive || IsLoading;
+            return IsPaused || IsSettingOpen || IsPopupActive || IsLoading;
         }
 
         private IEnumerator SetTimeUIText(Text timeText)
@@ -259,7 +260,7 @@ namespace Capsule.Game.UI
 
         private IEnumerator FadeInCG(CanvasGroup cg)
         {
-            IsStagePopupActive = true;
+            IsPopupActive = true;
             cg.interactable = true;
             cg.blocksRaycasts = true;
             while (!Mathf.Approximately(cg.alpha, 1f))
@@ -292,7 +293,7 @@ namespace Capsule.Game.UI
 
         public void PauseGame(bool isPaused)
         {
-            if (this.IsLoading || this.IsStagePopupActive) return;
+            if (this.IsLoading || this.IsPopupActive) return;
             if (this.IsSettingOpen)
                 ShowGameSetting(false);
             this.IsPaused = isPaused;
@@ -309,7 +310,7 @@ namespace Capsule.Game.UI
 
         public void ShowGameSetting(bool isSetting)
         {
-            if (this.IsLoading || this.IsStagePopupActive) return;
+            if (this.IsLoading || this.IsPopupActive) return;
             gameSettingCG.alpha = isSetting ? 1f : 0f;
             gameSettingCG.blocksRaycasts = isSetting;
             gameSettingCG.interactable = isSetting;
@@ -345,20 +346,32 @@ namespace Capsule.Game.UI
             gameStageClearCG.alpha = 0f;
             gameStageClearCG.blocksRaycasts = false;
             gameStageClearCG.interactable = false;
-            IsStagePopupActive = false;
+            IsPopupActive = false;
             StartCoroutine(SceneLoadManager.Instance.LoadNextStageScene(GameManager.Instance.CurrentGameData));
         }
 
         public void OnClickRestartGame()
         {
             PauseGame(false);
+            IsPopupActive = false;
             IsLoading = true;
             Time.timeScale = 1f;
-            gameStageFailureCG.alpha = 0f;
-            gameStageFailureCG.blocksRaycasts = false;
-            gameStageFailureCG.interactable = false;
-            IsStagePopupActive = false;
-            StartCoroutine(SceneLoadManager.Instance.ReLoadStageScene(GameManager.Instance.CurrentGameData));
+            switch (GameManager.Instance.CurrentGameData.Mode)
+            {
+                case GameMode.ARCADE:
+                    break;
+                case GameMode.STAGE:
+                    gameStageFailureCG.alpha = 0f;
+                    gameStageFailureCG.blocksRaycasts = false;
+                    gameStageFailureCG.interactable = false;
+                    StartCoroutine(SceneLoadManager.Instance.ReLoadStageScene(GameManager.Instance.CurrentGameData));
+                    break;
+                case GameMode.PRACTICE:
+                    StartCoroutine(SceneLoadManager.Instance.ReLoadPracticeScene(GameManager.Instance.CurrentGameData));
+                    break;
+                case GameMode.BOT:
+                    break;
+            }
         }
 
         public void MoveToScene(LobbySceneType sceneType)
@@ -366,6 +379,8 @@ namespace Capsule.Game.UI
             Destroy(userInfoLevelText.gameObject);
             Destroy(userInfoExpText.gameObject);
             Destroy(userInfoExpImage.gameObject);
+            if (EffectQueueManager.Instance != null)
+                Destroy(EffectQueueManager.Instance.gameObject);
             IsLoading = true;
             StartCoroutine(SceneLoadManager.Instance.LoadLobbySceneFromGame(sceneType));
         }

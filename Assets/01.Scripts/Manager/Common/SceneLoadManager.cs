@@ -429,6 +429,18 @@ namespace Capsule.SceneLoad
             yield return StartCoroutine(FadeOutLoading());
         }
 
+        public IEnumerator ReLoadPracticeScene(GameData data)
+        {
+            ResetFields();
+            yield return StartCoroutine(FadeInLoading());
+            yield return SceneManager.UnloadSceneAsync(GetGameSceneLevelName(data));
+            yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind));
+            yield return SceneManager.LoadSceneAsync(GetGameSceneLevelName(data), LoadSceneMode.Additive);
+            yield return SceneManager.LoadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive);
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(GetGameSceneLevelName(data)));
+            yield return StartCoroutine(FadeOutLoading());
+        }
+
         public IEnumerator LoadLobbySceneFromGame(LobbySceneType sceneType)
         {
             ResetFields();

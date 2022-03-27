@@ -51,7 +51,7 @@ namespace Capsule.Game.Player
 
         protected virtual void Update()
         {
-            if (!isMine) return;
+            if (IsDead || !isMine) return;
             if (isMovingByInput)
             {
                 playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, playerInput.horizontal);

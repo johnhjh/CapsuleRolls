@@ -162,10 +162,6 @@ namespace Capsule.Game
                         GameUIManager.Instance.ShowGameSetting();
                 }
             }
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Space))
-            {
-                RestartGame();
-            }
         }
 
         public GameObject GetNewGameObj(bool usingRigidbody = false, bool usingAudioSource = false)
@@ -259,11 +255,6 @@ namespace Capsule.Game
                     OnAddScoreTeamB?.Invoke();
                 }
             }
-        }
-
-        public void RestartGame()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
         }
 
         public void EndGame()

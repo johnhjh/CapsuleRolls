@@ -10,5 +10,7 @@ namespace Capsule.Game.Base
         public float vertical;
         [HideInInspector]
         public float rotate;
+        [HideInInspector]
+        public bool IsDead { get; set; }
     }
 }

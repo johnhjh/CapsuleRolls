@@ -9,6 +9,8 @@ namespace Capsule.Game.Effect
         HIT,
         FIREWORK,
         EXPLOSION,
+        PORTAL_CALL,
+        PORTAL_SPAWN,
     }
 
     public class EffectQueueManager : MonoBehaviour
@@ -28,23 +30,30 @@ namespace Capsule.Game.Effect
         private readonly string NAME_HIT = "HIT_EFFECT";
         private readonly string NAME_FIREWORK = "FIREWROK_EFFECT";
         private readonly string NAME_EXPLOSION = "EXPLOSION_EFFECT";
+        private readonly string NAME_PORTAL_CALL = "PORTAL_CALL_EFFECT";
+        private readonly string NAME_PORTAL_SPAWN = "PORTAL_SPAWN_EFFECT";
 
         private Transform effectPool = null;
         public GameObject collisionEnterObj = null;
         public GameObject hitObj = null;
         public GameObject fireworkObj = null;
         public GameObject explosionObj = null;
+        public GameObject portalCallObj = null;
+        public GameObject portalSpawnObj = null;
 
         private Queue<GameObject> collisionEnterQueue = null;
         private Queue<GameObject> hitQueue = null;
         private Queue<GameObject> fireworkQueue = null;
         private Queue<GameObject> explosionQueue = null;
+        private Queue<GameObject> portalCallQueue = null;
+        private Queue<GameObject> portalSpawnQueue = null;
 
         private void Awake()
         {
             if (effectQueueMgr == null)
             {
                 effectQueueMgr = this;
+                DontDestroyOnLoad(this.gameObject);
                 CreateQueues();
             }
             else if (effectQueueMgr != this)
@@ -58,6 +67,8 @@ namespace Capsule.Game.Effect
             CreateHitQueue();
             CreateFireworkQueue();
             CreateExplosionQueue();
+            CreatePortalCallQueue();
+            CreatePortalSpawnQueue();
         }
 
         private void CreateCollisionEnterQueue()
@@ -112,6 +123,27 @@ namespace Capsule.Game.Effect
             }
         }
 
+        private void CreatePortalCallQueue()
+        {
+            portalCallQueue = new Queue<GameObject>();
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject newEffectObj = Instantiate(portalCallObj, effectPool);
+                newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                newEffectObj.name = GetNameByType(EffectType.PORTAL_CALL);
+                newEffectObj.SetActive(false);
+            }
+        }
+
+        private void CreatePortalSpawnQueue()
+        {
+            portalSpawnQueue = new Queue<GameObject>();
+            GameObject newEffectObj = Instantiate(portalSpawnObj, effectPool);
+            newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            newEffectObj.name = GetNameByType(EffectType.PORTAL_SPAWN);
+            newEffectObj.SetActive(false);
+        }
+
         private string GetNameByType(EffectType effectType)
         {
             switch (effectType)
@@ -124,6 +156,10 @@ namespace Capsule.Game.Effect
                     return NAME_FIREWORK;
                 case EffectType.EXPLOSION:
                     return NAME_EXPLOSION;
+                case EffectType.PORTAL_CALL:
+                    return NAME_PORTAL_CALL;
+                case EffectType.PORTAL_SPAWN:
+                    return NAME_PORTAL_SPAWN;
             }
             return string.Empty;
         }
@@ -140,6 +176,10 @@ namespace Capsule.Game.Effect
                     return fireworkObj;
                 case EffectType.EXPLOSION:
                     return explosionObj;
+                case EffectType.PORTAL_CALL:
+                    return portalCallObj;
+                case EffectType.PORTAL_SPAWN:
+                    return portalSpawnObj;
             }
             return null;
         }
@@ -156,6 +196,10 @@ namespace Capsule.Game.Effect
                     return fireworkQueue;
                 case EffectType.EXPLOSION:
                     return explosionQueue;
+                case EffectType.PORTAL_CALL:
+                    return portalCallQueue;
+                case EffectType.PORTAL_SPAWN:
+                    return portalSpawnQueue;
             }
             return null;
         }
@@ -194,30 +238,36 @@ namespace Capsule.Game.Effect
             return null;
         }
 
+        public GameObject ShowHitEffect(Vector3 position, Quaternion rotation)
+        {
+            GameObject hitEffect = DeQueueEffect(EffectType.HIT);
+            hitEffect.transform.SetPositionAndRotation(position, rotation);
+            hitEffect.transform.localScale = Vector3.one * Random.Range(2f, 3f);
+            hitEffect.SetActive(true);
+            return hitEffect;
+        }
+
         public GameObject ShowHitEffect(Collision coll)
         {
             ContactPoint contact = coll.contacts[0];
             Quaternion rot = Quaternion.FromToRotation(-Vector3.forward, contact.normal);
+            return ShowHitEffect(contact.point, rot);
+        }
 
-            GameObject hitEffect = DeQueueEffect(EffectType.HIT);
-            hitEffect.transform.SetPositionAndRotation(contact.point, rot);
-            hitEffect.transform.localScale = Vector3.one * Random.Range(2f, 3f);
-            hitEffect.SetActive(true);
-
-            return hitEffect;
+        public GameObject ShowCollisionEffect(Vector3 position, Quaternion rotation)
+        {
+            GameObject collisionEffect = DeQueueEffect(EffectType.COLLISION_ENTER);
+            collisionEffect.transform.SetPositionAndRotation(position, rotation);
+            collisionEffect.transform.localScale = Vector3.one;
+            collisionEffect.SetActive(true);
+            return collisionEffect;
         }
 
         public GameObject ShowCollisionEffect(Collision coll)
         {
             ContactPoint contact = coll.contacts[0];
             Quaternion rot = Quaternion.FromToRotation(-Vector3.forward, contact.normal);
-
-            GameObject collisionEffect = DeQueueEffect(EffectType.COLLISION_ENTER);
-            collisionEffect.transform.SetPositionAndRotation(contact.point, rot);
-            collisionEffect.transform.localScale = Vector3.one;
-            collisionEffect.SetActive(true);
-
-            return collisionEffect;
+            return ShowCollisionEffect(contact.point, rot);
         }
 
         public GameObject ShowCollisionEffect(Collision coll, float scale)
@@ -244,6 +294,22 @@ namespace Capsule.Game.Effect
             fireworkEffect.transform.localScale = Random.Range(1.0f, 3.0f) * Vector3.one;
             fireworkEffect.SetActive(true);
             return fireworkEffect;
+        }
+
+        public GameObject ShowPortalCallEffect(Vector3 position)
+        {
+            GameObject portalCallEffect = DeQueueEffect(EffectType.PORTAL_CALL);
+            portalCallEffect.transform.SetPositionAndRotation(position, Quaternion.identity);
+            portalCallEffect.SetActive(true);
+            return portalCallEffect;
+        }
+
+        public GameObject ShowPortalSpawnEffect(Vector3 position)
+        {
+            GameObject portalSpawnEffect = DeQueueEffect(EffectType.PORTAL_SPAWN);
+            portalSpawnEffect.transform.SetPositionAndRotation(position, Quaternion.identity);
+            portalSpawnEffect.SetActive(true);
+            return portalSpawnEffect;
         }
     }
 }

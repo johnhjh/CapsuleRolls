@@ -42,8 +42,18 @@ namespace Capsule.Game.AI
         private IEnumerator AIMove()
         {
             WaitForSeconds ws01 = new WaitForSeconds(0.1f);
-            while (!ballMove.IsDead)
+            while (true)
             {
+                if (ballMove.IsDead)
+                {
+                    if (GameManager.Instance.CurrentGameData.Mode == Entity.GameMode.STAGE)
+                        yield break;
+                    else
+                    {
+                        yield return ws01;
+                        continue;
+                    }
+                }
                 if (GameManager.Instance != null)
                 {
                     if (ballMove.IsLanded)
