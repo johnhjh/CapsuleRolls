@@ -1,6 +1,5 @@
-﻿using Capsule.Game.RollTheBall;
-using Capsule.Game.Effect;
-using System.Collections;
+﻿using Capsule.Game.Effect;
+using Capsule.Game.RollTheBall;
 using UnityEngine;
 
 namespace Capsule.Game.AI

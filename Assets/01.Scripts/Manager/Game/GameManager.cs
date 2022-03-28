@@ -1,7 +1,7 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
-using Capsule.Game.UI;
 using Capsule.Game.Enemy;
+using Capsule.Game.UI;
 using System;
 using System.Collections;
 using UnityEngine;

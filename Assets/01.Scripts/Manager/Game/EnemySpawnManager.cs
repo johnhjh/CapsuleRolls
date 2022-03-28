@@ -169,7 +169,7 @@ namespace Capsule.Game.Enemy
             GameObject enemyObj = DequeEnemy();
             AIType aiType = ChangeEnemyType(enemyObj, rand);
             Tuple<Vector3, Quaternion> posAndRot = GetPositionAndRotationByType(aiType);
-            GameObject portalSpawnEffect = 
+            GameObject portalSpawnEffect =
                 EffectQueueManager.Instance.ShowPortalSpawnEffect(
                     new Vector3(posAndRot.First.x, 0f, posAndRot.First.z));
             StartCoroutine(InactivatePortalSpawnEffect(portalSpawnEffect, enemyObj));
