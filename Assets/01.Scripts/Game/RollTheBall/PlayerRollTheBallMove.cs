@@ -350,6 +350,7 @@ namespace Capsule.Game.RollTheBall
         private void PlayerOut()
         {
             if (IsDead || GameManager.Instance == null) return;
+            if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
             if (isMine)
             {
                 SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);

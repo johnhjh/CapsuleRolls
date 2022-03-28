@@ -17,9 +17,12 @@ namespace Capsule.Game
 
         private void Start()
         {
-            rollerCollider.enabled = false;
-            if (transform.position.y != -1.9f)
-                RemoveRoller();
+            if (GameManager.Instance != null && GameManager.Instance.CurrentGameData.Mode == Entity.GameMode.ARCADE)
+            {
+                rollerCollider.enabled = false;
+                if (transform.position.y != -1.9f)
+                    RemoveRoller();
+            }
         }
 
         public void RemoveRoller()

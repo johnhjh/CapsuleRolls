@@ -376,7 +376,7 @@ namespace Capsule.Game.UI
                 yield return null;
             }
             float currentC = 0f;
-            int finalC = passedTime + Mathf.RoundToInt(GameManager.Instance.ArcadeScore);
+            int finalC = passedTime + Mathf.RoundToInt(GameManager.Instance.ArcadeScore / 10f);
             float coinSpeed = finalC / 1.5f;
             while (!Mathf.Approximately(currentC, finalC))
             {
