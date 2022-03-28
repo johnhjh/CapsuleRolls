@@ -2,6 +2,7 @@
 using Capsule.Entity;
 using Capsule.Game.Effect;
 using Capsule.Game.Player;
+using Capsule.Game.UI;
 using Capsule.Util;
 using System.Collections;
 using UnityEngine;
@@ -39,7 +40,7 @@ namespace Capsule.Game.RollTheBall
         public bool IsLanded
         {
             get { return isLanded; }
-            private set
+            set
             {
                 if (value)
                 {
@@ -70,6 +71,7 @@ namespace Capsule.Game.RollTheBall
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
             if (GameManager.Instance != null)
             {
+                GameManager.Instance.OnGameOver += PlayerAudioStop;
                 if (isTeamA)
                 {
                     GameManager.Instance.OnAddScoreTeamA += OnTeamGoal;
@@ -325,6 +327,11 @@ namespace Capsule.Game.RollTheBall
             {
                 SFXManager.Instance.PlaySFX(Announcements.SUCCESS, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
+                if (GameManager.Instance.CurrentGameData.Mode == GameMode.ARCADE)
+                {
+                    GameManager.Instance.AddScore(100);
+                    GameUIManager.Instance.AddTime(5);
+                }
             }
             PlayVictoryAnim();
         }
@@ -343,7 +350,7 @@ namespace Capsule.Game.RollTheBall
                     if (isMine)
                     {
                         BGMManager.Instance.ChangeBGM(BGMType.GAMEOVER);
-
+                        GameManager.Instance.ArcadeFinish();
                     }
                     SetPlayerDead(true);
                     break;
@@ -375,8 +382,10 @@ namespace Capsule.Game.RollTheBall
             yield return ws20;
             ragdollController.SetRagdollMeshOnOff(false);
             portalCallEffect.SetActive(false);
+
             if (isMine)
                 GameCameraManager.Instance.Target = new Tuple<Transform, bool>(transform, false);
+
             GameObject portalSpawnEffect = EffectQueueManager.Instance.ShowPortalSpawnEffect(new Vector3(position.x, 0f, position.z));
             playerRigidbody.mass = 40f;
             transform.parent.SetPositionAndRotation(position + 3f * Vector3.up, Quaternion.identity);

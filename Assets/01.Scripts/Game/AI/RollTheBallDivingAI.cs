@@ -32,7 +32,9 @@ namespace Capsule.Game.AI
             {
                 if (ballMove.IsDead)
                 {
-                    if (GameManager.Instance.CurrentGameData.Mode == Entity.GameMode.STAGE)
+                    if (GameManager.Instance != null &&
+                        GameManager.Instance.CurrentGameData.Mode == Entity.GameMode.STAGE &&
+                        GameManager.Instance.IsGameOver)
                         yield break;
                     else
                     {

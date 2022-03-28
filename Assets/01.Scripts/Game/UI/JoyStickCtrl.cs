@@ -77,7 +77,9 @@ namespace Capsule.Game.UI
                     HandleInput(
                         startPos +
                         (dragRadius * playerInput.vertical * Vector3.up) +
-                        (dragRadius * playerInput.horizontal * Vector3.right));
+                        (playerInput.usingHorizontal ? 
+                        (dragRadius * playerInput.horizontal * Vector3.right) : 
+                        (dragRadius * playerInput.rotate * Vector3.right)));
                 else
                     HandleInput(startPos);
             }
@@ -143,9 +145,17 @@ namespace Capsule.Game.UI
                 touchPad.position = input;
 
             Vector3 diff = touchPad.position - startPos;
-            horizontal = 0f;
+            if (playerInput != null && playerInput.usingHorizontal)
+            {
+                horizontal = diff.x / dragRadius;
+                rotate = 0f;
+            }
+            else
+            {
+                horizontal = 0f;
+                rotate = diff.x / dragRadius;
+            }
             vertical = diff.y / dragRadius;
-            rotate = diff.x / dragRadius;
 
             HandleFocus(diff.x, diff.y);
         }

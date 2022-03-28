@@ -17,6 +17,8 @@ namespace Capsule.Game.Player
         public bool usingAction1 = true;
         [HideInInspector]
         public bool usingAction2 = true;
+        [HideInInspector]
+        public bool usingHorizontal = false;
 
         private JoyStickCtrl joyStick = null;
 
@@ -63,9 +65,17 @@ namespace Capsule.Game.Player
                 if (Application.platform != RuntimePlatform.Android &&
                     Application.platform != RuntimePlatform.IPhonePlayer)
                 {
-                    horizontal = Input.GetAxis(AXIS_NAME_HORIZONTAL);
+                    if (usingHorizontal)
+                    {
+                        horizontal = Input.GetAxis(AXIS_NAME_HORIZONTAL);
+                        rotate = Input.GetAxis(AXIS_NAME_MOUSE_X);
+                    }
+                    else
+                    {
+                        horizontal = 0f;
+                        rotate = Input.GetAxis(AXIS_NAME_HORIZONTAL);
+                    }
                     vertical = Input.GetAxis(AXIS_NAME_VERTICAL);
-                    rotate = Input.GetAxis(AXIS_NAME_MOUSE_X);
                     if (GameUIManager.Instance != null && GameUIManager.Instance.IsUIHover)
                     {
                         Action1 = false;

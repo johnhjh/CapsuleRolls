@@ -50,24 +50,28 @@ namespace Capsule.Game.RollTheBall
         private void Start()
         {
             if (!isMine) return;
-            if (GameManager.Instance != null && GameManager.Instance.CurrentGameData.Mode == GameMode.STAGE)
+            if (GameManager.Instance != null)
             {
-                switch (GameManager.Instance.CurrentGameData.Stage)
+                GameManager.Instance.OnGameOver += PlayerAudioStop;
+                if (GameManager.Instance.CurrentGameData.Mode == GameMode.STAGE)
                 {
-                    case GameStage.TUTORIAL_1:
-                    case GameStage.STAGE_1:
-                        playerInput.usingAction1 = false;
-                        playerInput.usingAction2 = false;
-                        break;
-                    case GameStage.TUTORIAL_2:
-                    case GameStage.STAGE_2:
-                        playerInput.usingAction1 = true;
-                        playerInput.usingAction2 = false;
-                        break;
-                    default:
-                        playerInput.usingAction1 = true;
-                        playerInput.usingAction2 = true;
-                        break;
+                    switch (GameManager.Instance.CurrentGameData.Stage)
+                    {
+                        case GameStage.TUTORIAL_1:
+                        case GameStage.STAGE_1:
+                            playerInput.usingAction1 = false;
+                            playerInput.usingAction2 = false;
+                            break;
+                        case GameStage.TUTORIAL_2:
+                        case GameStage.STAGE_2:
+                            playerInput.usingAction1 = true;
+                            playerInput.usingAction2 = false;
+                            break;
+                        default:
+                            playerInput.usingAction1 = true;
+                            playerInput.usingAction2 = true;
+                            break;
+                    }
                 }
             }
         }
@@ -75,7 +79,7 @@ namespace Capsule.Game.RollTheBall
         private void Update()
         {
             if (isDead) return;
-            //if (!isMine) return;
+            if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
 
             playerTransform.Rotate(playerInput.rotate * playerRotateSpeed * Time.deltaTime * Vector3.up);
             Vector3 moveDir = (playerTransform.right * playerInput.horizontal) +
@@ -129,12 +133,11 @@ namespace Capsule.Game.RollTheBall
                     {
                         isDead = true;
                         playerInput.IsDead = true;
+                        playerMovement.IsLanded = false;
                         PlayerAudioStop();
                         SFXManager.Instance.PlayOneShot(GameSFX.FALLING, playerAudioSource);
                         playerTransform.GetComponent<Animator>().SetTrigger(GameManager.Instance.animData.HASH_TRIG_FALLING);
-                        playerTransform.GetComponent<CapsuleCollider>().isTrigger = false;
                         Rigidbody playerRigidbody = playerTransform.GetComponent<Rigidbody>();
-                        playerRigidbody.isKinematic = false;
                         playerRigidbody.mass = 1f;
                         playerRigidbody.AddForce(explodePower * Vector3.up, ForceMode.Impulse);
                     }

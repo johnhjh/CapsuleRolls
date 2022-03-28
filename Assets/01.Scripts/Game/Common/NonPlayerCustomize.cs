@@ -1,4 +1,5 @@
 ﻿using Capsule.Entity;
+using Capsule.Game.Player;
 using UnityEngine;
 
 namespace Capsule.Game
@@ -18,12 +19,8 @@ namespace Capsule.Game
         {
             if (isRandom)
             {
-                data = new PlayerCustomizeData(
-                    Random.Range(1, (int)CustomizingBody.STAR),
-                    Random.Range(1, (int)CustomizingHead.OUTLAW),
-                    Random.Range(1, (int)CustomizingFace.SANTA),
-                    Random.Range(1, (int)CustomizingGlove.HOOK),
-                    Random.Range(1, (int)CustomizingCloth.SANTA));
+                 if(!isRagdoll)
+                    RandomCustomize();
             }
             else
             {
@@ -33,10 +30,38 @@ namespace Capsule.Game
                     (int)face,
                     (int)glove,
                     (int)cloth);
+                PlayerCustomizeInit();
+                if (isRagdoll)
+                    this.gameObject.SetActive(false);
             }
+        }
+
+        private void SetRagdollCustomizeInit()
+        {
+            if(transform.parent.GetChild(1).TryGetComponent(out RagdollController controller))
+            {
+                if(controller.ragdollObj.TryGetComponent(out NonPlayerCustomize customize))
+                    customize.CopyCustomizeDataFromOrigin(data);
+            }
+        }
+
+        public void RandomCustomize()
+        {
+            data = new PlayerCustomizeData(
+                Random.Range(1, (int)CustomizingBody.STAR),
+                Random.Range(1, (int)CustomizingHead.OUTLAW),
+                Random.Range(1, (int)CustomizingFace.SANTA),
+                Random.Range(1, (int)CustomizingGlove.HOOK),
+                Random.Range(1, (int)CustomizingCloth.SANTA));
             PlayerCustomizeInit();
-            if (isRagdoll)
-                this.gameObject.SetActive(false);
+            SetRagdollCustomizeInit();
+        }
+
+        public void CopyCustomizeDataFromOrigin(PlayerCustomizeData customzieData)
+        {
+            data = customzieData;
+            PlayerCustomizeInit();
+            this.gameObject.SetActive(false);
         }
 
         private void PlayerCustomizeInit()

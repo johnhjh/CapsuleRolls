@@ -89,23 +89,63 @@ namespace Capsule.Game
         public GameAnimData animData = new GameAnimData();
         public GameNameData nameData = new GameNameData();
 
-        public bool IsGameOver { get; private set; }
+        private bool isGameOver = false;
+        public bool IsGameOver 
+        {
+            get
+            {
+                return isGameOver;
+            }
+            private set
+            {
+                isGameOver = value;
+                if (value && OnGameOver != null)
+                    OnGameOver();
+            }
+        }
         private int teamScoreA = 0;
         public int TeamScoreA
         {
             get { return teamScoreA; }
+            private set { teamScoreA = value; }
         }
         private int teamScoreB = 0;
         public int TeamScoreB
         {
             get { return teamScoreB; }
+            private set { teamScoreB = value; }
+        }
+
+        private int arcadeScore = 0;
+        public int ArcadeScore
+        {
+            get { return arcadeScore; }
+            private set { arcadeScore = value; }
+        }
+
+        private int enemyCount = 0;
+        public int EnemyCount
+        {
+            get { return enemyCount; }
+            private set { enemyCount = value; }
+        }
+
+        private int currentWave = 0;
+        public int CurrentWave
+        {
+            get { return currentWave; }
+            private set { currentWave = value; }
         }
 
         public event Action OnAddScoreTeamA;
         public event Action OnAddScoreTeamB;
+        public event Action OnAddArcadeScore;
+        public event Action OnAddEnemyCount;
+        public event Action OnArcadeFinish;
         public event Action OnStageClear;
         public event Action OnStageFailure;
         public event Action OnStartGame;
+        public event Action OnGameOver;
         public event Action OnTimeEnded;
 
         private void Awake()
@@ -125,7 +165,12 @@ namespace Capsule.Game
             if (CurrentGameData != null)
             {
                 if (CurrentGameData.Mode == GameMode.ARCADE)
+                {
                     BGMManager.Instance.ChangeBGM(BGMType.ARCADE);
+                    OnAddArcadeScore += GameUIManager.Instance.UpdateScoreText;
+                    OnAddEnemyCount += GameUIManager.Instance.UpdateRemainedEnemeyText;
+
+                }
                 else if (CurrentGameData.Mode == GameMode.STAGE)
                     BGMManager.Instance.ChangeBGM(BGMType.STAGE);
                 else if (CurrentGameData.Mode == GameMode.PRACTICE)
@@ -196,6 +241,7 @@ namespace Capsule.Game
             {
                 case GameMode.ARCADE:
                     // 점수 계산 후 데이터 갱신 할 자리
+                    ArcadeFinish();
                     break;
                 case GameMode.STAGE:
                     StageFailure();
@@ -204,7 +250,14 @@ namespace Capsule.Game
                     // 점수 계산 후 승자를 가리는 자리
                     break;
             }
+        }
 
+        public void ArcadeFinish()
+        {
+            IsGameOver = true;
+            OnArcadeFinish?.Invoke();
+            DataManager.Instance.CurrentPlayerGameData.PlayerSoloPlayed();
+            StartCoroutine(PopupArcadeFinishUI());
         }
 
         public void StageClear()
@@ -228,6 +281,19 @@ namespace Capsule.Game
             StartCoroutine(PopupFailureUI());
         }
 
+        private IEnumerator PopupArcadeFinishUI()
+        {
+            yield return new WaitForSeconds(3.0f);
+            if (GameUIManager.Instance != null)
+                GameUIManager.Instance.OnArcadeFinished();
+            if (DataManager.Instance.CurrentPlayerGameData.PlayerScored(arcadeScore))
+            {
+                SFXManager.Instance.PlayOneShot(Announcements.NEW_RECORD);
+                if (GameUIManager.Instance != null)
+                    GameUIManager.Instance.OnArcadeNewRecord();
+            }
+        }
+
         private IEnumerator PopupClearUI()
         {
             yield return new WaitForSeconds(3.0f);
@@ -241,6 +307,18 @@ namespace Capsule.Game
             yield return new WaitForSeconds(3.0f);
             if (GameUIManager.Instance != null)
                 GameUIManager.Instance.OnStageFailure();
+        }
+
+        public void AddEnemyCount(int count)
+        {
+            EnemyCount += count;
+            OnAddEnemyCount?.Invoke();
+        }
+
+        public void AddScore(int newScore)
+        {
+            arcadeScore += newScore;
+            OnAddArcadeScore?.Invoke();
         }
 
         public void AddScore(bool isTeamA, int newScore)

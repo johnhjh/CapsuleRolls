@@ -537,22 +537,23 @@ namespace Capsule.Entity
             MultiMostKillCount = PlayerPrefs.GetInt("MultiMostKillCount", 0);
         }
 
-        public void PlayerScore(int score)
+        public void PlayerSoloPlayed()
+        {
+            TotalPlayCount += 1;
+        }
+
+        public bool PlayerScored(int score)
         {
             if (score > HighestScore)
                 HighestScore = score;
+            return score > HighestScore;
         }
 
         public void PlayerStagePlayed(int stage, bool isCleared)
         {
-            PlayerSoloPlay();
+            PlayerSoloPlayed();
             if (isCleared && stage > HighestStage)
                 HighestStage = stage;
-        }
-
-        public void PlayerSoloPlay()
-        {
-            TotalPlayCount += 1;
         }
 
         public void PlayerAddKills(int killCount)

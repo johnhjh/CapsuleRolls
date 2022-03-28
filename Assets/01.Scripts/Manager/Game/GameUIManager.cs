@@ -1,6 +1,7 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
 using Capsule.SceneLoad;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,6 +46,8 @@ namespace Capsule.Game.UI
         private CanvasGroup gameSettingCG = null;
         private CanvasGroup gameStageClearCG = null;
         private CanvasGroup gameStageFailureCG = null;
+        private CanvasGroup gameArcadeFinishCG = null;
+        private CanvasGroup labelNewRecordCG = null;
 
         private Text labelStageClearText = null;
         private Text userInfoLevelText = null;
@@ -66,7 +69,15 @@ namespace Capsule.Game.UI
         private Text soloTimeText = null;
         private Text teamTimeText = null;
         private Text onlyTimeText = null;
+
+        private Text currentScoreText = null;
+        private Text currentWaveText = null;
+        private Text remainEnemyText = null;
+        private Text arcadeTimeResultText = null;
+        private Text arcadeScoreResultText = null;
+
         private int remainedTime = 100;
+        private int passedTime = 0;
         private Coroutine timeCoroutine;
 
         private void Awake()
@@ -95,6 +106,8 @@ namespace Capsule.Game.UI
             gameSettingCG = GameObject.Find("GameUISetting").GetComponent<CanvasGroup>();
             gameStageClearCG = GameObject.Find("GameUIStageClear").GetComponent<CanvasGroup>();
             gameStageFailureCG = GameObject.Find("GameUIStageFailure").GetComponent<CanvasGroup>();
+            gameArcadeFinishCG = GameObject.Find("GameUIArcadeFinish").GetComponent<CanvasGroup>();
+            labelNewRecordCG = GameObject.Find("Label_NewRecord").GetComponent<CanvasGroup>();
 
             labelStageClearText = GameObject.Find("Label_StageClear_Text").GetComponent<Text>();
             userInfoLevelText = GameObject.Find("User_Info_Level_Text").GetComponent<Text>();
@@ -117,6 +130,12 @@ namespace Capsule.Game.UI
             teamTimeText = timeTeamScoreBoard.transform.GetChild(0).GetComponent<Text>();
             timeOnlyBoard = GameObject.Find("Time_Only_Board");
             onlyTimeText = timeOnlyBoard.transform.GetChild(0).GetComponent<Text>();
+
+            currentWaveText = timeSoloScoreBoard.transform.GetChild(1).GetComponent<Text>();
+            remainEnemyText = timeSoloScoreBoard.transform.GetChild(2).GetComponent<Text>();
+            currentScoreText = timeSoloScoreBoard.transform.GetChild(3).GetComponent<Text>();
+            arcadeTimeResultText = GameObject.Find("ArcadeTimeResultText").GetComponent<Text>();
+            arcadeScoreResultText = GameObject.Find("ArcadeScoreResultText").GetComponent<Text>();
         }
 
         private void SetGameUIInfo()
@@ -127,18 +146,22 @@ namespace Capsule.Game.UI
             userInfoLevelText.text = currentLevel.ToString();
             userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
             userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
+            passedTime = 0;
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
             switch (DataManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
-                    remainedTime = 100;
+                    remainedTime = 30;
                     pausePlayInfoText.text = "아케이드 모드";
                     gameDescText.text = "아케이드 모드";
                     timeSoloScoreBoard.SetActive(true);
                     timeTeamScoreBoard.SetActive(false);
                     timeOnlyBoard.SetActive(false);
                     soloTimeText.text = remainedTime.ToString();
+                    currentWaveText.text = "<color=#FF6767>웨이브</color> : 1";
+                    remainEnemyText.text = "<color=#FF6767>남은 수</color> : 1";
+                    currentScoreText.text = "000";
                     timeCoroutine = StartCoroutine(SetTimeUIText(soloTimeText));
                     break;
                 case GameMode.STAGE:
@@ -221,6 +244,59 @@ namespace Capsule.Game.UI
             }
         }
 
+        public void UpdateWaveText()
+        {
+            if (GameManager.Instance != null)
+                currentWaveText.text = "<color=#FF6767>웨이브</color> : " +
+                    GameManager.Instance.CurrentWave.ToString("00");
+        }
+
+        public void UpdateRemainedEnemeyText()
+        {
+            if (GameManager.Instance != null)
+                remainEnemyText.text = "<color=#FF6767>남은 수</color> : " +
+                    GameManager.Instance.EnemyCount.ToString("00");
+        }
+
+        public void UpdateScoreText()
+        {
+            currentScoreText.text = GameManager.Instance.ArcadeScore.ToString("000");
+        }
+
+        public void UpdateTimeText()
+        {
+            if (GameManager.Instance != null)
+            {
+                switch (GameManager.Instance.CurrentGameData.Mode)
+                {
+                    case GameMode.ARCADE:
+                        soloTimeText.text = remainedTime.ToString();
+                        break;
+                    case GameMode.STAGE:
+                        onlyTimeText.text = remainedTime.ToString();
+                        break;
+                    case GameMode.BOT:
+                        teamTimeText.text = remainedTime.ToString();
+                        break;
+                    case GameMode.PRACTICE:
+                        break;
+                }
+            }
+        }
+
+        private void UpdateScoreBoard()
+        {
+            UpdateRemainedEnemeyText();
+            UpdateScoreText();
+            UpdateTimeText();
+        }
+
+        public void AddTime(int timeAmount)
+        {
+            remainedTime += timeAmount;
+            UpdateTimeText();
+        }
+
         public void StageAllClearedUI()
         {
             labelStageClearText.text = "스테이지 올 클리어!!";
@@ -243,6 +319,7 @@ namespace Capsule.Game.UI
             while (!GameManager.Instance.IsGameOver && remainedTime-- >= 0)
             {
                 yield return new WaitForSeconds(1.0f);
+                passedTime++;
                 timeText.text = remainedTime.ToString();
                 if (remainedTime == 0)
                 {
@@ -267,8 +344,39 @@ namespace Capsule.Game.UI
                 cg.alpha = Mathf.MoveTowards(cg.alpha, 1f, 3f * Time.deltaTime);
                 yield return null;
             }
-            if (GameManager.Instance.CheckSoloGame())
+            if (GameManager.Instance.CheckSoloGame() && GameManager.Instance.CurrentGameData.Mode != GameMode.ARCADE)
                 Time.timeScale = 0f;
+        }
+
+        public void OnArcadeFinished()
+        {
+            if (timeCoroutine != null)
+                StopCoroutine(timeCoroutine);
+            StartCoroutine(ArcadeScoreShow());
+        }
+
+        private IEnumerator ArcadeScoreShow()
+        {
+            arcadeTimeResultText.text = "생존시간 : 0초";
+            arcadeScoreResultText.text = "점수 : 0점";
+            yield return StartCoroutine(FadeInCG(gameArcadeFinishCG));
+            float currentT = 0f;
+            float currentS = 0f;
+            float passedTimeSpeed = passedTime / 2f;
+            float scoringSpeed = GameManager.Instance.ArcadeScore / 2f;
+            while (!Mathf.Approximately(currentT, passedTime))
+            {
+                currentT = Mathf.MoveTowards(currentT, passedTime, passedTimeSpeed * Time.deltaTime);
+                currentS = Mathf.MoveTowards(currentS, GameManager.Instance.ArcadeScore, scoringSpeed * Time.deltaTime);
+                arcadeTimeResultText.text = "생존시간 : " + Mathf.RoundToInt(currentT).ToString("00") + "초";
+                arcadeScoreResultText.text = "점수 : " + Mathf.RoundToInt(currentS).ToString("000") + "점";
+                yield return null;
+            }
+        }
+
+        public void OnArcadeNewRecord()
+        {
+            StartCoroutine(FadeInCG(labelNewRecordCG));
         }
 
         public void OnStageClear()
@@ -349,6 +457,13 @@ namespace Capsule.Game.UI
             StartCoroutine(SceneLoadManager.Instance.LoadNextStageScene(GameManager.Instance.CurrentGameData));
         }
 
+        private void CanvasGroupOff(CanvasGroup cg)
+        {
+            cg.alpha = 0f;
+            cg.blocksRaycasts = false;
+            cg.interactable = false;
+        }
+
         public void OnClickRestartGame()
         {
             PauseGame(false);
@@ -358,12 +473,12 @@ namespace Capsule.Game.UI
             switch (GameManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
+                    CanvasGroupOff(labelNewRecordCG);
+                    CanvasGroupOff(gameArcadeFinishCG);
                     StartCoroutine(SceneLoadManager.Instance.ReLoadGameScene(GameManager.Instance.CurrentGameData));
                     break;
                 case GameMode.STAGE:
-                    gameStageFailureCG.alpha = 0f;
-                    gameStageFailureCG.blocksRaycasts = false;
-                    gameStageFailureCG.interactable = false;
+                    CanvasGroupOff(gameStageFailureCG);
                     StartCoroutine(SceneLoadManager.Instance.ReLoadStageScene(GameManager.Instance.CurrentGameData));
                     break;
                 case GameMode.PRACTICE:
