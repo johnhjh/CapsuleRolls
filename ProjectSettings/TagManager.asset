@@ -16,6 +16,8 @@ TagManager:
   - Ragdoll
   - DeadZone
   - WayPoint
+  - PlayerBlock
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -31,8 +33,8 @@ TagManager:
   - WayPoint
   - PostProcessing
   - Enemy
-  - 
-  - 
+  - PlayerBlock
+  - Points
   - 
   - 
   - 

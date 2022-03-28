@@ -11,6 +11,7 @@ namespace Capsule.Game.Effect
         EXPLOSION,
         PORTAL_CALL,
         PORTAL_SPAWN,
+        SPARK,
     }
 
     public class EffectQueueManager : MonoBehaviour
@@ -32,6 +33,7 @@ namespace Capsule.Game.Effect
         private readonly string NAME_EXPLOSION = "EXPLOSION_EFFECT";
         private readonly string NAME_PORTAL_CALL = "PORTAL_CALL_EFFECT";
         private readonly string NAME_PORTAL_SPAWN = "PORTAL_SPAWN_EFFECT";
+        private readonly string NAME_SPARK = "SPARK_EFFECT";
 
         private Transform effectPool = null;
         public GameObject collisionEnterObj = null;
@@ -40,6 +42,7 @@ namespace Capsule.Game.Effect
         public GameObject explosionObj = null;
         public GameObject portalCallObj = null;
         public GameObject portalSpawnObj = null;
+        public GameObject sparkObj = null;
 
         private Queue<GameObject> collisionEnterQueue = null;
         private Queue<GameObject> hitQueue = null;
@@ -47,6 +50,7 @@ namespace Capsule.Game.Effect
         private Queue<GameObject> explosionQueue = null;
         private Queue<GameObject> portalCallQueue = null;
         private Queue<GameObject> portalSpawnQueue = null;
+        private Queue<GameObject> sparkQueue = null;
 
         private void Awake()
         {
@@ -69,6 +73,7 @@ namespace Capsule.Game.Effect
             CreateExplosionQueue();
             CreatePortalCallQueue();
             CreatePortalSpawnQueue();
+            CreateSparkQueue();
         }
 
         private void CreateCollisionEnterQueue()
@@ -138,10 +143,25 @@ namespace Capsule.Game.Effect
         private void CreatePortalSpawnQueue()
         {
             portalSpawnQueue = new Queue<GameObject>();
-            GameObject newEffectObj = Instantiate(portalSpawnObj, effectPool);
-            newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-            newEffectObj.name = GetNameByType(EffectType.PORTAL_SPAWN);
-            newEffectObj.SetActive(false);
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject newEffectObj = Instantiate(portalSpawnObj, effectPool);
+                newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                newEffectObj.name = GetNameByType(EffectType.PORTAL_SPAWN);
+                newEffectObj.SetActive(false);
+            }
+        }
+
+        private void CreateSparkQueue()
+        {
+            sparkQueue = new Queue<GameObject>();
+            for (int i = 0; i < 5; i++)
+            {
+                GameObject newEffectObj = Instantiate(sparkObj, effectPool);
+                newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                newEffectObj.name = GetNameByType(EffectType.SPARK);
+                newEffectObj.SetActive(false);
+            }
         }
 
         private string GetNameByType(EffectType effectType)
@@ -160,6 +180,8 @@ namespace Capsule.Game.Effect
                     return NAME_PORTAL_CALL;
                 case EffectType.PORTAL_SPAWN:
                     return NAME_PORTAL_SPAWN;
+                case EffectType.SPARK:
+                    return NAME_SPARK;
             }
             return string.Empty;
         }
@@ -180,6 +202,8 @@ namespace Capsule.Game.Effect
                     return portalCallObj;
                 case EffectType.PORTAL_SPAWN:
                     return portalSpawnObj;
+                case EffectType.SPARK:
+                    return sparkObj;
             }
             return null;
         }
@@ -200,6 +224,8 @@ namespace Capsule.Game.Effect
                     return portalCallQueue;
                 case EffectType.PORTAL_SPAWN:
                     return portalSpawnQueue;
+                case EffectType.SPARK:
+                    return sparkQueue;
             }
             return null;
         }
@@ -236,6 +262,15 @@ namespace Capsule.Game.Effect
                 }
             }
             return null;
+        }
+
+        public GameObject ShowSparkEffect(Vector3 position)
+        {
+            GameObject sparkEffect = DeQueueEffect(EffectType.SPARK);
+            sparkEffect.transform.position = position;
+            sparkEffect.transform.localScale = Vector3.one * Random.Range(0.8f, 1.5f);
+            sparkEffect.SetActive(true);
+            return sparkEffect;
         }
 
         public GameObject ShowHitEffect(Vector3 position, Quaternion rotation)

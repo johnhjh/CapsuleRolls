@@ -26,7 +26,7 @@ namespace Capsule.Game.AI
             WaitForSeconds ws02 = new WaitForSeconds(0.2f);
             while (true)
             {
-                if ((!ballMove.IsDead))
+                if ((ballMove.IsDead))
                 {
                     if (GameManager.Instance != null &&
                         GameManager.Instance.CurrentGameData.Mode == Entity.GameMode.STAGE &&

@@ -546,7 +546,7 @@ namespace Capsule.Entity
         {
             if (score > HighestScore)
                 HighestScore = score;
-            return score > HighestScore;
+            return score == HighestScore;
         }
 
         public void PlayerStagePlayed(int stage, bool isCleared)

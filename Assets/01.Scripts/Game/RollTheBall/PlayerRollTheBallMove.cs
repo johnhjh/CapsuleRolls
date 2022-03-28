@@ -59,7 +59,9 @@ namespace Capsule.Game.RollTheBall
             }
         }
 
+        private Coroutine portalCallCoroutine = null;
         private Vector3 startPos = Vector3.zero;
+        private Quaternion startRot = Quaternion.identity;
 
         protected override void Start()
         {
@@ -86,11 +88,13 @@ namespace Capsule.Game.RollTheBall
                 {
                     GameManager.Instance.OnStageClear += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_CLEAR); };
                     GameManager.Instance.OnStageFailure += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_FAILURE); };
+                    GameManager.Instance.OnWaveClear += PlayVictoryAnim;
                 }
                 if (isMine && GameManager.Instance.CurrentGameData.Mode == GameMode.PRACTICE)
                     respawnTime = 1f;
             }
             startPos = transform.parent.position;
+            startRot = transform.rotation;
         }
 
         protected override void Update()
@@ -303,8 +307,15 @@ namespace Capsule.Game.RollTheBall
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
             {
                 EffectQueueManager.Instance.ShowHitEffect(collision);
-                if (isDiving)
-                    PlayerSuccess();
+                if (collision.collider.transform.TryGetComponent(out PlayerRollTheBallMove bm))
+                {
+                    if (bm.IsDiving)
+                        PlayerOut();
+                    else if (isDiving)
+                        PlayerSuccess();
+                    else
+                        PlayerOut();
+                }
                 else
                     PlayerOut();
             }
@@ -347,12 +358,19 @@ namespace Capsule.Game.RollTheBall
             switch (GameManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
+                    SetPlayerDead(true);
                     if (isMine)
                     {
                         BGMManager.Instance.ChangeBGM(BGMType.GAMEOVER);
                         GameManager.Instance.ArcadeFinish();
                     }
-                    SetPlayerDead(true);
+                    else
+                    {
+                        if (portalCallCoroutine != null)
+                            StopCoroutine(portalCallCoroutine);
+                        portalCallCoroutine = StartCoroutine(PortalCall(1f));
+                        GameManager.Instance.AddEnemyCount(-1);
+                    }
                     break;
                 case GameMode.STAGE:
                     if (isMine)
@@ -364,34 +382,40 @@ namespace Capsule.Game.RollTheBall
                     break;
                 case GameMode.PRACTICE:
                     SetPlayerDead(true);
-                    StartCoroutine(RespawnPlayer(respawnTime, startPos));
+                    StartCoroutine(RespawnPlayer(respawnTime, startPos, startRot));
                     break;
                 case GameMode.BOT:
                     SetPlayerDead(true);
-                    StartCoroutine(RespawnPlayer(respawnTime, startPos));
+                    StartCoroutine(RespawnPlayer(respawnTime, startPos, startRot));
                     break;
             }
         }
 
-        private IEnumerator RespawnPlayer(float delay, Vector3 position)
+        private IEnumerator PortalCall(float delay)
         {
-            WaitForSeconds ws20 = new WaitForSeconds(2f);
             yield return new WaitForSeconds(delay);
-            GameObject portalCallEffect = EffectQueueManager.Instance.ShowPortalCallEffect(
-                ragdollController.spine.transform.position);
-            yield return ws20;
+            yield return StartCoroutine(PortalCall());
+        }
+
+        private IEnumerator PortalCall()
+        {
+            Vector3 pos = ragdollController.spine.transform.position;
+            pos.y = 0f;
+            GameObject portalCallEffect = EffectQueueManager.Instance.ShowPortalCallEffect(pos);
+            yield return new WaitForSeconds(2f);
             ragdollController.SetRagdollMeshOnOff(false);
             portalCallEffect.SetActive(false);
+        }
 
-            if (isMine)
-                GameCameraManager.Instance.Target = new Tuple<Transform, bool>(transform, false);
-
+        public IEnumerator PortalSpawn(Vector3 position, Quaternion rotation)
+        {
+            WaitForSeconds ws20 = new WaitForSeconds(2f);
             GameObject portalSpawnEffect = EffectQueueManager.Instance.ShowPortalSpawnEffect(new Vector3(position.x, 0f, position.z));
             playerRigidbody.mass = 40f;
             transform.parent.SetPositionAndRotation(position + 3f * Vector3.up, Quaternion.identity);
             transform.parent.GetComponent<Rigidbody>().freezeRotation = true;
             transform.localPosition = new Vector3(0f, 2.791f, 0f);
-            transform.localRotation = Quaternion.identity;
+            transform.rotation = rotation;
             transform.parent.GetChild(2).gameObject.SetActive(true);
             transform.parent.GetChild(2).localPosition = new Vector3(0f, 1.41f, 0f);
             transform.GetComponent<Animator>().enabled = true;
@@ -400,6 +424,15 @@ namespace Capsule.Game.RollTheBall
             SetPlayerDead(false);
             yield return ws20;
             portalSpawnEffect.SetActive(false);
+        }
+
+        private IEnumerator RespawnPlayer(float delay, Vector3 position, Quaternion rotation)
+        {
+            yield return new WaitForSeconds(delay);
+            yield return StartCoroutine(PortalCall());
+            if (isMine)
+                GameCameraManager.Instance.Target = new Tuple<Transform, bool>(transform, false);
+            yield return StartCoroutine(PortalSpawn(position, rotation));
         }
 
         private void GotHitBySomething(Collision coll)

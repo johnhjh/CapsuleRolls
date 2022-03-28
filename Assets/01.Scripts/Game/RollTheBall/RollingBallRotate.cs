@@ -17,6 +17,7 @@ namespace Capsule.Game.RollTheBall
             {
                 ballParent = value;
                 transform.parent = value;
+                transform.gameObject.layer = value.gameObject.layer;
                 if (value.TryGetComponent(out Rigidbody rigidbody))
                 {
                     ballRigidbody = rigidbody;

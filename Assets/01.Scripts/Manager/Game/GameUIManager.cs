@@ -74,9 +74,15 @@ namespace Capsule.Game.UI
         private Text remainEnemyText = null;
         private Text arcadeTimeResultText = null;
         private Text arcadeScoreResultText = null;
+        private Text arcadeCoinEarnedText = null;
+        private Coroutine arcadeShowCoroutine;
 
         private int remainedTime = 100;
         private int passedTime = 0;
+        public int CurrentPassedTime
+        {
+            get { return passedTime; }
+        }
         private Coroutine timeCoroutine;
 
         private void Awake()
@@ -135,6 +141,7 @@ namespace Capsule.Game.UI
             currentScoreText = timeSoloScoreBoard.transform.GetChild(3).GetComponent<Text>();
             arcadeTimeResultText = GameObject.Find("ArcadeTimeResultText").GetComponent<Text>();
             arcadeScoreResultText = GameObject.Find("ArcadeScoreResultText").GetComponent<Text>();
+            arcadeCoinEarnedText = GameObject.Find("ArcadeCoinEarnedText").GetComponent<Text>();
         }
 
         private void SetGameUIInfo()
@@ -152,15 +159,19 @@ namespace Capsule.Game.UI
             {
                 case GameMode.ARCADE:
                     remainedTime = 30;
+                    CanvasGroupOff(labelNewRecordCG);
                     pausePlayInfoText.text = "아케이드 모드";
-                    gameDescText.text = "아케이드 모드";
+                    gameDescText.text = "아케이드모드\n최고점수 :<color=#FF6767>" +
+                        DataManager.Instance.CurrentPlayerGameData.HighestScore.ToString() +
+                        "</color>";
                     timeSoloScoreBoard.SetActive(true);
                     timeTeamScoreBoard.SetActive(false);
                     timeOnlyBoard.SetActive(false);
                     soloTimeText.text = remainedTime.ToString();
-                    currentWaveText.text = "<color=#FF6767>웨이브</color> : 1";
-                    remainEnemyText.text = "<color=#FF6767>남은 수</color> : 1";
+                    currentWaveText.text = "<color=#FF6767>웨이브</color> : 01";
+                    remainEnemyText.text = "<color=#FF6767>남은 수</color> : 01";
                     currentScoreText.text = "000";
+                    arcadeCoinEarnedText.text = "000";
                     timeCoroutine = StartCoroutine(SetTimeUIText(soloTimeText));
                     break;
                 case GameMode.STAGE:
@@ -259,7 +270,7 @@ namespace Capsule.Game.UI
 
         public void UpdateScoreText()
         {
-            currentScoreText.text = GameManager.Instance.ArcadeScore.ToString("000");
+            currentScoreText.text = GameManager.Instance.ArcadeScore.ToString("###,###,000");
         }
 
         public void UpdateTimeText()
@@ -281,13 +292,6 @@ namespace Capsule.Game.UI
                         break;
                 }
             }
-        }
-
-        private void UpdateScoreBoard()
-        {
-            UpdateRemainedEnemeyText();
-            UpdateScoreText();
-            UpdateTimeText();
         }
 
         public void AddTime(int timeAmount)
@@ -351,7 +355,7 @@ namespace Capsule.Game.UI
         {
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
-            StartCoroutine(ArcadeScoreShow());
+            arcadeShowCoroutine = StartCoroutine(ArcadeScoreShow());
         }
 
         private IEnumerator ArcadeScoreShow()
@@ -361,8 +365,8 @@ namespace Capsule.Game.UI
             yield return StartCoroutine(FadeInCG(gameArcadeFinishCG));
             float currentT = 0f;
             float currentS = 0f;
-            float passedTimeSpeed = passedTime / 2f;
-            float scoringSpeed = GameManager.Instance.ArcadeScore / 2f;
+            float passedTimeSpeed = passedTime / 1.5f;
+            float scoringSpeed = GameManager.Instance.ArcadeScore / 1.5f;
             while (!Mathf.Approximately(currentT, passedTime))
             {
                 currentT = Mathf.MoveTowards(currentT, passedTime, passedTimeSpeed * Time.deltaTime);
@@ -371,6 +375,17 @@ namespace Capsule.Game.UI
                 arcadeScoreResultText.text = "점수 : " + Mathf.RoundToInt(currentS).ToString("000") + "점";
                 yield return null;
             }
+            float currentC = 0f;
+            int finalC = passedTime + Mathf.RoundToInt(GameManager.Instance.ArcadeScore);
+            float coinSpeed = finalC / 1.5f;
+            while (!Mathf.Approximately(currentC, finalC))
+            {
+                currentC = Mathf.MoveTowards(currentC, finalC, coinSpeed * Time.deltaTime);
+                arcadeCoinEarnedText.text = Mathf.RoundToInt(currentC).ToString("###,###,000");
+                yield return null;
+            }
+            SFXManager.Instance.PlaySFX(MenuSFX.BUY);
+            arcadeCoinEarnedText.text = Mathf.RoundToInt(finalC).ToString("###,###,000") + " ~";
         }
 
         public void OnArcadeNewRecord()
@@ -472,8 +487,12 @@ namespace Capsule.Game.UI
             switch (GameManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
+                    if (arcadeShowCoroutine != null)
+                        StopCoroutine(arcadeShowCoroutine);
                     CanvasGroupOff(labelNewRecordCG);
                     CanvasGroupOff(gameArcadeFinishCG);
+                    if (Enemy.EnemySpawnManager.Instance != null)
+                        Destroy(Enemy.EnemySpawnManager.Instance.gameObject);
                     StartCoroutine(SceneLoadManager.Instance.ReLoadGameScene(GameManager.Instance.CurrentGameData));
                     break;
                 case GameMode.STAGE:
@@ -491,11 +510,15 @@ namespace Capsule.Game.UI
 
         public void MoveToScene(LobbySceneType sceneType)
         {
+            if (arcadeShowCoroutine != null)
+                StopCoroutine(arcadeShowCoroutine);
             Destroy(userInfoLevelText.gameObject);
             Destroy(userInfoExpText.gameObject);
             Destroy(userInfoExpImage.gameObject);
             if (Effect.EffectQueueManager.Instance != null)
                 Destroy(Effect.EffectQueueManager.Instance.gameObject);
+            if (Enemy.EnemySpawnManager.Instance != null)
+                Destroy(Enemy.EnemySpawnManager.Instance.gameObject);
             IsLoading = true;
             StartCoroutine(SceneLoadManager.Instance.LoadLobbySceneFromGame(sceneType));
         }

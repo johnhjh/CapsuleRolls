@@ -1,6 +1,7 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
 using Capsule.Game.UI;
+using Capsule.Game.Enemy;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -130,7 +131,7 @@ namespace Capsule.Game
             private set { enemyCount = value; }
         }
 
-        private int currentWave = 0;
+        private int currentWave = 1;
         public int CurrentWave
         {
             get { return currentWave; }
@@ -147,6 +148,7 @@ namespace Capsule.Game
         public event Action OnStartGame;
         public event Action OnGameOver;
         public event Action OnTimeEnded;
+        public event Action OnWaveClear;
 
         private void Awake()
         {
@@ -169,7 +171,7 @@ namespace Capsule.Game
                     BGMManager.Instance.ChangeBGM(BGMType.ARCADE);
                     OnAddArcadeScore += GameUIManager.Instance.UpdateScoreText;
                     OnAddEnemyCount += GameUIManager.Instance.UpdateRemainedEnemeyText;
-
+                    OnAddEnemyCount += CheckWaveCleared;
                 }
                 else if (CurrentGameData.Mode == GameMode.STAGE)
                     BGMManager.Instance.ChangeBGM(BGMType.STAGE);
@@ -240,7 +242,6 @@ namespace Capsule.Game
             switch (CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
-                    // 점수 계산 후 데이터 갱신 할 자리
                     ArcadeFinish();
                     break;
                 case GameMode.STAGE:
@@ -252,11 +253,58 @@ namespace Capsule.Game
             }
         }
 
+        public void CheckWaveCleared()
+        {
+            if (EnemyCount == 0)
+                WaveCleared();
+        }
+
+        public void WaveCleared()
+        {
+            OnWaveClear?.Invoke();
+            CurrentWave++;
+            SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
+            SFXManager.Instance.PlayOneShot(Announcements.CLEAR);
+            GameUIManager.Instance.UpdateWaveText();
+            EnemySpawnManager.Instance.NextSpkieRollers(CurrentWave);
+            StartCoroutine(NextWave());
+        }
+
+        private IEnumerator NextWave()
+        {
+            GameUIManager.Instance.AddTime(5);
+            yield return new WaitForSeconds(1f);
+            if (isGameOver)
+                yield break;
+            SFXManager.Instance.PlayOneShot(Announcements.READY);
+            yield return new WaitForSeconds(3f);
+            if (isGameOver)
+                yield break;
+            SFXManager.Instance.PlayOneShot(Announcements.GO);
+            if (EnemySpawnManager.Instance != null)
+                EnemySpawnManager.Instance.SpawnWave(CurrentWave);
+        }
+
+        private int CalculateArcadeCoin()
+        {
+            return GameUIManager.Instance.CurrentPassedTime +
+                Mathf.RoundToInt(ArcadeScore / 10);
+        }
+
+        private int CalculateArcadeExp()
+        {
+            return Mathf.RoundToInt(
+                (GameUIManager.Instance.CurrentPassedTime +
+                ArcadeScore / 10) / 10);
+        }
+
         public void ArcadeFinish()
         {
             IsGameOver = true;
             OnArcadeFinish?.Invoke();
             DataManager.Instance.CurrentPlayerGameData.PlayerSoloPlayed();
+            DataManager.Instance.CurrentPlayerData.EarnCoin(CalculateArcadeCoin());
+            DataManager.Instance.CurrentPlayerData.AddExp(CalculateArcadeExp());
             StartCoroutine(PopupArcadeFinishUI());
         }
 

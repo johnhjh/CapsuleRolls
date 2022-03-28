@@ -12,6 +12,7 @@ namespace Capsule.Game.AI
         private MoveInput moveInput = null;
         public List<Transform> wayPoints;
         public int currentWayPoint = 0;
+        public bool usingRandomWayPoints = false;
 
         private void Start()
         {
@@ -28,14 +29,23 @@ namespace Capsule.Game.AI
                 ballMove = move;
             else
                 ballMove = null;
-            if (moveInput != null &&
-                ballMove != null &&
-                wayPoints != null &&
-                wayPoints.Count > 0)
+            if (moveInput != null && ballMove != null)
             {
-                foreach (Transform wayPoint in wayPoints)
-                    wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
-                StartCoroutine(AIMove());
+                if (wayPoints != null && wayPoints.Count > 0)
+                {
+                    foreach (Transform wayPoint in wayPoints)
+                        wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
+                    StartCoroutine(AIMove());
+                }
+                else
+                {
+                    Transform wayPointsParent = GameObject.Find("WayPoints").transform;
+                    wayPoints = new List<Transform>(wayPointsParent.GetComponentsInChildren<Transform>());
+                    wayPoints.RemoveAt(0);
+                    foreach (Transform wayPoint in wayPoints)
+                        wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
+                    StartCoroutine(AIMove());
+                }
             }
         }
 
@@ -109,7 +119,10 @@ namespace Capsule.Game.AI
 
         private void ChangeWayPoint()
         {
-            currentWayPoint = (++currentWayPoint) % wayPoints.Count;
+            if (!usingRandomWayPoints)
+                currentWayPoint = (++currentWayPoint) % wayPoints.Count;
+            else
+                currentWayPoint = Random.Range(0, wayPoints.Count);
         }
 
         private void OnDrawGizmos()

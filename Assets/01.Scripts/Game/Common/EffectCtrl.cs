@@ -21,19 +21,32 @@ namespace Capsule.Game.Effect
                 StopCoroutine(checkingAlive);
                 checkingAlive = null;
             }
-            EffectQueueManager.Instance.EnQueueEffect(effectType, this.gameObject);
+            EffectQueueManager.Instance.EnQueueEffect(effectType, gameObject);
         }
 
         private IEnumerator CheckAlive()
         {
-            ParticleSystem ps = this.GetComponent<ParticleSystem>();
+            ParticleSystem ps = GetComponent<ParticleSystem>();
             while (true && ps != null)
             {
                 yield return ws05;
                 if (!ps.IsAlive(true))
                 {
-                    this.gameObject.SetActive(false);
+                    gameObject.SetActive(false);
                     break;
+                }
+            }
+            if (ps == null)
+            {
+                while (true)
+                {
+                    yield return ws05;
+                    if (GameManager.Instance != null &&
+                        GameManager.Instance.IsGameOver)
+                    {
+                        gameObject.SetActive(false);
+                        break;
+                    }
                 }
             }
         }

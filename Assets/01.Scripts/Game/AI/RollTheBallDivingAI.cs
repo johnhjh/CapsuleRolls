@@ -14,6 +14,12 @@ namespace Capsule.Game.AI
             set { targetTransform = value; }
         }
 
+        private void OnEnable()
+        {
+            if (Target == null)
+                Target = GameObject.Find("RollTheBallPlayer").transform.GetChild(0);
+        }
+
         private void Start()
         {
             if (TryGetComponent(out PlayerRollTheBallMove move))
@@ -57,13 +63,11 @@ namespace Capsule.Game.AI
             Ray ray = new Ray(transform.position + Vector3.up, transform.forward);
             int layerMask = 1 << LayerMask.NameToLayer(GameManager.Instance.tagData.TAG_PLAYER);
 
-            RaycastHit[] hits = Physics.RaycastAll(ray, 20f, layerMask);
+            RaycastHit[] hits = Physics.RaycastAll(ray, 15f, layerMask);
             foreach (RaycastHit hit in hits)
             {
-                Debug.Log(hit.collider.name);
                 if (hit.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
                 {
-                    Debug.Log("I Found Player !!");
                     if (hit.collider.transform == targetTransform)
                         return true;
                 }
@@ -74,7 +78,7 @@ namespace Capsule.Game.AI
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(0f, 255f, 0f, 1f);
-            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 20f);
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 15f);
         }
     }
 }
