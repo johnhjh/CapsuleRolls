@@ -25,6 +25,11 @@ namespace Capsule.Game
             }
         }
 
+        public void SpikeRollerColliderOnOff(bool isOn)
+        {
+            rollerCollider.enabled = isOn;
+        }
+
         public void RemoveRoller()
         {
             if (rollerCoroutine != null)

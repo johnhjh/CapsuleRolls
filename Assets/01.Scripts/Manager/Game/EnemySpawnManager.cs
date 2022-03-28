@@ -54,14 +54,14 @@ namespace Capsule.Game.Enemy
             movingEnemySpawnPoints.RemoveAt(0);
             spikeRollers = new List<SpikeRollerCtrl>(GameObject.Find("SpikeRollers").transform.GetComponentsInChildren<SpikeRollerCtrl>());
             spikeRollers.RemoveAt(0);
-            //RemoveAllSpikeRollers();
+            RemoveAllSpikeRollers();
             StartCoroutine(SpawnFirstEnemy());
         }
 
         private void RemoveAllSpikeRollers()
         {
             foreach (SpikeRollerCtrl roller in spikeRollers)
-                roller.RemoveRoller();
+                roller.SpikeRollerColliderOnOff(false);
         }
 
         public void NextSpkieRollers(int count)
