@@ -77,8 +77,8 @@ namespace Capsule.Game.UI
                     HandleInput(
                         startPos +
                         (dragRadius * playerInput.vertical * Vector3.up) +
-                        (playerInput.usingHorizontal ? 
-                        (dragRadius * playerInput.horizontal * Vector3.right) : 
+                        (playerInput.usingHorizontal ?
+                        (dragRadius * playerInput.horizontal * Vector3.right) :
                         (dragRadius * playerInput.rotate * Vector3.right)));
                 else
                     HandleInput(startPos);

@@ -19,7 +19,7 @@ namespace Capsule.Game
         {
             if (isRandom)
             {
-                 if(!isRagdoll)
+                if (!isRagdoll)
                     RandomCustomize();
             }
             else
@@ -38,9 +38,9 @@ namespace Capsule.Game
 
         private void SetRagdollCustomizeInit()
         {
-            if(transform.parent.GetChild(1).TryGetComponent(out RagdollController controller))
+            if (transform.parent.GetChild(1).TryGetComponent(out RagdollController controller))
             {
-                if(controller.ragdollObj.TryGetComponent(out NonPlayerCustomize customize))
+                if (controller.ragdollObj.TryGetComponent(out NonPlayerCustomize customize))
                     customize.CopyCustomizeDataFromOrigin(data);
             }
         }

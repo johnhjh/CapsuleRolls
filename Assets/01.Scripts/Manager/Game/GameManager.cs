@@ -90,7 +90,7 @@ namespace Capsule.Game
         public GameNameData nameData = new GameNameData();
 
         private bool isGameOver = false;
-        public bool IsGameOver 
+        public bool IsGameOver
         {
             get
             {
