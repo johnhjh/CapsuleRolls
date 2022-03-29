@@ -2,6 +2,7 @@
 using Capsule.Entity;
 using Capsule.SceneLoad;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,6 +78,8 @@ namespace Capsule.Game.UI
         private Text arcadeCoinEarnedText = null;
         private Coroutine arcadeShowCoroutine;
 
+        private List<GameObject> rewardItems = null;
+
         private int remainedTime = 100;
         private int passedTime = 0;
         public int CurrentPassedTime
@@ -128,6 +131,13 @@ namespace Capsule.Game.UI
             buttonClearReplayGame = GameObject.Find("Button_Clear_ReplayGame");
             buttonClearAllCleared = GameObject.Find("Button_Clear_AllCleared");
 
+            rewardItems = new List<GameObject>();
+            Transform rewardsItemsTransform = GameObject.Find("RewardItems").transform;
+            for (int i = 0; i < rewardsItemsTransform.childCount; i++)
+                rewardItems.Add(rewardsItemsTransform.GetChild(i).gameObject);
+            foreach (GameObject gameObj in rewardItems)
+                gameObj.SetActive(false);
+
             gameDescText = GameObject.Find("GameUIDesc_Text").GetComponent<Text>();
             timeSoloScoreBoard = GameObject.Find("Time_Solo_Score_Board");
             soloTimeText = timeSoloScoreBoard.transform.GetChild(0).GetComponent<Text>();
@@ -142,6 +152,18 @@ namespace Capsule.Game.UI
             arcadeTimeResultText = GameObject.Find("ArcadeTimeResultText").GetComponent<Text>();
             arcadeScoreResultText = GameObject.Find("ArcadeScoreResultText").GetComponent<Text>();
             arcadeCoinEarnedText = GameObject.Find("ArcadeCoinEarnedText").GetComponent<Text>();
+        }
+
+        public void SetRewardData(RewardData reward)
+        {
+            rewardItems[(int)reward.kind].SetActive(true);
+            switch (reward.kind)
+            {
+                case RewardKind.COIN:
+                case RewardKind.EXP:
+                    rewardItems[(int)reward.kind].transform.GetChild(1).GetComponent<Text>().text = reward.amount.ToString();
+                break;
+            }
         }
 
         private void SetGameUIInfo()
@@ -264,7 +286,7 @@ namespace Capsule.Game.UI
         public void UpdateRemainedEnemeyText()
         {
             if (GameManager.Instance != null)
-                remainEnemyText.text = "<color=#FF6767>남은 수</color> : " +
+                remainEnemyText.text = "<color=#FF6767>남은 캡슐</color> : " +
                     GameManager.Instance.EnemyCount.ToString("00");
         }
 

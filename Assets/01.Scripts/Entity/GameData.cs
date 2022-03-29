@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 namespace Capsule.Entity
 {
     public enum GameMode
@@ -124,7 +125,7 @@ namespace Capsule.Entity
         public GameStage stage;
         public string name;
         public string desc;
-        public RewardData[] rewards;
+        public List<RewardData> rewards;
     }
 
     [System.Serializable]
@@ -134,6 +135,37 @@ namespace Capsule.Entity
         public int amount;
         public Sprite preview;
         public bool onlyOnce;
+
+        public void SetRewardPreview()
+        {
+            if (DataManager.Instance != null)
+            {
+                switch (kind)
+                {
+                    case RewardKind.COIN:
+                        preview = DataManager.Instance.rewardSprites[0];
+                        break;
+                    case RewardKind.EXP:
+                        preview = DataManager.Instance.rewardSprites[1];
+                        break;
+                    case RewardKind.CUSTOMIZING_BODY:
+                        preview = DataManager.Instance.GetBodyData((CustomizingBody)amount).preview;
+                        break;
+                    case RewardKind.CUSTOMIZING_HEAD:
+                        preview = DataManager.Instance.GetHeadData((CustomizingHead)amount).preview;
+                        break;
+                    case RewardKind.CUSTOMIZING_FACE:
+                        preview = DataManager.Instance.GetFaceData((CustomizingFace)amount).preview;
+                        break;
+                    case RewardKind.CUSTOMIZING_GLOVE:
+                        preview = DataManager.Instance.GetGloveData((CustomizingGlove)amount).preview;
+                        break;
+                    case RewardKind.CUSTOMIZING_CLOTH:
+                        preview = DataManager.Instance.GetClothData((CustomizingCloth)amount).preview;
+                        break;
+                }
+            }
+        }
     }
 }
 

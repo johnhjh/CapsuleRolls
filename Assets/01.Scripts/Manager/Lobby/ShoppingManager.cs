@@ -422,7 +422,8 @@ namespace Capsule.Lobby.Shopping
             }
 
             headContent = scrollRectTransform.GetChild(2).gameObject;
-            headContent.GetComponent<RectTransform>().sizeDelta = new Vector2(headContent.transform.childCount * 540f, 855f);
+            //headContent.GetComponent<RectTransform>().sizeDelta = new Vector2(headContent.transform.childCount * 540f, 855f);
+            headContent.GetComponent<RectTransform>().sizeDelta = new Vector2((headContent.transform.childCount - 1) * 540f, 855f);
             foreach (ShoppingSlotHead slot in headContent.transform.GetComponentsInChildren<ShoppingSlotHead>())
             {
                 foreach (CustomizingHead dataNum in DataManager.Instance.HeadOpenData)
@@ -436,7 +437,8 @@ namespace Capsule.Lobby.Shopping
             }
 
             faceContent = scrollRectTransform.GetChild(3).gameObject;
-            faceContent.GetComponent<RectTransform>().sizeDelta = new Vector2(faceContent.transform.childCount * 540f, 855f);
+            //faceContent.GetComponent<RectTransform>().sizeDelta = new Vector2(faceContent.transform.childCount * 540f, 855f);
+            faceContent.GetComponent<RectTransform>().sizeDelta = new Vector2((faceContent.transform.childCount - 1) * 540f, 855f);
             foreach (ShoppingSlotFace slot in faceContent.transform.GetComponentsInChildren<ShoppingSlotFace>())
             {
                 foreach (CustomizingFace dataNum in DataManager.Instance.FaceOpenData)
@@ -464,7 +466,8 @@ namespace Capsule.Lobby.Shopping
             }
 
             clothContent = scrollRectTransform.GetChild(5).gameObject;
-            clothContent.GetComponent<RectTransform>().sizeDelta = new Vector2(clothContent.transform.childCount * 540f, 855f);
+            //clothContent.GetComponent<RectTransform>().sizeDelta = new Vector2(clothContent.transform.childCount * 540f, 855f);
+            clothContent.GetComponent<RectTransform>().sizeDelta = new Vector2((clothContent.transform.childCount - 1) * 540f, 855f);
             foreach (ShoppingSlotCloth slot in clothContent.transform.GetComponentsInChildren<ShoppingSlotCloth>())
             {
                 foreach (CustomizingCloth dataNum in DataManager.Instance.ClothOpenData)

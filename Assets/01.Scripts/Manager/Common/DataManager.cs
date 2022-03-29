@@ -35,6 +35,11 @@ namespace Capsule.Entity
                 Destroy(this.gameObject);
         }
 
+        private void Start()
+        {
+            SetStageDatasPreviews();
+        }
+
         public void SaveBeforeQuit()
         {
             CurrentPlayerData.SavePlayerData();
@@ -409,6 +414,19 @@ namespace Capsule.Entity
             }
         };
 
+        public List<Sprite> rewardSprites = new List<Sprite>();
+        private void SetStageDatasPreviews()
+        {
+            foreach (GameStageData stageData in gameStageDatas)
+            {
+                if (stageData.rewards != null && stageData.rewards.Count > 0)
+                {
+                    foreach (RewardData rewardData in stageData.rewards)
+                        rewardData.SetRewardPreview();
+                }
+            }
+        }
+
         private List<GameStageData> gameStageDatas = new List<GameStageData>()
         {
             new GameStageData()
@@ -417,6 +435,21 @@ namespace Capsule.Entity
                 stage = GameStage.TUTORIAL_1,
                 name = "튜토리얼 1",
                 desc = "[공 굴려서 골인~!]의 기본적인 조작을 배워보자!",
+                rewards = new List<RewardData>()
+                {
+                    new RewardData()
+                    {
+                        kind = RewardKind.COIN,
+                        amount = 100,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.EXP,
+                        amount = 10,
+                        onlyOnce = false,
+                    }
+                },
             },
             new GameStageData()
             {
@@ -424,6 +457,21 @@ namespace Capsule.Entity
                 stage = GameStage.STAGE_1,
                 name = "스테이지 1",
                 desc = "장애물을 돌파해 클리어하자!",
+                rewards = new List<RewardData>()
+                {
+                    new RewardData()
+                    {
+                        kind = RewardKind.COIN,
+                        amount = 200,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.EXP,
+                        amount = 30,
+                        onlyOnce = false,
+                    }
+                },
             },
             new GameStageData()
             {
@@ -431,6 +479,21 @@ namespace Capsule.Entity
                 stage = GameStage.TUTORIAL_2,
                 name = "튜토리얼 2",
                 desc = "[공 굴려서 골인~!]의 [점프] 조작을 배워보자!",
+                rewards = new List<RewardData>()
+                {
+                    new RewardData()
+                    {
+                        kind = RewardKind.COIN,
+                        amount = 200,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.EXP,
+                        amount = 20,
+                        onlyOnce = false,
+                    }
+                },
             },
             new GameStageData()
             {
@@ -438,6 +501,27 @@ namespace Capsule.Entity
                 stage = GameStage.STAGE_2,
                 name = "스테이지 2",
                 desc = "[점프]를 적극 활용해 장애물을 돌파하자!",
+                rewards = new List<RewardData>()
+                {
+                    new RewardData()
+                    {
+                        kind = RewardKind.COIN,
+                        amount = 500,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.EXP,
+                        amount = 50,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.CUSTOMIZING_FACE,
+                        amount = (int)CustomizingFace.ROBO,
+                        onlyOnce = true,
+                    },
+                },
             },
             new GameStageData()
             {
@@ -445,6 +529,21 @@ namespace Capsule.Entity
                 stage = GameStage.TUTORIAL_3,
                 name = "튜토리얼 3",
                 desc = "[공 굴려서 골인~!]의 [다이브] 조작을 배워보자!",
+                rewards = new List<RewardData>()
+                {
+                    new RewardData()
+                    {
+                        kind = RewardKind.COIN,
+                        amount = 200,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.EXP,
+                        amount = 30,
+                        onlyOnce = false,
+                    }
+                },
             },
             new GameStageData()
             {
@@ -452,6 +551,27 @@ namespace Capsule.Entity
                 stage = GameStage.STAGE_3,
                 name = "스테이지 3",
                 desc = "[다이브]를 적극 활용해 장애물을 돌파하자!",
+                rewards = new List<RewardData>()
+                {
+                    new RewardData()
+                    {
+                        kind = RewardKind.COIN,
+                        amount = 1000,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.EXP,
+                        amount = 100,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.CUSTOMIZING_HEAD,
+                        amount = (int)CustomizingHead.ROBO,
+                        onlyOnce = true,
+                    },
+                },
             },
             new GameStageData()
             {
@@ -459,6 +579,27 @@ namespace Capsule.Entity
                 stage = GameStage.STAGE_4,
                 name = "스테이지 4",
                 desc = "지금까지 배운걸 최대한 활용해보자!",
+                rewards = new List<RewardData>()
+                {
+                    new RewardData()
+                    {
+                        kind = RewardKind.COIN,
+                        amount = 2000,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.EXP,
+                        amount = 150,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.CUSTOMIZING_CLOTH,
+                        amount = (int)CustomizingCloth.COMMON_1,
+                        onlyOnce = true,
+                    },
+                },
             },
             new GameStageData()
             {

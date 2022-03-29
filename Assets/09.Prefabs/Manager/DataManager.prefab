@@ -687,3 +687,7 @@ MonoBehaviour:
     desc: "\uCE68\uB7B5\uC790\uB97C \uB354 \uB9CE\uC774 \uB9C9\uC73C\uBA74 \uC2B9\uB9AC!!\n\n\uBB34\uAE30\uB294
       \uC8FD\uC744 \uB54C \uB9C8\uB2E4 \uACC4\uC18D \uBC14\uB010\uB2E4\uAD6C!\n\n\uC0C1\uB300\uD300\uB3C4
       \uACF5\uACA9\uD574\uC11C \uBC29\uD574\uD558\uC790!"
+  rewardSprites:
+  - {fileID: 21300000, guid: 3fb23bf6552b44aafb168ed0584e1641, type: 3}
+  - {fileID: 21300000, guid: 7e4a68ccf10580447afdc6031c936ec1, type: 3}
+  - {fileID: 21300000, guid: 7a98ff7d7ad404cedae9f5276e123d12, type: 3}

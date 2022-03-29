@@ -204,6 +204,14 @@ namespace Capsule.Game
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                if (GameTutorialManager.Instance != null)
+                {
+                    if (GameTutorialManager.Instance.IsTutorialPopup)
+                    {
+                        GameTutorialManager.Instance.IsTutorialPopup = false;
+                        return;
+                    }
+                }
                 if (GameUIManager.Instance != null)
                 {
                     if (CheckSoloGame())
@@ -315,7 +323,54 @@ namespace Capsule.Game
             SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             SFXManager.Instance.PlayOneShot(Announcements.CLEAR);
             OnStageClear?.Invoke();
-            DataManager.Instance.CurrentPlayerData.AddExp((int)CurrentGameData.Stage * 10);
+            foreach (RewardData reward in DataManager.Instance.GameStageDatas[(int)currentGameData.Stage].rewards)
+            {
+                if (reward.onlyOnce)
+                {
+                    //Debug.Log("원래 처음 한번만 주는거라구~");
+                    if (DataManager.Instance.CurrentPlayerStageClearData
+                        .ClearData[(int)currentGameData.Stage])
+                        continue;
+                }
+                if (GameUIManager.Instance != null)
+                    GameUIManager.Instance.SetRewardData(reward);
+                switch (reward.kind)
+                {
+                    case RewardKind.COIN:
+                        DataManager.Instance.CurrentPlayerData.EarnCoin(reward.amount);
+                        //Debug.Log("코인 " + reward.amount.ToString() + " 얻음");
+                        break;
+                    case RewardKind.EXP:
+                        DataManager.Instance.CurrentPlayerData.AddExp(reward.amount);
+                        //Debug.Log("경험치 " + reward.amount.ToString() + " 얻음");
+                        break;
+                    case RewardKind.CUSTOMIZING_BODY:
+                        DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(reward.amount, (int)CustomizingType.BODY);
+                        DataManager.Instance.BodyOpenData.Add((CustomizingBody)reward.amount);
+                        //Debug.Log("바디 " + reward.amount.ToString() + " 얻음");
+                        break;
+                    case RewardKind.CUSTOMIZING_HEAD:
+                        DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(reward.amount, (int)CustomizingType.HEAD);
+                        DataManager.Instance.HeadOpenData.Add((CustomizingHead)reward.amount);
+                        //Debug.Log("헤드 " + reward.amount.ToString() + " 얻음");
+                        break;
+                    case RewardKind.CUSTOMIZING_FACE:
+                        DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(reward.amount, (int)CustomizingType.FACE);
+                        DataManager.Instance.FaceOpenData.Add((CustomizingFace)reward.amount);
+                        //Debug.Log("얼굴 " + reward.amount.ToString() + " 얻음");
+                        break;
+                    case RewardKind.CUSTOMIZING_GLOVE:
+                        DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(reward.amount, (int)CustomizingType.GLOVE);
+                        DataManager.Instance.GloveOpenData.Add((CustomizingGlove)reward.amount);
+                        //Debug.Log("장갑 " + reward.amount.ToString() + " 얻음");
+                        break;
+                    case RewardKind.CUSTOMIZING_CLOTH:
+                        DataManager.Instance.CurrentPlayerCustomizeItemOpenData.AddPlayerCustomizeItemOpenData(reward.amount, (int)CustomizingType.CLOTH);
+                        DataManager.Instance.ClothOpenData.Add((CustomizingCloth)reward.amount);
+                        //Debug.Log("옷 " + reward.amount.ToString() + " 얻음");
+                        break;
+                }
+            }
             DataManager.Instance.CurrentPlayerStageClearData.StageClear(CurrentGameData.Stage);
             DataManager.Instance.CurrentPlayerGameData.PlayerStagePlayed((int)CurrentGameData.Stage, true);
             StartCoroutine(PopupClearUI());

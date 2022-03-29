@@ -3,6 +3,7 @@ using Capsule.Entity;
 using Capsule.Lobby.Player;
 using Capsule.SceneLoad;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -72,8 +73,8 @@ namespace Capsule.Lobby.SoloPlay
         private Image gameStageSelectPopupDetailKindPreview;
         private Text gameStageSelectPopupDetailKindDesc;
         private Text gameStageSelectPopupDetailDesc;
-        //private RewardCtrl gameStageSelectPopupDetailReward;
-
+        private List<Transform> gameStageSelectPopupDetailRewardList;
+        
         private GameStageSlot currentStageSlot = null;
         public GameStageSlot CurrentStageSlot
         {
@@ -102,6 +103,7 @@ namespace Capsule.Lobby.SoloPlay
                 gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].preview;
                 gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].name;
                 gameStageSelectPopupDetailDesc.text = CurrentStageSlot.data.desc;
+                SetGameStageSelectPopulRewardDetail(CurrentStageSlot);
             }
             else
             {
@@ -109,6 +111,26 @@ namespace Capsule.Lobby.SoloPlay
                 gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].preview;
                 gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].name;
                 gameStageSelectPopupDetailDesc.text = stageSlot.data.desc;
+                SetGameStageSelectPopulRewardDetail(stageSlot);
+            }
+        }
+
+        private void RewardListSetActiveFalse()
+        {
+            for (int i = 0; i < gameStageSelectPopupDetailRewardList.Count; i++)
+                gameStageSelectPopupDetailRewardList[i].gameObject.SetActive(false);
+        }
+
+        private void SetGameStageSelectPopulRewardDetail(GameStageSlot stageSlot)
+        {
+            RewardListSetActiveFalse();
+            foreach(RewardData data in stageSlot.data.rewards)
+            {
+                gameStageSelectPopupDetailRewardList[(int)data.kind].gameObject.SetActive(true);
+                if (data.preview != null)
+                    gameStageSelectPopupDetailRewardList[(int)data.kind].GetChild(0).GetComponent<Image>().sprite = data.preview;
+                if (data.kind == RewardKind.COIN || data.kind == RewardKind.EXP)
+                    gameStageSelectPopupDetailRewardList[(int)data.kind].GetChild(1).GetComponent<Text>().text = data.amount.ToString();
             }
         }
 
@@ -166,6 +188,13 @@ namespace Capsule.Lobby.SoloPlay
             gameStageSelectPopupDetailKindPreview = GameObject.Find("Popup_GameStage_Detail_Kind_Preview").GetComponent<Image>();
             gameStageSelectPopupDetailKindDesc = GameObject.Find("Popup_GameStage_Detail_Kind_Desc").GetComponent<Text>();
             gameStageSelectPopupDetailDesc = GameObject.Find("Popup_GameStage_Detail_Desc").GetComponent<Text>();
+
+            // Reward List
+            GameObject rewardListGameObj = GameObject.Find("Popup_GameStage_Detail_Reward_List");
+            gameStageSelectPopupDetailRewardList = new List<Transform>();
+            for (int i = 0; i < rewardListGameObj.transform.childCount; i++)
+                gameStageSelectPopupDetailRewardList.Add(
+                    rewardListGameObj.transform.GetChild(i));
 
             MainMenuCtrl stageButtonCtrl = GameObject.Find("Button_Stage").GetComponent<MainMenuCtrl>();
             stageButtonCtrl.IsSelected = true;

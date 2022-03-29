@@ -40,7 +40,8 @@ namespace Capsule.Game.RollTheBall
                     + Random.Range(-10.0f, 10.0f) * Vector3.right
                     + goalPostTransform.position;
                 SFXManager.Instance.PlayOneShot(GameSFX.FIREWORK, fireWorkPosition, 10f);
-                EffectQueueManager.Instance.ShowFireworkEffect(fireWorkPosition);
+                if (EffectQueueManager.Instance != null)
+                    EffectQueueManager.Instance.ShowFireworkEffect(fireWorkPosition);
                 yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
                 InfiniteLoopDetector.Run();
             }
