@@ -105,7 +105,8 @@ namespace Capsule.Game.RollTheBall
                 if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
                 {
                     GameCameraManager.Instance.CameraShake();
-                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
+                    if (ballAudioSource != null)
+                        SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
                     EffectQueueManager.Instance.ShowCollisionEffect(collision, Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
                     if (collision.collider.transform.parent.TryGetComponent<Rigidbody>(out Rigidbody collRigidbody))
                     {
@@ -116,7 +117,8 @@ namespace Capsule.Game.RollTheBall
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
                 {
                     GameCameraManager.Instance.CameraShake();
-                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
+                    if (ballAudioSource != null)
+                        SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
                     EffectQueueManager.Instance.ShowCollisionEffect(collision,
                         Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
                     ballRigidbody.AddForce(collision.collider.GetComponent<Rigidbody>().velocity);
@@ -124,18 +126,20 @@ namespace Capsule.Game.RollTheBall
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER)
                     || collision.collider.CompareTag(GameManager.Instance.tagData.TAG_DEAD_ZONE))
                 {
-                    SFXManager.Instance.PlayOneShot(GameSFX.POP, ballAudioSource, popVolume);
+                    if (ballAudioSource != null)
+                        SFXManager.Instance.PlayOneShot(GameSFX.POP, ballAudioSource, popVolume);
                     Transform ballTransform = transform.GetChild(2);
                     EffectQueueManager.Instance.ShowExplosionEffect(ballTransform.position);
                     ballTransform.gameObject.SetActive(false);
 
-                    if (playerMovement.IsLanded)
+                    if (!isDead && playerMovement.IsLanded)
                     {
                         isDead = true;
                         playerInput.IsDead = true;
                         playerMovement.IsLanded = false;
                         PlayerAudioStop();
-                        SFXManager.Instance.PlayOneShot(GameSFX.FALLING, playerAudioSource);
+                        if (playerAudioSource != null)
+                            SFXManager.Instance.PlayOneShot(GameSFX.FALLING, playerAudioSource);
                         playerTransform.GetComponent<Animator>().SetTrigger(GameManager.Instance.animData.HASH_TRIG_FALLING);
                         Rigidbody playerRigidbody = playerTransform.GetComponent<Rigidbody>();
                         playerRigidbody.mass = 1f;
@@ -145,8 +149,10 @@ namespace Capsule.Game.RollTheBall
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_GOAL_POST))
                 {
                     GameCameraManager.Instance.CameraShake();
-                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
-                    EffectQueueManager.Instance.ShowCollisionEffect(collision,
+                    if (ballAudioSource != null)
+                        SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
+                    if (EffectQueueManager.Instance != null)
+                        EffectQueueManager.Instance.ShowCollisionEffect(collision,
                         Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
 
                     if (GameManager.Instance.CurrentGameData.Mode == GameMode.BOT ||
@@ -157,8 +163,10 @@ namespace Capsule.Game.RollTheBall
                 }
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
                 {
-                    SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
-                    EffectQueueManager.Instance.ShowCollisionEffect(collision, Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
+                    if (ballAudioSource != null)
+                        SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
+                    if (EffectQueueManager.Instance != null)
+                        EffectQueueManager.Instance.ShowCollisionEffect(collision, Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
                 }
             }
         }

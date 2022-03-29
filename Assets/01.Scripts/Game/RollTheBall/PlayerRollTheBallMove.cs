@@ -14,8 +14,8 @@ namespace Capsule.Game.RollTheBall
         // Components
         private Rigidbody ballRigidbody;
         private float respawnTime = 5f;
-        public float jumpForce = 300f;
-        public float diveForce = 700f;
+        private float jumpForce = 300f;
+        private float diveForce = 650f;
         public bool isTeamA = false;
         private bool isDiving;
         public bool IsDiving
@@ -47,8 +47,11 @@ namespace Capsule.Game.RollTheBall
                     IsDiving = !value;
                     if (GameManager.Instance != null)
                     {
-                        playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
-                        playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
+                        if (isLanded == false)
+                        {
+                            playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
+                            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
+                        }
                     }
                     StartCoroutine(EnableJump());
                 }
@@ -279,7 +282,8 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, playerAudioSource);
                 if (collision.collider.transform == transform.parent.GetChild(2))
                 {
-                    EffectQueueManager.Instance.ShowCollisionEffect(collision);
+                    if (EffectQueueManager.Instance != null)
+                        EffectQueueManager.Instance.ShowCollisionEffect(collision);
                     IsLanded = true;
                 }
                 else
@@ -293,20 +297,23 @@ namespace Capsule.Game.RollTheBall
                         }
                         else
                         {
-                            EffectQueueManager.Instance.ShowCollisionEffect(collision);
+                            if (EffectQueueManager.Instance != null)
+                                EffectQueueManager.Instance.ShowCollisionEffect(collision);
                             ChangeBallParent(ballTransform);
                         }
                     }
                     else
                     {
-                        EffectQueueManager.Instance.ShowCollisionEffect(collision);
+                        if (EffectQueueManager.Instance != null)
+                            EffectQueueManager.Instance.ShowCollisionEffect(collision);
                         ChangeBallParent(ballTransform);
                     }
                 }
             }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
             {
-                EffectQueueManager.Instance.ShowHitEffect(collision);
+                if (EffectQueueManager.Instance != null)
+                    EffectQueueManager.Instance.ShowHitEffect(collision);
                 if (collision.collider.transform.TryGetComponent(out PlayerRollTheBallMove bm))
                 {
                     if (bm.IsDiving)
@@ -413,6 +420,8 @@ namespace Capsule.Game.RollTheBall
             WaitForSeconds ws20 = new WaitForSeconds(2f);
             GameObject portalSpawnEffect = EffectQueueManager.Instance.ShowPortalSpawnEffect(new Vector3(position.x, 0f, position.z));
             playerRigidbody.mass = 40f;
+            playerRigidbody.velocity = Vector3.zero;
+            playerRigidbody.angularVelocity = Vector3.zero;
             transform.parent.SetPositionAndRotation(position + 3f * Vector3.up, Quaternion.identity);
             transform.parent.GetComponent<Rigidbody>().freezeRotation = true;
             transform.localPosition = new Vector3(0f, 2.791f, 0f);
@@ -438,7 +447,8 @@ namespace Capsule.Game.RollTheBall
 
         private void GotHitBySomething(Collision coll)
         {
-            EffectQueueManager.Instance.ShowHitEffect(coll);
+            if (EffectQueueManager.Instance != null)
+                EffectQueueManager.Instance.ShowHitEffect(coll);
             PlayerOut();
             if (coll.transform.TryGetComponent(out Rigidbody otherRigidbody))
                 ragdollController.AddForceToRagdoll(otherRigidbody.velocity);

@@ -54,6 +54,8 @@ namespace Capsule.Lobby.Title
             loadingBar = GameObject.Find("Loading_Progress_Bar").GetComponent<Image>();
             loadingText = GameObject.Find("Loading_Progress_Text").GetComponent<Text>();
 
+            GameObject.Find("Text_Version").GetComponent<Text>().text = VersionCtrl.CurrentVersion;
+
             StartCoroutine(StartOpening());
         }
 

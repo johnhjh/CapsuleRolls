@@ -36,17 +36,42 @@ namespace Capsule.Game
             }
         }
 
-        public IEnumerator MoveCameraByPos(Transform camTransform, Transform targetTransform, Vector3 position)
+        public IEnumerator MoveCameraInverseTarget(Transform camTransform, Transform targetTransform)
         {
             if (camTransform == null || targetTransform == null)
                 yield break;
-            Vector3 camOriginPos = camTransform.position;
+            Vector3 camPos = camTransform.position;
+            Vector3 desiredPos = targetTransform.position;
+            desiredPos = 2.2f * desiredPos - camPos;
+            desiredPos.y = camPos.y;
             while (isActive)
             {
                 camTransform.SetPositionAndRotation(
                     Vector3.Slerp(
                         camTransform.position,
-                        1.8f * targetTransform.position - camOriginPos + position,
+                        desiredPos,
+                        Time.deltaTime * moveDamping),
+                    Quaternion.Slerp(
+                        camTransform.rotation,
+                        Quaternion.LookRotation(
+                            (targetTransform.position - camTransform.position + 2f * Vector3.up).normalized),
+                        Time.deltaTime * rotateDamping));
+                yield return new WaitForSeconds(0.02f);
+                InfiniteLoopDetector.Run();
+            }
+        }
+
+        public IEnumerator MoveCameraByPos(Transform camTransform, Transform targetTransform, Vector3 position)
+        {
+            if (camTransform == null || targetTransform == null)
+                yield break;
+            Vector3 desiredPos = camTransform.position + position;
+            while (isActive)
+            {
+                camTransform.SetPositionAndRotation(
+                    Vector3.Slerp(
+                        camTransform.position,
+                        desiredPos,
                         Time.deltaTime * moveDamping),
                     Quaternion.Slerp(
                         camTransform.rotation,
@@ -115,7 +140,8 @@ namespace Capsule.Game
         {
             if (Camera.main != null)
                 mainCameraTransform = Camera.main.transform;
-            GameManager.Instance.OnStageClear += () => { MoveCameraByPos(3f * Vector3.up); };
+            //GameManager.Instance.OnStageClear += () => { MoveCameraByPos(3f * Vector3.up); };
+            GameManager.Instance.OnStageClear += () => { MoveCameraInverseTarget(); };
         }
 
         public void ActivateFollowCam()
@@ -145,15 +171,31 @@ namespace Capsule.Game
         public void SetCameraQuater()
         {
             if (UsingScriptedCamera())
+            {
+                mainCameraTransform.GetComponent<Camera>().nearClipPlane = 0.3f;
                 mainCamCoroutine = StartCoroutine(
                     scriptedCameraAction.SetCameraQuater(mainCameraTransform, Target.First));
+            }
+        }
+
+        public void MoveCameraInverseTarget()
+        {
+            if (UsingScriptedCamera())
+            {
+                mainCameraTransform.GetComponent<Camera>().nearClipPlane = 0.3f;
+                mainCamCoroutine = StartCoroutine(
+                    scriptedCameraAction.MoveCameraInverseTarget(mainCameraTransform, Target.First));
+            }
         }
 
         public void MoveCameraByPos(Vector3 pos)
         {
             if (UsingScriptedCamera())
+            {
+                mainCameraTransform.GetComponent<Camera>().nearClipPlane = 0.3f;
                 mainCamCoroutine = StartCoroutine(
                     scriptedCameraAction.MoveCameraByPos(mainCameraTransform, Target.First, pos));
+            }
         }
 
         public void CameraShake()

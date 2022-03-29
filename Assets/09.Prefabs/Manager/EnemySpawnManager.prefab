@@ -47,3 +47,10 @@ MonoBehaviour:
     type: 3}
   enemyRagdollObject: {fileID: 5859758062150577182, guid: 5b9a0ae25219d704d89bb59efae96cf1,
     type: 3}
+  ballColorMaterials:
+  - {fileID: 2100000, guid: efacceb0f2ca24e4fa05975b977c61a5, type: 2}
+  - {fileID: 2100000, guid: 0a72152ac61295d439480ce8c5887b86, type: 2}
+  - {fileID: 2100000, guid: d1d7c077428028b4ea88aec5ece2006b, type: 2}
+  - {fileID: 2100000, guid: 50d12006ef4f8fb438029b458c1d6035, type: 2}
+  - {fileID: 2100000, guid: 8df69c3d352670b439deca3a5ee27a4d, type: 2}
+  - {fileID: 2100000, guid: ab69d9bdb4b26964db533c0515c00016, type: 2}

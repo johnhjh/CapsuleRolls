@@ -4,7 +4,7 @@ namespace Capsule.Game.Util
 {
     public class GizmoCtrl : MonoBehaviour
     {
-        public Color gizmoColor = new Color();
+        public Color gizmoColor = new Color(1f, 1f, 1f, 1f);
         public float gizmoRadius = 1f;
 
         private void OnDrawGizmos()

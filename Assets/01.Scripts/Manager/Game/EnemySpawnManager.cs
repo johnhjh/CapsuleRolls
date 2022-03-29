@@ -22,15 +22,38 @@ namespace Capsule.Game.Enemy
             }
         }
 
+        private Transform playerTransform = null;
+        private Vector3 TargetPosition
+        {
+            get
+            {
+                if (playerTransform == null)
+                {
+                    GameObject playerGameObj = GameObject.Find("RollTheBallPlayer");
+                    if (playerGameObj != null)
+                        playerTransform = playerGameObj.transform.GetChild(0);
+                    if (playerTransform != null)
+                        return playerTransform.position;
+                    else
+                        return Vector3.zero;
+                }
+                else
+                    return playerTransform.position;
+            }
+        }
         private Transform enemyPool = null;
         public GameObject enemyObject = null;
         public GameObject enemyRagdollObject = null;
         private Queue<GameObject> enemyQueue = null;
+
+        public List<Material> ballColorMaterials = new List<Material>();
+        private List<Vector3> spawnedPositions = new List<Vector3>();
         private List<GameObject> activeEnemyList = null;
         private List<Transform> normalEnemySpawnPoints;
         private List<Transform> movingEnemySpawnPoints;
         private List<SpikeRollerCtrl> spikeRollers = null;
         private int currentSpikeRollerOffset = 0;
+
         private readonly WaitForSeconds ws40 = new WaitForSeconds(4f);
         private readonly WaitForSeconds ws20 = new WaitForSeconds(2f);
 
@@ -43,7 +66,10 @@ namespace Capsule.Game.Enemy
                 CreateEnemyPool();
             }
             else if (enemyPoolMgr != this)
+            {
+                enemyPoolMgr.ClearRollerOffset();
                 Destroy(this.gameObject);
+            }
         }
 
         private void Start()
@@ -56,6 +82,11 @@ namespace Capsule.Game.Enemy
             spikeRollers.RemoveAt(0);
             RemoveAllSpikeRollers();
             StartCoroutine(SpawnFirstEnemy());
+        }
+
+        public void ClearRollerOffset()
+        {
+            currentSpikeRollerOffset = 0;
         }
 
         private void RemoveAllSpikeRollers()
@@ -122,26 +153,28 @@ namespace Capsule.Game.Enemy
         public Tuple<Vector3, Quaternion> GetPositionAndRotationByType(AIType type)
         {
             Tuple<Vector3, Quaternion> posAndRot = new Tuple<Vector3, Quaternion>(Vector3.zero, Quaternion.identity);
+            Vector3 to = TargetPosition;
             switch (type)
             {
                 case AIType.IDLE:
-                    posAndRot.First = normalEnemySpawnPoints[Random.Range(0, normalEnemySpawnPoints.Count)].position;
-                    break;
                 case AIType.JUMPING:
                     posAndRot.First = normalEnemySpawnPoints[Random.Range(0, normalEnemySpawnPoints.Count)].position;
                     break;
                 case AIType.MOVING:
                     posAndRot.First = movingEnemySpawnPoints[Random.Range(0, movingEnemySpawnPoints.Count)].position;
+                    to = Vector3.zero;
                     break;
             }
             Vector3 from = posAndRot.First;
             from.y = 0.0f;
-            posAndRot.Second = Quaternion.FromToRotation(Vector3.forward, Vector3.zero - from);
+            to.y = 0.0f;
+            posAndRot.Second = Quaternion.FromToRotation(Vector3.forward, to - from);
             return posAndRot;
         }
 
         public void SpawnWave(int waveCount)
         {
+            spawnedPositions.Clear();
             int spawnCount = Mathf.FloorToInt(waveCount * 1.5f);
             int counter = 0;
             foreach (GameObject enemyObj in activeEnemyList)
@@ -149,7 +182,15 @@ namespace Capsule.Game.Enemy
                 AIType aiType = ChangeEnemyType(enemyObj, counter % 4);
                 if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl))
                 {
-                    Tuple<Vector3, Quaternion> posAndRot = GetPositionAndRotationByType(aiType);
+                    aiCtrl.ChangeBallColor(ballColorMaterials[Random.Range(0, ballColorMaterials.Count)]);
+                    bool isAlreadyUsed = true;
+                    Tuple<Vector3, Quaternion> posAndRot = null;
+                    while (isAlreadyUsed)
+                    {
+                        posAndRot = GetPositionAndRotationByType(aiType);
+                        isAlreadyUsed = spawnedPositions.Contains(posAndRot.First);
+                    }
+                    spawnedPositions.Add(posAndRot.First);
                     aiCtrl.RespawnEnemy(posAndRot.First, posAndRot.Second);
                 }
                 counter++;
@@ -168,13 +209,26 @@ namespace Capsule.Game.Enemy
         {
             GameObject enemyObj = DequeEnemy();
             AIType aiType = ChangeEnemyType(enemyObj, rand);
-            Tuple<Vector3, Quaternion> posAndRot = GetPositionAndRotationByType(aiType);
+            bool isAlreadyUsed = true;
+            Tuple<Vector3, Quaternion> posAndRot = null;
+            while (isAlreadyUsed)
+            {
+                posAndRot = GetPositionAndRotationByType(aiType);
+                isAlreadyUsed = spawnedPositions.Contains(posAndRot.First);
+            }
+            spawnedPositions.Add(posAndRot.First);
             GameObject portalSpawnEffect =
                 EffectQueueManager.Instance.ShowPortalSpawnEffect(
                     new Vector3(posAndRot.First.x, 0f, posAndRot.First.z));
             StartCoroutine(InactivatePortalSpawnEffect(portalSpawnEffect, enemyObj));
             enemyObj.transform.position = posAndRot.First;
             enemyObj.transform.GetChild(0).rotation = posAndRot.Second;
+            if(enemyObj.transform.GetChild(2).TryGetComponent(out MeshRenderer enemyBallMesh))
+            {
+                Material[] mats = enemyBallMesh.materials;
+                mats[0] = ballColorMaterials[Random.Range(0, ballColorMaterials.Count)];
+                enemyBallMesh.materials = mats;
+            }
             return enemyObj;
         }
 

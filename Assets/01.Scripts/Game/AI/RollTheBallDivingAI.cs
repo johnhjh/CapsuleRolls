@@ -63,7 +63,7 @@ namespace Capsule.Game.AI
             Ray ray = new Ray(transform.position + Vector3.up, transform.forward);
             int layerMask = 1 << LayerMask.NameToLayer(GameManager.Instance.tagData.TAG_PLAYER);
 
-            RaycastHit[] hits = Physics.RaycastAll(ray, 15f, layerMask);
+            RaycastHit[] hits = Physics.RaycastAll(ray, 12f, layerMask);
             foreach (RaycastHit hit in hits)
             {
                 if (hit.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
@@ -78,7 +78,7 @@ namespace Capsule.Game.AI
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(0f, 255f, 0f, 1f);
-            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 15f);
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 12f);
         }
     }
 }

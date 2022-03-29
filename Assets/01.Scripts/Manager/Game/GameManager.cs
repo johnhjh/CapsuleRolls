@@ -315,6 +315,7 @@ namespace Capsule.Game
             SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
             SFXManager.Instance.PlayOneShot(Announcements.CLEAR);
             OnStageClear?.Invoke();
+            DataManager.Instance.CurrentPlayerData.AddExp((int)CurrentGameData.Stage * 10);
             DataManager.Instance.CurrentPlayerStageClearData.StageClear(CurrentGameData.Stage);
             DataManager.Instance.CurrentPlayerGameData.PlayerStagePlayed((int)CurrentGameData.Stage, true);
             StartCoroutine(PopupClearUI());
@@ -325,6 +326,7 @@ namespace Capsule.Game
             if (IsGameOver) return;
             IsGameOver = true;
             OnStageFailure?.Invoke();
+            DataManager.Instance.CurrentPlayerData.AddExp((int)CurrentGameData.Stage);
             DataManager.Instance.CurrentPlayerGameData.PlayerStagePlayed((int)CurrentGameData.Stage, false);
             StartCoroutine(PopupFailureUI());
         }

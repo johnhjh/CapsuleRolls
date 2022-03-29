@@ -14,7 +14,10 @@ namespace Capsule.Entity
         LEVEL_7 = 3200,
         LEVEL_8 = 6400,
         LEVEL_9 = 12800,
-        LEVEL_MAX = 25600,
+        LEVEL_10 = 25600,
+        LEVEL_11 = 51200,
+        LEVEL_12 = 102400,
+        LEVEL_MAX = 204800,
     }
 
     public static class LevelExpCalc
@@ -33,7 +36,10 @@ namespace Capsule.Entity
                 (int)LevelExp.LEVEL_6,
                 (int)LevelExp.LEVEL_7,
                 (int)LevelExp.LEVEL_8,
-                (int)LevelExp.LEVEL_9
+                (int)LevelExp.LEVEL_9,
+                (int)LevelExp.LEVEL_10,
+                (int)LevelExp.LEVEL_11,
+                (int)LevelExp.LEVEL_12
             };
         }
 
@@ -544,9 +550,10 @@ namespace Capsule.Entity
 
         public bool PlayerScored(int score)
         {
-            if (score > HighestScore)
+            bool isNewHighScore = score > HighestScore;
+            if (isNewHighScore)
                 HighestScore = score;
-            return score == HighestScore;
+            return isNewHighScore;
         }
 
         public void PlayerStagePlayed(int stage, bool isCleared)

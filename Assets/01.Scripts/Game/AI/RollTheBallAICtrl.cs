@@ -47,6 +47,16 @@ namespace Capsule.Game.AI
         private RollTheBallJumpingAI jumpingAI;
         private RollTheBallMovingAI movingAI;
 
+        public void ChangeBallColor(Material mat)
+        {
+            if (transform.GetChild(2).TryGetComponent(out MeshRenderer enemyBallMesh))
+            {
+                Material[] mats = enemyBallMesh.materials;
+                mats[0] = mat;
+                enemyBallMesh.materials = mats;
+            }
+        }
+
         public void RespawnEnemy(Vector3 position, Quaternion rotation)
         {
             if (transform.GetChild(0).TryGetComponent(out PlayerRollTheBallMove ballMove))

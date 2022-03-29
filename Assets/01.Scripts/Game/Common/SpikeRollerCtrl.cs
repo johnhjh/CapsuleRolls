@@ -9,6 +9,7 @@ namespace Capsule.Game
         private readonly WaitForSeconds ws01 = new WaitForSeconds(0.1f);
         private BoxCollider rollerCollider;
         private Coroutine rollerCoroutine = null;
+        public bool isUpAndDown = false;
 
         private void Awake()
         {
@@ -23,11 +24,20 @@ namespace Capsule.Game
                 if (transform.position.y != -1.9f)
                     RemoveRoller();
             }
+            if (isUpAndDown)
+                UpDownRoller();
         }
 
         public void SpikeRollerColliderOnOff(bool isOn)
         {
             rollerCollider.enabled = isOn;
+        }
+
+        public void UpDownRoller()
+        {
+            if (rollerCoroutine != null)
+                StopCoroutine(rollerCoroutine);
+            rollerCoroutine = StartCoroutine(ShowHideRoller());
         }
 
         public void RemoveRoller()
@@ -44,13 +54,47 @@ namespace Capsule.Game
             rollerCoroutine = StartCoroutine(ShowSpikeRoller());
         }
 
-        public IEnumerator HideSpikeRoller()
+        private IEnumerator ShowHideRoller()
         {
-            rollerCollider.enabled = false;
+            if (rollerCoroutine != null)
+                StopCoroutine(rollerCoroutine);
+            SpikeRollerColliderOnOff(false);
             if (EffectQueueManager.Instance != null)
             {
                 Vector3 pos = transform.position;
-                pos.y = 0f;
+                pos.y = 0.5f;
+                EffectQueueManager.Instance.ShowSparkEffect(pos);
+            }
+            float currentPosY = transform.position.y;
+            bool isGoingDown = true;
+            while (true)
+            {
+                if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+                    yield break;
+                if (isGoingDown && !Mathf.Approximately(currentPosY, -1.9f))
+                    currentPosY = Mathf.MoveTowards(currentPosY, -1.9f, 3f * Time.deltaTime);
+                else if (isGoingDown && Mathf.Approximately(currentPosY, -1.9f))
+                    isGoingDown = false;
+                else if (!isGoingDown && !Mathf.Approximately(currentPosY, 0f))
+                    currentPosY = Mathf.MoveTowards(currentPosY, 0f, 3f * Time.deltaTime);
+                else if (!isGoingDown && Mathf.Approximately(currentPosY, 0f))
+                    isGoingDown = true;
+                transform.position = new Vector3(
+                    transform.position.x,
+                    currentPosY,
+                    transform.position.z);
+                yield return ws01;
+                InfiniteLoopDetector.Run();
+            }
+        }
+
+        public IEnumerator HideSpikeRoller()
+        {
+            SpikeRollerColliderOnOff(false);
+            if (EffectQueueManager.Instance != null)
+            {
+                Vector3 pos = transform.position;
+                pos.y = 0.5f;
                 EffectQueueManager.Instance.ShowSparkEffect(pos);
             }
             float currentPosY = transform.position.y;
@@ -83,7 +127,7 @@ namespace Capsule.Game
                     transform.position.z);
                 yield return ws01;
             }
-            rollerCollider.enabled = true;
+            SpikeRollerColliderOnOff(true);
         }
 
     }
