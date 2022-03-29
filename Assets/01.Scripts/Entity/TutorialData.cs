@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Capsule.Entity
+﻿namespace Capsule.Entity
 {
     public enum TutorialType
     {

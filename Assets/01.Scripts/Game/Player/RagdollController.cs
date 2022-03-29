@@ -33,7 +33,7 @@ namespace Capsule.Game.Player
             {
                 rbody.velocity = Vector3.zero;
                 rbody.angularVelocity = Vector3.zero;
-            }                
+            }
             foreach (Collider coll in ragdollObj.transform.GetComponentsInChildren<Collider>())
                 coll.enabled = isOn;
             foreach (SkinnedMeshRenderer skinnedMesh in ragdollObj.transform.GetComponentsInChildren<SkinnedMeshRenderer>())

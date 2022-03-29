@@ -223,7 +223,7 @@ namespace Capsule.Game.Enemy
             StartCoroutine(InactivatePortalSpawnEffect(portalSpawnEffect, enemyObj));
             enemyObj.transform.position = posAndRot.First;
             enemyObj.transform.GetChild(0).rotation = posAndRot.Second;
-            if(enemyObj.transform.GetChild(2).TryGetComponent(out MeshRenderer enemyBallMesh))
+            if (enemyObj.transform.GetChild(2).TryGetComponent(out MeshRenderer enemyBallMesh))
             {
                 Material[] mats = enemyBallMesh.materials;
                 mats[0] = ballColorMaterials[Random.Range(0, ballColorMaterials.Count)];

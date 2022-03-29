@@ -162,7 +162,7 @@ namespace Capsule.Game.UI
                 case RewardKind.COIN:
                 case RewardKind.EXP:
                     rewardItems[(int)reward.kind].transform.GetChild(1).GetComponent<Text>().text = reward.amount.ToString();
-                break;
+                    break;
                 case RewardKind.CUSTOMIZING_BODY:
                 case RewardKind.CUSTOMIZING_HEAD:
                 case RewardKind.CUSTOMIZING_FACE:

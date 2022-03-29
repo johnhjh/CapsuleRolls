@@ -54,7 +54,8 @@ namespace Capsule.Dev
             devToolCG = GameObject.Find("Popup_DevTool").GetComponent<CanvasGroup>();
             expInput = GameObject.Find("InputField_Exp").GetComponent<InputField>();
             coinInput = GameObject.Find("InputField_Coin").GetComponent<InputField>();
-            //ratingInput = GameObject.Find("InputField_Rating").GetComponent<InputField>();
+            if (GameObject.Find("InputField_Rating") != null)
+                ratingInput = GameObject.Find("InputField_Rating").GetComponent<InputField>();
         }
 
         public void PopupDevTool(bool isOpen)

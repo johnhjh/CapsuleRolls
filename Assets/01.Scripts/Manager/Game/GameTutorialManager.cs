@@ -1,6 +1,4 @@
 ﻿using Capsule.Entity;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -85,13 +83,13 @@ namespace Capsule.Game
                         tutorialData = new RollTheBallTutorialData();
                         break;
                 }
-                switch(DataManager.Instance.CurrentGameData.Mode)
+                switch (DataManager.Instance.CurrentGameData.Mode)
                 {
                     case GameMode.ARCADE:
                         PlayerPrefs.GetInt("IsFirstPlayArcade", 0);
                         break;
                     case GameMode.STAGE:
-                        switch(DataManager.Instance.CurrentGameData.Stage)
+                        switch (DataManager.Instance.CurrentGameData.Stage)
                         {
                             case GameStage.TUTORIAL_1:
                                 PlayerPrefs.GetInt("IsFirstPlayStage", 0);

@@ -76,7 +76,7 @@ namespace Capsule.Lobby.SoloPlay
         private Text gameStageSelectPopupDetailKindDesc;
         private Text gameStageSelectPopupDetailDesc;
         private List<Transform> gameStageSelectPopupDetailRewardList;
-        
+
         private GameStageSlot currentStageSlot = null;
         public GameStageSlot CurrentStageSlot
         {
@@ -126,7 +126,7 @@ namespace Capsule.Lobby.SoloPlay
         private void SetGameStageSelectPopulRewardDetail(GameStageSlot stageSlot)
         {
             RewardListSetActiveFalse();
-            foreach(RewardData data in stageSlot.data.rewards)
+            foreach (RewardData data in stageSlot.data.rewards)
             {
                 gameStageSelectPopupDetailRewardList[(int)data.kind].gameObject.SetActive(true);
                 if (data.preview != null)
@@ -148,7 +148,7 @@ namespace Capsule.Lobby.SoloPlay
 
         private void ShowHideNotAvailable(bool isShow, GameMode mode)
         {
-            switch(mode)
+            switch (mode)
             {
                 case GameMode.ARCADE:
                     notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[튜토리얼 3] 클리어시 개방!";
