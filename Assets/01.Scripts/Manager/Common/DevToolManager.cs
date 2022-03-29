@@ -54,7 +54,7 @@ namespace Capsule.Dev
             devToolCG = GameObject.Find("Popup_DevTool").GetComponent<CanvasGroup>();
             expInput = GameObject.Find("InputField_Exp").GetComponent<InputField>();
             coinInput = GameObject.Find("InputField_Coin").GetComponent<InputField>();
-            ratingInput = GameObject.Find("InputField_Rating").GetComponent<InputField>();
+            //ratingInput = GameObject.Find("InputField_Rating").GetComponent<InputField>();
         }
 
         public void PopupDevTool(bool isOpen)
@@ -158,6 +158,15 @@ namespace Capsule.Dev
         {
             SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             DataManager.Instance.UnlockAllCustomizeDatas();
+        }
+
+        public void OnClickUnlockStages()
+        {
+            SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
+            DataManager.Instance.OpenArcadeMode();
+            DataManager.Instance.OpenPracticeMode();
+            DataManager.Instance.OpenBotMode();
+            DataManager.Instance.CurrentPlayerStageClearData.UnlockAllStages();
         }
 
         public void OnClickResetAll()

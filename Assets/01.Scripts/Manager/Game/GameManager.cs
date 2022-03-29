@@ -369,6 +369,12 @@ namespace Capsule.Game
                         DataManager.Instance.ClothOpenData.Add((CustomizingCloth)reward.amount);
                         //Debug.Log("옷 " + reward.amount.ToString() + " 얻음");
                         break;
+                    case RewardKind.GAME_MODE:
+                        if (reward.amount == 0)
+                            DataManager.Instance.OpenArcadeMode();
+                        else if (reward.amount == 1)
+                            DataManager.Instance.OpenPracticeMode();
+                        break;
                 }
             }
             DataManager.Instance.CurrentPlayerStageClearData.StageClear(CurrentGameData.Stage);

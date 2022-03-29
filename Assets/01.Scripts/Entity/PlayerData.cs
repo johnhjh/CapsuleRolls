@@ -176,7 +176,7 @@ namespace Capsule.Entity
             NickName = PlayerPrefs.GetString("PlayerNick", "캡슐파이터");
             Exp = PlayerPrefs.GetInt("PlayerExp", 0);
             Level = PlayerPrefs.GetInt("PlayerLevel", 1);
-            Coin = PlayerPrefs.GetInt("PlayerCoins", 0);
+            Coin = PlayerPrefs.GetInt("PlayerCoins", 5000);
             Rating = PlayerPrefs.GetInt("PlayerRating", 1200);
         }
 
@@ -185,7 +185,7 @@ namespace Capsule.Entity
             PlayerPrefs.SetString("PlayerNick", "캡슐파이터");
             PlayerPrefs.SetInt("PlayerExp", 0);
             PlayerPrefs.SetInt("PlayerLevel", 1);
-            PlayerPrefs.SetInt("PlayerCoins", 50000);
+            PlayerPrefs.SetInt("PlayerCoins", 5000);
             PlayerPrefs.SetInt("PlayerRating", 1200);
         }
     }
@@ -413,6 +413,16 @@ namespace Capsule.Entity
                 ClearData[i] = false;
             }
             PlayerPrefs.SetInt("HighestStage", -1);
+        }
+
+        public void UnlockAllStages()
+        {
+            ClearData.Clear();
+            for (int i = 0; i < (int)GameStage.STAGE_ALL_CLEAR; i++)
+            {
+                PlayerPrefs.SetInt("Stage" + i.ToString(), 1);
+                ClearData.Add(true);
+            }
         }
     }
 

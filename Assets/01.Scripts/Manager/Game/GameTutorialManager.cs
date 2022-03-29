@@ -51,9 +51,28 @@ namespace Capsule.Game
 
         private void Start()
         {
+            SetComponents();
+            SetTutorialDatas();
+        }
+
+        private void SetComponents()
+        {
+            SetComponents();
+            tutorialDescCanvasGroup = GameObject.Find("TutorialUIDesc").GetComponent<CanvasGroup>();
+            // Action Glows
+            actionGlow1 = GameObject.Find("Glow_Action1");
+            actionGlow2 = GameObject.Find("Glow_Action1");
+
+            showTutorialButton = GameObject.Find("Button_Show_Tutorial").GetComponent<Button>();
+        }
+
+        private void SetTutorialDatas()
+        {
+            actionGlow1.SetActive(false);
+            actionGlow2.SetActive(false);
             if (DataManager.Instance != null)
             {
-                switch(DataManager.Instance.CurrentGameData.Kind)
+                switch (DataManager.Instance.CurrentGameData.Kind)
                 {
                     case GameKind.ROLL_THE_BALL:
                         tutorialData = new RollTheBallTutorialData();
@@ -66,11 +85,35 @@ namespace Capsule.Game
                         tutorialData = new RollTheBallTutorialData();
                         break;
                 }
+                switch(DataManager.Instance.CurrentGameData.Mode)
+                {
+                    case GameMode.ARCADE:
+                        PlayerPrefs.GetInt("IsFirstPlayArcade", 0);
+                        break;
+                    case GameMode.STAGE:
+                        switch(DataManager.Instance.CurrentGameData.Stage)
+                        {
+                            case GameStage.TUTORIAL_1:
+                                PlayerPrefs.GetInt("IsFirstPlayStage", 0);
+                                break;
+                            case GameStage.TUTORIAL_2:
+                                actionGlow1.SetActive(true);
+
+                                break;
+                            case GameStage.TUTORIAL_3:
+                                actionGlow2.SetActive(true);
+
+                                break;
+                        }
+                        break;
+                    case GameMode.PRACTICE:
+
+                        break;
+                    case GameMode.BOT:
+
+                        break;
+                }
             }
-            tutorialDescCanvasGroup = GameObject.Find("TutorialUIDesc").GetComponent<CanvasGroup>();
-            actionGlow1 = GameObject.Find("Glow_Action1");
-            actionGlow2 = GameObject.Find("Glow_Action1");
-            showTutorialButton = GameObject.Find("Button_Show_Tutorial").GetComponent<Button>();
         }
 
         private void Update()

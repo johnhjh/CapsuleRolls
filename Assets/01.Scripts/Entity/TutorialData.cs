@@ -8,6 +8,7 @@ namespace Capsule.Entity
         MENU,
         ACTION_BUTTON,
         STAGE,
+        ARCADE,
     }
 
     public class TutorialData
@@ -27,8 +28,17 @@ namespace Capsule.Entity
 
     public class RollTheBallTutorialData : TutorialData
     {
-        public readonly string ActionButton1Desc = "버튼을 누르면 캡슐이 점프해요!";
-        public readonly string ActionButton2Desc = "버튼을 누르면 캡슐이 앞으로 다이브해요!";
+        public readonly string RollTheBallDesc = "공을 굴려서 골인시키는 게임이에요.";
+        public readonly string RollTheBallDescPC = "키보드 [W]로 전진 할 수 있어요.";
+        public readonly string RollTheBallDescPC2 = "키보드 [S]로 후진 할 수 있어요.";
+        public readonly string RollTheBallDescPC3 = "키보드 [A, D]로 방향을 바꿀 수 있어요.";
+        public readonly string RollTheBallDescMobile = "[조이스틱]을 이용해 움직이거나\n방향을 바꿀 수 있어요.";
+
+        public readonly string ActionButton1DescPC = "[마우스 왼쪽 클릭]을 누르면\n캡슐이 점프해요!";
+        public readonly string ActionButton2DescPC = "[마우스 오른쪽 클릭]을 누르면\n캡슐이 앞으로 다이브해요!";
+        public readonly string ActionButton1DescMobile = "[점프]버튼을 누르면 캡슐이 점프해요!";
+        public readonly string ActionButton2DescMobile = "[다이브]버튼을 누르면 캡슐이 앞으로 다이브해요!";
+
         public readonly string SwiperDesc2 = "스테이지 밖으로 밀려나면 죽게된답니다.";
         public readonly string SpikeRollerDesc2 = "공이 닿으면 터져버리니 조심하세요!";
         public readonly string JumpDesc1 = "점프로 공을 옮겨 탈 수 있어요!";

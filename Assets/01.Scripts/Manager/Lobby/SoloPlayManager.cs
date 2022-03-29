@@ -24,6 +24,8 @@ namespace Capsule.Lobby.SoloPlay
 
         private GameData gameData = new GameData();
         private RectTransform gameSettingUIList;
+        private Button buttonStartGame;
+
         private Text gameModeText;
         private Text gameModeDetailText;
         private Text gameKindDetailText;
@@ -134,6 +136,32 @@ namespace Capsule.Lobby.SoloPlay
             }
         }
 
+        // Game Mode Not Available
+        private CanvasGroup notAvailableCG = null;
+
+        private void ShowHideNotAvailable(bool isShow)
+        {
+            notAvailableCG.alpha = isShow ? 1f : 0f;
+            notAvailableCG.blocksRaycasts = isShow;
+            notAvailableCG.interactable = isShow;
+        }
+
+        private void ShowHideNotAvailable(bool isShow, GameMode mode)
+        {
+            switch(mode)
+            {
+                case GameMode.ARCADE:
+                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[튜토리얼 3] 클리어시 개방!";
+                    break;
+                case GameMode.PRACTICE:
+                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[스테이지 4] 클리어시 개방!";
+                    break;
+                case GameMode.BOT:
+                    break;
+            }
+            ShowHideNotAvailable(isShow);
+        }
+
         private void Awake()
         {
             if (soloPlayMgr == null)
@@ -152,6 +180,8 @@ namespace Capsule.Lobby.SoloPlay
             PlayerLobbyTransform.Instance.SetScale(1.18f);
 
             gameSettingUIList = GameObject.Find("GameSettingUIList").GetComponent<RectTransform>();
+            buttonStartGame = GameObject.Find("Button_Start").GetComponent<Button>();
+            buttonStartGame.onClick.AddListener(delegate { StartSoloGame(); });
             gameModeText = GameObject.Find("GameModeText").GetComponent<Text>();
             gameModeDetailText = GameObject.Find("GameModeDetailText").GetComponent<Text>();
             gameKindDetailText = GameObject.Find("GameKindDetailText").GetComponent<Text>();
@@ -205,6 +235,10 @@ namespace Capsule.Lobby.SoloPlay
             kindSlot.SelectSlot();
 
             gameData.Difficulty = AIDifficulty.EASY;
+
+            // Not Available Setting
+            notAvailableCG = GameObject.Find("NotAvailableUI").GetComponent<CanvasGroup>();
+            ShowHideNotAvailable(false);
 
             SelectGameMode(GameMode.STAGE);
             SelectGameKind(GameKind.ROLL_THE_BALL);
@@ -387,25 +421,54 @@ namespace Capsule.Lobby.SoloPlay
         public void OnClickButtonArcade()
         {
             OnClickAnyButton();
+            if (PlayerPrefs.GetInt("IsArcadeModeOpen", 0) == 0)
+            {
+                ShowHideNotAvailable(true, GameMode.ARCADE);
+                StartButtonAvailable(false);
+            }
+            else
+                StartButtonAvailable(true);
             SelectGameMode(GameMode.ARCADE);
         }
 
         public void OnClickButtonStage()
         {
             OnClickAnyButton();
+            StartButtonAvailable(true);
             SelectGameMode(GameMode.STAGE);
         }
 
         public void OnClickButtonPractice()
         {
             OnClickAnyButton();
+            if (PlayerPrefs.GetInt("IsPracticeModeOpen", 0) == 0)
+            {
+                ShowHideNotAvailable(true, GameMode.PRACTICE);
+                StartButtonAvailable(false);
+            }
+            else
+                StartButtonAvailable(true);
             SelectGameMode(GameMode.PRACTICE);
         }
 
         public void OnClickButtonBot()
         {
             OnClickAnyButton();
+            if (PlayerPrefs.GetInt("IsBotModeOpen", 0) == 0)
+            {
+                ShowHideNotAvailable(true, GameMode.BOT);
+                StartButtonAvailable(false);
+            }
+            else
+                StartButtonAvailable(true);
             SelectGameMode(GameMode.BOT);
+        }
+
+        public void StartButtonAvailable(bool isAvailable)
+        {
+            buttonStartGame.interactable = isAvailable;
+            if (isAvailable)
+                ShowHideNotAvailable(false);
         }
 
         public void StartSoloGame()

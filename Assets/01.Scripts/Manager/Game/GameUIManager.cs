@@ -163,6 +163,13 @@ namespace Capsule.Game.UI
                 case RewardKind.EXP:
                     rewardItems[(int)reward.kind].transform.GetChild(1).GetComponent<Text>().text = reward.amount.ToString();
                 break;
+                case RewardKind.CUSTOMIZING_BODY:
+                case RewardKind.CUSTOMIZING_HEAD:
+                case RewardKind.CUSTOMIZING_FACE:
+                case RewardKind.CUSTOMIZING_GLOVE:
+                case RewardKind.CUSTOMIZING_CLOTH:
+                    rewardItems[(int)reward.kind].transform.GetChild(2).GetComponent<Image>().sprite = reward.preview;
+                    break;
             }
         }
 
@@ -478,6 +485,8 @@ namespace Capsule.Game.UI
 
         public void OnClickNextStage()
         {
+            foreach (GameObject gameObj in rewardItems)
+                gameObj.SetActive(false);
             if (!DataManager.Instance.HasNextStage(GameManager.Instance.CurrentGameData.Stage))
             {
                 SFXManager.Instance.PlayOneShot(MenuSFX.BACK);

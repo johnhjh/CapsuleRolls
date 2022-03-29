@@ -47,6 +47,7 @@ namespace Capsule.Entity
         CUSTOMIZING_FACE,
         CUSTOMIZING_GLOVE,
         CUSTOMIZING_CLOTH,
+        GAME_MODE,
     }
 
     public enum GameMap
@@ -162,6 +163,9 @@ namespace Capsule.Entity
                         break;
                     case RewardKind.CUSTOMIZING_CLOTH:
                         preview = DataManager.Instance.GetClothData((CustomizingCloth)amount).preview;
+                        break;
+                    case RewardKind.GAME_MODE:
+                        preview = DataManager.Instance.rewardSprites[2];
                         break;
                 }
             }

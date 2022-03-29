@@ -48,6 +48,12 @@ namespace Capsule.Entity
 
         public void ResetAllDatas()
         {
+            PlayerPrefs.SetInt("IsFirstPlayStage", 0);
+            PlayerPrefs.SetInt("IsFirstPlayArcade", 0);
+            PlayerPrefs.SetInt("IsArcadeModeOpen", 0);
+            PlayerPrefs.SetInt("IsPracticeModeOpen", 0);
+            PlayerPrefs.SetInt("IsBotModeOpen", 0);
+            PlayerPrefs.SetInt("IsMultiPlayModeOpen", 0);
             CurrentPlayerData.ResetPlayerData();
             CurrentPlayerBuyData.ResetPlayerBuyData();
             CurrentPlayerCustomizeItemOpenData.ResetPlayerCustomizeItemOpenData();
@@ -542,6 +548,12 @@ namespace Capsule.Entity
                         kind = RewardKind.EXP,
                         amount = 30,
                         onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.GAME_MODE,
+                        amount = 0,
+                        onlyOnce = true,
                     }
                 },
             },
@@ -598,6 +610,12 @@ namespace Capsule.Entity
                         kind = RewardKind.CUSTOMIZING_CLOTH,
                         amount = (int)CustomizingCloth.COMMON_1,
                         onlyOnce = true,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.GAME_MODE,
+                        amount = 1,
+                        onlyOnce= true,
                     },
                 },
             },
@@ -693,40 +711,21 @@ namespace Capsule.Entity
             return gameStageDatas[currentPlayerGameData.HighestStage].name;
             //return GetStageString((GameStage)currentPlayerGameData.HighestStage);
         }
-        /*
-        public string GetStageString(GameStage stageNum)
+
+        public void OpenArcadeMode()
         {
-            switch (stageNum)
-            {
-                case GameStage.TUTORIAL_1:
-                case GameStage.TUTORIAL_2:
-                case GameStage.TUTORIAL_3:
-                    return "튜토리얼";
-                case GameStage.STAGE_1:
-                    return "스테이지 1";
-                case GameStage.STAGE_2:
-                    return "스테이지 2";
-                case GameStage.STAGE_3:
-                    return "스테이지 3";
-                case GameStage.STAGE_4:
-                    return "스테이지 4";
-                case GameStage.STAGE_5:
-                    return "스테이지 5";
-                case GameStage.STAGE_6:
-                    return "스테이지 6";
-                case GameStage.STAGE_7:
-                    return "스테이지 7";
-                case GameStage.STAGE_8:
-                    return "스테이지 8";
-                case GameStage.STAGE_9:
-                    return "스테이지 9";
-                case GameStage.STAGE_10:
-                    return "스테이지 10";
-                default:
-                    return "튜토리얼";
-            }
+            PlayerPrefs.SetInt("IsArcadeModeOpen", 1);
         }
-        */
+
+        public void OpenPracticeMode()
+        {
+            PlayerPrefs.SetInt("IsPracticeModeOpen", 1);
+        }
+
+        public void OpenBotMode()
+        {
+            PlayerPrefs.SetInt("IsBotModeOpen", 1);
+        }
 
         public GameData CurrentGameData { get; set; }
     }
