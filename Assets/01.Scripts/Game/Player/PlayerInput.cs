@@ -24,6 +24,7 @@ namespace Capsule.Game.Player
 
         private void Start()
         {
+            usingHorizontal = false;
             if (isMine)
             {
                 joyStick = FindObjectOfType<JoyStickCtrl>();
