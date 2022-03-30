@@ -67,11 +67,16 @@ namespace Capsule.SceneLoad
         private readonly string SHOPPING_SCENE_NAME = "ShoppingScene";
 
         // Game Scenes
+        private readonly string STRING_ROLL_THE_BALL = "RollTheBall";
         private readonly string COMMON_UI_MULTI = "CommonUI_Multi";
         private readonly string COMMON_UI_SOLO = "CommonUI_Solo";
-        private readonly string STRING_ROLL_THE_BALL = "RollTheBall";
-        private readonly string STRING_ATTACK_INVADER = "AttackInvader";
-        private readonly string STRING_THROWING_FEEDER = "ThrowingFeeder";
+
+        // Game Kinds
+        private readonly string STRING_GOAL_IN = "GoalIn";
+        private readonly string STRING_BATTLE_ROYAL = "BattleRoyal";
+        private readonly string STRING_RACING = "Racing";
+        private readonly string STRING_UP_UP = "UpUp";
+        private readonly string STRING_NEXT_TARGET = "NextTarget";
 
         // Lobby Loading
         private readonly string LOADING_LOBBY_SCENE_PANEL = "LoadingLobbyScenePanel";
@@ -146,8 +151,6 @@ namespace Capsule.SceneLoad
             ResetFields();
             if (isAuto)
                 yield return StartCoroutine(FadeInLoading());
-            //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), 
-            //isAuto ? LoadSceneMode.Additive : LoadSceneMode.Single);
             if (!lobbySceneDictionary.TryGetValue(sceneType, out SceneData sceneData))
                 yield break;
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneData.sceneName,
@@ -168,7 +171,6 @@ namespace Capsule.SceneLoad
             if (isAuto && sceneData.sceneMode == LoadSceneMode.Additive)
             {
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(0));
-                //SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneData.sceneName));
                 yield return StartCoroutine(FadeOutLoading());
             }
@@ -198,26 +200,12 @@ namespace Capsule.SceneLoad
 
         private string GetGameSceneLevelName(GameData data)
         {
-            string gameLevelSceneName = "";
-            switch (data.Kind)
-            {
-                case GameKind.ROLL_THE_BALL:
-                    gameLevelSceneName += STRING_ROLL_THE_BALL;
-                    break;
-                case GameKind.THROWING_FEEDER:
-                    gameLevelSceneName += STRING_THROWING_FEEDER;
-                    break;
-                case GameKind.ATTACK_INVADER:
-                    gameLevelSceneName += STRING_ATTACK_INVADER;
-                    break;
-                default:
-                    gameLevelSceneName += STRING_ROLL_THE_BALL;
-                    break;
-            }
+            string gameLevelSceneName = STRING_ROLL_THE_BALL;
             switch (data.Mode)
             {
                 case GameMode.ARCADE:
-                    gameLevelSceneName += "Level_Arcade";
+                    gameLevelSceneName += "Level_Arcade_";
+                    gameLevelSceneName += GetGameKindString(data.Kind);
                     break;
                 case GameMode.STAGE:
                     gameLevelSceneName += "Level_Stage" + ((int)data.Stage).ToString();
@@ -229,57 +217,40 @@ namespace Capsule.SceneLoad
                 case GameMode.MULTI:
                 case GameMode.RANK:
                 case GameMode.CUSTOM:
-                    gameLevelSceneName += "Level_Multi";
-                    switch (data.Map)
-                    {
-                        case GameMap.CUSHION:
-                            gameLevelSceneName += "_Cushion";
-                            break;
-                        case GameMap.BEACH:
-                            gameLevelSceneName += "_Beach";
-                            break;
-                        case GameMap.LARVA:
-                            gameLevelSceneName += "_Larva";
-                            break;
-                    }
+                    gameLevelSceneName += "Level_Multi_";
+                    gameLevelSceneName += GetGameKindString(data.Kind);
                     break;
             }
             return gameLevelSceneName;
         }
 
-        private string GetGameSceneUIName(GameKind kind)
+        private string GetGameKindString(GameKind kind)
         {
             switch (kind)
             {
-                case GameKind.ROLL_THE_BALL:
-                    return STRING_ROLL_THE_BALL + "UI";
-                case GameKind.THROWING_FEEDER:
-                    return STRING_THROWING_FEEDER + "UI";
-                case GameKind.ATTACK_INVADER:
-                    return STRING_ATTACK_INVADER + "UI";
+                case GameKind.GOAL_IN:
+                    return STRING_GOAL_IN;
+                case GameKind.BATTLE_ROYAL:
+                    return STRING_BATTLE_ROYAL;
+                case GameKind.RACING:
+                    return STRING_RACING;
+                case GameKind.UP_UP:
+                    return STRING_UP_UP;
+                case GameKind.NEXT_TARGET:
+                    return STRING_NEXT_TARGET;
                 default:
-                    return STRING_ROLL_THE_BALL + "UI";
+                    return STRING_BATTLE_ROYAL;
             }
         }
 
-        private string GetGameSceneLogicName(GameMode mode, GameKind kind)
+        private string GetGameSceneUIName(GameKind kind)
         {
-            string gameLogicSceneName = "";
-            switch (kind)
-            {
-                case GameKind.ROLL_THE_BALL:
-                    gameLogicSceneName += STRING_ROLL_THE_BALL;
-                    break;
-                case GameKind.THROWING_FEEDER:
-                    gameLogicSceneName += STRING_THROWING_FEEDER;
-                    break;
-                case GameKind.ATTACK_INVADER:
-                    gameLogicSceneName += STRING_ATTACK_INVADER;
-                    break;
-                default:
-                    gameLogicSceneName += STRING_ROLL_THE_BALL;
-                    break;
-            }
+            return STRING_ROLL_THE_BALL + GetGameKindString(kind) + "UI";
+        }
+
+        private string GetGameSceneLogicName(GameMode mode)
+        {
+            string gameLogicSceneName = STRING_ROLL_THE_BALL;
             switch (mode)
             {
                 case GameMode.ARCADE:
@@ -307,7 +278,7 @@ namespace Capsule.SceneLoad
                 { GameSceneType.LEVEL, new SceneData(GetGameSceneLevelName(data), LoadSceneMode.Additive) },
                 { GameSceneType.COMMON_UI, new SceneData(GetCommonUIName(data.Mode), LoadSceneMode.Additive) },
                 { GameSceneType.UI, new SceneData(GetGameSceneUIName(data.Kind), LoadSceneMode.Additive) },
-                { GameSceneType.LOGIC, new SceneData(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive) },
+                { GameSceneType.LOGIC, new SceneData(GetGameSceneLogicName(data.Mode), LoadSceneMode.Additive) },
             };
 
             Debug.Log(gameSceneDictionary[GameSceneType.COMMON_UI].sceneName);
@@ -372,22 +343,10 @@ namespace Capsule.SceneLoad
             yield return StartCoroutine(FadeInLoading());
             if (data.Stage != GameStage.TUTORIAL_1 && data.Stage != GameStage.STAGE_1)
                 yield return SceneManager.UnloadSceneAsync(GetGameSceneLevelName(data));
-            yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind));
+            yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode));
             if (data.Stage != GameStage.TUTORIAL_1 && data.Stage != GameStage.STAGE_1)
                 yield return SceneManager.LoadSceneAsync(GetGameSceneLevelName(data), LoadSceneMode.Additive);
-            yield return SceneManager.LoadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive);
-            /*
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive);
-            asyncOperation.allowSceneActivation = true;
-            while (!asyncOperation.isDone)
-            {
-                yield return null;
-                progressAmount = asyncOperation.progress;
-                if (asyncOperation.progress >= 0.9f)
-                    isLoadingDone = true;
-                InfiniteLoopDetector.Run();
-            }
-            */
+            yield return SceneManager.LoadSceneAsync(GetGameSceneLogicName(data.Mode), LoadSceneMode.Additive);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(GetGameSceneLevelName(data)));
             yield return StartCoroutine(FadeOutLoading());
         }
@@ -400,7 +359,7 @@ namespace Capsule.SceneLoad
             Image loadingProgressBar = GameObject.Find(LOADING_PROGRESS_BAR).GetComponent<Image>();
             Text loadingProgressText = GameObject.Find(LOADING_PROGRESS_TEXT).GetComponent<Text>();
             yield return SceneManager.UnloadSceneAsync(GetGameSceneLevelName(data));
-            yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind));
+            yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode));
             data.Stage = (GameStage)((int)data.Stage + 1);
             DataManager.Instance.CurrentGameData.Stage = data.Stage;
             Dictionary<GameSceneType, SceneData> gameSceneDictionary = MakeGameSceneDictionary(data);
@@ -434,9 +393,9 @@ namespace Capsule.SceneLoad
             ResetFields();
             yield return StartCoroutine(FadeInLoading());
             yield return SceneManager.UnloadSceneAsync(GetGameSceneLevelName(data));
-            yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind));
+            yield return SceneManager.UnloadSceneAsync(GetGameSceneLogicName(data.Mode));
             yield return SceneManager.LoadSceneAsync(GetGameSceneLevelName(data), LoadSceneMode.Additive);
-            yield return SceneManager.LoadSceneAsync(GetGameSceneLogicName(data.Mode, data.Kind), LoadSceneMode.Additive);
+            yield return SceneManager.LoadSceneAsync(GetGameSceneLogicName(data.Mode), LoadSceneMode.Additive);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(GetGameSceneLevelName(data)));
             yield return StartCoroutine(FadeOutLoading());
         }
@@ -495,12 +454,12 @@ namespace Capsule.SceneLoad
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(LOADING_SCENE_NAME));
             fadeLoadingCG = GameObject.Find(LOADING_GAME_SCENE_PANEL).GetComponent<CanvasGroup>();
             if (DataManager.Instance != null &&
-                DataManager.Instance.gameKindDatas != null &&
-                DataManager.Instance.gameKindDatas.Count >= (int)kind + 1)
+                DataManager.Instance.GameKindDatas != null &&
+                DataManager.Instance.GameKindDatas.Count >= (int)kind + 1)
             {
-                GameObject.Find(LOADING_GAME_PREVIEW_IMAGE).GetComponent<Image>().sprite = DataManager.Instance.gameKindDatas[(int)kind].preview;
-                GameObject.Find(LOADING_GAME_DETAIL_NAME).GetComponent<Text>().text = DataManager.Instance.gameKindDatas[(int)kind].name;
-                GameObject.Find(LOADING_GAME_DETAIL_DESC).GetComponent<Text>().text = DataManager.Instance.gameKindDatas[(int)kind].desc;
+                GameObject.Find(LOADING_GAME_PREVIEW_IMAGE).GetComponent<Image>().sprite = DataManager.Instance.GameKindDatas[(int)kind].preview;
+                GameObject.Find(LOADING_GAME_DETAIL_NAME).GetComponent<Text>().text = DataManager.Instance.GameKindDatas[(int)kind].name;
+                GameObject.Find(LOADING_GAME_DETAIL_DESC).GetComponent<Text>().text = DataManager.Instance.GameKindDatas[(int)kind].desc;
             }
             if (fadeLoadingCG != null)
             {

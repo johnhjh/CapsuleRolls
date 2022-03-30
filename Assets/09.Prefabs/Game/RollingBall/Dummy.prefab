@@ -244,7 +244,6 @@ MonoBehaviour:
   charObj: {fileID: 2668426381526555307}
   ragdollObj: {fileID: 0}
   spine: {fileID: 0}
-  forceVector: {x: 0, y: 0, z: 0}
   isRagdoll: 0
 --- !u!1 &456600965065729950
 GameObject:
@@ -1430,6 +1429,7 @@ MonoBehaviour:
   isMine: 0
   usingAction1: 1
   usingAction2: 1
+  usingHorizontal: 0
 --- !u!114 &1390625113794389779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1444,8 +1444,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnAnimateTime: 0.3
   isMine: 0
-  jumpForce: 300
-  diveForce: 700
   isTeamA: 1
 --- !u!114 &7147368522300270268
 MonoBehaviour:
@@ -2944,6 +2942,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d1d7c077428028b4ea88aec5ece2006b, type: 2}
+    - target: {fileID: -7511558181221131132, guid: b35985add01efc44d96dfc4b46ba992b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4dd1140780e2f6d4790a1a8116000f4e, type: 2}
     - target: {fileID: 919132149155446097, guid: b35985add01efc44d96dfc4b46ba992b,
         type: 3}
       propertyPath: m_Name

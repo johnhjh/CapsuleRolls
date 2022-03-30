@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8350434172478742289}
   m_Layer: 9
-  m_Name: tileLarge_teamYellow
+  m_Name: tileLarge_Clear
   m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6935083383149633426}
   - component: {fileID: 1288652679347774318}
   m_Layer: 9
-  m_Name: tileLarge_teamYellow
+  m_Name: tileLarge_Clear
   m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,8 +90,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1da3bc91e504b8e4487bd33135fd3bea, type: 2}
-  - {fileID: 2100000, guid: 395833d82055886479116c582ca56eae, type: 2}
+  - {fileID: 2100000, guid: 4dd1140780e2f6d4790a1a8116000f4e, type: 2}
+  - {fileID: 2100000, guid: b1ece14340bc2f14a8592acfc42b9954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

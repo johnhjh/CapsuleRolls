@@ -61,7 +61,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0a72152ac61295d439480ce8c5887b86, type: 2}
-  - {fileID: 2100000, guid: e05b3cde4086e8b4aa654d7187d7c736, type: 2}
+  - {fileID: 2100000, guid: 4dd1140780e2f6d4790a1a8116000f4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,5 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc4b6df5da93804e85483663eefb2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTeamA: 0
   radius: 1.5
   ballRotateSpeed: 40

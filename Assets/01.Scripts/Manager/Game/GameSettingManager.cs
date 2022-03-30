@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
+using Capsule.Game.RollTheBall;
 namespace Capsule.Game
 {
     public class GameSettingManager : SettingManager
@@ -26,10 +27,23 @@ namespace Capsule.Game
                 SetSoundSettings();
             }
         }
+        [HideInInspector]
+        public RollingBallMove ballMove = null;
 
         protected override void Start()
         {
             base.Start();
+            Slider sliderRotate = GameObject.Find("Slider_Rotate").GetComponent<Slider>();
+            sliderRotate.value = PlayerPrefs.GetFloat("PlayerRotSpeed", 60f);
+            sliderRotate.onValueChanged.AddListener(delegate { OnSliderRotateValueChanged(sliderRotate); });
+        }
+
+        public void OnSliderRotateValueChanged(Slider sliderRotate)
+        {
+            if (ballMove == null)
+                ballMove = GameObject.Find("RollTheBallPlayer").GetComponent<RollingBallMove>();
+            ballMove.playerRotateSpeed = sliderRotate.value;
+            PlayerPrefs.SetFloat("PlayerRotSpeed", sliderRotate.value);
         }
     }
 }

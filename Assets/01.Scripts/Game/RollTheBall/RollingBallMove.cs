@@ -2,6 +2,7 @@
 using Capsule.Entity;
 using Capsule.Game.Effect;
 using Capsule.Game.Player;
+using Capsule.Game.UI;
 using UnityEngine;
 
 namespace Capsule.Game.RollTheBall
@@ -20,7 +21,7 @@ namespace Capsule.Game.RollTheBall
         public float MAX_BALL_SPEED = 300f;
         public float ballPushForce = 30f;
         public float playerMoveSpeed = 5f;
-        public float playerRotateSpeed = 80.0f;
+        public float playerRotateSpeed = 60.0f;
         public float explodePower = 10f;
         public float popVolume = 7f;
         public bool isMine = true;
@@ -50,6 +51,11 @@ namespace Capsule.Game.RollTheBall
         private void Start()
         {
             if (!isMine) return;
+            if (GameSettingManager.Instance != null)
+                GameSettingManager.Instance.ballMove = this;
+            playerRotateSpeed = PlayerPrefs.GetFloat("PlayerRotSpeed", 60f);
+            if (GameUIManager.Instance != null)
+                GameUIManager.Instance.OnPauseGame += PlayerAudioStop;
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnGameOver += PlayerAudioStop;

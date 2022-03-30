@@ -37,7 +37,7 @@ namespace Capsule.Lobby.SoloPlay
         private IEnumerator SetData()
         {
             yield return new WaitForSeconds(1.0f);
-            GameKindData data = DataManager.Instance.gameKindDatas[(int)kind];
+            GameKindData data = DataManager.Instance.GameKindDatas[(int)kind];
             transform.GetChild(2).GetComponent<Text>().text = data.name;
             if (data.preview != null)
                 transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = data.preview;

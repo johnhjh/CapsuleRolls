@@ -15,9 +15,11 @@ namespace Capsule.Entity
 
     public enum GameKind
     {
-        ROLL_THE_BALL = 0,
-        THROWING_FEEDER,
-        ATTACK_INVADER,
+        GOAL_IN = 0,
+        BATTLE_ROYAL,
+        RACING,
+        UP_UP,
+        NEXT_TARGET,
     }
 
     public enum GameStage
@@ -117,6 +119,12 @@ namespace Capsule.Entity
         public string name;
         [TextAreaAttribute]
         public string desc;
+
+        public void SetPreview()
+        {
+            if (DataManager.Instance != null)
+                this.preview = DataManager.Instance.gameKindSprites[(int)kind];
+        }
     }
 
     [System.Serializable]

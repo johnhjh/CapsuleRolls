@@ -79,7 +79,7 @@ namespace Capsule.Game
                         currentGameData = new GameData
                         {
                             Mode = GameMode.PRACTICE,
-                            Kind = GameKind.ROLL_THE_BALL,
+                            Kind = GameKind.GOAL_IN,
                         };
                 }
                 return currentGameData;

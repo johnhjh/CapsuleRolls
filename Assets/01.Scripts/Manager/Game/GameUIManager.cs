@@ -60,6 +60,7 @@ namespace Capsule.Game.UI
         private GameObject buttonClearNextStage = null;
         private GameObject buttonClearReplayGame = null;
         private GameObject buttonClearAllCleared = null;
+        private Coroutine stageFailureCoroutine = null;
 
         private GameObject timeSoloScoreBoard = null;
         private GameObject timeTeamScoreBoard = null;
@@ -76,6 +77,7 @@ namespace Capsule.Game.UI
         private Text arcadeTimeResultText = null;
         private Text arcadeScoreResultText = null;
         private Text arcadeCoinEarnedText = null;
+        private Text timePlusEffectText = null;
         private Coroutine arcadeShowCoroutine;
 
         private List<GameObject> rewardItems = null;
@@ -87,6 +89,10 @@ namespace Capsule.Game.UI
             get { return passedTime; }
         }
         private Coroutine timeCoroutine;
+        private Coroutine lastTimeCoroutine;
+        private Coroutine addTimeCoroutine;
+
+        public event System.Action OnPauseGame;
 
         private void Awake()
         {
@@ -145,6 +151,7 @@ namespace Capsule.Game.UI
             teamTimeText = timeTeamScoreBoard.transform.GetChild(0).GetComponent<Text>();
             timeOnlyBoard = GameObject.Find("Time_Only_Board");
             onlyTimeText = timeOnlyBoard.transform.GetChild(0).GetComponent<Text>();
+            timePlusEffectText = GameObject.Find("TimePlusEffectText").GetComponent<Text>();
 
             currentWaveText = timeSoloScoreBoard.transform.GetChild(1).GetComponent<Text>();
             remainEnemyText = timeSoloScoreBoard.transform.GetChild(2).GetComponent<Text>();
@@ -181,9 +188,13 @@ namespace Capsule.Game.UI
             userInfoLevelText.text = currentLevel.ToString();
             userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
             userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
+            timePlusEffectText.text = "";
+            timePlusEffectText.color = new Color(1f, 1f, 1f, 0f);
             passedTime = 0;
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
+            if (lastTimeCoroutine != null)
+                StopCoroutine(lastTimeCoroutine);
             switch (DataManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
@@ -196,6 +207,7 @@ namespace Capsule.Game.UI
                     timeSoloScoreBoard.SetActive(true);
                     timeTeamScoreBoard.SetActive(false);
                     timeOnlyBoard.SetActive(false);
+                    SetTextColorAndSize(soloTimeText, 1f, 80);
                     soloTimeText.text = remainedTime.ToString();
                     currentWaveText.text = "<color=#FF6767>웨이브</color> : 01";
                     remainEnemyText.text = "<color=#FF6767>남은 수</color> : 01";
@@ -212,7 +224,7 @@ namespace Capsule.Game.UI
                     timeTeamScoreBoard.SetActive(false);
                     timeOnlyBoard.SetActive(true);
                     onlyTimeText.text = remainedTime.ToString();
-                    onlyTimeText.fontSize = 80;
+                    SetTextColorAndSize(onlyTimeText, 1f, 80);
                     switch (DataManager.Instance.CurrentGameData.Stage)
                     {
                         case GameStage.TUTORIAL_1:
@@ -302,20 +314,25 @@ namespace Capsule.Game.UI
             currentScoreText.text = GameManager.Instance.ArcadeScore.ToString("###,###,000");
         }
 
-        public void UpdateTimeText()
+        private void UpdateTimeText(int timeAmount)
         {
             if (GameManager.Instance != null)
             {
+                if (addTimeCoroutine != null)
+                    StopCoroutine(addTimeCoroutine);
                 switch (GameManager.Instance.CurrentGameData.Mode)
                 {
                     case GameMode.ARCADE:
+                        addTimeCoroutine = StartCoroutine(AddTimeTextEffect(soloTimeText, timeAmount));
                         soloTimeText.text = remainedTime.ToString();
                         break;
                     case GameMode.STAGE:
                         onlyTimeText.text = remainedTime.ToString();
+                        addTimeCoroutine = StartCoroutine(AddTimeTextEffect(onlyTimeText, timeAmount));
                         break;
                     case GameMode.BOT:
                         teamTimeText.text = remainedTime.ToString();
+                        addTimeCoroutine = StartCoroutine(AddTimeTextEffect(teamTimeText, timeAmount));
                         break;
                     case GameMode.PRACTICE:
                         break;
@@ -326,7 +343,27 @@ namespace Capsule.Game.UI
         public void AddTime(int timeAmount)
         {
             remainedTime += timeAmount;
-            UpdateTimeText();
+            SFXManager.Instance.PlaySFX(MenuSFX.OK);
+            UpdateTimeText(timeAmount);
+        }
+
+        private IEnumerator AddTimeTextEffect(Text text, int timeAmount)
+        {
+            timePlusEffectText.text = "+" + timeAmount.ToString();
+            timePlusEffectText.color = new Color(1f, 1f, 1f);
+            float currentAlpha = 0.3f;
+            float currentFontSize = 120f;
+            float curAlphaSpeed = 1f / 0.7f;
+            while (!Mathf.Approximately(currentFontSize, 80f))
+            {
+                currentAlpha = Mathf.MoveTowards(currentAlpha, 1f, curAlphaSpeed * Time.deltaTime);
+                currentFontSize = Mathf.MoveTowards(currentFontSize, 80f, 40f * Time.deltaTime);
+                SetTextColorAndSize(text, currentAlpha, Mathf.RoundToInt(currentFontSize));
+                yield return null;
+            }
+            SetTextColorAndSize(text, 1f, 80);
+            timePlusEffectText.text = "";
+            timePlusEffectText.color = new Color(1f, 1f, 0f);
         }
 
         public void StageAllClearedUI()
@@ -351,6 +388,9 @@ namespace Capsule.Game.UI
             while (!GameManager.Instance.IsGameOver && remainedTime-- >= 0)
             {
                 yield return new WaitForSeconds(1.0f);
+                if (lastTimeCoroutine != null)
+                    StopCoroutine(lastTimeCoroutine);
+                SetTextColorAndSize(timeText, 1f, 80);
                 passedTime++;
                 timeText.text = remainedTime.ToString();
                 if (remainedTime == 0)
@@ -362,7 +402,29 @@ namespace Capsule.Game.UI
                 else if (remainedTime <= 3)
                 {
                     SFXManager.Instance.PlayOneShot(Announcements.COUNT, remainedTime);
+                    if (lastTimeCoroutine != null)
+                        StopCoroutine(lastTimeCoroutine);
+                    lastTimeCoroutine = StartCoroutine(Last3SecTextEffect(timeText));
                 }
+            }
+        }
+
+        private void SetTextColorAndSize(Text text, float alpha, int size)
+        {
+            text.color = new Color(1f, 1f, 1f, alpha);
+            text.fontSize = size;
+        }
+
+        private IEnumerator Last3SecTextEffect(Text text)
+        {
+            float currentAlpha = 0f;
+            float currentFontSize = 250f;
+            while (!Mathf.Approximately(currentAlpha, 1f))
+            {
+                currentAlpha = Mathf.MoveTowards(currentAlpha, 1f, Time.deltaTime);
+                currentFontSize = Mathf.MoveTowards(currentFontSize, 80f, 170f * Time.deltaTime);
+                SetTextColorAndSize(text, currentAlpha, Mathf.RoundToInt(currentFontSize));
+                yield return null;
             }
         }
 
@@ -382,6 +444,8 @@ namespace Capsule.Game.UI
 
         public void OnArcadeFinished()
         {
+            if (addTimeCoroutine != null)
+                StopCoroutine(addTimeCoroutine);
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
             arcadeShowCoroutine = StartCoroutine(ArcadeScoreShow());
@@ -433,7 +497,7 @@ namespace Capsule.Game.UI
         {
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
-            StartCoroutine(FadeInCG(gameStageFailureCG));
+            stageFailureCoroutine = StartCoroutine(FadeInCG(gameStageFailureCG));
         }
 
         public void PauseGame()
@@ -444,6 +508,7 @@ namespace Capsule.Game.UI
         public void PauseGame(bool isPaused)
         {
             if (this.IsLoading || this.IsPopupActive) return;
+            if (isPaused) OnPauseGame?.Invoke();
             if (this.IsSettingOpen)
                 ShowGameSetting(false);
             this.IsPaused = isPaused;
@@ -476,6 +541,14 @@ namespace Capsule.Game.UI
         {
             if (GameManager.Instance.CheckSoloGame())
             {
+                if (addTimeCoroutine != null)
+                    StopCoroutine(addTimeCoroutine);
+                if (arcadeShowCoroutine != null)
+                    StopCoroutine(arcadeShowCoroutine);
+                if (stageFailureCoroutine != null)
+                    StopCoroutine(stageFailureCoroutine);
+                if (lastTimeCoroutine != null)
+                    StopCoroutine(lastTimeCoroutine);
                 Time.timeScale = 1f;
                 MoveToScene(LobbySceneType.SOLO);
             }
@@ -511,6 +584,14 @@ namespace Capsule.Game.UI
 
         public void OnClickRestartGame()
         {
+            if (addTimeCoroutine != null)
+                StopCoroutine(addTimeCoroutine);
+            if (arcadeShowCoroutine != null)
+                StopCoroutine(arcadeShowCoroutine);
+            if (stageFailureCoroutine != null)
+                StopCoroutine(stageFailureCoroutine);
+            if (lastTimeCoroutine != null)
+                StopCoroutine(lastTimeCoroutine);
             PauseGame(false);
             IsPopupActive = false;
             IsLoading = true;
@@ -541,8 +622,6 @@ namespace Capsule.Game.UI
 
         public void MoveToScene(LobbySceneType sceneType)
         {
-            if (arcadeShowCoroutine != null)
-                StopCoroutine(arcadeShowCoroutine);
             Destroy(userInfoLevelText.gameObject);
             Destroy(userInfoExpText.gameObject);
             Destroy(userInfoExpImage.gameObject);

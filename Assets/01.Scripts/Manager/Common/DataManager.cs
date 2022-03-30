@@ -38,6 +38,7 @@ namespace Capsule.Entity
         private void Start()
         {
             SetStageDatasPreviews();
+            SetKindDatasPreviews();
         }
 
         public void SaveBeforeQuit()
@@ -90,43 +91,55 @@ namespace Capsule.Entity
         public List<CustomizingPreset> PresetBuyData { get { return presetBuyData; } }
         public PlayerBuyData CurrentPlayerBuyData
         {
-            get { return currentPlayerBuyData; }
+            get
+            {
+                if (currentPlayerBuyData == null)
+                {
+                    currentPlayerBuyData = new PlayerBuyData();
+                    SetPlayerBuyData(currentPlayerBuyData);
+                }
+                return currentPlayerBuyData;
+            }
             private set
             {
                 currentPlayerBuyData = value;
-                bodyBuyData = new List<CustomizingBody>();
-                headBuyData = new List<CustomizingHead>();
-                faceBuyData = new List<CustomizingFace>();
-                gloveBuyData = new List<CustomizingGlove>();
-                clothBuyData = new List<CustomizingCloth>();
-                presetBuyData = new List<CustomizingPreset>();
+                SetPlayerBuyData(value);
+            }
+        }
+        private void SetPlayerBuyData(PlayerBuyData buyData)
+        {
+            bodyBuyData = new List<CustomizingBody>();
+            headBuyData = new List<CustomizingHead>();
+            faceBuyData = new List<CustomizingFace>();
+            gloveBuyData = new List<CustomizingGlove>();
+            clothBuyData = new List<CustomizingCloth>();
+            presetBuyData = new List<CustomizingPreset>();
 
-                foreach (String str in value.BuyData)
+            foreach (String str in buyData.BuyData)
+            {
+                int position = str.IndexOf("=");
+                if (position < 0)
+                    continue;
+                String dataNum = str.Substring(0, position);
+                String dataType = str.Substring(position + 1);
+                try
                 {
-                    int position = str.IndexOf("=");
-                    if (position < 0)
-                        continue;
-                    String dataNum = str.Substring(0, position);
-                    String dataType = str.Substring(position + 1);
-                    try
-                    {
-                        if (dataType == ((int)CustomizingType.BODY).ToString())
-                            bodyBuyData.Add((CustomizingBody)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.HEAD).ToString())
-                            headBuyData.Add((CustomizingHead)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.FACE).ToString())
-                            faceBuyData.Add((CustomizingFace)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.GLOVE).ToString())
-                            gloveBuyData.Add((CustomizingGlove)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.CLOTH).ToString())
-                            clothBuyData.Add((CustomizingCloth)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.PRESET).ToString())
-                            presetBuyData.Add((CustomizingPreset)int.Parse(dataNum));
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.Log(e);
-                    }
+                    if (dataType == ((int)CustomizingType.BODY).ToString())
+                        bodyBuyData.Add((CustomizingBody)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.HEAD).ToString())
+                        headBuyData.Add((CustomizingHead)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.FACE).ToString())
+                        faceBuyData.Add((CustomizingFace)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.GLOVE).ToString())
+                        gloveBuyData.Add((CustomizingGlove)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.CLOTH).ToString())
+                        clothBuyData.Add((CustomizingCloth)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.PRESET).ToString())
+                        presetBuyData.Add((CustomizingPreset)int.Parse(dataNum));
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
                 }
             }
         }
@@ -145,40 +158,52 @@ namespace Capsule.Entity
 
         public PlayerCustomizeItemOpenData CurrentPlayerCustomizeItemOpenData
         {
-            get { return currentPlayerCustomizeItemOpenData; }
+            get
+            {
+                if (currentPlayerCustomizeItemOpenData == null)
+                {
+                    currentPlayerCustomizeItemOpenData = new PlayerCustomizeItemOpenData();
+                    SetPlayerCustomizeItemOpenData(currentPlayerCustomizeItemOpenData);
+                }
+                return currentPlayerCustomizeItemOpenData;
+            }
             private set
             {
                 currentPlayerCustomizeItemOpenData = value;
-                bodyOpenData = new List<CustomizingBody>();
-                headOpenData = new List<CustomizingHead>();
-                faceOpenData = new List<CustomizingFace>();
-                gloveOpenData = new List<CustomizingGlove>();
-                clothOpenData = new List<CustomizingCloth>();
+                SetPlayerCustomizeItemOpenData(value);
+            }
+        }
+        private void SetPlayerCustomizeItemOpenData(PlayerCustomizeItemOpenData openData)
+        {
+            bodyOpenData = new List<CustomizingBody>();
+            headOpenData = new List<CustomizingHead>();
+            faceOpenData = new List<CustomizingFace>();
+            gloveOpenData = new List<CustomizingGlove>();
+            clothOpenData = new List<CustomizingCloth>();
 
-                foreach (String str in value.ItemOpenData)
+            foreach (String str in openData.ItemOpenData)
+            {
+                int position = str.IndexOf("=");
+                if (position < 0)
+                    continue;
+                String dataNum = str.Substring(0, position);
+                String dataType = str.Substring(position + 1);
+                try
                 {
-                    int position = str.IndexOf("=");
-                    if (position < 0)
-                        continue;
-                    String dataNum = str.Substring(0, position);
-                    String dataType = str.Substring(position + 1);
-                    try
-                    {
-                        if (dataType == ((int)CustomizingType.BODY).ToString())
-                            bodyOpenData.Add((CustomizingBody)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.HEAD).ToString())
-                            headOpenData.Add((CustomizingHead)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.FACE).ToString())
-                            faceOpenData.Add((CustomizingFace)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.GLOVE).ToString())
-                            gloveOpenData.Add((CustomizingGlove)int.Parse(dataNum));
-                        else if (dataType == ((int)CustomizingType.CLOTH).ToString())
-                            clothOpenData.Add((CustomizingCloth)int.Parse(dataNum));
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.Log(e);
-                    }
+                    if (dataType == ((int)CustomizingType.BODY).ToString())
+                        bodyOpenData.Add((CustomizingBody)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.HEAD).ToString())
+                        headOpenData.Add((CustomizingHead)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.FACE).ToString())
+                        faceOpenData.Add((CustomizingFace)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.GLOVE).ToString())
+                        gloveOpenData.Add((CustomizingGlove)int.Parse(dataNum));
+                    else if (dataType == ((int)CustomizingType.CLOTH).ToString())
+                        clothOpenData.Add((CustomizingCloth)int.Parse(dataNum));
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
                 }
             }
         }
@@ -339,13 +364,23 @@ namespace Capsule.Entity
         private PlayerGameData currentPlayerGameData = null;
         public PlayerGameData CurrentPlayerGameData
         {
-            get { return currentPlayerGameData; }
+            get
+            {
+                if (currentPlayerGameData == null)
+                    currentPlayerGameData = new PlayerGameData();
+                return currentPlayerGameData;
+            }
             private set { currentPlayerGameData = value; }
         }
         private PlayerStageClearData currentPlayerStageClearData = null;
         public PlayerStageClearData CurrentPlayerStageClearData
         {
-            get { return currentPlayerStageClearData; }
+            get
+            {
+                if (currentPlayerStageClearData == null)
+                    currentPlayerStageClearData = new PlayerStageClearData();
+                return currentPlayerStageClearData;
+            }
             private set { currentPlayerStageClearData = value; }
         }
 
@@ -395,30 +430,56 @@ namespace Capsule.Entity
             },
         };
 
-        public List<GameKindData> gameKindDatas = new List<GameKindData>()
+        public List<Sprite> gameKindSprites = new List<Sprite>();
+        private List<GameKindData> gameKindDatas = new List<GameKindData>()
         {
             new GameKindData ()
             {
-                kind = GameKind.ROLL_THE_BALL,
-                preview = null,
+                kind = GameKind.GOAL_IN,
                 name = "공 굴려서 골인~!",
                 desc = "골대까지 공을 굴려가자!!\n\n무시무시한 장애물들을 피해야해!\n\n점프와 다이브를 적극 활용하자!"
             },
             new GameKindData ()
             {
-                kind = GameKind.THROWING_FEEDER,
-                preview = null,
-                name = "먹이를 던져주자~!",
-                desc = "배고프지 않게 먹이를 먹여주자!!\n\n과일이 아니면 싫어한다구!\n\n과일이 아니면 상대팀한테 던지자!"
+                kind = GameKind.BATTLE_ROYAL,
+                name = "공 위에서 배틀로얄!",
+                desc = "마지막 까지 공위에 있는 캡슐이 승자!!\n\n눈치 보며 도망다니자구~\n\n다른 캡슐을 다이브로 쓰러뜨리자!"
             },
             new GameKindData ()
             {
-                kind = GameKind.ATTACK_INVADER,
-                preview = null,
-                name = "침략자를 막자~!",
-                desc = "침략자를 더 많이 막으면 승리!!\n\n무기는 죽을 때 마다 계속 바뀐다구!\n\n상대팀도 공격해서 방해하자!"
-            }
+                kind = GameKind.RACING,
+                name = "내 공이 제일 빠르다구~!",
+                desc = "누가 더 빠른지 승부~!\n\n빠른 속도로 최고 기록을 갱신하자~\n\n장애물을 잘 피해야해~!"
+            },
+            new GameKindData()
+            {
+                kind = GameKind.UP_UP,
+                name = "점프로 업~ 업~!",
+                desc = "누가 더 많이 올라가나 내기~\n\n점프를 적극 활용해서\n더 높이 올라가자~!!"
+            },
+            new GameKindData()
+            {
+                kind = GameKind.NEXT_TARGET,
+                name = "다음 타겟은?? 너라공~!",
+                desc = "모두 타겟을 노려야해!!\n\n시간이 다 지날 때까지 못잡으면 진다구~\n\n타겟이 되면 멀리 도망가자~!"
+            },
         };
+
+        public List<GameKindData> GameKindDatas
+        {
+            get { return gameKindDatas; }
+        }
+        private void SetKindDatasPreviews()
+        {
+            if (gameKindSprites.Count > 0)
+            {
+                foreach (GameKindData kindData in gameKindDatas)
+                {
+                    if (kindData.preview == null)
+                        kindData.preview = gameKindSprites[(int)kindData.kind];
+                }
+            }
+        }
 
         public List<Sprite> rewardSprites = new List<Sprite>();
         private void SetStageDatasPreviews()
@@ -437,7 +498,7 @@ namespace Capsule.Entity
         {
             new GameStageData()
             {
-                kind = GameKind.ROLL_THE_BALL,
+                kind = GameKind.GOAL_IN,
                 stage = GameStage.TUTORIAL_1,
                 name = "튜토리얼 1",
                 desc = "[공 굴려서 골인~!]의 기본적인 조작을 배워보자!",
@@ -459,7 +520,7 @@ namespace Capsule.Entity
             },
             new GameStageData()
             {
-                kind = GameKind.ROLL_THE_BALL,
+                kind = GameKind.GOAL_IN,
                 stage = GameStage.STAGE_1,
                 name = "스테이지 1",
                 desc = "장애물을 돌파해 클리어하자!",
@@ -481,7 +542,7 @@ namespace Capsule.Entity
             },
             new GameStageData()
             {
-                kind = GameKind.ROLL_THE_BALL,
+                kind = GameKind.GOAL_IN,
                 stage = GameStage.TUTORIAL_2,
                 name = "튜토리얼 2",
                 desc = "[공 굴려서 골인~!]의 [점프] 조작을 배워보자!",
@@ -503,7 +564,7 @@ namespace Capsule.Entity
             },
             new GameStageData()
             {
-                kind = GameKind.ROLL_THE_BALL,
+                kind = GameKind.GOAL_IN,
                 stage = GameStage.STAGE_2,
                 name = "스테이지 2",
                 desc = "[점프]를 적극 활용해 장애물을 돌파하자!",
@@ -531,7 +592,7 @@ namespace Capsule.Entity
             },
             new GameStageData()
             {
-                kind = GameKind.ROLL_THE_BALL,
+                kind = GameKind.GOAL_IN,
                 stage = GameStage.TUTORIAL_3,
                 name = "튜토리얼 3",
                 desc = "[공 굴려서 골인~!]의 [다이브] 조작을 배워보자!",
@@ -559,7 +620,7 @@ namespace Capsule.Entity
             },
             new GameStageData()
             {
-                kind = GameKind.ROLL_THE_BALL,
+                kind = GameKind.GOAL_IN,
                 stage = GameStage.STAGE_3,
                 name = "스테이지 3",
                 desc = "[다이브]를 적극 활용해 장애물을 돌파하자!",
@@ -587,7 +648,7 @@ namespace Capsule.Entity
             },
             new GameStageData()
             {
-                kind = GameKind.ROLL_THE_BALL,
+                kind = GameKind.GOAL_IN,
                 stage = GameStage.STAGE_4,
                 name = "스테이지 4",
                 desc = "지금까지 배운걸 최대한 활용해보자!",
@@ -618,41 +679,6 @@ namespace Capsule.Entity
                         onlyOnce= true,
                     },
                 },
-            },
-            new GameStageData()
-            {
-                kind = GameKind.ATTACK_INVADER,
-                stage = GameStage.STAGE_5,
-                name = "스테이지 5",
-                desc = "[CapsuleFights]의 기본적인 조작을 배워보자!",
-            },
-            new GameStageData()
-            {
-                kind = GameKind.ATTACK_INVADER,
-                stage = GameStage.STAGE_6,
-                name = "스테이지 6",
-            },
-            new GameStageData()
-            {
-                kind = GameKind.ATTACK_INVADER,
-                stage = GameStage.STAGE_7,
-                name = "스테이지 7",
-            },
-            new GameStageData()
-            {
-                kind = GameKind.ATTACK_INVADER,
-                stage = GameStage.STAGE_8,
-                name = "스테이지 8",
-            },
-            new GameStageData()
-            {
-                stage = GameStage.STAGE_9,
-                name = "스테이지 9",
-            },
-            new GameStageData()
-            {
-                stage = GameStage.STAGE_10,
-                name = "스테이지 10",
             },
         };
         public List<GameStageData> GameStageDatas

@@ -14,6 +14,9 @@ namespace Capsule.Game.AI
             set { targetTransform = value; }
         }
 
+        private float minRange = 1.5f;
+        private float maxRange = 12f;
+
         private void OnEnable()
         {
             if (Target == null)
@@ -60,10 +63,10 @@ namespace Capsule.Game.AI
 
         private bool CheckFoundEnemy()
         {
-            Ray ray = new Ray(transform.position + Vector3.up, transform.forward);
+            Ray ray = new Ray(transform.position + minRange * transform.forward + Vector3.up, transform.forward);
             int layerMask = 1 << LayerMask.NameToLayer(GameManager.Instance.tagData.TAG_PLAYER);
 
-            RaycastHit[] hits = Physics.RaycastAll(ray, 12f, layerMask);
+            RaycastHit[] hits = Physics.RaycastAll(ray, maxRange, layerMask);
             foreach (RaycastHit hit in hits)
             {
                 if (hit.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
@@ -78,7 +81,8 @@ namespace Capsule.Game.AI
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(0f, 255f, 0f, 1f);
-            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 12f);
+            Gizmos.DrawLine(transform.position + minRange * transform.forward,
+                transform.position + maxRange * transform.forward);
         }
     }
 }

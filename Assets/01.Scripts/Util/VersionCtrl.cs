@@ -1,6 +1,6 @@
 ﻿public static class VersionCtrl
 {
-    public static readonly string CurrentVersion = "ver.1.0.1";
+    public static readonly string CurrentVersion = "ver.1.0.2";
     /***** ver.1.0.1 설명 *****/
     /*
         최초 Release
@@ -11,5 +11,27 @@
         커스터 마이징
         코인 상점
         사운드 설정
+    */
+    /***** ver.1.0.2 설명 *****/
+    /*
+        게임 이름 변경 CapsuleFights => CapsuleRolls
+        [개선 사항]
+        게임 조작 변경
+            PC
+            - WASD 좌우 이동 추가
+            - 마우스 위치로 시야 전환
+            모바일
+            - 조이스틱으로 좌우 이동 추가
+            - 화면 빈공간 드래그로 시야 전환
+        게임 컨트롤 설정 추가
+            - 회전 민감도 조절 가능
+        싱글플레이
+            - 게임 종료 시 간헐적으로 프리징 발생 하는 버그 수정
+            - 시간 3초 남았을 시 시각 이펙트 추가
+            - 스테이지 모드 비쥬얼 업데이트
+            - 아케이드 모드 게임이름 변경
+            - 아케이드 모드 적 AI 플레이어 감지 판정 완화
+            - 아케이드 모드 적 자살 시 시간 추가
+            - 아케이드 모드 시간 추가 이펙트 추가
     */
 }

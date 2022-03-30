@@ -72,11 +72,11 @@ namespace Capsule.Game
             {
                 switch (DataManager.Instance.CurrentGameData.Kind)
                 {
-                    case GameKind.ROLL_THE_BALL:
+                    case GameKind.GOAL_IN:
                         tutorialData = new RollTheBallTutorialData();
                         break;
-                    case GameKind.THROWING_FEEDER:
-                    case GameKind.ATTACK_INVADER:
+                    case GameKind.BATTLE_ROYAL:
+                    case GameKind.RACING:
                         tutorialData = new TutorialData();
                         break;
                     default:

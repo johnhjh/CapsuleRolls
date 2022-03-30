@@ -102,16 +102,16 @@ namespace Capsule.Lobby.SoloPlay
             if (stageSlot == null)
             {
                 gameStageSelectPopupDetailName.text = CurrentStageSlot.data.name;
-                gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].preview;
-                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)CurrentStageSlot.data.kind].name;
+                gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.GameKindDatas[(int)CurrentStageSlot.data.kind].preview;
+                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.GameKindDatas[(int)CurrentStageSlot.data.kind].name;
                 gameStageSelectPopupDetailDesc.text = CurrentStageSlot.data.desc;
                 SetGameStageSelectPopulRewardDetail(CurrentStageSlot);
             }
             else
             {
                 gameStageSelectPopupDetailName.text = stageSlot.data.name;
-                gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].preview;
-                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.gameKindDatas[(int)stageSlot.data.kind].name;
+                gameStageSelectPopupDetailKindPreview.sprite = DataManager.Instance.GameKindDatas[(int)stageSlot.data.kind].preview;
+                gameStageSelectPopupDetailKindDesc.text = DataManager.Instance.GameKindDatas[(int)stageSlot.data.kind].name;
                 gameStageSelectPopupDetailDesc.text = stageSlot.data.desc;
                 SetGameStageSelectPopulRewardDetail(stageSlot);
             }
@@ -241,7 +241,7 @@ namespace Capsule.Lobby.SoloPlay
             ShowHideNotAvailable(false);
 
             SelectGameMode(GameMode.STAGE);
-            SelectGameKind(GameKind.ROLL_THE_BALL);
+            SelectGameKind(GameKind.GOAL_IN);
 
             StartCoroutine(InitStageSlots());
         }
@@ -336,7 +336,7 @@ namespace Capsule.Lobby.SoloPlay
                     gameBotDifficultyUI.SetActive(false);
                     break;
                 case GameMode.PRACTICE:
-                    gameKindUI.SetActive(true);
+                    gameKindUI.SetActive(false);
                     gameScoreUI.SetActive(false);
                     gameHighestStageUI.SetActive(false);
                     gameStageSelectUI.SetActive(false);
@@ -372,29 +372,8 @@ namespace Capsule.Lobby.SoloPlay
         public void SelectGameKind(GameKind kind)
         {
             gameData.Kind = kind;
-            gameKindDetailText.text = DataManager.Instance.gameKindDatas[(int)kind].name;
-            gameKindDetailImage.sprite = DataManager.Instance.gameKindDatas[(int)kind].preview;
-            /*
-            switch (kind)
-            {
-                case GameKind.ROLL_THE_BALL:
-                    gameKindDetailText.text = gameKindRollTheBallDetailText;
-                    gameKindDetailImage.sprite = gameKindRollTheBallDetailImage;
-                    break;
-                case GameKind.THROWING_FEEDER:
-                    gameKindDetailText.text = gameKindThrowingFeederDetailText;
-                    gameKindDetailImage.sprite = gameKindThrowingFeederDetailImage;
-                    break;
-                case GameKind.ATTACK_INVADER:
-                    gameKindDetailText.text = gameKindAttackInvaderDetailText;
-                    gameKindDetailImage.sprite = gameKindAttackInvaderDetailImage;
-                    break;
-                default:
-                    gameKindDetailText.text = gameKindRollTheBallDetailText;
-                    gameKindDetailImage.sprite = gameKindRollTheBallDetailImage;
-                    break;
-            }
-            */
+            gameKindDetailText.text = DataManager.Instance.GameKindDatas[(int)kind].name;
+            gameKindDetailImage.sprite = DataManager.Instance.GameKindDatas[(int)kind].preview;
         }
 
         public void OnClickConfirmSelectStage()
@@ -428,6 +407,7 @@ namespace Capsule.Lobby.SoloPlay
             }
             else
                 StartButtonAvailable(true);
+            SelectGameKind(GameKind.BATTLE_ROYAL);
             SelectGameMode(GameMode.ARCADE);
         }
 
@@ -435,6 +415,7 @@ namespace Capsule.Lobby.SoloPlay
         {
             OnClickAnyButton();
             StartButtonAvailable(true);
+            SelectGameKind(GameKind.GOAL_IN);
             SelectGameMode(GameMode.STAGE);
         }
 

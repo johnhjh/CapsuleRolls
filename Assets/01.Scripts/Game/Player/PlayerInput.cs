@@ -24,7 +24,7 @@ namespace Capsule.Game.Player
 
         private void Start()
         {
-            usingHorizontal = false;
+            usingHorizontal = true;
             if (isMine)
             {
                 joyStick = FindObjectOfType<JoyStickCtrl>();
@@ -59,7 +59,9 @@ namespace Capsule.Game.Player
             {
                 horizontal = joyStick.horizontal;
                 vertical = joyStick.vertical;
-                rotate = joyStick.rotate;
+                //rotate = joyStick.rotate;
+                if (MobileRotateDragCtrl.Instace != null)
+                    rotate = MobileRotateDragCtrl.Instace.rotate;
             }
             else
             {
@@ -92,7 +94,8 @@ namespace Capsule.Game.Player
                 {
                     horizontal = 0f;
                     vertical = 0f;
-                    rotate = 0f;
+                    if (MobileRotateDragCtrl.Instace != null)
+                        rotate = MobileRotateDragCtrl.Instace.rotate;
                 }
             }
         }

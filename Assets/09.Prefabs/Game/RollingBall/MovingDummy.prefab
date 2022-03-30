@@ -1096,6 +1096,34 @@ Transform:
   m_Father: {fileID: 2676746965992404348}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5450999502236708893
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144446660903589968}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: -0.00000047683716, y: 0, z: 0.000000059604645}
+--- !u!114 &5450999502236708890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144446660903589968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc4b6df5da93804e85483663eefb2ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTeamA: 0
+  radius: 1.5
+  ballRotateSpeed: 40
 --- !u!1 &5360180032082713044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,34 +1154,6 @@ Transform:
   m_Father: {fileID: 4897721404450868474}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5450999502236708893
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5144446660903589968}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.5
-  m_Center: {x: -0.00000047683716, y: 0, z: 0.000000059604645}
---- !u!114 &5450999502236708890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5144446660903589968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc4b6df5da93804e85483663eefb2ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTeamA: 0
-  radius: 1.5
-  ballRotateSpeed: 40
 --- !u!1 &5450999501544834601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1200,6 @@ MonoBehaviour:
   charObj: {fileID: 8032672957911556996}
   ragdollObj: {fileID: 0}
   spine: {fileID: 0}
-  forceVector: {x: 0, y: 0, z: 0}
   isRagdoll: 0
 --- !u!1 &5450999503164292986
 GameObject:
@@ -2536,6 +2535,7 @@ MonoBehaviour:
   isMine: 0
   usingAction1: 1
   usingAction2: 1
+  usingHorizontal: 0
 --- !u!114 &6430455223460568636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2550,8 +2550,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnAnimateTime: 0.3
   isMine: 0
-  jumpForce: 300
-  diveForce: 700
   isTeamA: 1
 --- !u!114 &2972766173094715283
 MonoBehaviour:
@@ -2595,6 +2593,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentWayPoint: 0
+  usingRandomWayPoints: 0
 --- !u!1 &8367641716534429724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2961,6 +2960,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d1d7c077428028b4ea88aec5ece2006b, type: 2}
+    - target: {fileID: -7511558181221131132, guid: b35985add01efc44d96dfc4b46ba992b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4dd1140780e2f6d4790a1a8116000f4e, type: 2}
     - target: {fileID: 919132149155446097, guid: b35985add01efc44d96dfc4b46ba992b,
         type: 3}
       propertyPath: m_Name

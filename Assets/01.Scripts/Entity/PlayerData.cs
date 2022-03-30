@@ -173,7 +173,7 @@ namespace Capsule.Entity
         private void LoadPlayerData()
         {
             ID = PlayerPrefs.GetString("PlayerID", "Guest" + Random.Range(1, 999).ToString("000"));
-            NickName = PlayerPrefs.GetString("PlayerNick", "캡슐파이터");
+            NickName = PlayerPrefs.GetString("PlayerNick", "캡슐롤린이");
             Exp = PlayerPrefs.GetInt("PlayerExp", 0);
             Level = PlayerPrefs.GetInt("PlayerLevel", 1);
             Coin = PlayerPrefs.GetInt("PlayerCoins", 5000);
@@ -182,7 +182,7 @@ namespace Capsule.Entity
 
         public void ResetPlayerData()
         {
-            PlayerPrefs.SetString("PlayerNick", "캡슐파이터");
+            PlayerPrefs.SetString("PlayerNick", "캡슐롤린이");
             PlayerPrefs.SetInt("PlayerExp", 0);
             PlayerPrefs.SetInt("PlayerLevel", 1);
             PlayerPrefs.SetInt("PlayerCoins", 5000);

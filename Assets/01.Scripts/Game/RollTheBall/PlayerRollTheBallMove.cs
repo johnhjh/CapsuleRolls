@@ -346,10 +346,7 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlaySFX(Announcements.SUCCESS, 1f);
                 SFXManager.Instance.PlayOneShot(Crowds.APPLOUSE);
                 if (GameManager.Instance.CurrentGameData.Mode == GameMode.ARCADE)
-                {
                     GameManager.Instance.AddScore(100);
-                    GameUIManager.Instance.AddTime(5);
-                }
             }
             PlayVictoryAnim();
         }
@@ -378,6 +375,7 @@ namespace Capsule.Game.RollTheBall
                             StopCoroutine(portalCallCoroutine);
                         portalCallCoroutine = StartCoroutine(PortalCall(1f));
                         GameManager.Instance.AddEnemyCount(-1);
+                        GameUIManager.Instance.AddTime(5);
                     }
                     break;
                 case GameMode.STAGE:

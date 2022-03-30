@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CapsuleFightsMaterial
+  m_Name: CapsuleRollsMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_LightmapFlags: 4
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: -0.03, y: -0.035}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6dfe1e782d0963f48b02212041e74146, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7519987814ef0de42b78e6c2eaedf1b0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: -0.03, y: -0.035}
     - _MetallicGlossMap:

@@ -611,7 +611,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -799.99994}
+  m_AnchoredPosition: {x: 0, y: -800.0001}
   m_SizeDelta: {x: 0, y: 1600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &52402063
@@ -1096,7 +1096,7 @@ PrefabInstance:
     - target: {fileID: 5860168694386844075, guid: 10e26911e874ce540935c922a6d2d56b,
         type: 3}
       propertyPath: kind
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5860168694386844075, guid: 10e26911e874ce540935c922a6d2d56b,
         type: 3}
@@ -26373,7 +26373,7 @@ PrefabInstance:
     - target: {fileID: 5860168694386844075, guid: 10e26911e874ce540935c922a6d2d56b,
         type: 3}
       propertyPath: kind
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5860168694386844075, guid: 10e26911e874ce540935c922a6d2d56b,
         type: 3}
@@ -56337,6 +56337,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Game_Kind
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860168694386844075, guid: 10e26911e874ce540935c922a6d2d56b,
+        type: 3}
+      propertyPath: kind
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5860168694386844079, guid: 10e26911e874ce540935c922a6d2d56b,
         type: 3}

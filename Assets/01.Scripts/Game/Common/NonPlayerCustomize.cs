@@ -51,7 +51,7 @@ namespace Capsule.Game
                 Random.Range(1, (int)CustomizingBody.STAR),
                 Random.Range(1, (int)CustomizingHead.OUTLAW),
                 Random.Range(1, (int)CustomizingFace.SANTA),
-                Random.Range(1, (int)CustomizingGlove.HOOK),
+                Random.Range(0, (int)CustomizingGlove.HOOK),
                 Random.Range(1, (int)CustomizingCloth.SANTA));
             PlayerCustomizeInit();
             SetRagdollCustomizeInit();
