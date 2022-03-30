@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Capsule.Game.RollTheBall;
+using UnityEngine;
 using UnityEngine.UI;
-using Capsule.Game.RollTheBall;
 namespace Capsule.Game
 {
     public class GameSettingManager : SettingManager
