@@ -442,7 +442,7 @@ namespace Capsule.Entity
             new GameKindData ()
             {
                 kind = GameKind.BATTLE_ROYAL,
-                name = "공 위에서 배틀로얄!",
+                name = "공 위에서 배틀로얄~!",
                 desc = "마지막 까지 공위에 있는 캡슐이 승자!!\n\n눈치 보며 도망다니자구~\n\n다른 캡슐을 다이브로 쓰러뜨리자!"
             },
             new GameKindData ()
@@ -454,7 +454,7 @@ namespace Capsule.Entity
             new GameKindData()
             {
                 kind = GameKind.UP_UP,
-                name = "점프로 업~ 업~!",
+                name = "하늘로 업~ 업~!",
                 desc = "누가 더 많이 올라가나 내기~\n\n점프를 적극 활용해서\n더 높이 올라가자~!!"
             },
             new GameKindData()

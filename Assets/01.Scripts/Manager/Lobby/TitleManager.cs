@@ -1,6 +1,7 @@
 ﻿using Capsule.Audio;
 using Capsule.SceneLoad;
 using Capsule.UI;
+using Capsule.Lobby.Main;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -68,6 +69,8 @@ namespace Capsule.Lobby.Title
                 else if (isLoadingDone && SceneLoadManager.Instance.IsLoadingDone)
                 {
                     SFXManager.Instance.PlayOneShot(MenuSFX.OK);
+                    if (MainLobbyManager.Instance != null)
+                        StartCoroutine(MainLobbyManager.Instance.TitleFinished());
                     SceneLoadManager.Instance.AllowNextScene = true;
                 }
             }

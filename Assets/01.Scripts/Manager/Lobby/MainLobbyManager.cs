@@ -1,6 +1,8 @@
 ﻿using Capsule.Audio;
 using Capsule.Lobby.Player;
+using Capsule.Lobby.Title;
 using Capsule.SceneLoad;
+using System.Collections;
 using UnityEngine;
 
 namespace Capsule.Lobby.Main
@@ -27,6 +29,8 @@ namespace Capsule.Lobby.Main
                 Destroy(this.gameObject);
         }
 
+        private bool isTitleOn = false;
+
         private void Start()
         {
             BGMManager.Instance.ChangeBGM(BGMType.MAIN);
@@ -36,26 +40,40 @@ namespace Capsule.Lobby.Main
             PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(19.94f, 202f, -4.7f));
             //PlayerTransform.Instance.SetScale(new Vector3(1.18f, 1.18f, 1.18f));
             PlayerLobbyTransform.Instance.SetScale(1.18f);
+            if (TitleManager.Instance != null)
+                isTitleOn = true;
+            else
+                isTitleOn = false;
+        }
+
+        public IEnumerator TitleFinished()
+        {
+            yield return new WaitForSeconds(2.0f);
+            isTitleOn = false;
         }
 
         public void MoveToCustomizeScene()
         {
+            if (isTitleOn) return;
             MoveToScene(LobbySceneType.CUSTOMIZE);
         }
 
         public void MoveToSoloPlayScene()
         {
+            if (isTitleOn) return;
             Destroy(UserInfoManager.Instance.gameObject);
             MoveToScene(LobbySceneType.SOLO);
         }
 
         public void MoveToMultiPlayScene()
         {
+            if (isTitleOn) return;
             MoveToScene(LobbySceneType.MULTI);
         }
 
         public void MoveToShoppingScene()
         {
+            if (isTitleOn) return;
             MoveToScene(LobbySceneType.SHOPPING);
         }
 
