@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.Scenes/LobbyScenes/ShoppingScene.unity
     guid: 53baec91e2fb1cb48abd9d84e74028fd
+  - enabled: 1
+    path: Assets/00.Scenes/LobbyScenes/CreditScene.unity
+    guid: 570fbda12d6ad6d4399eafeb222d4e0e
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

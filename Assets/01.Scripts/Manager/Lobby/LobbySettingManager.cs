@@ -64,6 +64,8 @@ namespace Capsule.Lobby
             buttonBackToTitle.onClick.AddListener(delegate { OnClickBackToTitle(); });
             Button buttonExitGame = GameObject.Find("Button_ExitGame").GetComponent<Button>();
             buttonExitGame.onClick.AddListener(delegate { OnClickExitGame(); });
+            Button buttonAbout = GameObject.Find("Button_About").GetComponent<Button>();
+            buttonAbout.onClick.AddListener(delegate { OnClickAboutButton(); });
 
             Button buttonDevTool = GameObject.Find("Button_DevTool").GetComponent<Button>();
             if (DevToolManager.Instance == null)
@@ -112,6 +114,11 @@ namespace Capsule.Lobby
         {
             DataManager.Instance.SaveBeforeQuit();
             Application.Quit();
+        }
+
+        public void OnClickAboutButton()
+        {
+            StartCoroutine(SceneLoadManager.Instance.LoadLobbyScene(LobbySceneType.CREDIT, true));
         }
     }
 }

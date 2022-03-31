@@ -144,7 +144,7 @@ MonoBehaviour:
   mainThemeMusic: {fileID: 8300000, guid: 5a98635e132bb87469c0ee7b34dbe721, type: 3}
   customizeMusic: {fileID: 8300000, guid: e8fdf6c790c118a4c83714016df9317b, type: 3}
   battleMusic: {fileID: 8300000, guid: 55a445026207d274cb542fee51fda613, type: 3}
-  creditMusic: {fileID: 8300000, guid: 55a445026207d274cb542fee51fda613, type: 3}
+  creditMusic: {fileID: 8300000, guid: c54c6a3763ca4704682fd869c8d85860, type: 3}
   arcadeMusic: {fileID: 8300000, guid: 565bdf823534d2244a91e618f748c2e0, type: 3}
   gameOverMusic: {fileID: 8300000, guid: a1ed704f746a5714ca986035bcb1132f, type: 3}
   stageMusic: {fileID: 8300000, guid: 4850ccdc11ebf254a9362cbc60febede, type: 3}

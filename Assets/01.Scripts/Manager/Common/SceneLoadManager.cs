@@ -15,6 +15,8 @@ namespace Capsule.SceneLoad
         SOLO,
         MULTI,
         SHOPPING,
+        CREDIT,
+        IN_GAME,
     }
 
     public enum GameSceneType
@@ -65,6 +67,7 @@ namespace Capsule.SceneLoad
         private readonly string MULTI_PLAY_SCENE_NAME = "MultiPlayScene";
         private readonly string LOADING_SCENE_NAME = "LoadingScene";
         private readonly string SHOPPING_SCENE_NAME = "ShoppingScene";
+        private readonly string CREDIT_SCENE_NAME = "CreditScene";
 
         // Game Scenes
         private readonly string STRING_ROLL_THE_BALL = "RollTheBall";
@@ -125,7 +128,8 @@ namespace Capsule.SceneLoad
                 { LobbySceneType.CUSTOMIZE, new SceneData(CUSTOMIZE_SCENE_NAME, LoadSceneMode.Additive) },
                 { LobbySceneType.SOLO, new SceneData(SOLO_PLAY_SCENE_NAME, LoadSceneMode.Additive) },
                 { LobbySceneType.MULTI, new SceneData(MULTI_PLAY_SCENE_NAME, LoadSceneMode.Additive) },
-                { LobbySceneType.SHOPPING, new SceneData(SHOPPING_SCENE_NAME, LoadSceneMode.Additive) }
+                { LobbySceneType.SHOPPING, new SceneData(SHOPPING_SCENE_NAME, LoadSceneMode.Additive) },
+                { LobbySceneType.CREDIT, new SceneData(CREDIT_SCENE_NAME, LoadSceneMode.Additive) }
             };
         }
 
@@ -141,6 +145,8 @@ namespace Capsule.SceneLoad
                     return CUSTOMIZE_SCENE_NAME;
                 case LobbySceneType.SOLO:
                     return SOLO_PLAY_SCENE_NAME;
+                case LobbySceneType.CREDIT:
+                    return CREDIT_SCENE_NAME;
                 default:
                     return MAIN_LOBBY_SCENE_NAME;
             }
