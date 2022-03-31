@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Capsule.Game.UI
 {
-    public class MobileRotateDragCtrl : MonoBehaviour
+    public class MobileRotateDragCtrl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
     {
         private static MobileRotateDragCtrl mobileDragCtrl;
         public static MobileRotateDragCtrl Instace
@@ -39,6 +39,16 @@ namespace Capsule.Game.UI
             if (Application.platform == RuntimePlatform.Android ||
                 Application.platform == RuntimePlatform.IPhonePlayer)
                 HandleTouchInput();
+            else
+                HandleDrag();
+        }
+
+        private void HandleDrag()
+        {
+            if (dragPanelPressed)
+                rotate = Input.GetAxis("Mouse X");
+            else
+                rotate = 0f;
         }
 
         private void HandleTouchInput()
@@ -53,7 +63,8 @@ namespace Capsule.Game.UI
                     Vector2 touchPos = new Vector2(touch.position.x, touch.position.y);
                     if (touch.phase == TouchPhase.Began)
                     {
-                        if (touch.position.x >= Screen.width / 2)
+                        if (touch.position.x >= Screen.width / 2 && 
+                            touch.position.y <= Screen.height * 0.7f)
                         {
                             cg.alpha = 1f;
                             touchID = i;
@@ -64,7 +75,10 @@ namespace Capsule.Game.UI
                     if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
                     {
                         if (touchID == i)
-                            rotate = touchX - touch.position.x;
+                        {
+                            rotate = (touchX - touch.position.x) / -50f;
+                            rotate = Mathf.Clamp(rotate, -1f, 1f);
+                        }
                     }
                     if (touch.phase == TouchPhase.Ended)
                     {
@@ -78,6 +92,47 @@ namespace Capsule.Game.UI
                         }
                     }
                 }
+            }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (Application.platform != RuntimePlatform.Android &&
+                Application.platform != RuntimePlatform.IPhonePlayer)
+            {
+                if (!dragPanelPressed)
+                    cg.alpha = 0.8f;
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (Application.platform != RuntimePlatform.Android &&
+                Application.platform != RuntimePlatform.IPhonePlayer)
+            {
+                if (!dragPanelPressed)
+                    cg.alpha = 0.6f;
+            }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (Application.platform != RuntimePlatform.Android &&
+                Application.platform != RuntimePlatform.IPhonePlayer)
+            {
+                cg.alpha = 1f;
+                dragPanelPressed = true;
+            }
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (Application.platform != RuntimePlatform.Android &&
+                Application.platform != RuntimePlatform.IPhonePlayer)
+            {
+                cg.alpha = 0.6f;
+                rotate = 0f;
+                dragPanelPressed = false;
             }
         }
     }

@@ -83,6 +83,8 @@ namespace Capsule.Game.Player
                     {
                         Action1 = false;
                         Action2 = false;
+                        if (MobileRotateDragCtrl.Instace != null)
+                            rotate = MobileRotateDragCtrl.Instace.rotate;
                         return;
                     }
                     if (usingAction1)
