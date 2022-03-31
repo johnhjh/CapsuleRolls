@@ -454,7 +454,8 @@ namespace Capsule.Game.RollTheBall
 
         private void PlayerAudioStop()
         {
-            playerAudioSource.Stop();
+            if (playerAudioSource != null)
+                playerAudioSource.Stop();
         }
 
         private void SetPlayerDead(bool isDead)

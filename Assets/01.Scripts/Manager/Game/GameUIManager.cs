@@ -539,6 +539,8 @@ namespace Capsule.Game.UI
 
         public void OnClickExitGame()
         {
+            if (OnPauseGame != null)
+                OnPauseGame = null;
             if (GameManager.Instance.CheckSoloGame())
             {
                 if (addTimeCoroutine != null)
@@ -558,6 +560,8 @@ namespace Capsule.Game.UI
 
         public void OnClickNextStage()
         {
+            if (OnPauseGame != null)
+                OnPauseGame = null;
             foreach (GameObject gameObj in rewardItems)
                 gameObj.SetActive(false);
             if (!DataManager.Instance.HasNextStage(GameManager.Instance.CurrentGameData.Stage))
@@ -584,6 +588,8 @@ namespace Capsule.Game.UI
 
         public void OnClickRestartGame()
         {
+            if (OnPauseGame != null)
+                OnPauseGame = null;
             if (addTimeCoroutine != null)
                 StopCoroutine(addTimeCoroutine);
             if (arcadeShowCoroutine != null)
@@ -625,6 +631,8 @@ namespace Capsule.Game.UI
             Destroy(userInfoLevelText.gameObject);
             Destroy(userInfoExpText.gameObject);
             Destroy(userInfoExpImage.gameObject);
+            if (GameSettingManager.Instance != null)
+                Destroy(GameSettingManager.Instance);
             if (Effect.EffectQueueManager.Instance != null)
                 Destroy(Effect.EffectQueueManager.Instance.gameObject);
             if (Enemy.EnemySpawnManager.Instance != null)

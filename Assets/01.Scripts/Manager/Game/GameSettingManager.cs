@@ -16,6 +16,16 @@ namespace Capsule.Game
             }
         }
 
+        private void OnDestroy()
+        {
+            Destroy(bgmIcon);
+            Destroy(sfxIcon);
+            Destroy(announceIcon);
+            Destroy(bgmSlider);
+            Destroy(sfxSlider);
+            Destroy(announceSlider);
+        }
+
         private void Awake()
         {
             if (settingMgr == null)
