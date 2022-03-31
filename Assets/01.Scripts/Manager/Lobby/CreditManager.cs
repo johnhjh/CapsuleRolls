@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Capsule.Audio;
+﻿using Capsule.Audio;
 using Capsule.SceneLoad;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +49,7 @@ namespace Capsule.Lobby.Credit
             thankYouPanelCG = GameObject.Find("ThankYouPanel").GetComponent<CanvasGroup>();
             GameObject.Find("Text_Version").GetComponent<Text>().text = VersionCtrl.CurrentVersion;
 
-            changeCreditImageCoroutine =  StartCoroutine(ChangeCreditImage());
+            changeCreditImageCoroutine = StartCoroutine(ChangeCreditImage());
         }
 
         private IEnumerator ChangeCreditImage()
@@ -104,9 +104,9 @@ namespace Capsule.Lobby.Credit
 
         private IEnumerator ShowThankYou()
         {
-            while(!Mathf.Approximately(thankYouPanelCG.alpha, 1f))
+            while (!Mathf.Approximately(thankYouPanelCG.alpha, 1f))
             {
-                thankYouPanelCG.alpha = Mathf.MoveTowards(thankYouPanelCG.alpha, 
+                thankYouPanelCG.alpha = Mathf.MoveTowards(thankYouPanelCG.alpha,
                     1f, 0.33f * Time.deltaTime);
                 yield return null;
             }

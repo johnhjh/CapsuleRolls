@@ -63,7 +63,7 @@ namespace Capsule.Game.UI
                     Vector2 touchPos = new Vector2(touch.position.x, touch.position.y);
                     if (touch.phase == TouchPhase.Began)
                     {
-                        if (touch.position.x >= Screen.width / 2 && 
+                        if (touch.position.x >= Screen.width / 2 &&
                             touch.position.y <= Screen.height * 0.7f)
                         {
                             cg.alpha = 1f;

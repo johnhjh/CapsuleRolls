@@ -1,7 +1,6 @@
 ﻿using Capsule.Audio;
 using Capsule.SceneLoad;
 using Capsule.UI;
-using Capsule.Lobby.Main;
 using System;
 using System.Collections;
 using UnityEngine;
