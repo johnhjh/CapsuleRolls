@@ -69,8 +69,6 @@ namespace Capsule.Lobby.Title
                 else if (isLoadingDone && SceneLoadManager.Instance.IsLoadingDone)
                 {
                     SFXManager.Instance.PlayOneShot(MenuSFX.OK);
-                    if (MainLobbyManager.Instance != null)
-                        StartCoroutine(MainLobbyManager.Instance.TitleFinished());
                     SceneLoadManager.Instance.AllowNextScene = true;
                 }
             }

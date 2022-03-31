@@ -29,7 +29,7 @@ namespace Capsule.Lobby.Main
                 Destroy(this.gameObject);
         }
 
-        private bool isTitleOn = false;
+        private bool blocksButtons = false;
 
         private void Start()
         {
@@ -38,42 +38,45 @@ namespace Capsule.Lobby.Main
             SceneLoadManager.Instance.CurrentScene = LobbySceneType.MAIN_LOBBY;
             PlayerLobbyTransform.Instance.SetPosition(new Vector3(2.29f, -0.17f, -5.4f));
             PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(19.94f, 202f, -4.7f));
-            //PlayerTransform.Instance.SetScale(new Vector3(1.18f, 1.18f, 1.18f));
             PlayerLobbyTransform.Instance.SetScale(1.18f);
-            if (TitleManager.Instance != null)
-                isTitleOn = true;
+            if (Application.platform == RuntimePlatform.Android ||
+                Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                blocksButtons = true;
+                StartCoroutine(UnblockButtons());
+            }
             else
-                isTitleOn = false;
+                blocksButtons = false;
         }
 
-        public IEnumerator TitleFinished()
+        public IEnumerator UnblockButtons()
         {
-            yield return new WaitForSeconds(2.0f);
-            isTitleOn = false;
+            yield return new WaitForSeconds(1.0f);
+            blocksButtons = false;
         }
 
         public void MoveToCustomizeScene()
         {
-            if (isTitleOn) return;
+            if (blocksButtons) return;
             MoveToScene(LobbySceneType.CUSTOMIZE);
         }
 
         public void MoveToSoloPlayScene()
         {
-            if (isTitleOn) return;
+            if (blocksButtons) return;
             Destroy(UserInfoManager.Instance.gameObject);
             MoveToScene(LobbySceneType.SOLO);
         }
 
         public void MoveToMultiPlayScene()
         {
-            if (isTitleOn) return;
+            if (blocksButtons) return;
             MoveToScene(LobbySceneType.MULTI);
         }
 
         public void MoveToShoppingScene()
         {
-            if (isTitleOn) return;
+            if (blocksButtons) return;
             MoveToScene(LobbySceneType.SHOPPING);
         }
 
@@ -86,6 +89,7 @@ namespace Capsule.Lobby.Main
 
         public void MenuClick()
         {
+            if (blocksButtons) return;
             SFXManager.Instance.PlayOneShot(MenuSFX.OK);
         }
     }
