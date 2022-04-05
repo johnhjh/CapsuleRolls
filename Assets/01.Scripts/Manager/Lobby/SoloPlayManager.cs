@@ -331,7 +331,6 @@ namespace Capsule.Lobby.SoloPlay
                     gameBotDifficultyUI.SetActive(false);
                     break;
                 case GameMode.STAGE:
-                    //gameKindUI.SetActive(false);
                     gameKindUI.SetActive(true);
                     gameScoreUI.SetActive(false);
                     gameHighestStageUI.SetActive(true);

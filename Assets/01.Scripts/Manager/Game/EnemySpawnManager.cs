@@ -80,7 +80,6 @@ namespace Capsule.Game.Enemy
             movingEnemySpawnPoints = new List<Transform>(GameObject.Find("MovingEnemySpawnPoints").transform.GetComponentsInChildren<Transform>());
             movingEnemySpawnPoints.RemoveAt(0);
             spikeRollers = new List<SpikeRollerCtrl>(GameObject.Find("SpikeRollers").transform.GetComponentsInChildren<SpikeRollerCtrl>());
-            //spikeRollers.RemoveAt(0);
             RemoveAllSpikeRollers();
             StartCoroutine(SpawnFirstEnemy());
         }
@@ -128,7 +127,6 @@ namespace Capsule.Game.Enemy
         private GameObject CreateEnemy(bool isEnqueue = true)
         {
             GameObject newEnemy = Instantiate(enemyObject, enemyPool);
-            //newEnemy.transform.SetPositionAndRotation();
             newEnemy.name = "Enemy";
             GameObject newRagdoll = Instantiate(enemyRagdollObject, enemyPool);
             newRagdoll.name = "EnemyRagdoll";
@@ -222,7 +220,6 @@ namespace Capsule.Game.Enemy
             GameObject portalSpawnEffect =
                 EffectQueueManager.Instance.ShowPortalSpawnEffect(posAndRot.First);
             StartCoroutine(InactivatePortalSpawnEffect(portalSpawnEffect, enemyObj));
-            //enemyObj.transform.position = posAndRot.First;
             enemyObj.transform.position = new Vector3(posAndRot.First.x, 3.0f, posAndRot.First.z);
             enemyObj.transform.GetChild(0).rotation = posAndRot.Second;
             if (enemyObj.transform.GetChild(2).TryGetComponent(out MeshRenderer enemyBallMesh))

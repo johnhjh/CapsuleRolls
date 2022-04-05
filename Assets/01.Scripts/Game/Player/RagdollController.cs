@@ -16,13 +16,10 @@ namespace Capsule.Game.Player
         {
             if (usingRagdoll)
                 CopyOriginTransformToTarget(charObj.transform, ragdollObj.transform);
-
-            //charObj.SetActive(!usingRagdoll);
             SetCharacterMeshOnOff(!usingRagdoll);
             if (!usingRagdoll)
                 SetRagdollMeshOnOff(true);
             ragdollObj.SetActive(usingRagdoll);
-
             if (usingRagdoll)
                 OnChangeRagdoll?.Invoke();
         }

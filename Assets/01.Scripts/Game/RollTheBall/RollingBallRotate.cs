@@ -27,26 +27,9 @@ namespace Capsule.Game.RollTheBall
                     ballRigidbody = null;
             }
         }
-        /*
-        private PlayerInput playerInput;
-        private PlayerRollTheBallMove playerMovement;
-        private Transform playerTransform;
-        private Vector3 savedDirection = Vector3.zero;
-        public Vector3 SavedDirection
-        {
-            set 
-            {
-                if (savedDirection == Vector3.zero)
-                    savedDirection = value;
-            }
-        }
-        */
 
         private void Start()
         {
-            //playerTransform = transform.parent.GetChild(0).GetComponent<Transform>();
-            //playerInput = playerTransform.GetComponent<PlayerInput>();
-            //playerMovement = playerTransform.GetComponent<PlayerRollTheBallMove>();
             BallParent = transform.parent;
         }
 
@@ -62,29 +45,6 @@ namespace Capsule.Game.RollTheBall
             ballDirection = -Vector3.forward * ballDirection.x + Vector3.right * ballDirection.z;
             transform.Rotate(ballDirection, Space.World);
         }
-        /*
-        private void PastRotate()
-        {
-            Vector3 currentDirection;
-            if (playerMovement.IsLanded)
-            {
-                Vector3 direction = (-playerTransform.forward * playerInput.horizontal +
-                    playerTransform.right * playerInput.vertical);
-                direction = direction.normalized;
-                if (playerInput.GetInputMovePower() <= 0.2f)
-                    direction = savedDirection;
-                savedDirection = direction;
-                currentDirection = direction;
-            }
-            else
-                currentDirection = savedDirection;
-            currentDirection *= Time.deltaTime * ballRotateSpeed / radius;
-            currentDirection *= ballRigidbody.velocity.magnitude;
-            if (ballRigidbody.velocity.magnitude < 0.1f)
-                savedDirection = Vector3.zero;
-            transform.Rotate(currentDirection, Space.World);
-        }
-        */
     }
 }
 

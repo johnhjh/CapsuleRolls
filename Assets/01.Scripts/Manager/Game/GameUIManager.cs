@@ -439,7 +439,7 @@ namespace Capsule.Game.UI
                 yield return null;
             }
             //if (GameManager.Instance.CheckSoloGame() && GameManager.Instance.CurrentGameData.Mode != GameMode.ARCADE)
-                //Time.timeScale = 0f;
+            //Time.timeScale = 0f;
         }
 
         public void OnArcadeFinished()

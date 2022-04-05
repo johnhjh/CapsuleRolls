@@ -284,7 +284,6 @@ namespace Capsule.Entity
             {
                 string openData = PlayerPrefs.GetString("OpenData" + counter.ToString(), "");
                 if (openData == "") break;
-                //Debug.Log("OpenData" + counter.ToString() + " : " + openData);
                 playerCustomizeItemOpenData.Add(openData);
                 counter++;
                 InfiniteLoopDetector.Run();
@@ -336,7 +335,6 @@ namespace Capsule.Entity
             {
                 string buyData = PlayerPrefs.GetString("BuyData" + counter.ToString(), "");
                 if (buyData == "") break;
-                //Debug.Log("BuyData" + counter.ToString() + " : " + buyData);
                 playerBuyData.Add(buyData);
                 counter++;
                 InfiniteLoopDetector.Run();

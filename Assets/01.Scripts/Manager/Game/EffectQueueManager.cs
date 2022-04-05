@@ -85,7 +85,6 @@ namespace Capsule.Game.Effect
                 newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
                 newEffectObj.name = GetNameByType(EffectType.COLLISION_ENTER);
                 newEffectObj.SetActive(false);
-                //collisionEnterQueue.Enqueue(newEffectObj);
             }
         }
 
@@ -98,7 +97,6 @@ namespace Capsule.Game.Effect
                 newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
                 newEffectObj.name = GetNameByType(EffectType.HIT);
                 newEffectObj.SetActive(false);
-                //hitQueue.Enqueue(newEffectObj);
             }
         }
 
@@ -111,7 +109,6 @@ namespace Capsule.Game.Effect
                 newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
                 newEffectObj.name = GetNameByType(EffectType.FIREWORK);
                 newEffectObj.SetActive(false);
-                //fireworkQueue.Enqueue(newEffectObj);
             }
         }
 
@@ -124,7 +121,6 @@ namespace Capsule.Game.Effect
                 newEffectObj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
                 newEffectObj.name = GetNameByType(EffectType.EXPLOSION);
                 newEffectObj.SetActive(false);
-                //explosionQueue.Enqueue(newEffectObj);
             }
         }
 

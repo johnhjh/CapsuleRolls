@@ -62,14 +62,12 @@ namespace Capsule.Lobby.SoloPlay
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
-            //if (IsLocked || IsSelected) return;
             SoloPlayManager.Instance.CurrentHoverStageSlot = this;
             base.OnPointerEnter(eventData);
         }
 
         public override void OnPointerExit(PointerEventData eventData)
         {
-            //if (IsLocked || IsSelected) return;
             SoloPlayManager.Instance.CurrentHoverStageSlot = null;
             base.OnPointerExit(eventData);
         }

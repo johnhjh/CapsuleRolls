@@ -1,5 +1,4 @@
-﻿using Capsule.Game.Effect;
-using Capsule.Game.RollTheBall;
+﻿using Capsule.Game.RollTheBall;
 using UnityEngine;
 
 namespace Capsule.Game.AI
@@ -66,17 +65,7 @@ namespace Capsule.Game.AI
         public void RespawnEnemy(Vector3 position, Quaternion rotation)
         {
             if (transform.GetChild(0).TryGetComponent(out PlayerRollTheBallMove ballMove))
-            {
-                /*
-                Transform ballTransform = transform.GetChild(2);
-                if (ballTransform.gameObject.activeSelf)
-                {
-                    EffectQueueManager.Instance.ShowExplosionEffect(transform.GetChild(2).position);
-                    transform.GetChild(2).gameObject.SetActive(false);
-                }
-                */
                 StartCoroutine(ballMove.PortalSpawn(position, rotation));
-            }
         }
     }
 }

@@ -140,7 +140,6 @@ namespace Capsule.Game
         {
             if (Camera.main != null)
                 mainCameraTransform = Camera.main.transform;
-            //GameManager.Instance.OnStageClear += () => { MoveCameraByPos(3f * Vector3.up); };
             GameManager.Instance.OnStageClear += () => { MoveCameraInverseTarget(); };
         }
 

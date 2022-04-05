@@ -428,14 +428,11 @@ namespace Capsule.Game.RollTheBall
             playerRigidbody.angularVelocity = Vector3.zero;
             transform.parent.SetPositionAndRotation(position + 3f * Vector3.up, Quaternion.identity);
             Rigidbody parentRigidbody = transform.parent.GetComponent<Rigidbody>();
-            //parentRigidbody.freezeRotation = true;
             parentRigidbody.useGravity = false;
             parentRigidbody.isKinematic = true;
             transform.rotation = rotation;
             transform.localPosition = new Vector3(0f, 2.791f, 0f);
             playerRigidbody.useGravity = false;
-            //transform.parent.GetChild(2).gameObject.SetActive(true);
-            //transform.parent.GetChild(2).localPosition = new Vector3(0f, 1.41f, 0f);
             transform.GetComponent<Animator>().enabled = true;
             IsLanded = true;
             yield return ws20;

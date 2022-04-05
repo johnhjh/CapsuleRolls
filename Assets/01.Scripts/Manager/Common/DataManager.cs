@@ -622,7 +622,7 @@ namespace Capsule.Entity
                         amount = 2,
                         onlyOnce = true,
                     },
-                },               
+                },
             },
             new GameStageData()
             {
@@ -741,7 +741,6 @@ namespace Capsule.Entity
             if (currentPlayerGameData.HighestStage == -1)
                 return "없음";
             return gameStageDatas[currentPlayerGameData.HighestStage].name;
-            //return GetStageString((GameStage)currentPlayerGameData.HighestStage);
         }
 
         public void OpenArcadeMode()

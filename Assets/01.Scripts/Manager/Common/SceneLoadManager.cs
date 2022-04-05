@@ -105,8 +105,6 @@ namespace Capsule.SceneLoad
         private bool allowNextScene = false;
         public bool AllowNextScene { set { allowNextScene = value; } }
 
-        //private WaitForSeconds ws10 = new WaitForSeconds(1.0f);
-
         private void Awake()
         {
             if (sceneLoadMgr == null)

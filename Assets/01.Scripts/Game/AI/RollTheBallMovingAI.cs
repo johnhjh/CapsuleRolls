@@ -38,7 +38,7 @@ namespace Capsule.Game.AI
                 ballMove = move;
             else
                 ballMove = null;
-            
+
             if (moveInput != null && ballMove != null)
             {
                 if (wayPoints != null && wayPoints.Count > 0)
@@ -48,7 +48,6 @@ namespace Capsule.Game.AI
                         foreach (Transform wayPoint in wayPoints)
                             wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
                     }
-                    //aiMoveCoroutine = StartCoroutine(AIMove());
                 }
                 else
                 {
@@ -60,10 +59,9 @@ namespace Capsule.Game.AI
                         foreach (Transform wayPoint in wayPoints)
                             wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
                     }
-                    //aiMoveCoroutine = StartCoroutine(AIMove());
                 }
             }
-            
+
         }
 
         private IEnumerator AIMove()
@@ -114,7 +112,6 @@ namespace Capsule.Game.AI
 
         private bool CheckArrival()
         {
-            //Debug.Log("AI remained dist : " + Vector3.Distance(wayPoints[currentWayPoint].position, transform.position));
             return Vector3.Distance(wayPoints[currentWayPoint].position, transform.position) <= 5f;
         }
 
