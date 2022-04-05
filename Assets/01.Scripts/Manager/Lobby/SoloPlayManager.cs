@@ -157,6 +157,7 @@ namespace Capsule.Lobby.SoloPlay
                     notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[스테이지 4] 클리어시 개방!";
                     break;
                 case GameMode.BOT:
+                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[튜토리얼 3] 클리어시 개방!";
                     break;
             }
             ShowHideNotAvailable(isShow);
@@ -178,6 +179,7 @@ namespace Capsule.Lobby.SoloPlay
             PlayerLobbyTransform.Instance.SetPosition(new Vector3(0.07f, -0.4f, -4.34f));
             PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(8.2f, 177.6f, 0f));
             PlayerLobbyTransform.Instance.SetScale(1.18f);
+            GameObject.Find("Text_Version_Solo").GetComponent<Text>().text = VersionCtrl.CurrentVersion;
 
             gameSettingUIList = GameObject.Find("GameSettingUIList").GetComponent<RectTransform>();
             buttonStartGame = GameObject.Find("Button_Start").GetComponent<Button>();
@@ -329,7 +331,8 @@ namespace Capsule.Lobby.SoloPlay
                     gameBotDifficultyUI.SetActive(false);
                     break;
                 case GameMode.STAGE:
-                    gameKindUI.SetActive(false);
+                    //gameKindUI.SetActive(false);
+                    gameKindUI.SetActive(true);
                     gameScoreUI.SetActive(false);
                     gameHighestStageUI.SetActive(true);
                     gameStageSelectUI.SetActive(true);

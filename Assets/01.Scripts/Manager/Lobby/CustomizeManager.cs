@@ -236,7 +236,7 @@ namespace Capsule.Lobby.Customize
             PlayerLobbyTransform.Instance.SetPosition(new Vector3(2.6f, -0.54f, -5f));
             PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
             PlayerLobbyTransform.Instance.SetScale(characterScale);
-
+            GameObject.Find("Text_Version_Customize").GetComponent<Text>().text = VersionCtrl.CurrentVersion;
             RectTransform scrollRectTransform = GameObject.Find("ScrollRect").GetComponent<RectTransform>();
             scrollRect = scrollRectTransform.GetComponent<ScrollRect>();
             bodyContent = scrollRectTransform.GetChild(0).gameObject;

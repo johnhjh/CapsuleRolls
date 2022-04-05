@@ -13,10 +13,19 @@ namespace Capsule.Game.AI
         public List<Transform> wayPoints;
         public int currentWayPoint = 0;
         public bool usingRandomWayPoints = false;
+        private Coroutine aiMoveCoroutine = null;
 
-        private void Start()
+        private void Awake()
         {
             InitAIMove();
+        }
+
+        private void OnEnable()
+        {
+            if (aiMoveCoroutine != null)
+                StopCoroutine(aiMoveCoroutine);
+            currentWayPoint = 0;
+            aiMoveCoroutine = StartCoroutine(AIMove());
         }
 
         private void InitAIMove()
@@ -29,24 +38,32 @@ namespace Capsule.Game.AI
                 ballMove = move;
             else
                 ballMove = null;
+            
             if (moveInput != null && ballMove != null)
             {
                 if (wayPoints != null && wayPoints.Count > 0)
                 {
-                    foreach (Transform wayPoint in wayPoints)
-                        wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
-                    StartCoroutine(AIMove());
+                    if (!usingRandomWayPoints && wayPoints[0].position.y != transform.position.y)
+                    {
+                        foreach (Transform wayPoint in wayPoints)
+                            wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
+                    }
+                    //aiMoveCoroutine = StartCoroutine(AIMove());
                 }
                 else
                 {
                     Transform wayPointsParent = GameObject.Find("WayPoints").transform;
                     wayPoints = new List<Transform>(wayPointsParent.GetComponentsInChildren<Transform>());
                     wayPoints.RemoveAt(0);
-                    foreach (Transform wayPoint in wayPoints)
-                        wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
-                    StartCoroutine(AIMove());
+                    if (!usingRandomWayPoints && wayPoints[0].position.y != transform.position.y)
+                    {
+                        foreach (Transform wayPoint in wayPoints)
+                            wayPoint.position = new Vector3(wayPoint.position.x, transform.position.y, wayPoint.position.z);
+                    }
+                    //aiMoveCoroutine = StartCoroutine(AIMove());
                 }
             }
+            
         }
 
         private IEnumerator AIMove()

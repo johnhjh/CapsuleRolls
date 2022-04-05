@@ -9,6 +9,7 @@ namespace Capsule.Game.AI
         IDLE = 0,
         JUMPING,
         MOVING,
+        ROTATING,
     }
 
     public class RollTheBallAICtrl : MonoBehaviour
@@ -27,25 +28,30 @@ namespace Capsule.Game.AI
                 }
                 if (movingAI == null)
                     movingAI = transform.GetChild(0).GetComponent<RollTheBallMovingAI>();
+                if (rotatingAI == null)
+                    rotatingAI = transform.GetChild(0).GetComponent<RollTheBallRotatingAI>();
+                jumpingAI.enabled = false;
+                movingAI.enabled = false;
+                rotatingAI.enabled = false;
                 switch (value)
                 {
                     case AIType.IDLE:
-                        jumpingAI.enabled = false;
-                        movingAI.enabled = false;
                         break;
                     case AIType.JUMPING:
                         jumpingAI.enabled = true;
-                        movingAI.enabled = false;
                         break;
                     case AIType.MOVING:
-                        jumpingAI.enabled = false;
                         movingAI.enabled = true;
+                        break;
+                    case AIType.ROTATING:
+                        rotatingAI.enabled = true;
                         break;
                 }
             }
         }
         private RollTheBallJumpingAI jumpingAI;
         private RollTheBallMovingAI movingAI;
+        private RollTheBallRotatingAI rotatingAI;
 
         public void ChangeBallColor(Material mat)
         {
@@ -61,12 +67,14 @@ namespace Capsule.Game.AI
         {
             if (transform.GetChild(0).TryGetComponent(out PlayerRollTheBallMove ballMove))
             {
+                /*
                 Transform ballTransform = transform.GetChild(2);
                 if (ballTransform.gameObject.activeSelf)
                 {
                     EffectQueueManager.Instance.ShowExplosionEffect(transform.GetChild(2).position);
                     transform.GetChild(2).gameObject.SetActive(false);
                 }
+                */
                 StartCoroutine(ballMove.PortalSpawn(position, rotation));
             }
         }

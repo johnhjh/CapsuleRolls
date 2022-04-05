@@ -18,7 +18,7 @@ namespace Capsule.Game.RollTheBall
         private PlayerInput playerInput;
         private PlayerRollTheBallMove playerMovement;
         public float ballMoveSpeed = 11f;
-        public float MAX_BALL_SPEED = 300f;
+        public float MAX_BALL_SPEED = 500f;
         public float ballPushForce = 30f;
         public float playerMoveSpeed = 5f;
         public float playerRotateSpeed = 60.0f;

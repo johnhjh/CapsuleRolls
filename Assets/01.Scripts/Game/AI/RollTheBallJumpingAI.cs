@@ -21,6 +21,11 @@ namespace Capsule.Game.AI
                 ballMove = null;
         }
 
+        private void OnEnable()
+        {
+            timeBetTime = Time.time + 2.5f;
+        }
+
         private IEnumerator AIJump()
         {
             WaitForSeconds ws02 = new WaitForSeconds(0.2f);

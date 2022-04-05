@@ -38,17 +38,26 @@ namespace Capsule
             sfxSlider = GameObject.Find("Slider_SFX").GetComponent<Slider>();
             announceSlider = GameObject.Find("Slider_ANNOUNCE").GetComponent<Slider>();
 
-            bgmSlider.value = PlayerPrefs.GetFloat(BGM_VOLUME, 1f);
-            sfxSlider.value = PlayerPrefs.GetFloat(SFX_VOLUME, 1f);
-            announceSlider.value = PlayerPrefs.GetFloat(ANNOUCE_VOLUME, 1f);
+            if (bgmSlider != null)
+                bgmSlider.value = PlayerPrefs.GetFloat(BGM_VOLUME, 1f);
+            if (sfxSlider != null)
+                sfxSlider.value = PlayerPrefs.GetFloat(SFX_VOLUME, 1f);
+            if (announceSlider != null)
+                announceSlider.value = PlayerPrefs.GetFloat(ANNOUCE_VOLUME, 1f);
 
-            bgmIcon.sprite = bgmSlider.value == 0f ? bgmOffSprite : bgmOnSprite;
-            sfxIcon.sprite = sfxSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
-            announceIcon.sprite = announceSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
+            if (bgmIcon != null)
+                bgmIcon.sprite = bgmSlider.value == 0f ? bgmOffSprite : bgmOnSprite;
+            if (sfxIcon != null)
+                sfxIcon.sprite = sfxSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
+            if (announceIcon != null)
+                announceIcon.sprite = announceSlider.value == 0f ? sfxOffSprite : sfxOnSprite;
 
-            bgmSlider.onValueChanged.AddListener(delegate { OnBGMVolumeChanged(); });
-            sfxSlider.onValueChanged.AddListener(delegate { OnSFXVolumeChanged(); });
-            announceSlider.onValueChanged.AddListener(delegate { OnAnnounceVolumeChanged(); });
+            if (bgmSlider != null)
+                bgmSlider.onValueChanged.AddListener(delegate { OnBGMVolumeChanged(); });
+            if (sfxSlider != null)
+                sfxSlider.onValueChanged.AddListener(delegate { OnSFXVolumeChanged(); });
+            if (announceSlider != null)
+                announceSlider.onValueChanged.AddListener(delegate { OnAnnounceVolumeChanged(); });
         }
 
         public void OnBGMVolumeChanged()

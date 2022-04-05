@@ -53,6 +53,7 @@ namespace Capsule.Game.Enemy
         private List<Transform> movingEnemySpawnPoints;
         private List<SpikeRollerCtrl> spikeRollers = null;
         private int currentSpikeRollerOffset = 0;
+        private int currentMovingAICount = 0;
 
         private readonly WaitForSeconds ws40 = new WaitForSeconds(4f);
         private readonly WaitForSeconds ws20 = new WaitForSeconds(2f);
@@ -79,13 +80,14 @@ namespace Capsule.Game.Enemy
             movingEnemySpawnPoints = new List<Transform>(GameObject.Find("MovingEnemySpawnPoints").transform.GetComponentsInChildren<Transform>());
             movingEnemySpawnPoints.RemoveAt(0);
             spikeRollers = new List<SpikeRollerCtrl>(GameObject.Find("SpikeRollers").transform.GetComponentsInChildren<SpikeRollerCtrl>());
-            spikeRollers.RemoveAt(0);
+            //spikeRollers.RemoveAt(0);
             RemoveAllSpikeRollers();
             StartCoroutine(SpawnFirstEnemy());
         }
 
         public void ClearRollerOffset()
         {
+            currentMovingAICount = 0;
             currentSpikeRollerOffset = 0;
         }
 
@@ -132,7 +134,7 @@ namespace Capsule.Game.Enemy
             newRagdoll.name = "EnemyRagdoll";
             if (newEnemy.transform.GetChild(1).TryGetComponent(out RagdollController controller))
             {
-                controller.ragdollObj = newRagdoll.gameObject;
+                controller.ragdollObj = newRagdoll;
                 controller.spine = newRagdoll.transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Rigidbody>();
             }
             if (newEnemy.transform.GetChild(1).TryGetComponent(out NonPlayerCustomize customize))
@@ -158,6 +160,7 @@ namespace Capsule.Game.Enemy
             {
                 case AIType.IDLE:
                 case AIType.JUMPING:
+                case AIType.ROTATING:
                     posAndRot.First = normalEnemySpawnPoints[Random.Range(0, normalEnemySpawnPoints.Count)].position;
                     break;
                 case AIType.MOVING:
@@ -165,10 +168,9 @@ namespace Capsule.Game.Enemy
                     to = Vector3.zero;
                     break;
             }
-            Vector3 from = posAndRot.First;
-            from.y = 0.0f;
+            posAndRot.First = new Vector3(posAndRot.First.x, 0.0f, posAndRot.First.z);
             to.y = 0.0f;
-            posAndRot.Second = Quaternion.FromToRotation(Vector3.forward, to - from);
+            posAndRot.Second = Quaternion.FromToRotation(Vector3.forward, to - posAndRot.First);
             return posAndRot;
         }
 
@@ -218,10 +220,10 @@ namespace Capsule.Game.Enemy
             }
             spawnedPositions.Add(posAndRot.First);
             GameObject portalSpawnEffect =
-                EffectQueueManager.Instance.ShowPortalSpawnEffect(
-                    new Vector3(posAndRot.First.x, 0f, posAndRot.First.z));
+                EffectQueueManager.Instance.ShowPortalSpawnEffect(posAndRot.First);
             StartCoroutine(InactivatePortalSpawnEffect(portalSpawnEffect, enemyObj));
-            enemyObj.transform.position = posAndRot.First;
+            //enemyObj.transform.position = posAndRot.First;
+            enemyObj.transform.position = new Vector3(posAndRot.First.x, 3.0f, posAndRot.First.z);
             enemyObj.transform.GetChild(0).rotation = posAndRot.Second;
             if (enemyObj.transform.GetChild(2).TryGetComponent(out MeshRenderer enemyBallMesh))
             {
@@ -248,13 +250,28 @@ namespace Capsule.Game.Enemy
                     if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl))
                         aiCtrl.Type = AIType.JUMPING;
                     return AIType.JUMPING;
-                case 3:
+                case 2:
                     if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl2))
-                        aiCtrl2.Type = AIType.MOVING;
-                    return AIType.MOVING;
-                default:
+                        aiCtrl2.Type = AIType.ROTATING;
+                    return AIType.ROTATING;
+                case 3:
                     if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl3))
-                        aiCtrl3.Type = AIType.IDLE;
+                    {
+                        if (++currentMovingAICount < movingEnemySpawnPoints.Count)
+                        {
+                            aiCtrl3.Type = AIType.MOVING;
+                            return AIType.MOVING;
+                        }
+                        else
+                        {
+                            aiCtrl3.Type = AIType.ROTATING;
+                            return AIType.ROTATING;
+                        }
+                    }
+                    return AIType.ROTATING;
+                default:
+                    if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl4))
+                        aiCtrl4.Type = AIType.IDLE;
                     return AIType.IDLE;
             }
         }

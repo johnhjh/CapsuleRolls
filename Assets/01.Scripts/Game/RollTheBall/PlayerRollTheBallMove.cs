@@ -354,7 +354,7 @@ namespace Capsule.Game.RollTheBall
         private void PlayerOut()
         {
             if (IsDead || GameManager.Instance == null) return;
-            if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
+            if (GameManager.Instance != null && isMine && GameManager.Instance.IsGameOver) return;
             if (isMine)
             {
                 SFXManager.Instance.PlaySFX(Announcements.OUT, 1f);
@@ -417,18 +417,36 @@ namespace Capsule.Game.RollTheBall
         {
             WaitForSeconds ws20 = new WaitForSeconds(2f);
             GameObject portalSpawnEffect = EffectQueueManager.Instance.ShowPortalSpawnEffect(new Vector3(position.x, 0f, position.z));
+            GameObject ballGameObj = transform.parent.GetChild(2).gameObject;
+            if (ballGameObj.activeSelf)
+            {
+                EffectQueueManager.Instance.ShowExplosionEffect(ballGameObj.transform.position);
+                ballGameObj.SetActive(false);
+            }
             playerRigidbody.mass = 40f;
             playerRigidbody.velocity = Vector3.zero;
             playerRigidbody.angularVelocity = Vector3.zero;
             transform.parent.SetPositionAndRotation(position + 3f * Vector3.up, Quaternion.identity);
-            transform.parent.GetComponent<Rigidbody>().freezeRotation = true;
-            transform.localPosition = new Vector3(0f, 2.791f, 0f);
+            Rigidbody parentRigidbody = transform.parent.GetComponent<Rigidbody>();
+            //parentRigidbody.freezeRotation = true;
+            parentRigidbody.useGravity = false;
+            parentRigidbody.isKinematic = true;
             transform.rotation = rotation;
-            transform.parent.GetChild(2).gameObject.SetActive(true);
-            transform.parent.GetChild(2).localPosition = new Vector3(0f, 1.41f, 0f);
+            transform.localPosition = new Vector3(0f, 2.791f, 0f);
+            playerRigidbody.useGravity = false;
+            //transform.parent.GetChild(2).gameObject.SetActive(true);
+            //transform.parent.GetChild(2).localPosition = new Vector3(0f, 1.41f, 0f);
             transform.GetComponent<Animator>().enabled = true;
             IsLanded = true;
             yield return ws20;
+            transform.parent.SetPositionAndRotation(position + 3f * Vector3.up, Quaternion.identity);
+            ballGameObj.SetActive(true);
+            ballGameObj.transform.localPosition = new Vector3(0f, 1.41f, 0f);
+            transform.localPosition = new Vector3(0f, 2.791f, 0f);
+            parentRigidbody.freezeRotation = true;
+            parentRigidbody.useGravity = true;
+            parentRigidbody.isKinematic = false;
+            playerRigidbody.useGravity = true;
             SetPlayerDead(false);
             yield return ws20;
             portalSpawnEffect.SetActive(false);

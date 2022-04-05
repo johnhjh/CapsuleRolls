@@ -386,7 +386,7 @@ namespace Capsule.Lobby.Shopping
             PlayerLobbyTransform.Instance.SetPosition(new Vector3(3.25f, -0.27f, -5.3f));
             PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(0f, 205f, 0f));
             PlayerLobbyTransform.Instance.SetScale(characterScale);
-
+            GameObject.Find("Text_Version_Shopping").GetComponent<Text>().text = VersionCtrl.CurrentVersion;
             InitScrollRect();
 
             GameObject TabPreset = GameObject.Find("Tab_Preset");

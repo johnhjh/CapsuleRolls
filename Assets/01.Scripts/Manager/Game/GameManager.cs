@@ -374,6 +374,8 @@ namespace Capsule.Game
                             DataManager.Instance.OpenArcadeMode();
                         else if (reward.amount == 1)
                             DataManager.Instance.OpenPracticeMode();
+                        else if (reward.amount == 2)
+                            DataManager.Instance.OpenBotMode();
                         break;
                 }
             }

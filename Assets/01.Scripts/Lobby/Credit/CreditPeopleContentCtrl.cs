@@ -16,7 +16,7 @@ namespace Capsule.Lobby.Credit
         private void Update()
         {
             if (isPeopleEnded) return;
-            if (rectTransform.localPosition.y <= 3000f)
+            if (rectTransform.localPosition.y <= 3250f)
                 rectTransform.localPosition = new Vector2(rectTransform.localPosition.x, rectTransform.localPosition.y + 1f);
             else
             {

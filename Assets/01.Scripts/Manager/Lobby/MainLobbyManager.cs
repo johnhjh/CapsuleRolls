@@ -38,6 +38,7 @@ namespace Capsule.Lobby.Main
             PlayerLobbyTransform.Instance.SetPosition(new Vector3(2.29f, -0.17f, -5.4f));
             PlayerLobbyTransform.Instance.SetRotation(Quaternion.Euler(19.94f, 202f, -4.7f));
             PlayerLobbyTransform.Instance.SetScale(1.18f);
+            GameObject.Find("Text_Version_Main").GetComponent<UnityEngine.UI.Text>().text = VersionCtrl.CurrentVersion;
             if (Application.platform == RuntimePlatform.Android ||
                 Application.platform == RuntimePlatform.IPhonePlayer)
             {

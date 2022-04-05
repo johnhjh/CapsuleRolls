@@ -501,7 +501,7 @@ namespace Capsule.Entity
                 kind = GameKind.GOAL_IN,
                 stage = GameStage.TUTORIAL_1,
                 name = "튜토리얼 1",
-                desc = "[공 굴려서 골인~!]의 기본적인 조작을 배워보자!",
+                desc = "[Capsule Rolls]의 기본적인 조작을 배워보자!",
                 rewards = new List<RewardData>()
                 {
                     new RewardData()
@@ -545,7 +545,7 @@ namespace Capsule.Entity
                 kind = GameKind.GOAL_IN,
                 stage = GameStage.TUTORIAL_2,
                 name = "튜토리얼 2",
-                desc = "[공 굴려서 골인~!]의 [점프] 조작을 배워보자!",
+                desc = "[Capsule Rolls]의 [점프] 조작을 배워보자!",
                 rewards = new List<RewardData>()
                 {
                     new RewardData()
@@ -595,7 +595,7 @@ namespace Capsule.Entity
                 kind = GameKind.GOAL_IN,
                 stage = GameStage.TUTORIAL_3,
                 name = "튜토리얼 3",
-                desc = "[공 굴려서 골인~!]의 [다이브] 조작을 배워보자!",
+                desc = "[Capsule Rolls]의 [다이브] 조작을 배워보자!",
                 rewards = new List<RewardData>()
                 {
                     new RewardData()
@@ -615,8 +615,14 @@ namespace Capsule.Entity
                         kind = RewardKind.GAME_MODE,
                         amount = 0,
                         onlyOnce = true,
-                    }
-                },
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.GAME_MODE,
+                        amount = 2,
+                        onlyOnce = true,
+                    },
+                },               
             },
             new GameStageData()
             {

@@ -47,7 +47,7 @@ namespace Capsule.Lobby.Credit
             BGMManager.Instance.ChangeBGM(BGMType.CREDIT);
             creditImage = GameObject.Find("CreditImage").GetComponent<Image>();
             thankYouPanelCG = GameObject.Find("ThankYouPanel").GetComponent<CanvasGroup>();
-            GameObject.Find("Text_Version").GetComponent<Text>().text = VersionCtrl.CurrentVersion;
+            GameObject.Find("Text_Version_Credit").GetComponent<Text>().text = VersionCtrl.CurrentVersion;
 
             changeCreditImageCoroutine = StartCoroutine(ChangeCreditImage());
         }

@@ -210,7 +210,7 @@ namespace Capsule.Game.UI
                     SetTextColorAndSize(soloTimeText, 1f, 80);
                     soloTimeText.text = remainedTime.ToString();
                     currentWaveText.text = "<color=#FF6767>웨이브</color> : 01";
-                    remainEnemyText.text = "<color=#FF6767>남은 수</color> : 01";
+                    remainEnemyText.text = "<color=#FF6767>남은 캡슐</color> : 01";
                     currentScoreText.text = "000";
                     arcadeCoinEarnedText.text = "000";
                     timeCoroutine = StartCoroutine(SetTimeUIText(soloTimeText));
@@ -438,8 +438,8 @@ namespace Capsule.Game.UI
                 cg.alpha = Mathf.MoveTowards(cg.alpha, 1f, 3f * Time.deltaTime);
                 yield return null;
             }
-            if (GameManager.Instance.CheckSoloGame() && GameManager.Instance.CurrentGameData.Mode != GameMode.ARCADE)
-                Time.timeScale = 0f;
+            //if (GameManager.Instance.CheckSoloGame() && GameManager.Instance.CurrentGameData.Mode != GameMode.ARCADE)
+                //Time.timeScale = 0f;
         }
 
         public void OnArcadeFinished()
@@ -558,6 +558,12 @@ namespace Capsule.Game.UI
                 MoveToScene(LobbySceneType.MULTI);
         }
 
+        public void OnClickExitGameToCredit()
+        {
+            Time.timeScale = 1f;
+            MoveToScene(LobbySceneType.CREDIT);
+        }
+
         public void OnClickNextStage()
         {
             if (OnPauseGame != null)
@@ -614,6 +620,7 @@ namespace Capsule.Game.UI
                     StartCoroutine(SceneLoadManager.Instance.ReLoadGameScene(GameManager.Instance.CurrentGameData));
                     break;
                 case GameMode.STAGE:
+                    CanvasGroupOff(gameStageClearCG);
                     CanvasGroupOff(gameStageFailureCG);
                     StartCoroutine(SceneLoadManager.Instance.ReLoadStageScene(GameManager.Instance.CurrentGameData));
                     break;

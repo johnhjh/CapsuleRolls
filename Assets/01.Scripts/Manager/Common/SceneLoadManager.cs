@@ -411,7 +411,8 @@ namespace Capsule.SceneLoad
             ResetFields();
             yield return StartCoroutine(FadeInLoading());
 
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneTypeToString(sceneType), LoadSceneMode.Additive);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(
+                SceneTypeToString(sceneType), LoadSceneMode.Additive);
             asyncOperation.allowSceneActivation = true;
             while (!asyncOperation.isDone)
             {
@@ -422,7 +423,8 @@ namespace Capsule.SceneLoad
                 InfiniteLoopDetector.Run();
             }
 
-            Dictionary<GameSceneType, SceneData> gameSceneDictionary = MakeGameSceneDictionary(DataManager.Instance.CurrentGameData);
+            Dictionary<GameSceneType, SceneData> gameSceneDictionary =
+                MakeGameSceneDictionary(DataManager.Instance.CurrentGameData);
             foreach (var data in gameSceneDictionary)
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(data.Value.sceneName));
 
