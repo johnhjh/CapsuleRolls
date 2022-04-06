@@ -71,8 +71,8 @@ namespace Capsule.Game.RollTheBall
         }
         [SerializeField]
         private bool isAdjusting = false;
-        public bool IsAdjusting 
-        { 
+        public bool IsAdjusting
+        {
             get { return isAdjusting; }
             private set
             {
@@ -292,14 +292,14 @@ namespace Capsule.Game.RollTheBall
             float targetY = targetPosition.y + 1.2f;
             float adjustSpeed = (targetY - playerPosY) * 2f;
 
-            while(!Mathf.Approximately(playerPosY, targetY))
+            while (!Mathf.Approximately(playerPosY, targetY))
             {
                 playerPosY = Mathf.MoveTowards(playerPosY, targetY, adjustSpeed * Time.deltaTime);
                 transform.position = new Vector3(playerPosX, playerPosY, playerPosZ);
                 yield return null;
             }
             adjustSpeed = 2f * Vector3.Distance(
-                new Vector3(playerPosX, playerPosY, playerPosZ), 
+                new Vector3(playerPosX, playerPosY, playerPosZ),
                 targetPosition);
             while (
                 !Mathf.Approximately(playerPosX, targetPosition.x) ||
