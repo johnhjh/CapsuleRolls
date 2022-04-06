@@ -52,6 +52,8 @@ namespace Capsule.Game.RollTheBall
                             playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
                             playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
                         }
+                        if (IsAutoAdjust)
+                            IsAdjusting = true;
                     }
                     StartCoroutine(EnableJump());
                 }
@@ -61,7 +63,37 @@ namespace Capsule.Game.RollTheBall
                 IsTryJumping = !value;
             }
         }
+        private bool isAutoAdjust = false;
+        public bool IsAutoAdjust
+        {
+            get { return isAutoAdjust; }
+            set { isAutoAdjust = value; }
+        }
+        [SerializeField]
+        private bool isAdjusting = false;
+        public bool IsAdjusting 
+        { 
+            get { return isAdjusting; }
+            private set
+            {
+                bool wasAdjusting = isAdjusting;
+                isAdjusting = value;
+                if (value)
+                    positionAdjustCoroutine = StartCoroutine(PostionAutoAdjustment());
+                else
+                {
+                    if (wasAdjusting)
+                    {
+                        playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
+                        playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
+                        if (positionAdjustCoroutine != null)
+                            StopCoroutine(positionAdjustCoroutine);
+                    }
+                }
+            }
+        }
 
+        private Coroutine positionAdjustCoroutine = null;
         private Coroutine portalCallCoroutine = null;
         private Vector3 startPos = Vector3.zero;
         private Quaternion startRot = Quaternion.identity;
@@ -73,6 +105,12 @@ namespace Capsule.Game.RollTheBall
             isLanded = true;
             IsDiving = false;
             IsDead = false;
+            isAdjusting = false;
+
+            if (isMine)
+                IsAutoAdjust = PlayerPrefs.GetInt("IsAutoAdjust", 1) == 0 ? false : true;
+            else
+                IsAutoAdjust = true;
             ballRigidbody = transform.parent.GetComponent<Rigidbody>();
             if (GameManager.Instance != null)
             {
@@ -105,6 +143,15 @@ namespace Capsule.Game.RollTheBall
             if (IsDead) return;
             if (GameManager.Instance != null)
             {
+                if (!GameManager.Instance.IsGameReady) return;
+                if (IsAdjusting)
+                {
+                    playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, 0f);
+                    playerAnimator.SetFloat(GameManager.Instance.animData.HASH_VERTICAL, 0f);
+                    playerAnimator.SetFloat(GameManager.Instance.animData.HASH_MOVE_SPEED, 0f);
+                    playerAnimator.speed = 1f;
+                    return;
+                }
                 Vector3 velocity = transform.InverseTransformDirection(ballRigidbody.velocity);
                 float magnitude = Mathf.Clamp(velocity.magnitude / 10f, 0f, 2f);
                 playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, velocity.x);
@@ -135,13 +182,13 @@ namespace Capsule.Game.RollTheBall
 
         protected override void Action1()
         {
-            if (isMine && !IsDead && !IsTryJumping && jumpEnabled)
+            if (isMine && !IsDead && !IsTryJumping && jumpEnabled && !IsAdjusting)
                 JumpAction();
         }
 
         protected override void Action2()
         {
-            if (isMine && !IsDead && IsLanded)
+            if (isMine && !IsDead && IsLanded && !IsAdjusting)
                 DiveAction();
         }
 
@@ -221,9 +268,52 @@ namespace Capsule.Game.RollTheBall
 
         private IEnumerator Diving()
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(3.0f);
             if (!transform.parent.GetComponent<RollingBallMove>().IsDead)
                 PlayerOut();
+        }
+
+        private IEnumerator PostionAutoAdjustment()
+        {
+            Vector3 targetPosition = transform.parent.GetChild(2).transform.position;
+            targetPosition.y += 1.381f;
+            if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
+            {
+                isAdjusting = false;
+                transform.position = targetPosition;
+                yield break;
+            }
+            PlayerAudioStop();
+            SFXManager.Instance.PlayOneShot(GameSFX.JUMP, playerAudioSource);
+            playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
+            float playerPosX = transform.position.x;
+            float playerPosY = transform.position.y;
+            float playerPosZ = transform.position.z;
+            float targetY = targetPosition.y + 1.2f;
+            float adjustSpeed = (targetY - playerPosY) * 2f;
+
+            while(!Mathf.Approximately(playerPosY, targetY))
+            {
+                playerPosY = Mathf.MoveTowards(playerPosY, targetY, adjustSpeed * Time.deltaTime);
+                transform.position = new Vector3(playerPosX, playerPosY, playerPosZ);
+                yield return null;
+            }
+            adjustSpeed = 2f * Vector3.Distance(
+                new Vector3(playerPosX, playerPosY, playerPosZ), 
+                targetPosition);
+            while (
+                !Mathf.Approximately(playerPosX, targetPosition.x) ||
+                !Mathf.Approximately(playerPosY, targetPosition.y) ||
+                !Mathf.Approximately(playerPosZ, targetPosition.z))
+            {
+                playerPosX = Mathf.MoveTowards(playerPosX, targetPosition.x, adjustSpeed * Time.deltaTime);
+                playerPosY = Mathf.MoveTowards(playerPosY, targetPosition.y, adjustSpeed * Time.deltaTime);
+                playerPosZ = Mathf.MoveTowards(playerPosZ, targetPosition.z, adjustSpeed * Time.deltaTime);
+                transform.position = new Vector3(playerPosX, playerPosY, playerPosZ);
+                yield return null;
+            }
+            transform.position = targetPosition;
+            IsAdjusting = false;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -354,6 +444,8 @@ namespace Capsule.Game.RollTheBall
         private void PlayerOut()
         {
             if (IsDead || GameManager.Instance == null) return;
+            if (isAutoAdjust)
+                IsAdjusting = false;
             if (GameManager.Instance != null && isMine && GameManager.Instance.IsGameOver) return;
             if (isMine)
             {

@@ -53,7 +53,7 @@ namespace Capsule.Game.RollTheBall
             if (!isMine) return;
             if (GameSettingManager.Instance != null)
                 GameSettingManager.Instance.ballMove = this;
-            playerRotateSpeed = PlayerPrefs.GetFloat("PlayerRotSpeed", 60f);
+            playerRotateSpeed = PlayerPrefs.GetFloat("PlayerRotSpeed", 65f);
             if (GameUIManager.Instance != null)
                 GameUIManager.Instance.OnPauseGame += PlayerAudioStop;
             if (GameManager.Instance != null)
@@ -85,8 +85,8 @@ namespace Capsule.Game.RollTheBall
         private void Update()
         {
             if (isDead) return;
-            if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
-
+            if (GameManager.Instance != null && (!GameManager.Instance.IsGameReady || GameManager.Instance.IsGameOver)) return;
+            if (playerMovement.IsAdjusting) return;
             playerTransform.Rotate(playerInput.rotate * playerRotateSpeed * Time.deltaTime * Vector3.up);
             Vector3 moveDir = (playerTransform.right * playerInput.horizontal) +
                 (playerTransform.forward * playerInput.vertical);

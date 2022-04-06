@@ -37,14 +37,12 @@ namespace Capsule.Game.Player
             if (!isMine) return;
             ragdollController.OnChangeRagdoll += () =>
             {
-                //Camera.main.GetComponent<CameraFollow>().targetTransform = ragdollController.spine.transform;
-                //Camera.main.GetComponent<CameraFollow>().camView = CameraView.QUATER;
                 GameCameraManager.Instance.Target = new Tuple<Transform, bool>(ragdollController.spine.transform, true);
             };
-            ActionButton1Ctrl actionButton1 = GameObject.FindObjectOfType<ActionButton1Ctrl>();
+            ActionButton1Ctrl actionButton1 = FindObjectOfType<ActionButton1Ctrl>();
             if (actionButton1 != null)
                 actionButton1.OnClickActionButton1 += Action1;
-            ActionButton2Ctrl actionButton2 = GameObject.FindObjectOfType<ActionButton2Ctrl>();
+            ActionButton2Ctrl actionButton2 = FindObjectOfType<ActionButton2Ctrl>();
             if (actionButton2 != null)
                 actionButton2.OnClickActionButton2 += Action2;
         }

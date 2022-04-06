@@ -104,12 +104,17 @@ namespace Capsule.Game
                     OnGameOver();
             }
         }
+
+        private bool isGameReady = false;
+        public bool IsGameReady { get { return isGameReady; } }
+
         private int teamScoreA = 0;
         public int TeamScoreA
         {
             get { return teamScoreA; }
             private set { teamScoreA = value; }
         }
+
         private int teamScoreB = 0;
         public int TeamScoreB
         {
@@ -163,6 +168,7 @@ namespace Capsule.Game
         private void Start()
         {
             IsGameOver = false;
+            isGameReady = false;
             currentGameData = DataManager.Instance.CurrentGameData;
             if (CurrentGameData != null)
             {
@@ -185,6 +191,13 @@ namespace Capsule.Game
             if (GameUIManager.Instance != null)
                 GameUIManager.Instance.IsLoading = false;
             OnStartGame?.Invoke();
+            StartCoroutine(SetGameReady());
+        }
+
+        private IEnumerator SetGameReady()
+        {
+            yield return new WaitForSeconds(3.0f);
+            isGameReady = true;
         }
 
         public bool CheckSoloGame()

@@ -31,6 +31,7 @@ namespace Capsule.Game.AI
             WaitForSeconds ws02 = new WaitForSeconds(0.2f);
             while (true)
             {
+                InfiniteLoopDetector.Run();
                 if ((ballMove.IsDead))
                 {
                     if (GameManager.Instance != null &&
@@ -46,6 +47,11 @@ namespace Capsule.Game.AI
                 yield return ws02;
                 if (GameManager.Instance != null)
                 {
+                    if (!GameManager.Instance.IsGameReady)
+                    {
+                        yield return ws02;
+                        continue;
+                    }
                     if (ballMove.IsLanded)
                     {
                         if (Time.time > timeBetTime)
@@ -55,7 +61,6 @@ namespace Capsule.Game.AI
                         }
                     }
                 }
-                InfiniteLoopDetector.Run();
             }
         }
     }
