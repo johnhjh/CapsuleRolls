@@ -42,12 +42,19 @@ namespace Capsule.Game.UI
         [HideInInspector]
         public bool IsUIHover { get; set; }
 
+        private readonly Color transparentColor = new Color(1f, 1f, 1f, 0f);
+        private readonly Color visibleColor = new Color(1f, 1f, 1f, 1f);
+
         private CanvasGroup gamePauseCG = null;
         private CanvasGroup gameSettingCG = null;
         private CanvasGroup gameStageClearCG = null;
         private CanvasGroup gameStageFailureCG = null;
         private CanvasGroup gameArcadeFinishCG = null;
         private CanvasGroup labelNewRecordCG = null;
+
+        private Text readyGoText = null;
+        private readonly float MIN_READY_GO_FONT_SIZE = 200f;
+        private readonly float MAX_READY_GO_FONT_SIZE = 250f;
 
         private Text labelStageClearText = null;
         private Text userInfoLevelText = null;
@@ -91,6 +98,7 @@ namespace Capsule.Game.UI
         private Coroutine timeCoroutine;
         private Coroutine lastTimeCoroutine;
         private Coroutine addTimeCoroutine;
+        private Coroutine readyGoCoroutine;
 
         public event System.Action OnPauseGame;
 
@@ -123,6 +131,7 @@ namespace Capsule.Game.UI
             gameArcadeFinishCG = GameObject.Find("GameUIArcadeFinish").GetComponent<CanvasGroup>();
             labelNewRecordCG = GameObject.Find("Label_NewRecord").GetComponent<CanvasGroup>();
 
+            readyGoText = GameObject.Find("Ready_Go_Text").GetComponent<Text>();
             labelStageClearText = GameObject.Find("Label_StageClear_Text").GetComponent<Text>();
             userInfoLevelText = GameObject.Find("User_Info_Level_Text").GetComponent<Text>();
             userInfoExpText = GameObject.Find("User_Info_Exp_Text").GetComponent<Text>();
@@ -189,12 +198,17 @@ namespace Capsule.Game.UI
             userInfoExpImage.fillAmount = (float)currentExp / requiredExp;
             userInfoExpText.text = currentExp.ToString() + "/" + requiredExp.ToString();
             timePlusEffectText.text = "";
-            timePlusEffectText.color = new Color(1f, 1f, 1f, 0f);
+            timePlusEffectText.color = transparentColor;
             passedTime = 0;
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
             if (lastTimeCoroutine != null)
                 StopCoroutine(lastTimeCoroutine);
+            if (addTimeCoroutine != null)
+                StopCoroutine(addTimeCoroutine);
+            if (readyGoCoroutine != null)
+                StopCoroutine(ReadyGoEffect());
+            readyGoCoroutine = StartCoroutine(ReadyGoEffect());
             switch (DataManager.Instance.CurrentGameData.Mode)
             {
                 case GameMode.ARCADE:
@@ -350,7 +364,7 @@ namespace Capsule.Game.UI
         private IEnumerator AddTimeTextEffect(Text text, int timeAmount)
         {
             timePlusEffectText.text = "+" + timeAmount.ToString();
-            timePlusEffectText.color = new Color(1f, 1f, 1f);
+            timePlusEffectText.color = visibleColor;
             float currentAlpha = 0.3f;
             float currentFontSize = 120f;
             float curAlphaSpeed = 1f / 0.7f;
@@ -363,7 +377,7 @@ namespace Capsule.Game.UI
             }
             SetTextColorAndSize(text, 1f, 80);
             timePlusEffectText.text = "";
-            timePlusEffectText.color = new Color(1f, 1f, 0f);
+            timePlusEffectText.color = transparentColor;
         }
 
         public void StageAllClearedUI()
@@ -413,6 +427,39 @@ namespace Capsule.Game.UI
         {
             text.color = new Color(1f, 1f, 1f, alpha);
             text.fontSize = size;
+        }
+
+        private IEnumerator ReadyGoEffect()
+        {
+            readyGoText.text = "Ready~";
+            readyGoText.fontSize = Mathf.RoundToInt(MIN_READY_GO_FONT_SIZE);
+            readyGoText.color = transparentColor;
+            yield return new WaitForSeconds(1.0f);
+            float currentAlpha = 0f;
+            float currentFontSize = MIN_READY_GO_FONT_SIZE;
+            float speed = MAX_READY_GO_FONT_SIZE - MIN_READY_GO_FONT_SIZE;
+            while(!Mathf.Approximately(currentFontSize, MAX_READY_GO_FONT_SIZE))
+            {
+                currentAlpha = Mathf.MoveTowards(currentAlpha, 1f, Time.deltaTime);
+                currentFontSize = Mathf.MoveTowards(currentFontSize, MAX_READY_GO_FONT_SIZE, speed * Time.deltaTime);
+                SetTextColorAndSize(readyGoText, currentAlpha, Mathf.RoundToInt(currentFontSize));
+                yield return null;
+            }
+            yield return new WaitForSeconds(1.0f);
+            currentAlpha = 0f;
+            currentFontSize = MIN_READY_GO_FONT_SIZE;
+            readyGoText.color = transparentColor;
+            readyGoText.text = "Go~!!";
+            readyGoText.fontSize = Mathf.RoundToInt(MIN_READY_GO_FONT_SIZE);
+            while (!Mathf.Approximately(currentFontSize, MAX_READY_GO_FONT_SIZE))
+            {
+                currentAlpha = Mathf.MoveTowards(currentAlpha, 1f, Time.deltaTime);
+                currentFontSize = Mathf.MoveTowards(currentFontSize, MAX_READY_GO_FONT_SIZE, speed * Time.deltaTime);
+                SetTextColorAndSize(readyGoText, currentAlpha, Mathf.RoundToInt(currentFontSize));
+                yield return null;
+            }
+            yield return null;
+            readyGoText.color = transparentColor;
         }
 
         private IEnumerator Last3SecTextEffect(Text text)
@@ -578,9 +625,7 @@ namespace Capsule.Game.UI
             }
             IsLoading = true;
             Time.timeScale = 1f;
-            gameStageClearCG.alpha = 0f;
-            gameStageClearCG.blocksRaycasts = false;
-            gameStageClearCG.interactable = false;
+            CanvasGroupOff(gameStageClearCG);
             IsPopupActive = false;
             StartCoroutine(SceneLoadManager.Instance.LoadNextStageScene(GameManager.Instance.CurrentGameData));
         }

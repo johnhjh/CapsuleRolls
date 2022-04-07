@@ -399,6 +399,7 @@ namespace Capsule.Audio
 
         public void PlaySFX(Announcements sfx, float delay)
         {
+            if (announceSource.volume == 0f) return;
             StartCoroutine(PlayOneShotDelayed(GetAudioClip(sfx), announceSource, delay));
         }
 
@@ -453,12 +454,21 @@ namespace Capsule.Audio
 
         private void PlayOneShot(AudioClip clip, AudioSource source)
         {
-            if (sfxAudioSource.volume == 0f) return;
-            if (clip != null && source != null)
+            if (source == announceSource)
             {
-                if (source.volume != sfxAudioSource.volume)
-                    source.volume = sfxAudioSource.volume;
-                source.PlayOneShot(clip, sfxAudioSource.volume);
+                if (announceSource.volume == 0f) return;
+                if (clip != null)
+                    source.PlayOneShot(clip);
+            }
+            else
+            {
+                if (sfxAudioSource.volume == 0f) return;
+                if (clip != null && source != null)
+                {
+                    if (source.volume != sfxAudioSource.volume)
+                        source.volume = sfxAudioSource.volume;
+                    source.PlayOneShot(clip, sfxAudioSource.volume);
+                }
             }
         }
 
@@ -510,11 +520,13 @@ namespace Capsule.Audio
 
         public void PlayOneShot(Announcements announce)
         {
-            announceSource.PlayOneShot(GetAudioClip(announce));
+            if (announceSource.volume == 0f) return;
+                announceSource.PlayOneShot(GetAudioClip(announce));
         }
 
         public void PlayOneShot(Announcements announce, int count)
         {
+            if (announceSource.volume == 0f) return;
             if (announce == Announcements.COUNT)
                 announceSource.PlayOneShot(GetCountAudioClip(count));
         }
