@@ -298,6 +298,8 @@ namespace Capsule.Game.RollTheBall
                 transform.position = new Vector3(playerPosX, playerPosY, playerPosZ);
                 yield return null;
             }
+            targetPosition = transform.parent.GetChild(2).transform.position;
+            targetPosition.y += 1.381f;
             adjustSpeed = 2f * Vector3.Distance(
                 new Vector3(playerPosX, playerPosY, playerPosZ),
                 targetPosition);
@@ -306,6 +308,8 @@ namespace Capsule.Game.RollTheBall
                 !Mathf.Approximately(playerPosY, targetPosition.y) ||
                 !Mathf.Approximately(playerPosZ, targetPosition.z))
             {
+                targetPosition = transform.parent.GetChild(2).transform.position;
+                targetPosition.y += 1.381f;
                 playerPosX = Mathf.MoveTowards(playerPosX, targetPosition.x, adjustSpeed * Time.deltaTime);
                 playerPosY = Mathf.MoveTowards(playerPosY, targetPosition.y, adjustSpeed * Time.deltaTime);
                 playerPosZ = Mathf.MoveTowards(playerPosZ, targetPosition.z, adjustSpeed * Time.deltaTime);

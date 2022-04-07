@@ -31,6 +31,16 @@ namespace Capsule.Game.Player
             playerAudioSource = GetComponent<AudioSource>();
         }
 
+        private void OnDestroy()
+        {
+            ActionButton1Ctrl actionButton1 = FindObjectOfType<ActionButton1Ctrl>();
+            if (actionButton1 != null)
+                actionButton1.OnClickActionButton1 -= Action1;
+            ActionButton2Ctrl actionButton2 = FindObjectOfType<ActionButton2Ctrl>();
+            if (actionButton2 != null)
+                actionButton2.OnClickActionButton2 -= Action2;
+        }
+
         protected virtual void Start()
         {
             ragdollController = transform.parent.GetChild(1).GetComponent<RagdollController>();
