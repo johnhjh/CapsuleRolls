@@ -1,6 +1,19 @@
 ﻿public static class VersionCtrl
 {
-    public static readonly string CurrentVersion = "ver.1.0.4";
+    public static readonly string CurrentVersion = "ver.1.0.5";
+    /***** ver.1.0.5 업데이트 내역 *****/
+    /*
+        공통
+            - 죽을 때 사운드 추가
+            - 관중 소리 추가
+            - 간헐적으로 리스폰 시 공중으로 치솟는 버그 수정
+
+        아케이드 모드 개선
+            - 장애물 배치 수정
+
+        스테이지 모드 개선
+            - 장애물 배치 수정
+    */
     /***** ver.1.0.4 업데이트 내역 *****/
     /*
         공통

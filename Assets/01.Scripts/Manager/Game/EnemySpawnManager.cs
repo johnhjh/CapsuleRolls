@@ -100,7 +100,7 @@ namespace Capsule.Game.Enemy
         {
             if (currentSpikeRollerOffset > spikeRollers.Count - 1) return;
             if (currentSpikeRollerOffset + count > spikeRollers.Count)
-                count = spikeRollers.Count - currentSpikeRollerOffset - 1;
+                count = spikeRollers.Count - currentSpikeRollerOffset;
             for (int i = 0; i < count; i++)
                 spikeRollers[currentSpikeRollerOffset++].ShowRoller();
         }
