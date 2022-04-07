@@ -521,7 +521,7 @@ namespace Capsule.Audio
         public void PlayOneShot(Announcements announce)
         {
             if (announceSource.volume == 0f) return;
-                announceSource.PlayOneShot(GetAudioClip(announce));
+            announceSource.PlayOneShot(GetAudioClip(announce));
         }
 
         public void PlayOneShot(Announcements announce, int count)

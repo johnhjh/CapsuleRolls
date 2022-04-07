@@ -438,7 +438,7 @@ namespace Capsule.Game.UI
             float currentAlpha = 0f;
             float currentFontSize = MIN_READY_GO_FONT_SIZE;
             float speed = MAX_READY_GO_FONT_SIZE - MIN_READY_GO_FONT_SIZE;
-            while(!Mathf.Approximately(currentFontSize, MAX_READY_GO_FONT_SIZE))
+            while (!Mathf.Approximately(currentFontSize, MAX_READY_GO_FONT_SIZE))
             {
                 currentAlpha = Mathf.MoveTowards(currentAlpha, 1f, Time.deltaTime);
                 currentFontSize = Mathf.MoveTowards(currentFontSize, MAX_READY_GO_FONT_SIZE, speed * Time.deltaTime);
