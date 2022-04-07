@@ -357,7 +357,7 @@ namespace Capsule.Game.UI
         public void AddTime(int timeAmount)
         {
             remainedTime += timeAmount;
-            SFXManager.Instance.PlaySFX(MenuSFX.OK);
+            SFXManager.Instance.PlayOneShot(MenuSFX.OK);
             UpdateTimeText(timeAmount);
         }
 

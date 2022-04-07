@@ -448,6 +448,7 @@ namespace Capsule.Game.RollTheBall
         private void PlayerOut()
         {
             if (IsDead || GameManager.Instance == null) return;
+            SFXManager.Instance.PlayOneShot(GameSFX.DIE, playerAudioSource);
             if (isAutoAdjust)
                 IsAdjusting = false;
             if (GameManager.Instance != null && isMine && GameManager.Instance.IsGameOver) return;
@@ -528,6 +529,7 @@ namespace Capsule.Game.RollTheBall
             parentRigidbody.isKinematic = true;
             transform.rotation = rotation;
             transform.localPosition = new Vector3(0f, 2.791f, 0f);
+            ragdollController.SetRagdollPositionToChar();
             playerRigidbody.useGravity = false;
             transform.GetComponent<Animator>().enabled = true;
             IsLanded = true;
@@ -573,6 +575,8 @@ namespace Capsule.Game.RollTheBall
         {
             ragdollController.ChangeRagdoll(isDead);
             transform.parent.GetComponent<RollingBallMove>().IsDead = isDead;
+            playerRigidbody.velocity = Vector3.zero;
+            playerRigidbody.angularVelocity = Vector3.zero;
         }
     }
 }

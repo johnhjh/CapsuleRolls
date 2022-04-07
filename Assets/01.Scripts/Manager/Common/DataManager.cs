@@ -447,15 +447,9 @@ namespace Capsule.Entity
             },
             new GameKindData ()
             {
-                kind = GameKind.RACING,
-                name = "내 공이 제일 빠르다구~!",
-                desc = "누가 더 빠른지 승부~!\n\n빠른 속도로 최고 기록을 갱신하자~\n\n장애물을 잘 피해야해~!"
-            },
-            new GameKindData()
-            {
-                kind = GameKind.UP_UP,
-                name = "하늘로 업~ 업~!",
-                desc = "누가 더 많이 올라가나 내기~\n\n점프를 적극 활용해서\n더 높이 올라가자~!!"
+                kind = GameKind.GOLDEN_BALL,
+                name = "황금공의 주인은 나라공~!",
+                desc = "황금공을 차지하자~!\n\n주어진 시간동안 버텨야해~\n\n잘 도망다니자구~!"
             },
             new GameKindData()
             {

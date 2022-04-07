@@ -76,7 +76,7 @@ namespace Capsule.Game
                         tutorialData = new RollTheBallTutorialData();
                         break;
                     case GameKind.BATTLE_ROYAL:
-                    case GameKind.RACING:
+                    case GameKind.GOLDEN_BALL:
                         tutorialData = new TutorialData();
                         break;
                     default:

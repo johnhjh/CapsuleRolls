@@ -78,7 +78,7 @@ EditorBuildSettings:
     path: Assets/00.Scenes/GameScenes/UI/RollTheBallBattleRoyalUI.unity
     guid: 0c33fbb4f0e04e740b43e1cd48cdffda
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/UI/RollTheBallRacingUI.unity
+    path: Assets/00.Scenes/GameScenes/UI/RollTheBallGoldenBallUI.unity
     guid: adfb83d058c095a408350d28f8683786
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/UI/RollTheBallUpUpUI.unity

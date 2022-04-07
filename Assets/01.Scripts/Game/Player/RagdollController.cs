@@ -24,6 +24,11 @@ namespace Capsule.Game.Player
                 OnChangeRagdoll?.Invoke();
         }
 
+        public void SetRagdollPositionToChar()
+        {
+            ragdollObj.transform.position = charObj.transform.position;
+        }
+
         public void SetRagdollMeshOnOff(bool isOn)
         {
             foreach (Rigidbody rbody in ragdollObj.transform.GetComponentsInChildren<Rigidbody>())

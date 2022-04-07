@@ -24,6 +24,7 @@ namespace Capsule.Audio
         public AudioClip fallingClip;
         public AudioClip popClip;
         public AudioClip fireworkClip;
+        public AudioClip[] dieClips;
     }
     [System.Serializable]
     public class AnnoucementSounds
@@ -67,6 +68,7 @@ namespace Capsule.Audio
         FALLING,
         POP,
         FIREWORK,
+        DIE,
     }
 
     public enum Crowds
@@ -181,6 +183,8 @@ namespace Capsule.Audio
                     return gameSoundEffects.popClip;
                 case GameSFX.FIREWORK:
                     return gameSoundEffects.fireworkClip;
+                case GameSFX.DIE:
+                    return gameSoundEffects.dieClips[Random.Range(0, gameSoundEffects.dieClips.Length)];
             }
             return null;
         }

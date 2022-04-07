@@ -673,7 +673,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ec065cdf4921258478a8e2f618ee047a, type: 3}
   - {fileID: 21300000, guid: e0831e7a87ccacd4b9419d372c1e14c2, type: 3}
   - {fileID: 21300000, guid: ec065cdf4921258478a8e2f618ee047a, type: 3}
-  - {fileID: 21300000, guid: e0831e7a87ccacd4b9419d372c1e14c2, type: 3}
   rewardSprites:
   - {fileID: 21300000, guid: 3fb23bf6552b44aafb168ed0584e1641, type: 3}
   - {fileID: 21300000, guid: 7e4a68ccf10580447afdc6031c936ec1, type: 3}

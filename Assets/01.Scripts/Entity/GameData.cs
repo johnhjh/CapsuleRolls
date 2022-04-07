@@ -17,8 +17,7 @@ namespace Capsule.Entity
     {
         GOAL_IN = 0,
         BATTLE_ROYAL,
-        RACING,
-        UP_UP,
+        GOLDEN_BALL,
         NEXT_TARGET,
     }
 

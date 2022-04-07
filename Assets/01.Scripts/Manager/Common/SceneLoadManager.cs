@@ -77,8 +77,7 @@ namespace Capsule.SceneLoad
         // Game Kinds
         private readonly string STRING_GOAL_IN = "GoalIn";
         private readonly string STRING_BATTLE_ROYAL = "BattleRoyal";
-        private readonly string STRING_RACING = "Racing";
-        private readonly string STRING_UP_UP = "UpUp";
+        private readonly string STRING_GOLDEN_BALL = "GoldenBall";
         private readonly string STRING_NEXT_TARGET = "NextTarget";
 
         // Lobby Loading
@@ -236,10 +235,8 @@ namespace Capsule.SceneLoad
                     return STRING_GOAL_IN;
                 case GameKind.BATTLE_ROYAL:
                     return STRING_BATTLE_ROYAL;
-                case GameKind.RACING:
-                    return STRING_RACING;
-                case GameKind.UP_UP:
-                    return STRING_UP_UP;
+                case GameKind.GOLDEN_BALL:
+                    return STRING_GOLDEN_BALL;
                 case GameKind.NEXT_TARGET:
                     return STRING_NEXT_TARGET;
                 default:
