@@ -53,10 +53,10 @@ namespace Capsule.Game.UI
             joystickBack = transform.parent.GetComponent<RectTransform>();
             joystickBack.sizeDelta = new Vector2(600f, 600f);
             //dragRadius = Screen.height * 0.12f;
-            dragRadius = Screen.height * 0.202f;
+            dragRadius = Screen.height * 0.16f;
             //Debug.Log("drag : " + dragRadius);
             //touchableRadius = Screen.height * 0.14f;
-            touchableRadius = Screen.height * 0.22f;
+            touchableRadius = Screen.height * 0.18f;
             //Debug.Log("touchable : " + touchableRadius);
 
         }

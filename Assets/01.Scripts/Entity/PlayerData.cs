@@ -176,7 +176,7 @@ namespace Capsule.Entity
             NickName = PlayerPrefs.GetString("PlayerNick", "캡슐롤린이");
             Exp = PlayerPrefs.GetInt("PlayerExp", 0);
             Level = PlayerPrefs.GetInt("PlayerLevel", 1);
-            Coin = PlayerPrefs.GetInt("PlayerCoins", 5000);
+            Coin = PlayerPrefs.GetInt("PlayerCoins", 30000);
             Rating = PlayerPrefs.GetInt("PlayerRating", 1200);
         }
 
@@ -185,7 +185,7 @@ namespace Capsule.Entity
             PlayerPrefs.SetString("PlayerNick", "캡슐롤린이");
             PlayerPrefs.SetInt("PlayerExp", 0);
             PlayerPrefs.SetInt("PlayerLevel", 1);
-            PlayerPrefs.SetInt("PlayerCoins", 5000);
+            PlayerPrefs.SetInt("PlayerCoins", 30000);
             PlayerPrefs.SetInt("PlayerRating", 1200);
         }
     }
