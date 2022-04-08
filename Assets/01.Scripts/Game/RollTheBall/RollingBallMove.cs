@@ -135,21 +135,23 @@ namespace Capsule.Game.RollTheBall
                     if (ballAudioSource != null)
                         SFXManager.Instance.PlayOneShot(GameSFX.POP, ballAudioSource, popVolume);
                     Transform ballTransform = transform.GetChild(2);
-                    EffectQueueManager.Instance.ShowExplosionEffect(ballTransform.position);
-                    ballTransform.gameObject.SetActive(false);
-
-                    if (!isDead && playerMovement.IsLanded)
+                    if (ballTransform.gameObject.activeSelf)
                     {
-                        isDead = true;
-                        playerInput.IsDead = true;
-                        playerMovement.IsLanded = false;
-                        PlayerAudioStop();
-                        if (playerAudioSource != null)
-                            SFXManager.Instance.PlayOneShot(GameSFX.FALLING, playerAudioSource);
-                        playerTransform.GetComponent<Animator>().SetTrigger(GameManager.Instance.animData.HASH_TRIG_FALLING);
-                        Rigidbody playerRigidbody = playerTransform.GetComponent<Rigidbody>();
-                        playerRigidbody.mass = 1f;
-                        playerRigidbody.AddForce(explodePower * Vector3.up, ForceMode.Impulse);
+                        EffectQueueManager.Instance.ShowExplosionEffect(ballTransform.position);
+                        ballTransform.gameObject.SetActive(false);
+                        if (!isDead && !playerMovement.IsDead && playerMovement.IsLanded)
+                        {
+                            isDead = true;
+                            playerInput.IsDead = true;
+                            playerMovement.IsLanded = false;
+                            PlayerAudioStop();
+                            if (playerAudioSource != null)
+                                SFXManager.Instance.PlayOneShot(GameSFX.FALLING, playerAudioSource);
+                            playerTransform.GetComponent<Animator>().SetTrigger(GameManager.Instance.animData.HASH_TRIG_FALLING);
+                            Rigidbody playerRigidbody = playerTransform.GetComponent<Rigidbody>();
+                            playerRigidbody.mass = 1f;
+                            playerRigidbody.AddForce(explodePower * Vector3.up, ForceMode.Impulse);
+                        }
                     }
                 }
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_GOAL_POST))

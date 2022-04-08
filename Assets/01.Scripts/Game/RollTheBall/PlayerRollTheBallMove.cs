@@ -50,12 +50,21 @@ namespace Capsule.Game.RollTheBall
                         if (isLanded == false)
                         {
                             playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
+                            playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
                             playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
+                            playerRigidbody.velocity = Vector3.zero;
+                            playerRigidbody.angularVelocity = Vector3.zero;
                         }
-                        if (IsAutoAdjust)
+                        if (IsAutoAdjust && !IsDead)
                             IsAdjusting = true;
                     }
                     StartCoroutine(EnableJump());
+                }
+                else if (IsAutoAdjust)
+                {
+                    if (positionAdjustCoroutine != null)
+                        StopCoroutine(positionAdjustCoroutine);
+                    isAdjusting = false;
                 }
                 isLanded = value;
                 playerCollider.isTrigger = value;
@@ -85,6 +94,7 @@ namespace Capsule.Game.RollTheBall
                     if (wasAdjusting)
                     {
                         playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_JUMP);
+                        playerAnimator.ResetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
                         playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STOP_JUMPING);
                         if (positionAdjustCoroutine != null)
                             StopCoroutine(positionAdjustCoroutine);
@@ -476,15 +486,17 @@ namespace Capsule.Game.RollTheBall
                     }
                     break;
                 case GameMode.STAGE:
+                    SetPlayerDead(true);
                     if (isMine)
                     {
                         BGMManager.Instance.ChangeBGM(BGMType.GAMEOVER);
                         GameManager.Instance.StageFailure();
                     }
-                    SetPlayerDead(true);
                     break;
                 case GameMode.PRACTICE:
                     SetPlayerDead(true);
+                    if (portalCallCoroutine != null)
+                        StopCoroutine(portalCallCoroutine);
                     StartCoroutine(RespawnPlayer(respawnTime, startPos, startRot));
                     break;
                 case GameMode.BOT:
@@ -523,6 +535,7 @@ namespace Capsule.Game.RollTheBall
             playerRigidbody.mass = 40f;
             playerRigidbody.velocity = Vector3.zero;
             playerRigidbody.angularVelocity = Vector3.zero;
+            playerRigidbody.useGravity = false;
             transform.parent.SetPositionAndRotation(position + 3f * Vector3.up, Quaternion.identity);
             Rigidbody parentRigidbody = transform.parent.GetComponent<Rigidbody>();
             parentRigidbody.useGravity = false;
@@ -530,7 +543,6 @@ namespace Capsule.Game.RollTheBall
             transform.rotation = rotation;
             transform.localPosition = new Vector3(0f, 2.791f, 0f);
             ragdollController.SetRagdollPositionToChar();
-            playerRigidbody.useGravity = false;
             transform.GetComponent<Animator>().enabled = true;
             IsLanded = true;
             yield return ws20;

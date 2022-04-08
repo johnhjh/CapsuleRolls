@@ -31,6 +31,8 @@ namespace Capsule.Game.Player
 
         public void SetRagdollMeshOnOff(bool isOn)
         {
+            spine.velocity = Vector3.zero;
+            spine.angularVelocity = Vector3.zero;
             foreach (Rigidbody rbody in ragdollObj.transform.GetComponentsInChildren<Rigidbody>())
             {
                 rbody.velocity = Vector3.zero;

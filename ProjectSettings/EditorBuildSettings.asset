@@ -80,7 +80,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/UI/RollTheBallGoldenBallUI.unity
     guid: adfb83d058c095a408350d28f8683786
-  - enabled: 1
+  - enabled: 0
     path: Assets/00.Scenes/GameScenes/UI/RollTheBallUpUpUI.unity
     guid: 5033d70909b1d114188074d4e5cf5d67
   - enabled: 1
