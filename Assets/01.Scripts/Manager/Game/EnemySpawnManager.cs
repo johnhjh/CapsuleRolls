@@ -267,8 +267,14 @@ namespace Capsule.Game.Enemy
                     }
                     return AIType.ROTATING;
                 default:
-                    if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl4))
-                        aiCtrl4.Type = AIType.IDLE;
+                    if (GameManager.Instance != null && GameManager.Instance.CurrentWave >= 10)
+                    {
+                        if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl4))
+                            aiCtrl4.Type = AIType.ROTATING;
+                        return AIType.ROTATING;
+                    }
+                    if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl5))
+                        aiCtrl5.Type = AIType.IDLE;
                     return AIType.IDLE;
             }
         }

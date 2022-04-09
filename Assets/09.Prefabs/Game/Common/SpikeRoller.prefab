@@ -64,7 +64,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9, y: 2, z: 1.9}
+  m_Size: {x: 1.7, y: 2, z: 1.7}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &1597212583963444435
 MonoBehaviour:
@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5d599fdd221ed43b2d1b8e0af9ed0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUpAndDown: 0
 --- !u!1 &7949903443846696496
 GameObject:
   m_ObjectHideFlags: 0

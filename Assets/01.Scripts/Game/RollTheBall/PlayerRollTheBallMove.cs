@@ -482,7 +482,10 @@ namespace Capsule.Game.RollTheBall
                             StopCoroutine(portalCallCoroutine);
                         portalCallCoroutine = StartCoroutine(PortalCall(1f));
                         GameManager.Instance.AddEnemyCount(-1);
-                        GameUIManager.Instance.AddTime(5);
+                        if (GameManager.Instance.CurrentWave < 10)
+                            GameUIManager.Instance.AddTime(5);
+                        else
+                            GameUIManager.Instance.AddTime(3);
                     }
                     break;
                 case GameMode.STAGE:
