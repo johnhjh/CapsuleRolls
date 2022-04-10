@@ -1,8 +1,8 @@
-﻿using Capsule.Entity;
+﻿using Capsule.Audio;
+using Capsule.Entity;
+using Capsule.Game.UI;
 using UnityEngine;
 using UnityEngine.UI;
-using Capsule.Audio;
-using Capsule.Game.UI;
 
 namespace Capsule.Game
 {
