@@ -1,6 +1,8 @@
 ﻿using Capsule.Entity;
 using UnityEngine;
 using UnityEngine.UI;
+using Capsule.Audio;
+using Capsule.Game.UI;
 
 namespace Capsule.Game
 {
@@ -27,10 +29,7 @@ namespace Capsule.Game
         }
 
         private CanvasGroup tutorialDescCanvasGroup = null;
-        private GameObject actionGlow1 = null;
-        private GameObject actionGlow2 = null;
         private Button showTutorialButton = null;
-        private TutorialData tutorialData = null;
 
         private bool isTutorialPopup = false;
         public bool IsTutorialPopup
@@ -41,9 +40,9 @@ namespace Capsule.Game
             }
             set
             {
-                isTutorialPopup = value;
-                if (!value)
-                    OnSkipButtonClick();
+                isTutorialPopup = PopupTutorial(value);
+                if (SFXManager.Instance != null)
+                    SFXManager.Instance.PlayOneShot(isTutorialPopup ? MenuSFX.LOAD_DONE : MenuSFX.BACK);
             }
         }
 
@@ -55,32 +54,26 @@ namespace Capsule.Game
 
         private void SetComponents()
         {
-            SetComponents();
             tutorialDescCanvasGroup = GameObject.Find("TutorialUIDesc").GetComponent<CanvasGroup>();
-            // Action Glows
-            actionGlow1 = GameObject.Find("Glow_Action1");
-            actionGlow2 = GameObject.Find("Glow_Action1");
-
             showTutorialButton = GameObject.Find("Button_Show_Tutorial").GetComponent<Button>();
+            showTutorialButton.onClick.AddListener(delegate { IsTutorialPopup = true; });
         }
 
         private void SetTutorialDatas()
         {
-            actionGlow1.SetActive(false);
-            actionGlow2.SetActive(false);
             if (DataManager.Instance != null)
             {
                 switch (DataManager.Instance.CurrentGameData.Kind)
                 {
                     case GameKind.GOAL_IN:
-                        tutorialData = new RollTheBallTutorialData();
+                        //tutorialData = new StageTutorialData();
                         break;
                     case GameKind.BATTLE_ROYAL:
                     case GameKind.GOLDEN_BALL:
-                        tutorialData = new TutorialData();
+                        //tutorialData = new TutorialData();
                         break;
                     default:
-                        tutorialData = new RollTheBallTutorialData();
+                        //tutorialData = new StageTutorialData();
                         break;
                 }
                 switch (DataManager.Instance.CurrentGameData.Mode)
@@ -95,20 +88,14 @@ namespace Capsule.Game
                                 PlayerPrefs.GetInt("IsFirstPlayStage", 0);
                                 break;
                             case GameStage.TUTORIAL_2:
-                                actionGlow1.SetActive(true);
-
                                 break;
                             case GameStage.TUTORIAL_3:
-                                actionGlow2.SetActive(true);
-
                                 break;
                         }
                         break;
                     case GameMode.PRACTICE:
-
                         break;
                     case GameMode.BOT:
-
                         break;
                 }
             }
@@ -129,8 +116,7 @@ namespace Capsule.Game
 
         public void OnSkipButtonClick()
         {
-
-            PopupTutorial(false);
+            IsTutorialPopup = false;
         }
 
         public void OnPrevDescButtonClick()
@@ -143,11 +129,15 @@ namespace Capsule.Game
 
         }
 
-        public void PopupTutorial(bool isOn)
+        public bool PopupTutorial(bool isOn)
         {
+            if (isOn && GameUIManager.Instance != null && (GameUIManager.Instance.IsLoading || GameUIManager.Instance.IsPopupActive)) return false;
+            if (GameManager.Instance != null && GameManager.Instance.CheckSoloGame())
+                Time.timeScale = isOn ? 0f : 1f;
             tutorialDescCanvasGroup.alpha = isOn ? 1f : 0f;
             tutorialDescCanvasGroup.blocksRaycasts = isOn;
             tutorialDescCanvasGroup.interactable = isOn;
+            return isOn;
         }
     }
 }

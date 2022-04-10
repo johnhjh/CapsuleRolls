@@ -23,13 +23,13 @@
         public readonly string ArcadeEnemyDesc = "스테이지 모드랑은 달라요.\n이제 적들도 공격하니 주의하세요!";
     }
 
-    public class RollTheBallTutorialData : TutorialData
+    public class StageTutorialData : TutorialData
     {
         public readonly string RollTheBallDesc = "공을 굴려서 골인시키는 게임이에요.";
         public readonly string RollTheBallDescPC = "키보드 [W]로 전진 할 수 있어요.";
         public readonly string RollTheBallDescPC2 = "키보드 [S]로 후진 할 수 있어요.";
-        public readonly string RollTheBallDescPC3 = "키보드 [A, D]로 방향을 바꿀 수 있어요.";
-        public readonly string RollTheBallDescMobile = "[조이스틱]을 이용해 움직이거나\n방향을 바꿀 수 있어요.";
+        public readonly string RollTheBallDescPC3 = "키보드 [A, D]로 좌우로 움직일 수 있어요.";
+        public readonly string RollTheBallDescMobile = "[조이스틱]을 이용해 움직일 수 있어요.";
 
         public readonly string ActionButton1DescPC = "[마우스 왼쪽 클릭]을 누르면\n캡슐이 점프해요!";
         public readonly string ActionButton2DescPC = "[마우스 오른쪽 클릭]을 누르면\n캡슐이 앞으로 다이브해요!";
@@ -44,5 +44,10 @@
         public readonly string DiveDesc2 = "공격에 성공하면 공도 뺐어 탈 수 있답니다!";
         public readonly string DiveDesc3 = "적 캡슐도 항상 가만히 있는 건 아니라구요!";
         public readonly string DiveDesc4 = "신중하게 타이밍 맞춰서 다이브~!";
+    }
+
+    public class ArcadeTutorialData : TutorialData
+    {
+
     }
 }

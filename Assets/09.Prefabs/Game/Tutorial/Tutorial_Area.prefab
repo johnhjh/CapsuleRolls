@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f9e634afaea575746949da04eb6a5a7f, type: 2}
+  - {fileID: 2100000, guid: 6a6abbc32e093aa43be3be660ac2c4ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5859908792485293525}
   - component: {fileID: 6257798423708489335}
+  - component: {fileID: 4579400136180768685}
   m_Layer: 16
   m_Name: Tutorial_Area
   m_TagString: Tutorial
@@ -131,6 +132,19 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!135 &4579400136180768685
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6492294363521382255}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8787372084878366970
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +203,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6a6abbc32e093aa43be3be660ac2c4ed, type: 2}
+  - {fileID: 2100000, guid: f9e634afaea575746949da04eb6a5a7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

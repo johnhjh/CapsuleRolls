@@ -37,6 +37,16 @@ namespace Capsule.Game.UI
                 Destroy(this.gameObject);
         }
 
+        private void Start()
+        {
+            ShowHideGlow(false);
+        }
+
+        public void ShowHideGlow(bool isShow)
+        {
+            transform.GetChild(2).gameObject.SetActive(isShow);
+        }
+
         public event Action OnClickActionButton2;
 
         public void OnPointerClick(PointerEventData eventData)

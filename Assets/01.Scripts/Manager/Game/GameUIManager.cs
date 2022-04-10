@@ -462,6 +462,29 @@ namespace Capsule.Game.UI
             readyGoText.color = transparentColor;
         }
 
+        public IEnumerator ClearTextEffect()
+        {
+            readyGoText.text = "Stage Clear~";
+            readyGoText.fontSize = Mathf.RoundToInt(MIN_READY_GO_FONT_SIZE);
+            readyGoText.color = transparentColor;
+            float currentAlpha = 0f;
+            float currentFontSize = MIN_READY_GO_FONT_SIZE;
+            float speed = MAX_READY_GO_FONT_SIZE - MIN_READY_GO_FONT_SIZE;
+            while (!Mathf.Approximately(currentFontSize, MAX_READY_GO_FONT_SIZE))
+            {
+                currentAlpha = Mathf.MoveTowards(currentAlpha, 1f, Time.deltaTime);
+                currentFontSize = Mathf.MoveTowards(currentFontSize, MAX_READY_GO_FONT_SIZE, speed * Time.deltaTime);
+                SetTextColorAndSize(readyGoText, currentAlpha, Mathf.RoundToInt(currentFontSize));
+                yield return null;
+            }
+            yield return new WaitForSeconds(1.0f);
+            currentAlpha = 0f;
+            currentFontSize = MIN_READY_GO_FONT_SIZE;
+            SetTextColorAndSize(readyGoText, currentAlpha, Mathf.RoundToInt(currentFontSize));
+            readyGoText.color = transparentColor;
+            yield return new WaitForSeconds(1.0f);
+        }
+
         private IEnumerator Last3SecTextEffect(Text text)
         {
             float currentAlpha = 0f;
@@ -547,6 +570,13 @@ namespace Capsule.Game.UI
             stageFailureCoroutine = StartCoroutine(FadeInCG(gameStageFailureCG));
         }
 
+        public void ResumeGame()
+        {
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(MenuSFX.OK);
+            PauseGame(false);
+        }
+
         public void PauseGame()
         {
             PauseGame(!IsPaused);
@@ -558,6 +588,8 @@ namespace Capsule.Game.UI
             if (isPaused) OnPauseGame?.Invoke();
             if (this.IsSettingOpen)
                 ShowGameSetting(false);
+            if (isPaused && SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(MenuSFX.LOAD_DONE);
             this.IsPaused = isPaused;
             Time.timeScale = isPaused ? 0f : 1f;
             gamePauseCG.alpha = isPaused ? 1f : 0f;
@@ -573,6 +605,8 @@ namespace Capsule.Game.UI
         public void ShowGameSetting(bool isSetting)
         {
             if (this.IsLoading || this.IsPopupActive) return;
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(isSetting ? MenuSFX.OK : MenuSFX.BACK);
             gameSettingCG.alpha = isSetting ? 1f : 0f;
             gameSettingCG.blocksRaycasts = isSetting;
             gameSettingCG.interactable = isSetting;
@@ -588,7 +622,9 @@ namespace Capsule.Game.UI
         {
             if (OnPauseGame != null)
                 OnPauseGame = null;
-            if (GameManager.Instance.CheckSoloGame())
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(MenuSFX.OK);
+            if (GameManager.Instance != null && GameManager.Instance.CheckSoloGame())
             {
                 if (addTimeCoroutine != null)
                     StopCoroutine(addTimeCoroutine);
@@ -607,6 +643,8 @@ namespace Capsule.Game.UI
 
         public void OnClickExitGameToCredit()
         {
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(MenuSFX.OK);
             Time.timeScale = 1f;
             MoveToScene(LobbySceneType.CREDIT);
         }
@@ -615,6 +653,8 @@ namespace Capsule.Game.UI
         {
             if (OnPauseGame != null)
                 OnPauseGame = null;
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(MenuSFX.OK);
             foreach (GameObject gameObj in rewardItems)
                 gameObj.SetActive(false);
             if (!DataManager.Instance.HasNextStage(GameManager.Instance.CurrentGameData.Stage))
@@ -652,6 +692,8 @@ namespace Capsule.Game.UI
             PauseGame(false);
             IsPopupActive = false;
             IsLoading = true;
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(MenuSFX.OK);
             Time.timeScale = 1f;
             switch (GameManager.Instance.CurrentGameData.Mode)
             {
