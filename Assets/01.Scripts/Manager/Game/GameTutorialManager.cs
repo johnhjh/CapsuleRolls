@@ -30,6 +30,10 @@ namespace Capsule.Game
 
         private CanvasGroup tutorialDescCanvasGroup = null;
         private Button showTutorialButton = null;
+        [HideInInspector]
+        public TutorialTextPanelCtrl CurrentTextPanel = null;
+        [SerializeField]
+        public TutorialTextPanelCtrl InitTextPanel;
 
         private bool isTutorialPopup = false;
         public bool IsTutorialPopup
@@ -57,6 +61,7 @@ namespace Capsule.Game
             tutorialDescCanvasGroup = GameObject.Find("TutorialUIDesc").GetComponent<CanvasGroup>();
             showTutorialButton = GameObject.Find("Button_Show_Tutorial").GetComponent<Button>();
             showTutorialButton.onClick.AddListener(delegate { IsTutorialPopup = true; });
+            CurrentTextPanel = InitTextPanel;
         }
 
         private void SetTutorialDatas()
@@ -103,14 +108,18 @@ namespace Capsule.Game
 
         private void Update()
         {
-            if (!IsTutorialPopup) return;
+            if (!IsTutorialPopup || CurrentTextPanel == null) return;
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-
+                if (CurrentTextPanel.HasPrevTextPanel())
+                    CurrentTextPanel.ShowPrevTextPanel();
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-
+                if (CurrentTextPanel.HasNextTextPanel())
+                    CurrentTextPanel.ShowNextTextPanel();
+                else if (CurrentTextPanel.IsLastTextPanel)
+                    DoneTutorial();
             }
         }
 
@@ -119,19 +128,37 @@ namespace Capsule.Game
             IsTutorialPopup = false;
         }
 
-        public void OnPrevDescButtonClick()
+        public void DoneTutorial()
         {
-
-        }
-
-        public void OnNextDescButtonClick()
-        {
-
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
+            isTutorialPopup = false;
+            PopupTutorial(false);
         }
 
         public bool PopupTutorial(bool isOn)
         {
             if (isOn && GameUIManager.Instance != null && (GameUIManager.Instance.IsLoading || GameUIManager.Instance.IsPopupActive)) return false;
+            if (!isOn && CurrentTextPanel != null)
+            {
+                CurrentTextPanel.gameObject.SetActive(false);
+                CurrentTextPanel = InitTextPanel;
+            }
+            else if (isOn)
+            {
+                if (InitTextPanel != null)
+                {
+                    if (CurrentTextPanel == null)
+                        CurrentTextPanel = InitTextPanel;
+                    else if (CurrentTextPanel != InitTextPanel)
+                    {
+                        CurrentTextPanel.gameObject.SetActive(false);
+                        CurrentTextPanel = InitTextPanel;
+                    }
+                    if (!CurrentTextPanel.gameObject.activeSelf)
+                        CurrentTextPanel.gameObject.SetActive(true);
+                }
+            }
             if (GameManager.Instance != null && GameManager.Instance.CheckSoloGame())
                 Time.timeScale = isOn ? 0f : 1f;
             tutorialDescCanvasGroup.alpha = isOn ? 1f : 0f;

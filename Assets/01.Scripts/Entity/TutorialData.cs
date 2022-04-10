@@ -4,8 +4,8 @@
     {
         MENU,
         ACTION_BUTTON,
-        STAGE,
-        ARCADE,
+        KIND,
+        MODE,
     }
 
     public class TutorialData
