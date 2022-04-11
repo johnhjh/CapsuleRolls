@@ -9,12 +9,29 @@ namespace Capsule.Game.UI
         public TutorialTextPanelCtrl NextTextPanel;
         [SerializeField]
         public TutorialTextPanelCtrl PrevTextPanel;
+        [SerializeField]
+        public GameObject EnableTogether = null;
+        [SerializeField]
+        public GameObject DisableTogether = null;
+
         public bool IsLastTextPanel = false;
 
         private void Start()
         {
-            if (GameTutorialManager.Instance != null && GameTutorialManager.Instance.InitTextPanel != this)
+            if (PrevTextPanel != null)
                 this.gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            if (EnableTogether != null)
+                EnableTogether.SetActive(true);
+        }
+
+        private void OnDisable()
+        {
+            if (DisableTogether != null)
+                DisableTogether.SetActive(false);
         }
 
         public bool HasNextTextPanel()

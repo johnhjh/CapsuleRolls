@@ -98,7 +98,10 @@ namespace Capsule.Game.RollTheBall
             else
             {
                 if (playerInput.GetInputMovePower() > 0.2f && ballRigidbody.velocity.sqrMagnitude > 0.2f)
-                    SFXManager.Instance.PlaySFX(GameSFX.MOVE, playerAudioSource, Random.Range(0.3f, 0.4f));
+                {
+                    if (Time.timeScale != 0f)
+                        SFXManager.Instance.PlaySFX(GameSFX.MOVE, playerAudioSource, Random.Range(0.3f, 0.4f));
+                }
                 if (ballRigidbody.velocity.sqrMagnitude <= MAX_BALL_SPEED)
                     ballRigidbody.velocity += ballMoveSpeed * Time.deltaTime * moveDir;
             }

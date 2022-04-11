@@ -3,9 +3,10 @@
     public enum TutorialType
     {
         MENU,
-        ACTION_BUTTON,
         KIND,
         MODE,
+        INTERFACE,
+        CONTROL,
     }
 
     public class TutorialData
