@@ -3,6 +3,7 @@ using Capsule.Entity;
 using Capsule.Game.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 namespace Capsule.Game
 {
@@ -34,6 +35,8 @@ namespace Capsule.Game
             get { return currentTutorial; }
             set
             {
+                if (initVideoPlayer.isPlaying)
+                    initVideoPlayer.Stop();
                 currentTutorial = value;
                 CanvasGroupOnOff(tutorialMenuCG, false);
                 CanvasGroupOnOff(gameKindTutorialCG, false);
@@ -65,6 +68,7 @@ namespace Capsule.Game
                         CanvasGroupOnOff(skipTutorialButtonCG, true);
                         CanvasGroupOnOff(gameControlTutorialCG, true);
                         CurrentTextPanel = initControlTextPanel;
+                        initVideoPlayer.Play();
                         break;
                     default:
                         CanvasGroupOnOff(tutorialMenuCG, true);
@@ -97,6 +101,7 @@ namespace Capsule.Game
         private TutorialTextPanelCtrl initModeTextPanel = null;
         private TutorialTextPanelCtrl initInterfaceTextPanel = null;
         private TutorialTextPanelCtrl initControlTextPanel = null;
+        private VideoPlayer initVideoPlayer = null;
 
         private bool isTutorialPopup = false;
         public bool IsTutorialPopup
@@ -145,6 +150,8 @@ namespace Capsule.Game
             initModeTextPanel = GameObject.Find("GameModeTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
             initInterfaceTextPanel = GameObject.Find("GameInterfaceTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
             initControlTextPanel = GameObject.Find("GameControlTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
+            initVideoPlayer = initControlTextPanel.EnableTogether.transform.GetComponentsInChildren<VideoPlayer>()[0];
+            initVideoPlayer.Stop();
         }
 
         private void SetTutorialDatas()
@@ -270,10 +277,13 @@ namespace Capsule.Game
         {
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
+            CurrentTextPanel = null;
             if (wasTutorialMenuOpen)
                 CurrentTutorial = TutorialType.MENU;
             else
             {
+                if (initVideoPlayer.isPlaying)
+                    initVideoPlayer.Stop();
                 isTutorialPopup = false;
                 PopupTutorial(false);
             }
