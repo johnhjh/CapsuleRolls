@@ -39,7 +39,7 @@ namespace Capsule.Game
                     initVideoPlayer.Stop();
                 currentTutorial = value;
                 CanvasGroupOnOff(tutorialMenuCG, false);
-                CanvasGroupOnOff(gameKindTutorialCG, false);
+                CanvasGroupOnOff(gameObstacleTutorialCG, false);
                 CanvasGroupOnOff(gameModeTutorialCG, false);
                 CanvasGroupOnOff(gameInterfaceTutorialCG, false);
                 CanvasGroupOnOff(gameControlTutorialCG, false);
@@ -49,10 +49,10 @@ namespace Capsule.Game
                     case TutorialType.MENU:
                         CanvasGroupOnOff(tutorialMenuCG, true);
                         break;
-                    case TutorialType.KIND:
+                    case TutorialType.OBSTACLE:
                         CanvasGroupOnOff(skipTutorialButtonCG, true);
-                        CanvasGroupOnOff(gameKindTutorialCG, true);
-                        CurrentTextPanel = initKindTextPanel;
+                        CanvasGroupOnOff(gameObstacleTutorialCG, true);
+                        CurrentTextPanel = initObstacleTextPanel;
                         break;
                     case TutorialType.MODE:
                         CanvasGroupOnOff(skipTutorialButtonCG, true);
@@ -78,8 +78,8 @@ namespace Capsule.Game
         }
         private CanvasGroup tutorialDescCanvasGroup = null;
         private CanvasGroup tutorialMenuCG = null;
-        private CanvasGroup gameKindTutorialCG = null;
         private CanvasGroup gameModeTutorialCG = null;
+        private CanvasGroup gameObstacleTutorialCG = null;
         private CanvasGroup gameInterfaceTutorialCG = null;
         private CanvasGroup gameControlTutorialCG = null;
         private CanvasGroup skipTutorialButtonCG = null;
@@ -97,8 +97,8 @@ namespace Capsule.Game
                     value.gameObject.SetActive(true);
             }
         }
-        private TutorialTextPanelCtrl initKindTextPanel = null;
         private TutorialTextPanelCtrl initModeTextPanel = null;
+        private TutorialTextPanelCtrl initObstacleTextPanel = null;
         private TutorialTextPanelCtrl initInterfaceTextPanel = null;
         private TutorialTextPanelCtrl initControlTextPanel = null;
         private VideoPlayer initVideoPlayer = null;
@@ -130,8 +130,8 @@ namespace Capsule.Game
         {
             tutorialDescCanvasGroup = GameObject.Find("TutorialUIDesc").GetComponent<CanvasGroup>();
             tutorialMenuCG = GameObject.Find("TutorialMainMenus").GetComponent<CanvasGroup>();
-            gameKindTutorialCG = GameObject.Find("GameKindTutorial").GetComponent<CanvasGroup>();
             gameModeTutorialCG = GameObject.Find("GameModeTutorial").GetComponent<CanvasGroup>();
+            gameObstacleTutorialCG = GameObject.Find("GameObstacleTutorial").GetComponent<CanvasGroup>();
             gameInterfaceTutorialCG = GameObject.Find("GameInterfaceTutorial").GetComponent<CanvasGroup>();
             gameControlTutorialCG = GameObject.Find("GameControlTutorial").GetComponent<CanvasGroup>();
             skipTutorialButtonCG = GameObject.Find("Button_Skip_Tutorial").GetComponent<CanvasGroup>();
@@ -146,8 +146,8 @@ namespace Capsule.Game
                 });
             }
             CurrentTextPanel = null;
-            initKindTextPanel = GameObject.Find("GameKindTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
             initModeTextPanel = GameObject.Find("GameModeTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
+            initObstacleTextPanel = GameObject.Find("GameObstacleTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
             initInterfaceTextPanel = GameObject.Find("GameInterfaceTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
             initControlTextPanel = GameObject.Find("GameControlTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
             initVideoPlayer = initControlTextPanel.EnableTogether.transform.GetComponentsInChildren<VideoPlayer>()[0];
@@ -241,20 +241,20 @@ namespace Capsule.Game
             DoneTutorial();
         }
 
-        public void OnGameKindTutorialClick()
-        {
-            if (SFXManager.Instance != null)
-                SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-            wasTutorialMenuOpen = true;
-            CurrentTutorial = TutorialType.KIND;
-        }
-
         public void OnGameModeTutorialClick()
         {
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
             wasTutorialMenuOpen = true;
             CurrentTutorial = TutorialType.MODE;
+        }
+
+        public void OnGameObstacleTutorialClick()
+        {
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
+            wasTutorialMenuOpen = true;
+            CurrentTutorial = TutorialType.OBSTACLE;
         }
 
         public void OnGameInterfaceTutorialClick()

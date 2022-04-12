@@ -3,8 +3,8 @@
     public enum TutorialType
     {
         MENU,
-        KIND,
         MODE,
+        OBSTACLE,
         INTERFACE,
         CONTROL,
     }
