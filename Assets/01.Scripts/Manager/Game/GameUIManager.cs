@@ -620,6 +620,8 @@ namespace Capsule.Game.UI
 
         public void OnClickExitGame()
         {
+            if (GameManager.Instance != null)
+                GameManager.Instance.StopAllCoroutines();
             if (OnPauseGame != null)
                 OnPauseGame = null;
             if (SFXManager.Instance != null)
@@ -643,6 +645,8 @@ namespace Capsule.Game.UI
 
         public void OnClickExitGameToCredit()
         {
+            if (GameManager.Instance != null)
+                GameManager.Instance.StopAllCoroutines();
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.OK);
             Time.timeScale = 1f;
@@ -651,6 +655,8 @@ namespace Capsule.Game.UI
 
         public void OnClickNextStage()
         {
+            if (GameManager.Instance != null)
+                GameManager.Instance.StopAllCoroutines();
             if (OnPauseGame != null)
                 OnPauseGame = null;
             if (SFXManager.Instance != null)
@@ -679,6 +685,8 @@ namespace Capsule.Game.UI
 
         public void OnClickRestartGame()
         {
+            if (GameManager.Instance != null)
+                GameManager.Instance.StopAllCoroutines();
             if (OnPauseGame != null)
                 OnPauseGame = null;
             if (addTimeCoroutine != null)
