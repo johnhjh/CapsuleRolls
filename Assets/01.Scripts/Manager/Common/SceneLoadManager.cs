@@ -23,7 +23,8 @@ namespace Capsule.SceneLoad
     {
         COMMON_UI = 0,
         LEVEL,
-        UI,
+        MODE_UI,
+        KIND_UI,
         LOGIC,
     }
 
@@ -69,16 +70,9 @@ namespace Capsule.SceneLoad
         private readonly string SHOPPING_SCENE_NAME = "ShoppingScene";
         private readonly string CREDIT_SCENE_NAME = "CreditScene";
 
-        // Game Scenes
-        private readonly string STRING_ROLL_THE_BALL = "RollTheBall";
+        // Game Common Scenes
         private readonly string COMMON_UI_MULTI = "CommonUI_Multi";
         private readonly string COMMON_UI_SOLO = "CommonUI_Solo";
-
-        // Game Kinds
-        private readonly string STRING_GOAL_IN = "GoalIn";
-        private readonly string STRING_BATTLE_ROYAL = "BattleRoyal";
-        private readonly string STRING_GOLDEN_BALL = "GoldenBall";
-        private readonly string STRING_NEXT_TARGET = "NextTarget";
 
         // Lobby Loading
         private readonly string LOADING_LOBBY_SCENE_PANEL = "LoadingLobbyScenePanel";
@@ -203,28 +197,44 @@ namespace Capsule.SceneLoad
 
         private string GetGameSceneLevelName(GameData data)
         {
-            string gameLevelSceneName = STRING_ROLL_THE_BALL;
+            string gameLevelSceneName = "Level_";
             switch (data.Mode)
             {
                 case GameMode.ARCADE:
-                    gameLevelSceneName += "Level_Arcade_";
+                    gameLevelSceneName += "Arcade_";
                     gameLevelSceneName += GetGameKindString(data.Kind);
                     break;
                 case GameMode.STAGE:
-                    gameLevelSceneName += "Level_Stage" + ((int)data.Stage).ToString();
+                    gameLevelSceneName += "Stage" + ((int)data.Stage).ToString();
                     break;
                 case GameMode.PRACTICE:
-                    gameLevelSceneName += "Level_Practice";
+                    gameLevelSceneName += "Practice";
                     break;
                 case GameMode.BOT:
                 case GameMode.MULTI:
                 case GameMode.RANK:
                 case GameMode.CUSTOM:
-                    gameLevelSceneName += "Level_Multi_";
+                    gameLevelSceneName += "Multi_";
                     gameLevelSceneName += GetGameKindString(data.Kind);
                     break;
             }
             return gameLevelSceneName;
+        }
+
+        private string GetGameModeString(GameMode mode)
+        {
+            switch (mode)
+            {
+                case GameMode.STAGE:
+                    return "Stage";
+                case GameMode.ARCADE:
+                    return "Arcade";
+                case GameMode.PRACTICE:
+                    return "Practice";
+                case GameMode.BOT:
+                    return "Bot";
+            }
+            return "Stage";
         }
 
         private string GetGameKindString(GameKind kind)
@@ -232,41 +242,46 @@ namespace Capsule.SceneLoad
             switch (kind)
             {
                 case GameKind.GOAL_IN:
-                    return STRING_GOAL_IN;
+                    return "GoalIn";
                 case GameKind.BATTLE_ROYAL:
-                    return STRING_BATTLE_ROYAL;
+                    return "BattleRoyal";
                 case GameKind.GOLDEN_BALL:
-                    return STRING_GOLDEN_BALL;
+                    return "GoldenBall";
                 case GameKind.NEXT_TARGET:
-                    return STRING_NEXT_TARGET;
+                    return "NextTarget";
                 default:
-                    return STRING_BATTLE_ROYAL;
+                    return "GoalIn";
             }
+        }
+
+        private string GetGameSceneUIName(GameMode mode)
+        {
+            return "ModeUI_" + GetGameModeString(mode);
         }
 
         private string GetGameSceneUIName(GameKind kind)
         {
-            return STRING_ROLL_THE_BALL + GetGameKindString(kind) + "UI";
+            return "KindUI_" + GetGameKindString(kind);
         }
 
         private string GetGameSceneLogicName(GameMode mode)
         {
-            string gameLogicSceneName = STRING_ROLL_THE_BALL;
+            string gameLogicSceneName = "Logic_";
             switch (mode)
             {
                 case GameMode.ARCADE:
                 case GameMode.STAGE:
                 case GameMode.PRACTICE:
                 case GameMode.BOT:
-                    gameLogicSceneName += "Logic_Solo";
+                    gameLogicSceneName += "Solo";
                     break;
                 case GameMode.MULTI:
                 case GameMode.RANK:
                 case GameMode.CUSTOM:
-                    gameLogicSceneName += "Logic_Multi";
+                    gameLogicSceneName += "Multi";
                     break;
                 default:
-                    gameLogicSceneName += "Logic_Solo";
+                    gameLogicSceneName += "Solo";
                     break;
             }
             return gameLogicSceneName;
@@ -278,13 +293,15 @@ namespace Capsule.SceneLoad
             {
                 { GameSceneType.LEVEL, new SceneData(GetGameSceneLevelName(data), LoadSceneMode.Additive) },
                 { GameSceneType.COMMON_UI, new SceneData(GetCommonUIName(data.Mode), LoadSceneMode.Additive) },
-                { GameSceneType.UI, new SceneData(GetGameSceneUIName(data.Kind), LoadSceneMode.Additive) },
+                { GameSceneType.MODE_UI, new SceneData(GetGameSceneUIName(data.Mode), LoadSceneMode.Additive) },
+                { GameSceneType.KIND_UI, new SceneData(GetGameSceneUIName(data.Kind), LoadSceneMode.Additive) },
                 { GameSceneType.LOGIC, new SceneData(GetGameSceneLogicName(data.Mode), LoadSceneMode.Additive) },
             };
 
             Debug.Log(gameSceneDictionary[GameSceneType.COMMON_UI].sceneName);
             Debug.Log(gameSceneDictionary[GameSceneType.LEVEL].sceneName);
-            Debug.Log(gameSceneDictionary[GameSceneType.UI].sceneName);
+            Debug.Log(gameSceneDictionary[GameSceneType.MODE_UI].sceneName);
+            Debug.Log(gameSceneDictionary[GameSceneType.KIND_UI].sceneName);
             Debug.Log(gameSceneDictionary[GameSceneType.LOGIC].sceneName);
 
             return gameSceneDictionary;
@@ -298,7 +315,8 @@ namespace Capsule.SceneLoad
                     return "공통 UI 불러오는 중..";
                 case GameSceneType.LEVEL:
                     return "게임 맵 불러오는 중..";
-                case GameSceneType.UI:
+                case GameSceneType.MODE_UI:
+                case GameSceneType.KIND_UI:
                     return "게임 UI 불러오는 중 ..";
                 case GameSceneType.LOGIC:
                     return "게임 로직 불러오는 중..";
@@ -367,7 +385,9 @@ namespace Capsule.SceneLoad
             float totalProgress = 0f;
             foreach (var loadScene in gameSceneDictionary)
             {
-                if (loadScene.Key == GameSceneType.COMMON_UI || loadScene.Key == GameSceneType.UI)
+                if (loadScene.Key == GameSceneType.COMMON_UI ||
+                    loadScene.Key == GameSceneType.MODE_UI ||
+                    loadScene.Key == GameSceneType.KIND_UI)
                 {
                     totalProgress += 1f / gameSceneDictionary.Count;
                     continue;

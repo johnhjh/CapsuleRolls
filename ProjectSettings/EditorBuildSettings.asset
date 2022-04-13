@@ -39,31 +39,31 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Arcade_BattleRoyal.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Arcade_BattleRoyal.unity
     guid: 57867300077e16047b4817836828fd45
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Practice.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Practice.unity
     guid: 4472d0aad9ebf434594a8323d31a1a96
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage0.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage0.unity
     guid: 27512da8cda7c5d4fb344593698200bf
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage1.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage1.unity
     guid: d4389b51b9ccb67408bd5de26c900582
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage2.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage2.unity
     guid: b6e873f2b96d3dd48b0acd44ccb5a33e
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage3.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage3.unity
     guid: 6855c87587c4922428d93ea4f61940c3
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage4.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage4.unity
     guid: a366d832de499e741b66da96aef14930
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage5.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage5.unity
     guid: f7f01aff037836e4b9528d006b4b8403
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/RollTheBallLevel_Stage6.unity
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage6.unity
     guid: e8e60bb044c1c41449f1fb27027dd9e5
   - enabled: 0
     path: 
@@ -72,21 +72,33 @@ EditorBuildSettings:
     path: Assets/00.Scenes/GameScenes/UI/CommonUI_Solo.unity
     guid: 2bd2872b24d73cc4396696762291b8b9
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/UI/RollTheBallGoalInUI.unity
+    path: Assets/00.Scenes/GameScenes/UI/KindUI_GoalIn.unity
     guid: 5119cb20712d3b64cb5a82ef55b288d4
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/UI/RollTheBallBattleRoyalUI.unity
+    path: Assets/00.Scenes/GameScenes/UI/KindUI_BattleRoyal.unity
     guid: 0c33fbb4f0e04e740b43e1cd48cdffda
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/UI/RollTheBallGoldenBallUI.unity
+    path: Assets/00.Scenes/GameScenes/UI/KindUI_GoldenBall.unity
     guid: adfb83d058c095a408350d28f8683786
   - enabled: 0
-    path: Assets/00.Scenes/GameScenes/UI/RollTheBallUpUpUI.unity
+    path: 
     guid: 5033d70909b1d114188074d4e5cf5d67
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/UI/RollTheBallNextTargetUI.unity
+    path: Assets/00.Scenes/GameScenes/UI/KindUI_NextTarget.unity
     guid: 72b199fea0efe844bb56a3ce8bff1641
   - enabled: 1
-    path: Assets/00.Scenes/GameScenes/Logic/RollTheBallLogic_Solo.unity
+    path: Assets/00.Scenes/GameScenes/UI/ModeUI_Arcade.unity
+    guid: 498dba918b488154ab15d2af54dd7dc6
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/UI/ModeUI_Bot.unity
+    guid: 330fea53f6cab174eaef75397455f55b
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/UI/ModeUI_Practice.unity
+    guid: 9fc16f5952b1c754d98f7f281cff2aef
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/UI/ModeUI_Stage.unity
+    guid: 23383bac52874654ba474f2fcfa28b3f
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Logic/Logic_Solo.unity
     guid: da50b9934c718384a81552a713bdcb87
   m_configObjects: {}
