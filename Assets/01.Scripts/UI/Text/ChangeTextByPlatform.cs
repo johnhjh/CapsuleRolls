@@ -31,7 +31,7 @@ namespace Capsule.UI
 
         private static bool CheckStringExists(string str)
         {
-            return !string.IsNullOrEmpty(str) && 
+            return !string.IsNullOrEmpty(str) &&
                 str.Length > 0;
         }
     }

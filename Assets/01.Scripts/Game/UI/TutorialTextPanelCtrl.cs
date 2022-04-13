@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Capsule.Audio;
+﻿using Capsule.Audio;
+using UnityEngine;
 
 namespace Capsule.Game.UI
 {

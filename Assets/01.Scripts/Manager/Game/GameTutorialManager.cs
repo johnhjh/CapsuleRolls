@@ -219,8 +219,8 @@ namespace Capsule.Game
                     if (CurrentTextPanel.HasPrevTextPanel())
                         CurrentTextPanel.ShowPrevTextPanel();
                 }
-                else if (Input.GetKeyDown(KeyCode.RightArrow) || 
-                    Input.GetKeyDown(KeyCode.D) || 
+                else if (Input.GetKeyDown(KeyCode.RightArrow) ||
+                    Input.GetKeyDown(KeyCode.D) ||
                     Input.GetKeyDown(KeyCode.Space))
                 {
                     if (CurrentTextPanel.HasNextTextPanel())
@@ -291,9 +291,9 @@ namespace Capsule.Game
 
         public bool PopupTutorial(bool isOn)
         {
-            if (isOn && 
-                GameUIManager.Instance != null && 
-                (GameUIManager.Instance.IsLoading || 
+            if (isOn &&
+                GameUIManager.Instance != null &&
+                (GameUIManager.Instance.IsLoading ||
                 GameUIManager.Instance.IsPopupActive)) return false;
             if (CurrentTutorial != TutorialType.MENU)
             {
