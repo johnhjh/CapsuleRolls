@@ -89,6 +89,8 @@ namespace Capsule.Game.AI
                         yield return ws01;
                         continue;
                     }
+                    if (GameManager.Instance.IsGameOver)
+                        yield break;
                     if (ballMove.IsLanded)
                     {
                         if (CheckArrival())

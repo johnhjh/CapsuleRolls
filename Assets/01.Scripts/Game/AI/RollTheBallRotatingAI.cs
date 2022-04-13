@@ -46,6 +46,8 @@ namespace Capsule.Game.AI
                 yield return ws02;
                 if (GameManager.Instance != null)
                 {
+                    if (GameManager.Instance.IsGameOver)
+                        yield break;
                     if (!GameManager.Instance.IsGameReady)
                         moveInput.rotate = 0f;
                     else if (ballMove.IsLanded)

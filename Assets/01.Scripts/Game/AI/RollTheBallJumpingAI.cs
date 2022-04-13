@@ -52,6 +52,8 @@ namespace Capsule.Game.AI
                         yield return ws02;
                         continue;
                     }
+                    if (GameManager.Instance.IsGameOver)
+                        yield break;
                     if (ballMove.IsLanded)
                     {
                         if (Time.time > timeBetTime)

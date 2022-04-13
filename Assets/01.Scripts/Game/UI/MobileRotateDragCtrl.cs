@@ -53,13 +53,11 @@ namespace Capsule.Game.UI
 
         private void HandleTouchInput()
         {
-            int i = 0;
             if (!dragPanelPressed) rotate = 0f;
             if (Input.touchCount > 0)
             {
                 foreach (Touch touch in Input.touches)
                 {
-                    i++;
                     Vector2 touchPos = new Vector2(touch.position.x, touch.position.y);
                     if (touch.phase == TouchPhase.Began)
                     {
@@ -67,14 +65,14 @@ namespace Capsule.Game.UI
                             touch.position.y <= Screen.height * 0.7f)
                         {
                             cg.alpha = 1f;
-                            touchID = i;
+                            touchID = touch.fingerId;
                             touchX = touch.position.x;
                             dragPanelPressed = true;
                         }
                     }
                     if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
                     {
-                        if (touchID == i)
+                        if (touchID == touch.fingerId)
                         {
                             rotate = (touchX - touch.position.x) / -50f;
                             rotate = Mathf.Clamp(rotate, -1f, 1f);
@@ -82,7 +80,7 @@ namespace Capsule.Game.UI
                     }
                     if (touch.phase == TouchPhase.Ended)
                     {
-                        if (touchID == i)
+                        if (touchID == touch.fingerId)
                         {
                             cg.alpha = 0.6f;
                             touchID = -1;

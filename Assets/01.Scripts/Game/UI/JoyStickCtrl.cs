@@ -100,12 +100,10 @@ namespace Capsule.Game.UI
 
         private void HandleTouchInput()
         {
-            int i = 0;
             if (Input.touchCount > 0)
             {
                 foreach (Touch touch in Input.touches)
                 {
-                    i++;
                     Vector2 touchPos = new Vector2(touch.position.x, touch.position.y);
                     if (touch.phase == TouchPhase.Began)
                     {
@@ -113,18 +111,18 @@ namespace Capsule.Game.UI
                             touch.position.y <= (startPos.y + touchableRadius))
                         {
                             JoyStickPressed = true;
-                            touchID = i;
+                            touchID = touch.fingerId;
                             HandleInput(touchPos);
                         }
                     }
                     if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
                     {
-                        if (touchID == i)
+                        if (touchID == touch.fingerId)
                             HandleInput(touchPos);
                     }
                     if (touch.phase == TouchPhase.Ended)
                     {
-                        if (touchID == i)
+                        if (touchID == touch.fingerId)
                         {
                             touchID = -1;
                             JoyStickPressed = false;

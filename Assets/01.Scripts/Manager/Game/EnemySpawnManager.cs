@@ -241,27 +241,28 @@ namespace Capsule.Game.Enemy
 
         private AIType ChangeEnemyType(GameObject enemyObj, int rand)
         {
+            RollTheBallAICtrl aiCtrl;
             switch (rand)
             {
                 case 1:
-                    if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl))
+                    if (enemyObj.TryGetComponent<RollTheBallAICtrl>(out aiCtrl))
                         aiCtrl.Type = AIType.JUMPING;
                     return AIType.JUMPING;
                 case 2:
-                    if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl2))
-                        aiCtrl2.Type = AIType.ROTATING;
+                    if (enemyObj.TryGetComponent<RollTheBallAICtrl>(out aiCtrl))
+                        aiCtrl.Type = AIType.ROTATING;
                     return AIType.ROTATING;
                 case 3:
-                    if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl3))
+                    if (enemyObj.TryGetComponent<RollTheBallAICtrl>(out aiCtrl))
                     {
                         if (++currentMovingAICount < movingEnemySpawnPoints.Count)
                         {
-                            aiCtrl3.Type = AIType.MOVING;
+                            aiCtrl.Type = AIType.MOVING;
                             return AIType.MOVING;
                         }
                         else
                         {
-                            aiCtrl3.Type = AIType.ROTATING;
+                            aiCtrl.Type = AIType.ROTATING;
                             return AIType.ROTATING;
                         }
                     }
@@ -269,12 +270,12 @@ namespace Capsule.Game.Enemy
                 default:
                     if (GameManager.Instance != null && GameManager.Instance.CurrentWave >= 10)
                     {
-                        if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl4))
-                            aiCtrl4.Type = AIType.ROTATING;
+                        if (enemyObj.TryGetComponent<RollTheBallAICtrl>(out aiCtrl))
+                            aiCtrl.Type = AIType.ROTATING;
                         return AIType.ROTATING;
                     }
-                    if (enemyObj.TryGetComponent(out RollTheBallAICtrl aiCtrl5))
-                        aiCtrl5.Type = AIType.IDLE;
+                    if (enemyObj.TryGetComponent<RollTheBallAICtrl>(out aiCtrl))
+                        aiCtrl.Type = AIType.IDLE;
                     return AIType.IDLE;
             }
         }
