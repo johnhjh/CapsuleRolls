@@ -556,6 +556,12 @@ namespace Capsule.Entity
             TotalPlayCount += 1;
         }
 
+        public void PlayerArcadePlayed()
+        {
+            PlayerPrefs.SetInt("ArcadePlayCount", PlayerPrefs.GetInt("ArcadePlayCount", 0) + 1);
+            PlayerSoloPlayed();
+        }
+
         public bool PlayerScored(int score)
         {
             bool isNewHighScore = score > HighestScore;
@@ -566,9 +572,22 @@ namespace Capsule.Entity
 
         public void PlayerStagePlayed(int stage, bool isCleared)
         {
+            PlayerPrefs.SetInt("StagePlayCount", PlayerPrefs.GetInt("StagePlayCount", 0) + 1);
             PlayerSoloPlayed();
             if (isCleared && stage > HighestStage)
                 HighestStage = stage;
+        }
+
+        public void PlayerPracticePlayed()
+        {
+            PlayerPrefs.SetInt("PracticePlayCount", PlayerPrefs.GetInt("PracticePlayCount", 0) + 1);
+            PlayerSoloPlayed();
+        }
+
+        public void PlayerBotPlayed()
+        {
+            PlayerPrefs.SetInt("BotPlayCount", PlayerPrefs.GetInt("BotPlayCount", 0) + 1);
+            PlayerSoloPlayed();
         }
 
         public void PlayerAddKills(int killCount)
@@ -602,6 +621,10 @@ namespace Capsule.Entity
 
         public void ResetPlayerGameData()
         {
+            PlayerPrefs.SetInt("StagePlayCount", 0);
+            PlayerPrefs.SetInt("ArcadePlayCount", 0);
+            PlayerPrefs.SetInt("PracticePlayCount", 0);
+            PlayerPrefs.SetInt("BotPlayCount", 0);
             PlayerPrefs.SetInt("HighestScore", 0);
             PlayerPrefs.SetInt("HighestStage", -1);
             PlayerPrefs.SetInt("CurrentWins", 0);

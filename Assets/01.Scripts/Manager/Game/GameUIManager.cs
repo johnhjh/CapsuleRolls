@@ -620,6 +620,8 @@ namespace Capsule.Game.UI
 
         public void OnClickExitGame()
         {
+            if (DataManager.Instance != null && DataManager.Instance.CurrentGameData.Mode == GameMode.PRACTICE)
+                DataManager.Instance.CurrentPlayerGameData.PlayerPracticePlayed();
             if (GameManager.Instance != null)
                 GameManager.Instance.StopAllCoroutines();
             if (OnPauseGame != null)

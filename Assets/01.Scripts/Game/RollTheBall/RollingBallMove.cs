@@ -3,6 +3,7 @@ using Capsule.Entity;
 using Capsule.Game.Effect;
 using Capsule.Game.Player;
 using Capsule.Game.UI;
+using Capsule.Game.Util;
 using UnityEngine;
 
 namespace Capsule.Game.RollTheBall
@@ -116,6 +117,8 @@ namespace Capsule.Game.RollTheBall
                 if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL))
                 {
                     GameCameraManager.Instance.CameraShake();
+                    if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                        Vibration.Vibrate(300);
                     if (ballAudioSource != null)
                         SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
                     EffectQueueManager.Instance.ShowCollisionEffect(collision, Mathf.Clamp(ballRigidbody.velocity.magnitude * 0.2f, 0f, 3f));
@@ -128,6 +131,8 @@ namespace Capsule.Game.RollTheBall
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
                 {
                     GameCameraManager.Instance.CameraShake();
+                    if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                        Vibration.Vibrate(500);
                     if (ballAudioSource != null)
                         SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
                     EffectQueueManager.Instance.ShowCollisionEffect(collision,
@@ -137,6 +142,8 @@ namespace Capsule.Game.RollTheBall
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER)
                     || collision.collider.CompareTag(GameManager.Instance.tagData.TAG_DEAD_ZONE))
                 {
+                    if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                        Vibration.Vibrate(1000);
                     if (ballAudioSource != null)
                         SFXManager.Instance.PlayOneShot(GameSFX.POP, ballAudioSource, popVolume);
                     Transform ballTransform = transform.GetChild(2);
@@ -162,6 +169,8 @@ namespace Capsule.Game.RollTheBall
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_GOAL_POST))
                 {
                     GameCameraManager.Instance.CameraShake();
+                    if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                        Vibration.Vibrate(300);
                     if (ballAudioSource != null)
                         SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
                     if (EffectQueueManager.Instance != null)
@@ -176,6 +185,8 @@ namespace Capsule.Game.RollTheBall
                 }
                 else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
                 {
+                    if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                        Vibration.Vibrate(100);
                     if (ballAudioSource != null)
                         SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, ballAudioSource);
                     if (EffectQueueManager.Instance != null)

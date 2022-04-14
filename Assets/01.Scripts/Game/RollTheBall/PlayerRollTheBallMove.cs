@@ -3,6 +3,7 @@ using Capsule.Entity;
 using Capsule.Game.Effect;
 using Capsule.Game.Player;
 using Capsule.Game.UI;
+using Capsule.Game.Util;
 using Capsule.Util;
 using System.Collections;
 using UnityEngine;
@@ -339,6 +340,8 @@ namespace Capsule.Game.RollTheBall
             if (IsDead || GameManager.Instance == null) return;
             if (other.CompareTag(GameManager.Instance.tagData.TAG_SWIPER))
             {
+                if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                    Vibration.Vibrate(1000);
                 EffectQueueManager.Instance.ShowHitEffect(transform.position, Quaternion.identity);
                 PlayerOut();
                 if (other.TryGetComponent(out Rigidbody otherRigidbody))
@@ -346,6 +349,8 @@ namespace Capsule.Game.RollTheBall
             }
             else if (other.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER))
             {
+                if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                    Vibration.Vibrate(1000);
                 EffectQueueManager.Instance.ShowHitEffect(transform.position, Quaternion.identity);
                 PlayerOut();
                 if (other.TryGetComponent(out Rigidbody otherRigidbody))
@@ -355,6 +360,8 @@ namespace Capsule.Game.RollTheBall
             {
                 if (IsLanded)
                 {
+                    if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                        Vibration.Vibrate(100);
                     EffectQueueManager.Instance.ShowHitEffect(transform.position, Quaternion.identity);
                     PlayerOut();
                     if (other.TryGetComponent(out Rigidbody otherRigidbody))
@@ -367,6 +374,8 @@ namespace Capsule.Game.RollTheBall
             {
                 if (other.transform != transform.parent.GetChild(2))
                 {
+                    if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                        Vibration.Vibrate(1000);
                     EffectQueueManager.Instance.ShowHitEffect(transform.position, Quaternion.identity);
                     PlayerOut();
                     if (other.TryGetComponent(out Rigidbody otherRigidbody))
@@ -383,6 +392,8 @@ namespace Capsule.Game.RollTheBall
                 collision.collider.CompareTag(GameManager.Instance.tagData.TAG_SPIKE_ROLLER) ||
                 collision.collider.CompareTag(GameManager.Instance.tagData.TAG_DEAD_ZONE))
             {
+                if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                    Vibration.Vibrate(1000);
                 GotHitBySomething(collision);
             }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_ROLLING_BALL) && !IsTryJumping)
@@ -390,6 +401,8 @@ namespace Capsule.Game.RollTheBall
                 SFXManager.Instance.PlayOneShot(GameSFX.BOUNCE, playerAudioSource);
                 if (collision.collider.transform == transform.parent.GetChild(2))
                 {
+                    if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                        Vibration.Vibrate(100);
                     if (EffectQueueManager.Instance != null)
                         EffectQueueManager.Instance.ShowCollisionEffect(collision);
                     IsLanded = true;
@@ -401,10 +414,14 @@ namespace Capsule.Game.RollTheBall
                     {
                         if (!move.IsDead)
                         {
+                            if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                                Vibration.Vibrate(1000);
                             GotHitBySomething(collision);
                         }
                         else
                         {
+                            if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                                Vibration.Vibrate(100);
                             if (EffectQueueManager.Instance != null)
                                 EffectQueueManager.Instance.ShowCollisionEffect(collision);
                             ChangeBallParent(ballTransform);
@@ -412,6 +429,8 @@ namespace Capsule.Game.RollTheBall
                     }
                     else
                     {
+                        if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                            Vibration.Vibrate(100);
                         if (EffectQueueManager.Instance != null)
                             EffectQueueManager.Instance.ShowCollisionEffect(collision);
                         ChangeBallParent(ballTransform);
@@ -420,6 +439,8 @@ namespace Capsule.Game.RollTheBall
             }
             else if (collision.collider.CompareTag(GameManager.Instance.tagData.TAG_PLAYER))
             {
+                if (isMine && GameSettingManager.Instance != null && GameSettingManager.Instance.UsingVibration)
+                    Vibration.Vibrate(100);
                 if (EffectQueueManager.Instance != null)
                     EffectQueueManager.Instance.ShowHitEffect(collision);
                 if (collision.collider.transform.TryGetComponent(out PlayerRollTheBallMove bm))

@@ -188,7 +188,6 @@ namespace Capsule.Game
                     BGMManager.Instance.ChangeBGM(BGMType.MAIN);
             }
             SFXManager.Instance.PlaySFX(Announcements.READY, 1f);
-            SFXManager.Instance.PlaySFX(Announcements.GO, 3f);
             if (GameUIManager.Instance != null)
                 GameUIManager.Instance.IsLoading = false;
             OnStartGame?.Invoke();
@@ -198,6 +197,7 @@ namespace Capsule.Game
         private IEnumerator SetGameReady()
         {
             yield return new WaitForSeconds(3.0f);
+            SFXManager.Instance.PlayOneShot(Announcements.GO);
             isGameReady = true;
         }
 
@@ -324,7 +324,7 @@ namespace Capsule.Game
         {
             IsGameOver = true;
             OnArcadeFinish?.Invoke();
-            DataManager.Instance.CurrentPlayerGameData.PlayerSoloPlayed();
+            DataManager.Instance.CurrentPlayerGameData.PlayerArcadePlayed();
             DataManager.Instance.CurrentPlayerData.EarnCoin(CalculateArcadeCoin());
             DataManager.Instance.CurrentPlayerData.AddExp(CalculateArcadeExp());
             StartCoroutine(PopupArcadeFinishUI());

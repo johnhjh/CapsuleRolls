@@ -453,6 +453,7 @@ namespace Capsule.SceneLoad
             float fadeSpeed = Mathf.Abs(fadeLoadingCG.alpha - finalAlpha) / fadeDuration;
             while (!Mathf.Approximately(fadeLoadingCG.alpha, finalAlpha))
             {
+                if (Time.timeScale == 0f) Time.timeScale = 1f;
                 fadeLoadingCG.alpha = Mathf.MoveTowards(fadeLoadingCG.alpha, finalAlpha, fadeSpeed * Time.deltaTime);
                 yield return null;
             }

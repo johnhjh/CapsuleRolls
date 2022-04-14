@@ -43,6 +43,11 @@ namespace Capsule.Game
         public PlayerRollTheBallMove playerMove = null;
         private bool isAutoAdjust = false;
         private Image toggleCheckImage = null;
+        private bool usingVibration = false;
+        public bool UsingVibration
+        {
+            get { return usingVibration; }
+        }
 
         protected override void Start()
         {
@@ -50,7 +55,8 @@ namespace Capsule.Game
             Slider sliderRotate = GameObject.Find("Slider_Rotate").GetComponent<Slider>();
             sliderRotate.value = PlayerPrefs.GetFloat("PlayerRotSpeed", 65f);
             sliderRotate.onValueChanged.AddListener(delegate { OnSliderRotateValueChanged(sliderRotate); });
-            isAutoAdjust = PlayerPrefs.GetInt("IsAutoAdjust", 1) == 1 ? true : false;
+            isAutoAdjust = PlayerPrefs.GetInt("IsAutoAdjust", 1) == 1;
+            usingVibration = PlayerPrefs.GetInt("UsingVibration", 1) == 1;
             toggleCheckImage = GameObject.Find("ToggleCheckImage").GetComponent<Image>();
             toggleCheckImage.color = new Color(1f, 1f, 1f, isAutoAdjust ? 1f : 0f);
         }
@@ -81,6 +87,12 @@ namespace Capsule.Game
             else
                 playerMove.IsAutoAdjust = isAutoAdjust;
             PlayerPrefs.SetInt("IsAutoAdjust", isAutoAdjust ? 1 : 0);
+        }
+
+        public void ChangeUsingVibration()
+        {
+            usingVibration = !usingVibration;
+            PlayerPrefs.SetInt("UsingVibration", usingVibration ? 1 : 0);
         }
     }
 }

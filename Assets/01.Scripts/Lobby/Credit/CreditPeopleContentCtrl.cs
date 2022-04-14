@@ -17,7 +17,7 @@ namespace Capsule.Lobby.Credit
         {
             if (isPeopleEnded) return;
             if (rectTransform.localPosition.y <= 3500f)
-                rectTransform.localPosition = new Vector2(rectTransform.localPosition.x, rectTransform.localPosition.y + 1f);
+                rectTransform.localPosition = new Vector2(rectTransform.localPosition.x, rectTransform.localPosition.y + 120f * Time.deltaTime);
             else
             {
                 isPeopleEnded = true;

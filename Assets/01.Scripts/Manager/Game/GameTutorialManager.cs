@@ -173,7 +173,7 @@ namespace Capsule.Game
                 switch (DataManager.Instance.CurrentGameData.Mode)
                 {
                     case GameMode.ARCADE:
-                        bool isFirstPlayArcade = PlayerPrefs.GetInt("IsFirstPlayArcade", 0) == 0;
+                        bool isFirstPlayArcade = PlayerPrefs.GetInt("ArcadePlayCount", 0) == 0;
                         if (isFirstPlayArcade)
                         {
                             CurrentTutorial = TutorialType.MODE;
@@ -181,7 +181,7 @@ namespace Capsule.Game
                         }
                         break;
                     case GameMode.STAGE:
-                        bool isFirstPlayStage = PlayerPrefs.GetInt("IsFirstPlayStage", 0) == 0;
+                        bool isFirstPlayStage = PlayerPrefs.GetInt("StagePlayCount", 0) == 0;
                         if (isFirstPlayStage)
                         {
                             CurrentTutorial = TutorialType.MODE;
@@ -198,7 +198,7 @@ namespace Capsule.Game
                         }
                         break;
                     case GameMode.PRACTICE:
-                        bool isFirstPlayPractice = PlayerPrefs.GetInt("IsFirstPlayPractice", 0) == 0;
+                        bool isFirstPlayPractice = PlayerPrefs.GetInt("PracticePlayCount", 0) == 0;
                         if (isFirstPlayPractice)
                         {
                             CurrentTutorial = TutorialType.MODE;
@@ -206,7 +206,7 @@ namespace Capsule.Game
                         }
                         break;
                     case GameMode.BOT:
-                        bool isFirstPlayBot = PlayerPrefs.GetInt("IsFirstPlayBot", 0) == 0;
+                        bool isFirstPlayBot = PlayerPrefs.GetInt("BotPlayCount", 0) == 0;
                         if (isFirstPlayBot)
                         {
                             CurrentTutorial = TutorialType.MODE;
@@ -219,7 +219,7 @@ namespace Capsule.Game
 
         private IEnumerator ShowTutorialPopupAfterTime()
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(4f);
             IsTutorialPopup = true;
         }
 
