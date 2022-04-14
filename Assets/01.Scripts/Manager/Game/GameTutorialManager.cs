@@ -1,6 +1,7 @@
 ﻿using Capsule.Audio;
 using Capsule.Entity;
 using Capsule.Game.UI;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -90,11 +91,14 @@ namespace Capsule.Game
             get { return currentTextPanel; }
             set
             {
-                if (currentTextPanel != null && currentTextPanel.gameObject.activeSelf)
-                    currentTextPanel.gameObject.SetActive(false);
-                currentTextPanel = value;
+                if (value == null)
+                {
+                    if (currentTextPanel != null && currentTextPanel.gameObject.activeSelf)
+                        currentTextPanel.gameObject.SetActive(false);
+                }
                 if (value != null)
                     value.gameObject.SetActive(true);
+                currentTextPanel = value;
             }
         }
         private TutorialTextPanelCtrl initModeTextPanel = null;
@@ -117,8 +121,6 @@ namespace Capsule.Game
                     SFXManager.Instance.PlayOneShot(isTutorialPopup ? MenuSFX.LOAD_DONE : MenuSFX.BACK);
             }
         }
-
-        private bool wasTutorialMenuOpen = false;
 
         private void Start()
         {
@@ -172,9 +174,19 @@ namespace Capsule.Game
                 {
                     case GameMode.ARCADE:
                         bool isFirstPlayArcade = PlayerPrefs.GetInt("IsFirstPlayArcade", 0) == 0;
+                        if (isFirstPlayArcade)
+                        {
+                            CurrentTutorial = TutorialType.MODE;
+                            StartCoroutine(ShowTutorialPopupAfterTime());
+                        }
                         break;
                     case GameMode.STAGE:
                         bool isFirstPlayStage = PlayerPrefs.GetInt("IsFirstPlayStage", 0) == 0;
+                        if (isFirstPlayStage)
+                        {
+                            CurrentTutorial = TutorialType.MODE;
+                            StartCoroutine(ShowTutorialPopupAfterTime());
+                        }
                         switch (DataManager.Instance.CurrentGameData.Stage)
                         {
                             case GameStage.TUTORIAL_1:
@@ -187,12 +199,28 @@ namespace Capsule.Game
                         break;
                     case GameMode.PRACTICE:
                         bool isFirstPlayPractice = PlayerPrefs.GetInt("IsFirstPlayPractice", 0) == 0;
+                        if (isFirstPlayPractice)
+                        {
+                            CurrentTutorial = TutorialType.MODE;
+                            StartCoroutine(ShowTutorialPopupAfterTime());
+                        }
                         break;
                     case GameMode.BOT:
                         bool isFirstPlayBot = PlayerPrefs.GetInt("IsFirstPlayBot", 0) == 0;
+                        if (isFirstPlayBot)
+                        {
+                            CurrentTutorial = TutorialType.MODE;
+                            StartCoroutine(ShowTutorialPopupAfterTime());
+                        }
                         break;
                 }
             }
+        }
+
+        private IEnumerator ShowTutorialPopupAfterTime()
+        {
+            yield return new WaitForSeconds(2.5f);
+            IsTutorialPopup = true;
         }
 
         private void Update()
@@ -245,7 +273,6 @@ namespace Capsule.Game
         {
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-            wasTutorialMenuOpen = true;
             CurrentTutorial = TutorialType.MODE;
         }
 
@@ -253,7 +280,6 @@ namespace Capsule.Game
         {
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-            wasTutorialMenuOpen = true;
             CurrentTutorial = TutorialType.OBSTACLE;
         }
 
@@ -261,7 +287,6 @@ namespace Capsule.Game
         {
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-            wasTutorialMenuOpen = true;
             CurrentTutorial = TutorialType.INTERFACE;
         }
 
@@ -269,7 +294,6 @@ namespace Capsule.Game
         {
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.SELECT);
-            wasTutorialMenuOpen = true;
             CurrentTutorial = TutorialType.CONTROL;
         }
 
@@ -278,15 +302,9 @@ namespace Capsule.Game
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.SELECT_DONE);
             CurrentTextPanel = null;
-            if (wasTutorialMenuOpen)
-                CurrentTutorial = TutorialType.MENU;
-            else
-            {
-                if (initVideoPlayer.isPlaying)
-                    initVideoPlayer.Stop();
-                isTutorialPopup = false;
-                PopupTutorial(false);
-            }
+            CurrentTutorial = TutorialType.MENU;
+            if (initVideoPlayer.isPlaying)
+                initVideoPlayer.Stop();
         }
 
         public bool PopupTutorial(bool isOn)
@@ -295,10 +313,6 @@ namespace Capsule.Game
                 GameUIManager.Instance != null &&
                 (GameUIManager.Instance.IsLoading ||
                 GameUIManager.Instance.IsPopupActive)) return false;
-            if (CurrentTutorial != TutorialType.MENU)
-            {
-                wasTutorialMenuOpen = false;
-            }
             if (GameManager.Instance != null && GameManager.Instance.CheckSoloGame())
                 Time.timeScale = isOn ? 0f : 1f;
 

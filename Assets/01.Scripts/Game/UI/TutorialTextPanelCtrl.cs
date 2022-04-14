@@ -13,11 +13,18 @@ namespace Capsule.Game.UI
         public GameObject EnableTogether = null;
         [SerializeField]
         public GameObject DisableTogether = null;
+        private GameObject enableWhenPrev = null;
+        private GameObject disableWhenPrev = null;
 
         public bool IsLastTextPanel = false;
+        private bool isShowingPrev = false;
 
         private void Start()
         {
+            if (EnableTogether != null && DisableTogether == null)
+                disableWhenPrev = EnableTogether;
+            if (DisableTogether != null && EnableTogether == null)
+                enableWhenPrev = DisableTogether;
             if (PrevTextPanel != null)
                 this.gameObject.SetActive(false);
         }
@@ -26,12 +33,20 @@ namespace Capsule.Game.UI
         {
             if (EnableTogether != null)
                 EnableTogether.SetActive(true);
+            if (enableWhenPrev != null && !enableWhenPrev.activeSelf)
+                enableWhenPrev.SetActive(true);
+            isShowingPrev = false;
         }
 
         private void OnDisable()
         {
             if (DisableTogether != null)
-                DisableTogether.SetActive(false);
+            {
+                if (isShowingPrev && PrevTextPanel != null && PrevTextPanel.EnableTogether == DisableTogether)
+                    DisableTogether.SetActive(true);
+                else
+                    DisableTogether.SetActive(false);
+            }
         }
 
         public bool HasNextTextPanel()
@@ -55,17 +70,32 @@ namespace Capsule.Game.UI
                     GameTutorialManager.Instance.CurrentTextPanel = NextTextPanel;
                 this.gameObject.SetActive(false);
             }
+            else
+            {
+                if (SFXManager.Instance != null)
+                    SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
+            }
         }
 
         public void ShowPrevTextPanel()
         {
-            if (SFXManager.Instance != null)
-                SFXManager.Instance.PlayOneShot(MenuSFX.OK);
             if (PrevTextPanel != null)
+            {
+                if (SFXManager.Instance != null)
+                    SFXManager.Instance.PlayOneShot(MenuSFX.OK);
+                if (disableWhenPrev != null && disableWhenPrev.activeSelf)
+                    disableWhenPrev.SetActive(false);
                 PrevTextPanel.gameObject.SetActive(true);
-            if (GameTutorialManager.Instance != null)
-                GameTutorialManager.Instance.CurrentTextPanel = PrevTextPanel;
-            this.gameObject.SetActive(false);
+                if (GameTutorialManager.Instance != null)
+                    GameTutorialManager.Instance.CurrentTextPanel = PrevTextPanel;
+                isShowingPrev = true;
+                this.gameObject.SetActive(false);
+            }
+            else
+            {
+                if (SFXManager.Instance != null)
+                    SFXManager.Instance.PlayOneShot(MenuSFX.BACK);
+            }
         }
 
         public void DoneTutorial()

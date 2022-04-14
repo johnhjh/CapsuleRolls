@@ -6155,7 +6155,7 @@ PrefabInstance:
     - target: {fileID: 2035314538214341423, guid: 4c11edba9911c724c90b3f6e9ed5a48e,
         type: 3}
       propertyPath: face
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2035314538214341423, guid: 4c11edba9911c724c90b3f6e9ed5a48e,
         type: 3}
@@ -28466,6 +28466,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450999503164292985, guid: c3e7b9ccc59ef6c4c982566c3feeb0ed,
+        type: 3}
+      propertyPath: ballMoveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450999503164292985, guid: c3e7b9ccc59ef6c4c982566c3feeb0ed,
+        type: 3}
+      propertyPath: MAX_BALL_SPEED
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5450999503164292986, guid: c3e7b9ccc59ef6c4c982566c3feeb0ed,
         type: 3}

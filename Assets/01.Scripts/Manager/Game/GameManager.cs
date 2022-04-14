@@ -143,6 +143,7 @@ namespace Capsule.Game
             private set { currentWave = value; }
         }
 
+        public event Action OnPlayerDeath;
         public event Action OnAddScoreTeamA;
         public event Action OnAddScoreTeamB;
         public event Action OnAddArcadeScore;
@@ -465,6 +466,11 @@ namespace Capsule.Game
                     OnAddScoreTeamB?.Invoke();
                 }
             }
+        }
+
+        public void PlayerDied()
+        {
+            OnPlayerDeath?.Invoke();
         }
 
         public void EndGame()

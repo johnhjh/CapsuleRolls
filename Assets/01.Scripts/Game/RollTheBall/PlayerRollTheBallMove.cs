@@ -11,11 +11,13 @@ namespace Capsule.Game.RollTheBall
 {
     public class PlayerRollTheBallMove : PlayerMove
     {
+        // public bool IsImmune = false;
+
         // Components
         private Rigidbody ballRigidbody;
         private float respawnTime = 5f;
-        private float jumpForce = 300f;
-        private float diveForce = 650f;
+        private readonly float jumpForce = 350f;
+        private readonly float diveForce = 650f;
         public bool isTeamA = false;
         private bool isDiving;
         public bool IsDiving
@@ -141,6 +143,8 @@ namespace Capsule.Game.RollTheBall
                     GameManager.Instance.OnStageFailure += () => { playerAnimator.SetTrigger(GameManager.Instance.animData.HASH_TRIG_STAGE_FAILURE); };
                     GameManager.Instance.OnWaveClear += PlayVictoryAnim;
                 }
+                else
+                    GameManager.Instance.OnPlayerDeath += PlayVictoryAnim;
                 if (isMine && GameManager.Instance.CurrentGameData.Mode == GameMode.PRACTICE)
                     respawnTime = 1f;
             }
@@ -458,6 +462,7 @@ namespace Capsule.Game.RollTheBall
         private void PlayerOut()
         {
             if (IsDead || GameManager.Instance == null) return;
+            //if (isMine && IsImmune) return;
             SFXManager.Instance.PlayOneShot(GameSFX.DIE, playerAudioSource);
             if (isAutoAdjust)
                 IsAdjusting = false;
@@ -474,6 +479,7 @@ namespace Capsule.Game.RollTheBall
                     if (isMine)
                     {
                         BGMManager.Instance.ChangeBGM(BGMType.GAMEOVER);
+                        GameManager.Instance.PlayerDied();
                         GameManager.Instance.ArcadeFinish();
                     }
                     else
@@ -493,6 +499,7 @@ namespace Capsule.Game.RollTheBall
                     if (isMine)
                     {
                         BGMManager.Instance.ChangeBGM(BGMType.GAMEOVER);
+                        GameManager.Instance.PlayerDied();
                         GameManager.Instance.StageFailure();
                     }
                     break;

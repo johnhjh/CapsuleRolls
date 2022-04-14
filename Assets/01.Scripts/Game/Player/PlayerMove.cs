@@ -17,7 +17,7 @@ namespace Capsule.Game.Player
         protected RagdollController ragdollController;
 
         private float timeBet = 0f;
-        public float turnAnimateTime = 0.3f;
+        private readonly float turnAnimateTime = 0.3f;
         protected bool isMovingByInput = true;
         public bool isMine = true;
         public bool IsDead { get; set; }

@@ -19,11 +19,13 @@ namespace Capsule.Game.RollTheBall
         private PlayerRollTheBallMove playerMovement;
         public float ballMoveSpeed = 11f;
         public float MAX_BALL_SPEED = 500f;
-        public float ballPushForce = 30f;
+        private readonly float ballPushForce = 30f;
+        [HideInInspector]
         public float playerMoveSpeed = 5f;
+        [HideInInspector]
         public float playerRotateSpeed = 60.0f;
-        public float explodePower = 10f;
-        public float popVolume = 7f;
+        private readonly float explodePower = 10f;
+        private readonly float popVolume = 7f;
         public bool isMine = true;
         private bool isDead = false;
         public bool IsDead

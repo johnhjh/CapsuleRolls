@@ -14,8 +14,8 @@ namespace Capsule.Game.AI
             set { targetTransform = value; }
         }
 
-        private float minRange = 1.5f;
-        private float maxRange = 12f;
+        private readonly float minRange = 2f;
+        private readonly float maxRange = 12f;
 
         private void OnEnable()
         {
