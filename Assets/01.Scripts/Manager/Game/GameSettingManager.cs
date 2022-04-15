@@ -112,7 +112,7 @@ namespace Capsule.Game
             get { return usingCursor; }
         }
         private Image imageToggleCheckUsingCursor = null;
-        
+
         protected override void Start()
         {
             base.Start();
@@ -156,7 +156,7 @@ namespace Capsule.Game
             lightShadow = PlayerPrefs.GetInt("LightShadow", 1);
             if (lightShadowButtons != null && lightShadowButtons.Length > 0)
             {
-                for(int i = 0; i < lightShadowButtons.Length; i++)
+                for (int i = 0; i < lightShadowButtons.Length; i++)
                 {
                     if (i != lightShadow)
                         lightShadowButtons[i].GetComponent<Image>().color = invisibleColor;
