@@ -151,13 +151,13 @@ namespace Capsule.Lobby.SoloPlay
             switch (mode)
             {
                 case GameMode.ARCADE:
-                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[튜토리얼 3] 클리어시 개방!";
+                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[스테이지 3] 클리어시 개방!";
                     break;
                 case GameMode.PRACTICE:
-                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[스테이지 4] 클리어시 개방!";
+                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[튜토리얼 3] 클리어시 개방!";
                     break;
                 case GameMode.BOT:
-                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[튜토리얼 3] 클리어시 개방!";
+                    notAvailableCG.transform.GetChild(0).GetComponent<Text>().text = "스테이지 모드를\n먼저 진행해 주세요.\n\n[스테이지 5] 클리어시 개방!";
                     break;
             }
             ShowHideNotAvailable(isShow);

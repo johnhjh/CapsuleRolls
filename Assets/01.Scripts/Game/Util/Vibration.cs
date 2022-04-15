@@ -1,4 +1,5 @@
-﻿namespace Capsule.Game.Util
+﻿using UnityEngine;
+namespace Capsule.Game.Util
 {
     public static class Vibration
     {
