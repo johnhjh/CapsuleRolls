@@ -2,7 +2,6 @@
 using Capsule.Dev;
 using Capsule.Entity;
 using Capsule.SceneLoad;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -115,10 +114,10 @@ namespace Capsule.Lobby
         {
             DataManager.Instance.SaveBeforeQuit();
 
-            ProcessThreadCollection pt = Process.GetCurrentProcess().Threads;
-            foreach (ProcessThread p in pt)
-                p.Dispose();
-            Process.GetCurrentProcess().Kill();
+            //ProcessThreadCollection pt = Process.GetCurrentProcess().Threads;
+            //foreach (ProcessThread p in pt)
+            //    p.Dispose();
+            //Process.GetCurrentProcess().Kill();
 
             Application.Quit();
         }

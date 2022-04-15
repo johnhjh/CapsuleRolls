@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Capsule.Game.Util
+﻿namespace Capsule.Game.Util
 {
     public static class Vibration
     {
@@ -13,7 +11,7 @@ namespace Capsule.Game.Util
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             AndroidVibrator.Call("vibrate");
-#else
+#elif UNITY_IPHONE && !UNITY_EDITOR
             Handheld.Vibrate();
 #endif
         }
@@ -21,7 +19,7 @@ namespace Capsule.Game.Util
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             AndroidVibrator.Call("vibrate", milliseconds);
-#else
+#elif UNITY_IPHONE && !UNITY_EDITOR
             Handheld.Vibrate();
 #endif
         }
@@ -29,7 +27,7 @@ namespace Capsule.Game.Util
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             AndroidVibrator.Call("vibrate", pattern, repeat);
-#else
+#elif UNITY_IPHONE && !UNITY_EDITOR
             Handheld.Vibrate();
 #endif
         }
