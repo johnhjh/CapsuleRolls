@@ -125,7 +125,9 @@ namespace Capsule.Game
             menuSoundImage = GameObject.Find("GameSetting_Button_Sound").GetComponent<Image>();
             menuControlImage = GameObject.Find("GameSetting_Button_Control").GetComponent<Image>();
             menuGraphicImage = GameObject.Find("GameSetting_Button_Graphic").GetComponent<Image>();
-            menuInterfaceImage = GameObject.Find("GameSetting_Button_Interface").GetComponent<Image>();
+            GameObject menuInterface = GameObject.Find("GameSetting_Button_Interface");
+            if (menuInterface != null)
+                menuInterfaceImage = menuInterface.GetComponent<Image>();
             menuSoundCG = GameObject.Find("GameSetting_Group_Sound").GetComponent<CanvasGroup>();
             menuControlCG = GameObject.Find("GameSetting_Group_Control").GetComponent<CanvasGroup>();
             menuGraphicCG = GameObject.Find("GameSetting_Group_Graphic").GetComponent<CanvasGroup>();
@@ -226,10 +228,10 @@ namespace Capsule.Game
             usingVibration = !usingVibration;
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(usingVibration ? MenuSFX.SELECT : MenuSFX.BACK);
-            if (usingVibration)
-                Util.Vibration.Vibrate();
             imageToggleCheckVibration.color = usingVibration ? visibleColor : invisibleColor;
             PlayerPrefs.SetInt("UsingVibration", usingVibration ? 1 : 0);
+            if (usingVibration)
+                Util.Vibration.Vibrate(1000);
         }
 
         public void ChangeUsingLight()
@@ -278,9 +280,9 @@ namespace Capsule.Game
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(usingJoystick ? MenuSFX.SELECT : MenuSFX.BACK);
             imageToggleCheckJoystick.color = usingJoystick ? visibleColor : invisibleColor;
+            PlayerPrefs.SetInt("UsingJoyStick", usingJoystick ? 1 : 0);
             if (UI.MobilePadsCtrl.Instance != null)
                 UI.MobilePadsCtrl.Instance.UseMobilePads(usingJoystick);
-            PlayerPrefs.SetInt("UsingJoyStick", usingJoystick ? 1 : 0);
         }
 
         public void ChangeUsingCursor()
@@ -316,7 +318,8 @@ namespace Capsule.Game
                     CanvasGroupOnOff(menuGraphicCG, isSelected);
                     break;
                 case GameSettingKind.INTERFACE:
-                    menuInterfaceImage.color = isSelected ? selectedMenuColor : invisibleColor;
+                    if (menuInterfaceImage != null)
+                        menuInterfaceImage.color = isSelected ? selectedMenuColor : invisibleColor;
                     CanvasGroupOnOff(menuInterfaceCG, isSelected);
                     break;
             }

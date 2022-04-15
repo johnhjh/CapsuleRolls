@@ -64713,11 +64713,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballMoveSpeed: 12
   MAX_BALL_SPEED: 500
-  ballPushForce: 30
   playerMoveSpeed: 5
   playerRotateSpeed: 80
-  explodePower: 10
-  popVolume: 7
   isMine: 1
 --- !u!54 &3035392676860447383
 Rigidbody:
@@ -65646,7 +65643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07a2e24a03d93a41bafc23197a212ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnAnimateTime: 0.3
   isMine: 1
   isTeamA: 1
   isAdjusting: 0

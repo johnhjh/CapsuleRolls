@@ -39,5 +39,6 @@ public class CursorManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         if (cursorTexture != null)
             Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.lockState = CursorLockMode.Confined;
     }
 }

@@ -200,6 +200,44 @@ namespace Capsule.Game
             yield return new WaitForSeconds(3.0f);
             SFXManager.Instance.PlayOneShot(Announcements.GO);
             isGameReady = true;
+            if (GameTutorialManager.Instance != null)
+            {
+                switch (CurrentGameData.Mode)
+                {
+                    case GameMode.ARCADE:
+                        bool isFirstPlayArcade = PlayerPrefs.GetInt("ArcadePlayCount", 0) == 0;
+                        if (isFirstPlayArcade)
+                        {
+                            GameTutorialManager.Instance.CurrentTutorial = TutorialType.MODE;
+                            GameTutorialManager.Instance.IsTutorialPopup = true;
+                        }
+                        break;
+                    case GameMode.STAGE:
+                        bool isFirstPlayStage = PlayerPrefs.GetInt("StagePlayCount", 0) == 0;
+                        if (isFirstPlayStage)
+                        {
+                            GameTutorialManager.Instance.CurrentTutorial = TutorialType.MODE;
+                            GameTutorialManager.Instance.IsTutorialPopup = true;
+                        }
+                        break;
+                    case GameMode.PRACTICE:
+                        bool isFirstPlayPractice = PlayerPrefs.GetInt("PracticePlayCount", 0) == 0;
+                        if (isFirstPlayPractice)
+                        {
+                            GameTutorialManager.Instance.CurrentTutorial = TutorialType.MODE;
+                            GameTutorialManager.Instance.IsTutorialPopup = true;
+                        }
+                        break;
+                    case GameMode.BOT:
+                        bool isFirstPlayBot = PlayerPrefs.GetInt("BotPlayCount", 0) == 0;
+                        if (isFirstPlayBot)
+                        {
+                            GameTutorialManager.Instance.CurrentTutorial = TutorialType.MODE;
+                            GameTutorialManager.Instance.IsTutorialPopup = true;
+                        }
+                        break;
+                }
+            }
         }
 
         public bool CheckSoloGame()

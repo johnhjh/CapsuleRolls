@@ -137,7 +137,6 @@ namespace Capsule.Game
         private void Start()
         {
             SetComponents();
-            SetTutorialDatas();
         }
 
         private void SetComponents()
@@ -166,73 +165,6 @@ namespace Capsule.Game
             initControlTextPanel = GameObject.Find("GameControlTutorial").GetComponentsInChildren<TutorialTextPanelCtrl>()[0];
             initVideoPlayer = initControlTextPanel.EnableTogether.transform.GetComponentsInChildren<VideoPlayer>()[0];
             initVideoPlayer.Stop();
-        }
-
-        private void SetTutorialDatas()
-        {
-            if (DataManager.Instance != null)
-            {
-                switch (DataManager.Instance.CurrentGameData.Kind)
-                {
-                    case GameKind.GOAL_IN:
-                    case GameKind.BATTLE_ROYAL:
-                    case GameKind.GOLDEN_BALL:
-                    case GameKind.NEXT_TARGET:
-                        break;
-                    default:
-                        break;
-                }
-                switch (DataManager.Instance.CurrentGameData.Mode)
-                {
-                    case GameMode.ARCADE:
-                        bool isFirstPlayArcade = PlayerPrefs.GetInt("ArcadePlayCount", 0) == 0;
-                        if (isFirstPlayArcade)
-                        {
-                            CurrentTutorial = TutorialType.MODE;
-                            StartCoroutine(ShowTutorialPopupAfterTime());
-                        }
-                        break;
-                    case GameMode.STAGE:
-                        bool isFirstPlayStage = PlayerPrefs.GetInt("StagePlayCount", 0) == 0;
-                        if (isFirstPlayStage)
-                        {
-                            CurrentTutorial = TutorialType.MODE;
-                            StartCoroutine(ShowTutorialPopupAfterTime());
-                        }
-                        switch (DataManager.Instance.CurrentGameData.Stage)
-                        {
-                            case GameStage.TUTORIAL_1:
-                                break;
-                            case GameStage.TUTORIAL_2:
-                                break;
-                            case GameStage.TUTORIAL_3:
-                                break;
-                        }
-                        break;
-                    case GameMode.PRACTICE:
-                        bool isFirstPlayPractice = PlayerPrefs.GetInt("PracticePlayCount", 0) == 0;
-                        if (isFirstPlayPractice)
-                        {
-                            CurrentTutorial = TutorialType.MODE;
-                            StartCoroutine(ShowTutorialPopupAfterTime());
-                        }
-                        break;
-                    case GameMode.BOT:
-                        bool isFirstPlayBot = PlayerPrefs.GetInt("BotPlayCount", 0) == 0;
-                        if (isFirstPlayBot)
-                        {
-                            CurrentTutorial = TutorialType.MODE;
-                            StartCoroutine(ShowTutorialPopupAfterTime());
-                        }
-                        break;
-                }
-            }
-        }
-
-        private IEnumerator ShowTutorialPopupAfterTime()
-        {
-            yield return new WaitForSeconds(4f);
-            IsTutorialPopup = true;
         }
 
         private void Update()
