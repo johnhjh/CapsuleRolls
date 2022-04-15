@@ -65,6 +65,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage6.unity
     guid: e8e60bb044c1c41449f1fb27027dd9e5
+  - enabled: 1
+    path: Assets/00.Scenes/GameScenes/Level/SoloPlay/Level_Stage7.unity
+    guid: b7dcc9ce8a3df1d45bedd8c1ae396f12
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

@@ -1,14 +1,5 @@
 ﻿namespace Capsule.Entity
 {
-    public enum TutorialType
-    {
-        MENU,
-        MODE,
-        OBSTACLE,
-        INTERFACE,
-        CONTROL,
-    }
-
     public class TutorialData
     {
         public readonly string PauseGameDesc = "언제든지 게임을 멈출 수 있어요.";

@@ -607,14 +607,8 @@ namespace Capsule.Entity
                     new RewardData()
                     {
                         kind = RewardKind.GAME_MODE,
-                        amount = 0,
-                        onlyOnce = true,
-                    },
-                    new RewardData()
-                    {
-                        kind = RewardKind.GAME_MODE,
-                        amount = 2,
-                        onlyOnce = true,
+                        amount = 1,
+                        onlyOnce= true,
                     },
                 },
             },
@@ -640,8 +634,8 @@ namespace Capsule.Entity
                     },
                     new RewardData()
                     {
-                        kind = RewardKind.CUSTOMIZING_HEAD,
-                        amount = (int)CustomizingHead.ROBO,
+                        kind = RewardKind.GAME_MODE,
+                        amount = 0,
                         onlyOnce = true,
                     },
                 },
@@ -657,13 +651,41 @@ namespace Capsule.Entity
                     new RewardData()
                     {
                         kind = RewardKind.COIN,
-                        amount = 2000,
+                        amount = 1500,
                         onlyOnce = false,
                     },
                     new RewardData()
                     {
                         kind = RewardKind.EXP,
                         amount = 150,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.CUSTOMIZING_HEAD,
+                        amount = (int)CustomizingHead.ROBO,
+                        onlyOnce = true,
+                    },
+                },
+            },
+            new GameStageData()
+            {
+                kind = GameKind.GOAL_IN,
+                stage = GameStage.STAGE_5,
+                name = "스테이지 5",
+                desc = "지금까지 배운걸 최대한 활용해보자!",
+                rewards = new List<RewardData>()
+                {
+                    new RewardData()
+                    {
+                        kind = RewardKind.COIN,
+                        amount = 2000,
+                        onlyOnce = false,
+                    },
+                    new RewardData()
+                    {
+                        kind = RewardKind.EXP,
+                        amount = 200,
                         onlyOnce = false,
                     },
                     new RewardData()
@@ -675,8 +697,8 @@ namespace Capsule.Entity
                     new RewardData()
                     {
                         kind = RewardKind.GAME_MODE,
-                        amount = 1,
-                        onlyOnce= true,
+                        amount = 2,
+                        onlyOnce = true,
                     },
                 },
             },

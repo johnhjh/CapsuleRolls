@@ -8,6 +8,14 @@ using UnityEngine.Video;
 
 namespace Capsule.Game
 {
+    public enum TutorialType
+    {
+        MENU,
+        MODE,
+        OBSTACLE,
+        INTERFACE,
+        CONTROL,
+    }
 
     public class GameTutorialManager : MonoBehaviour
     {
@@ -116,6 +124,10 @@ namespace Capsule.Game
             }
             set
             {
+                if (value)
+                    Cursor.visible = true;
+                else if (GameSettingManager.Instance != null && !GameSettingManager.Instance.UsingCursor)
+                    Cursor.visible = false;
                 isTutorialPopup = PopupTutorial(value);
                 if (SFXManager.Instance != null)
                     SFXManager.Instance.PlayOneShot(isTutorialPopup ? MenuSFX.LOAD_DONE : MenuSFX.BACK);

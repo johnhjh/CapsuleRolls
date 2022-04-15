@@ -518,6 +518,7 @@ namespace Capsule.Game.UI
                 StopCoroutine(addTimeCoroutine);
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
+            Cursor.visible = true;
             arcadeShowCoroutine = StartCoroutine(ArcadeScoreShow());
         }
 
@@ -560,6 +561,7 @@ namespace Capsule.Game.UI
         {
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
+            Cursor.visible = true;
             StartCoroutine(FadeInCG(gameStageClearCG));
         }
 
@@ -567,6 +569,7 @@ namespace Capsule.Game.UI
         {
             if (timeCoroutine != null)
                 StopCoroutine(timeCoroutine);
+            Cursor.visible = true;
             stageFailureCoroutine = StartCoroutine(FadeInCG(gameStageFailureCG));
         }
 
@@ -595,6 +598,10 @@ namespace Capsule.Game.UI
             gamePauseCG.alpha = isPaused ? 1f : 0f;
             gamePauseCG.blocksRaycasts = isPaused;
             gamePauseCG.interactable = isPaused;
+            if (!isPaused && GameSettingManager.Instance != null && !GameSettingManager.Instance.UsingCursor)
+                Cursor.visible = false;
+            else
+                Cursor.visible = true;
         }
 
         public void ShowGameSetting()
@@ -639,10 +646,10 @@ namespace Capsule.Game.UI
                 if (lastTimeCoroutine != null)
                     StopCoroutine(lastTimeCoroutine);
                 Time.timeScale = 1f;
-                MoveToScene(LobbySceneType.SOLO);
+                MoveToLobbyScene(LobbySceneType.SOLO);
             }
             else
-                MoveToScene(LobbySceneType.MULTI);
+                MoveToLobbyScene(LobbySceneType.MULTI);
         }
 
         public void OnClickExitGameToCredit()
@@ -652,7 +659,7 @@ namespace Capsule.Game.UI
             if (SFXManager.Instance != null)
                 SFXManager.Instance.PlayOneShot(MenuSFX.OK);
             Time.timeScale = 1f;
-            MoveToScene(LobbySceneType.CREDIT);
+            MoveToLobbyScene(LobbySceneType.CREDIT);
         }
 
         public void OnClickNextStage()
@@ -730,7 +737,7 @@ namespace Capsule.Game.UI
             }
         }
 
-        public void MoveToScene(LobbySceneType sceneType)
+        private void MoveToLobbyScene(LobbySceneType sceneType)
         {
             Destroy(userInfoLevelText.gameObject);
             Destroy(userInfoExpText.gameObject);
@@ -742,6 +749,7 @@ namespace Capsule.Game.UI
             if (Enemy.EnemySpawnManager.Instance != null)
                 Destroy(Enemy.EnemySpawnManager.Instance.gameObject);
             IsLoading = true;
+            Cursor.visible = true;
             StartCoroutine(SceneLoadManager.Instance.LoadLobbySceneFromGame(sceneType));
         }
     }

@@ -170,6 +170,7 @@ namespace Capsule.Game
         {
             IsGameOver = false;
             isGameReady = false;
+            Cursor.visible = PlayerPrefs.GetInt("UsingCursor", 1) == 1;
             currentGameData = DataManager.Instance.CurrentGameData;
             if (CurrentGameData != null)
             {

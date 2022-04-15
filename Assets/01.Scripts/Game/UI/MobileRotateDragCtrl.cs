@@ -54,11 +54,22 @@ namespace Capsule.Game.UI
         private void HandleTouchInput()
         {
             if (!dragPanelPressed) rotate = 0f;
+            if (GameUIManager.Instance != null && (GameUIManager.Instance.IsPaused || GameUIManager.Instance.IsPopupActive))
+            {
+                cg.alpha = 0.6f;
+                dragPanelPressed = false;
+                return;
+            }
+            if (GameTutorialManager.Instance != null && GameTutorialManager.Instance.IsTutorialPopup)
+            {
+                cg.alpha = 0.6f;
+                dragPanelPressed = false;
+                return;
+            }
             if (Input.touchCount > 0)
             {
                 foreach (Touch touch in Input.touches)
                 {
-                    Vector2 touchPos = new Vector2(touch.position.x, touch.position.y);
                     if (touch.phase == TouchPhase.Began)
                     {
                         if (touch.position.x >= Screen.width / 2 &&
