@@ -70,6 +70,14 @@ namespace Capsule.Game.UI
                 dragPanelPressed = false;
                 return;
             }
+            if (MobileViewDragCtrl.Instance != null && MobileViewDragCtrl.Instance.DragPressed)
+            {
+                touchID = -1;
+                touchX = 0f;
+                cg.alpha = 0.6f;
+                dragPanelPressed = false;
+                return;
+            }
             if (Input.touchCount > 0)
             {
                 foreach (Touch touch in Input.touches)
@@ -83,8 +91,6 @@ namespace Capsule.Game.UI
                             touchID = touch.fingerId;
                             touchX = touch.position.x;
                             dragPanelPressed = true;
-                            if (GameCameraManager.Instance != null)
-                                GameCameraManager.Instance.SetCameraYSpeed(PlayerPrefs.GetFloat("ViewY", 1f));
                         }
                     }
                     if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
@@ -104,8 +110,6 @@ namespace Capsule.Game.UI
                             touchX = 0f;
                             rotate = 0f;
                             dragPanelPressed = false;
-                            if (GameCameraManager.Instance != null)
-                                GameCameraManager.Instance.SetCameraYSpeed(0f);
                         }
                     }
                 }
