@@ -104,7 +104,7 @@ namespace Capsule.SceneLoad
             {
                 sceneLoadMgr = this;
                 InitSceneLoadManager();
-                DontDestroyOnLoad(this);
+                DontDestroyOnLoad(this.gameObject);
             }
             else if (sceneLoadMgr != this)
                 Destroy(this.gameObject);

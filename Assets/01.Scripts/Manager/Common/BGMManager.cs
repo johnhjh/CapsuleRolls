@@ -44,7 +44,7 @@ namespace Capsule.Audio
             {
                 bgmManager = this;
                 bgmAudioSource = GetComponent<AudioSource>();
-                DontDestroyOnLoad(bgmManager);
+                DontDestroyOnLoad(bgmManager.gameObject);
             }
             else if (bgmManager != this)
                 Destroy(this.gameObject);

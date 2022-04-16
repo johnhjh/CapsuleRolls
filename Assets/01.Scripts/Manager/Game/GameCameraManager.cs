@@ -142,7 +142,17 @@ namespace Capsule.Game
         {
             if (Camera.main != null)
                 mainCameraTransform = Camera.main.transform;
-            GameManager.Instance.OnStageClear += () => { MoveCameraInverseTarget(); };
+            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+                SetCameraYSpeed(0f);
+            else
+                SetCameraYSpeed(PlayerPrefs.GetFloat("ViewY", 1f));
+            if (GameManager.Instance != null)
+                GameManager.Instance.OnStageClear += () => { MoveCameraInverseTarget(); };
+        }
+
+        public void SetCameraYSpeed(float speed)
+        {
+            moveFollowCam.m_YAxis.m_MaxSpeed = speed;
         }
 
         public void ActivateFollowCam()

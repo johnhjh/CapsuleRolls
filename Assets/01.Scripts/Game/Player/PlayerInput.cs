@@ -54,6 +54,15 @@ namespace Capsule.Game.Player
                 Action2 = false;
                 return;
             }
+            if (GameTutorialManager.Instance != null && GameTutorialManager.Instance.IsTutorialPopup)
+            {
+                horizontal = 0f;
+                vertical = 0f;
+                rotate = 0f;
+                Action1 = false;
+                Action2 = false;
+                return;
+            }
 
             if (joyStick != null && joyStick.JoyStickPressed)
             {

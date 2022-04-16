@@ -113,12 +113,10 @@ namespace Capsule.Lobby
         public void OnClickExitGame()
         {
             DataManager.Instance.SaveBeforeQuit();
-
             //ProcessThreadCollection pt = Process.GetCurrentProcess().Threads;
             //foreach (ProcessThread p in pt)
             //    p.Dispose();
             //Process.GetCurrentProcess().Kill();
-
             Application.Quit();
         }
 

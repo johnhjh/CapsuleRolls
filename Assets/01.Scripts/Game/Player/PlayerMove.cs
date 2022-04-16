@@ -60,8 +60,6 @@ namespace Capsule.Game.Player
         protected virtual void Update()
         {
             if (IsDead || !isMine) return;
-            if (GameTutorialManager.Instance != null && GameTutorialManager.Instance.IsTutorialPopup)
-                return;
             if (isMovingByInput)
             {
                 playerAnimator.SetFloat(GameManager.Instance.animData.HASH_HORIZONTAL, playerInput.horizontal);

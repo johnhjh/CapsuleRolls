@@ -743,7 +743,7 @@ namespace Capsule.Game.UI
             Destroy(userInfoExpText.gameObject);
             Destroy(userInfoExpImage.gameObject);
             if (GameSettingManager.Instance != null)
-                Destroy(GameSettingManager.Instance);
+                Destroy(GameSettingManager.Instance.gameObject);
             if (Effect.EffectQueueManager.Instance != null)
                 Destroy(Effect.EffectQueueManager.Instance.gameObject);
             if (Enemy.EnemySpawnManager.Instance != null)

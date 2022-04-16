@@ -122,7 +122,7 @@ namespace Capsule.Audio
                 sfxManager = this;
                 sfxAudioSource = GetComponent<AudioSource>();
                 announceSource = transform.GetChild(0).GetComponent<AudioSource>();
-                DontDestroyOnLoad(sfxManager);
+                DontDestroyOnLoad(sfxManager.gameObject);
             }
             else if (sfxManager != this)
                 Destroy(this.gameObject);

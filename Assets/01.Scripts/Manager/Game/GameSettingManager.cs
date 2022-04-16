@@ -28,12 +28,18 @@ namespace Capsule.Game
 
         private void OnDestroy()
         {
-            Destroy(bgmIcon);
-            Destroy(sfxIcon);
-            Destroy(announceIcon);
-            Destroy(bgmSlider);
-            Destroy(sfxSlider);
-            Destroy(announceSlider);
+            if (bgmIcon != null)
+                Destroy(bgmIcon.gameObject);
+            if (sfxIcon != null)
+                Destroy(sfxIcon.gameObject);
+            if (announceIcon != null)
+                Destroy(announceIcon.gameObject);
+            if (bgmSlider != null)
+                Destroy(bgmSlider.gameObject);
+            if (sfxSlider != null)
+                Destroy(sfxSlider.gameObject);
+            if (announceSlider != null)
+                Destroy(announceSlider.gameObject);
         }
 
         private void Awake()
@@ -135,8 +141,13 @@ namespace Capsule.Game
 
             // Control Settings
             Slider sliderRotate = GameObject.Find("Slider_Rotate").GetComponent<Slider>();
-            sliderRotate.value = PlayerPrefs.GetFloat("PlayerRotSpeed", 65f);
+            sliderRotate.value = PlayerPrefs.GetFloat("PlayerRotSpeed", 100f);
             sliderRotate.onValueChanged.AddListener(delegate { OnSliderRotateValueChanged(sliderRotate); });
+
+            Slider sliderViewY = GameObject.Find("Slider_ViewY").GetComponent<Slider>();
+            sliderViewY.value = PlayerPrefs.GetFloat("ViewY", 1f);
+            sliderViewY.onValueChanged.AddListener(delegate { OnSliderViewYValueChanged(sliderViewY); });
+
             isAutoAdjust = PlayerPrefs.GetInt("IsAutoAdjust", 1) == 1;
             imageToggleCheckAutoAdjust = GameObject.Find("Image_ToggleCheck_AutoAdjust").GetComponent<Image>();
             imageToggleCheckAutoAdjust.color = isAutoAdjust ? visibleColor : invisibleColor;
@@ -201,6 +212,17 @@ namespace Capsule.Game
             }
             if (ballMove != null)
                 ballMove.playerRotateSpeed = sliderRotate.value;
+        }
+
+        public void OnSliderViewYValueChanged(Slider sliderViewY)
+        {
+            sliderViewY.value = Mathf.Clamp(sliderViewY.value, 0f, 2f);
+            PlayerPrefs.SetFloat("ViewY", sliderViewY.value);
+            if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)
+            {
+                if (GameCameraManager.Instance != null)
+                    GameCameraManager.Instance.SetCameraYSpeed(sliderViewY.value);
+            }
         }
 
         public void ChangePositionAutoAdjust()
