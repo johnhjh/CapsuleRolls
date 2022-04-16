@@ -1,6 +1,14 @@
 ﻿public static class VersionCtrl
 {
-    public static readonly string CurrentVersion = "ver.1.0.5";
+    public static readonly string CurrentVersion = "ver.1.0.6";
+    /***** ver.1.0.6 업데이트 내역 *****/
+    /*
+        Release Date : 2022.04.16
+
+        게임 조작 개선
+            - 화면 전환 감도 최대값 변경
+            - 시야 마우스 상하로 움직여 변경 가능하도록 기능 추가        
+    */
     /***** ver.1.0.5 업데이트 내역 *****/
     /*
         Release Date : 2022.04.15

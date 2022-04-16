@@ -191,12 +191,16 @@ namespace Capsule.Game
 
         public void OnSliderRotateValueChanged(Slider sliderRotate)
         {
-            sliderRotate.value = Mathf.Clamp(sliderRotate.value, 10f, 120f);
+            sliderRotate.value = Mathf.Clamp(sliderRotate.value, 10f, 200f);
+            PlayerPrefs.SetFloat("PlayerRotSpeed", sliderRotate.value);
             if (ballMove == null)
-                ballMove = GameObject.Find("RollTheBallPlayer").GetComponent<RollingBallMove>();
+            {
+                GameObject rollTheBallPlayer = GameObject.Find("RollTheBallPlayer");
+                if (rollTheBallPlayer != null)
+                    ballMove = rollTheBallPlayer.GetComponent<RollingBallMove>();
+            }
             if (ballMove != null)
                 ballMove.playerRotateSpeed = sliderRotate.value;
-            PlayerPrefs.SetFloat("PlayerRotSpeed", sliderRotate.value);
         }
 
         public void ChangePositionAutoAdjust()

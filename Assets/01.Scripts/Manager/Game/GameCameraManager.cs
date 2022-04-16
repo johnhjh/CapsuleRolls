@@ -99,7 +99,8 @@ namespace Capsule.Game
 
         public ScriptedCameraAction scriptedCameraAction;
         private Transform mainCameraTransform;
-        private CinemachineVirtualCamera moveFollowCam;
+        //private CinemachineVirtualCamera moveFollowCam;
+        private CinemachineFreeLook moveFollowCam;
         private Coroutine mainCamCoroutine = null;
 
         private Tuple<Transform, bool> target;
@@ -132,7 +133,8 @@ namespace Capsule.Game
         {
             target = new Tuple<Transform, bool>();
             scriptedCameraAction = new ScriptedCameraAction();
-            moveFollowCam = GameObject.Find("MoveFollowCam").GetComponent<CinemachineVirtualCamera>();
+            //moveFollowCam = GameObject.Find("MoveFollowCam").GetComponent<CinemachineVirtualCamera>();
+            moveFollowCam = GameObject.Find("MoveFollowCam").GetComponent<CinemachineFreeLook>();
             target.First = moveFollowCam.Follow;
         }
 
