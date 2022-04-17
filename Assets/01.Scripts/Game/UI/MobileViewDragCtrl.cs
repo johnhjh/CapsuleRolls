@@ -56,7 +56,7 @@ namespace Capsule.Game.UI
             {
                 if (GameCameraManager.Instance != null)
                     GameCameraManager.Instance.SetCameraYSpeed(0f);
-            }                
+            }
         }
     }
 }
