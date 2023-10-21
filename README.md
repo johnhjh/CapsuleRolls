@@ -56,15 +56,21 @@
 ### Animator with Mecanim
 
 - **Layers**: CapsuleRolls의 캐릭터 움직임은 다양한 레이어로 구성됩니다. `Base`, `Arm`, `Jump`, 그리고 `Emotion` 레이어를 통해 움직임의 우선도를 부여하였습니다. 각 레이어는 특정 동작에 초점을 맞추고 있어, 더욱 자연스러운 애니메이션을 구현할 수 있었습니다.
-  ![layer](https://github.com/johnhjh/CapsuleRolls/assets/59155657/dc856c38-aaa4-4185-81d5-e91b20c6a257)
+
+  ![layer](https://github.com/johnhjh/CapsuleRolls/assets/59155657/5790d93d-d2b7-4d72-b7c7-2d014fbe115b)
 
 - **Sub-State Machine**: 복잡한 애니메이션 시퀀스를 효율적으로 관리하기 위해 Sub-State machine을 도입했습니다. 여러 애니메이션을 연속적으로, 그리고 원활하게 수행할 수 있도록 구현하였습니다.
-  ![sub-state-machine](https://github.com/johnhjh/CapsuleRolls/assets/59155657/ec8c77ac-7be0-4ab0-a15e-be9dfe6feedb)
+  
+  ![sub-state-machine](https://github.com/johnhjh/CapsuleRolls/assets/59155657/0ca82fde-7fa1-42ac-af61-05b251853dde)
 
 - **Avatar Mask**: 캐릭터의 상체와 하체 애니메이션을 독립적으로 수행할 수 있게 하기 위해 Avatar Mask를 적용하였습니다. 이를 통해 더욱 다양한 캐릭터 움직임 조합을 구현하였습니다.
-  ![avatar-mask](https://github.com/johnhjh/CapsuleRolls/assets/59155657/6e239461-fa06-43ad-96e7-72ce80a15e6a)
+  
+  ![avatar-mask](https://github.com/johnhjh/CapsuleRolls/assets/59155657/0caf4732-ee59-4ef3-9475-dfc8446cc08f)
+
 
 - **Blend Trees**: Blend Trees를 적용하여 다양한 애니메이션 상태 간의 전환을 부드럽게 만들었습니다. 캐릭터의 움직임이나 포즈 변경 시 자연스러운 연출을 위해 사용한 기술입니다.
-  ![blend-trees](https://github.com/johnhjh/CapsuleRolls/assets/59155657/a2ea0c78-6dd6-462d-b488-3d1d7e00f9f2)
+  
+  ![blend-trees](https://github.com/johnhjh/CapsuleRolls/assets/59155657/1dc48adf-c92e-4445-bca5-dbc1854f964f)
+
 
 ---
