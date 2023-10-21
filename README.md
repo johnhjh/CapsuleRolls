@@ -1,6 +1,6 @@
 # CapsuleRolls
 
-![image](https://github.com/johnhjh/CapsuleRolls-Releases/assets/59155657/b20544e2-3753-4da7-a8be-c7e56bc58f7b)
+![capsule-rolls](https://github.com/johnhjh/CapsuleRolls-Releases/assets/59155657/b20544e2-3753-4da7-a8be-c7e56bc58f7b)
 
 ---
 
@@ -23,15 +23,27 @@
 - 게임 개발 (클라이언트, 시스템 등)
 - 에셋 수집 및 관리
 
+### 설치 및 플레이
+
+- [Capsule Rolls Releases](https://github.com/johnhjh/CapsuleRolls-Releases)
+
 ---
 
 ## 🛠 개발 환경
 
-- **개발툴**:
+- **개발 툴**:
 
-  - **Microsoft Visual Studio Community 2019** (ver.16.11.9)
-  - **Microsoft .NET Framework** (ver.4.8.04084)
   - **Unity** (ver.2019.4.32f1)
+  - **Microsoft Visual Studio Community 2019** (ver.16.11.9)
+  - **Microsoft .NET Framework** (ver.4.8.040.84)
+  - **MAST** (Modular Asset Staging Tool)
+  - **GitHub**
+
+- **기타 툴**:
+
+  - **Blender**
+  - **Adobe Photoshop**
+  - **VSDC Video Editor**
 
 - **개발 및 테스트 환경**:
   - **PC (Windows)** : Microsoft Windows 10 Pro x64 기반
@@ -44,15 +56,15 @@
 ### Animator with Mecanim
 
 - **Layers**: CapsuleRolls의 캐릭터 움직임은 다양한 레이어로 구성됩니다. `Base`, `Arm`, `Jump`, 그리고 `Emotion` 레이어를 통해 움직임의 우선도를 부여하였습니다. 각 레이어는 특정 동작에 초점을 맞추고 있어, 더욱 자연스러운 애니메이션을 구현할 수 있었습니다.
-  ![image](https://github.com/johnhjh/CapsuleRolls/assets/59155657/dc856c38-aaa4-4185-81d5-e91b20c6a257)
+  ![layer](https://github.com/johnhjh/CapsuleRolls/assets/59155657/dc856c38-aaa4-4185-81d5-e91b20c6a257)
 
 - **Sub-State Machine**: 복잡한 애니메이션 시퀀스를 효율적으로 관리하기 위해 Sub-State machine을 도입했습니다. 여러 애니메이션을 연속적으로, 그리고 원활하게 수행할 수 있도록 구현하였습니다.
-  ![image](https://github.com/johnhjh/CapsuleRolls/assets/59155657/ec8c77ac-7be0-4ab0-a15e-be9dfe6feedb)
+  ![sub-state-machine](https://github.com/johnhjh/CapsuleRolls/assets/59155657/ec8c77ac-7be0-4ab0-a15e-be9dfe6feedb)
 
 - **Avatar Mask**: 캐릭터의 상체와 하체 애니메이션을 독립적으로 수행할 수 있게 하기 위해 Avatar Mask를 적용하였습니다. 이를 통해 더욱 다양한 캐릭터 움직임 조합을 구현하였습니다.
-  ![image](https://github.com/johnhjh/CapsuleRolls/assets/59155657/6e239461-fa06-43ad-96e7-72ce80a15e6a)
+  ![avatar-mask](https://github.com/johnhjh/CapsuleRolls/assets/59155657/6e239461-fa06-43ad-96e7-72ce80a15e6a)
 
 - **Blend Trees**: Blend Trees를 적용하여 다양한 애니메이션 상태 간의 전환을 부드럽게 만들었습니다. 캐릭터의 움직임이나 포즈 변경 시 자연스러운 연출을 위해 사용한 기술입니다.
-  ![image](https://github.com/johnhjh/CapsuleRolls/assets/59155657/a2ea0c78-6dd6-462d-b488-3d1d7e00f9f2)
+  ![blend-trees](https://github.com/johnhjh/CapsuleRolls/assets/59155657/a2ea0c78-6dd6-462d-b488-3d1d7e00f9f2)
 
 ---
