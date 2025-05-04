@@ -1,0 +1,27 @@
+{
+  "cSpell.words": [
+    "Behaviour",
+    "interactable",
+    "Rigidbody",
+    "Scriptable",
+    "uncrustify"
+  ],
+  "dotnet.defaultSolution": "CapsuleFightUI.sln",
+  "dotnet.preferCSharpExtension": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "explicit",
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "prettier.arrowParens": "avoid",
+  "prettier.bracketSpacing": true,
+  "prettier.enable": true,
+  "prettier.ignorePath": ".prettierignore"
+}
