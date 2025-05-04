@@ -33,7 +33,9 @@
 
 - **개발 툴**:
 
-  - **Unity** (ver.2019.4.32f1)
+  - **Unity**
+    - 개발 (ver.2019.4.32f1)
+    - 이전 (ver.2022.3.61f1) on 25.05.04
   - **Microsoft Visual Studio Community 2019** (ver.16.11.9)
   - **Microsoft .NET Framework** (ver.4.8.040.84)
   - **MAST** (Modular Asset Staging Tool)
@@ -60,17 +62,91 @@
   ![layer](https://github.com/johnhjh/CapsuleRolls/assets/59155657/5790d93d-d2b7-4d72-b7c7-2d014fbe115b)
 
 - **Sub-State Machine**: 복잡한 애니메이션 시퀀스를 효율적으로 관리하기 위해 Sub-State machine을 도입했습니다. 여러 애니메이션을 연속적으로, 그리고 원활하게 수행할 수 있도록 구현하였습니다.
-  
+
   ![sub-state-machine](https://github.com/johnhjh/CapsuleRolls/assets/59155657/0ca82fde-7fa1-42ac-af61-05b251853dde)
 
 - **Avatar Mask**: 캐릭터의 상체와 하체 애니메이션을 독립적으로 수행할 수 있게 하기 위해 Avatar Mask를 적용하였습니다. 이를 통해 더욱 다양한 캐릭터 움직임 조합을 구현하였습니다.
-  
+
   ![avatar-mask](https://github.com/johnhjh/CapsuleRolls/assets/59155657/0caf4732-ee59-4ef3-9475-dfc8446cc08f)
 
-
 - **Blend Trees**: Blend Trees를 적용하여 다양한 애니메이션 상태 간의 전환을 부드럽게 만들었습니다. 캐릭터의 움직임이나 포즈 변경 시 자연스러운 연출을 위해 사용한 기술입니다.
-  
+
   ![blend-trees](https://github.com/johnhjh/CapsuleRolls/assets/59155657/1dc48adf-c92e-4445-bca5-dbc1854f964f)
 
+---
+
+## 🎈 플레이 구현
+
+### 컨트롤
+
+- **이동**: 키보드 [W, A, S, D] 혹은 [조이스틱]을 이용하여 캐릭터가 이동하도록 구현하였습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Control/CapsuleRolls_Move.avi" type="video/mp4">
+  </video>
+
+- **점프**: [마우스 왼쪽 클릭] 혹은 [점프 버튼]을 누르면 캐릭터가 점프하도록 구현하였습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Control/CapsuleRolls_Jump.avi" type="video/mp4">
+  </video>
+
+- **다이브**: [마우스 오른쪽 클릭] 혹은 [다이브 버튼]을 누르면 캐릭터가 앞으로 다이브하도록 구현하였습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Control/CapsuleRolls_Dive.avi" type="video/mp4">
+  </video>
+
+- **점프**: [마우스 왼쪽 클릭] 혹은 [점프 버튼]을 누르면 캐릭터가 점프하도록 구현하였습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Control/CapsuleRolls_Jump.avi" type="video/mp4">
+  </video>
+
+### 장애물
+
+- **스파이크 롤러**: 닿으면 공이 터지도록 구현하였습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Obstacles/CapsuleRolls_SpikeRoller.avi" type="video/mp4">
+  </video>
+
+- **스와이퍼**: 닿으면 공을 밀쳐내도록 구현하였습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Obstacles/CapsuleRolls_Swiper.avi" type="video/mp4">
+  </video>
+
+### 적 AI
+
+- **기본**: 시선에 마주치면 다이브하도록 구현되었습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Enemies/CapsuleRolls_Enemy_Default.avi" type="video/mp4">
+  </video>
+
+- **기본**: 시선에 마주치면 다이브하도록 구현되었습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Enemies/CapsuleRolls_Enemy_Default.avi" type="video/mp4">
+  </video>
+
+- **회전**: 회전하며 시선에 마주치면 다이브하도록 구현되었습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Enemies/CapsuleRolls_Enemy_Rotating.avi" type="video/mp4">
+  </video>
+
+- **점핑**: 점프하다가 시선에 마주치면 다이브하도록 구현되었습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Enemies/CapsuleRolls_Enemy_Jumping.avi" type="video/mp4">
+  </video>
+
+- **무빙**: 이동하다가 시선에 마주치면 다이브하도록 구현되었습니다.
+
+  <video width="320" height="240" controls>
+    <source src="./Assets/11.Videos/Enemies/CapsuleRolls_Enemy_Moving.avi" type="video/mp4">
+  </video>
 
 ---
