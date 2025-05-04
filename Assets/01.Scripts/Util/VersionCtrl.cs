@@ -1,6 +1,14 @@
 ﻿public static class VersionCtrl
 {
-    public static readonly string CurrentVersion = "ver.1.0.6";
+    public static readonly string CurrentVersion = "ver.1.0.7";
+    /***** ver.1.0.7 업데이트 내역 *****/
+    /*
+        Release Date : 2025.05.04
+
+        Unity 2019 -> Unity 2022 migration
+        
+        Android 최신 기종 호환성 지원
+    */
     /***** ver.1.0.6 업데이트 내역 *****/
     /*
         Release Date : 2022.04.17
